@@ -1,0 +1,713 @@
+﻿@{
+    ViewData["Title"] = "Corporate Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string message = "";
+    if (ViewData["Message"] != null)
+    {
+        message = ViewData["Message"].ToString();
+    }
+
+}
+
+<div class="register-main-container">
+ 
+   @* <div class="card-header">
+        <div class="row">
+            <div class="list-title" style="border-radius:10px">
+                <h4 style="font-size: 26px;" class="text-left"><i class="fas fa-building"></i> @ViewData["Title"].ToString()</h4>
+            </div>
+        </div>
+    </div>*@
+    <div class="btype-data">
+@*    <div class="list-title">
+        <h3 style="font-size: 26px;" class="text-left"><i class="fas fa-building"></i> @ViewData["Title"].ToString()</h3>
+    </div>*@
+        <div class="list-title">
+            <h3><i class="fas fa-building"></i> @ViewData["Title"].ToString()</h3>
+          </div>
+    <div class="tab-pane active " id="User">
+                <br>
+                <div class="card-body ">
+                    <div class="row">
+
+                        <div class="col-lg-10">
+
+                                <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
+                                    <table id="_corporate-table" class="myTableMedium">
+                                         <thead>
+                                        <th>
+                                           <button class="register"  style ="margin-bottom: 5px;font-size: 13px; height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem); width:100px" title="Add New" id="add-newcorporate"><i class="fas fa-user-plus"></i>Add New</button>
+                                        </th>
+                             
+                                        <th>Address</th>
+                                        <th>Contact number</th>
+                                        <th>Email Address</th>
+                                        <th>Membership Tier</th>
+                                        <th>User Count</th>
+                                        <th>VIP Count</th>
+                                        <th>Membership Description</th>
+                                        <th>Date Created</th>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                    </table>
+                               </div>
+                           
+                        </div>
+
+                        <div class="col-lg-2">
+                          
+                                <div class="col-sm-12" >
+                                    <hr>
+                                    <div>
+                                    @using (Html.BeginForm("Index", "Corporate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                    <label class="nur-note">Import Excel File:</label>
+                                    <input id="upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
+                                                                <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i> Upload</button>
+                                    }
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-info btn-block" id="btn-download-corporate" data-toggle="tooltip" title="Download Header"><i class="fas fa-download"></i> Download Template</button>
+                                </div>
+                                <div  class="col-sm-12" style="font-size:12px !important;margin-left:10px">
+                                @if (message != "")
+                                {
+
+                                    @if (message.Contains("Error") || message.Contains("Duplicate Entry."))
+                                    {
+                                     <div class="alert alert-warning" style="height: 80px;width: 95%;">
+                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            <strong id="blink">Warning! @message.Replace(" Error: ", "")</strong>
+                                      </div>
+
+                                      <script>
+                                              window.addEventListener("load", function () {
+                                              var b = document.getElementById('blink');
+                                              setInterval(function () {
+                                              b.style.display = (b.style.display == 'none' ? '' : 'none');}, 500); }, false);
+                                      </script>
+
+                                    }
+                                    else
+                                    {
+                                     <div class="alert alert-success" style="height: 80px;width: 150px;">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                          <strong id="blink">Success!@message</strong>
+                                      </div>
+                                        <script>
+                                              window.addEventListener("load", function () {
+                                              var b = document.getElementById('blink');
+                                              setInterval(function () {
+                                              b.style.display = (b.style.display == 'none' ? '' : 'none');}, 500); }, false);
+                                      </script>
+                                    }
+                                }
+                              </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+
+    @*Privilege Modal*@
+    
+@* Corporate Modal *@
+ <div class="modal fade" id="_corporateModal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
+        aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static" >
+
+        <div class="modal-dialog modal-error-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="corporatemodal-name">Corporate Registration Form </h4>
+                    <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
+                </div>
+                <div class="col-lg-12" style="margin:10px">
+
+    <form action="" class="mod-form" id="corp-register">
+       
+          <div class="mod-form-row">
+            <div class="input-container-whole">
+              <label for="fname">Corporate Name</label>
+              <input type="text" value="" id="cname" class="mod-input" required/>
+            </div>
+              <div class="input-container-whole">
+              <label for="address">Address</label>
+              <input type="text" value="" id="address" class="mod-input"  required/>
+            </div>
+          </div>
+          <div class="mod-form-row">
+            <div class="input-container-whole">
+              <label for="username"> Contact Number</label>
+              <input type="text" value="" id="cno"  class="mod-input" required/>
+            </div>
+              <div class="input-container-whole">
+              <label for="email">Email Address</label>
+              <input type="email" value="" id="email" class="mod-input" required/>
+            </div>
+          </div>
+          
+          <div class="mod-form-row">
+            <div class="input-container-whole" required>
+              <label for="membershipTier">Membership Tier</label>
+             <select id="corp-mem-option" class="mod-input" >
+                 <option value=""  selected>Select your option</option>
+             </select>
+          </div>
+               <div class="input-container-whole">
+              <label for="lname">Membership Description</label>
+              <input type="text" value="" id="desc" class="mod-input" required disabled/>
+            </div>
+          
+          </div>
+          <div class="mod-form-row">
+            <div class="input-container-whole">
+              <label for="username"> User Count</label>
+              <input type="number" value="" id="usercount" class="mod-input"  />
+            </div>
+              <div class="input-container-whole">
+              <label for="email">VIP Count</label>
+              <input type="number" value="" id="vipcount" class="mod-input"  />
+            </div>
+          </div>
+           <div class="mod-form-row">
+                            <div class="input-container-whole">
+                                <label for="fname">Date Start</label>
+                                <input type="date" id="dateuse" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" />
+                            </div>
+                            <div class="input-container-whole">
+                                <label for="fname">Date End</label>
+                                <input type="date" id="dateended" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" />
+                            </div>
+                        </div>
+@*
+          <div class="actions">
+                        <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancesl</u></a>
+                        <input type="submit" value="Submit" id="_btn-register" />
+                    </div>*@
+                    <div class="actions" style="align-items: center;">
+                        <div class="actionss">
+                            @* <button class="register" type="button" style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add Mechanics"><i class="fas fa-id-card"></i>Add Mechanics</button> *@
+                            @* <input type="button" value="Add Mechanics" id="btn-register"/> <i class="fas fa-cogs"></i> *@
+
+                        </div>
+
+                        <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
+                        <input type="submit" value="Submit" id="_btn-register" />
+                    </div>
+        </form>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<div class="modal fade" id="privilegelistmodal2" tabindex="-1" role="dialog" aria-labelledby="modal-title"
+     aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
+
+    <div class="modal-dialog modal-error-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="priv-names"></h4>
+                <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="margin:10px">
+
+                    <form action="" class="mod-form" id="privlist2">
+                        <table class="privTable" id="privilegelist-table">
+                            <thead>
+                            <th>
+                                <input type="checkbox" class="check-all" id="checkall" />
+                                <labebl id="checkers" style="text-align:center"> Check All</labebl>
+                                <p style="
+                                            color: white;
+                                            text-align: center;
+                                            background: #c89328;
+                                            padding: 5px;">Available Privilege</p>
+                            </th>
+                            </thead>
+                            <tbody style="
+                                      height: 300px;">
+                            </tbody>
+                        </table>
+                        <div class="mod-form-row">
+                            <div class="input-container-whole" style="width: 98%;">
+                                <div class="actionss_" style="align-items: center;">
+                                    <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
+                                    <input type="submit" value="Submit" id="save-privmemlist" />
+                                </div>
+                            </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@* End here *@
+        @section Scripts{
+        <script>
+          i_id=0;
+        var usercount = "";
+        var vipcount = "";
+        var corpid = "";
+            $(document).ready(function () {
+               
+               corptable = $('#_corporate-table').DataTable({
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+                "paging": true,
+                "aLengthMenu": [4],
+                "searching": true
+                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            });
+            privilegelisttable = $('#privilegelist-table').DataTable({
+
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+
+                "aLengthMenu": [30],
+                "searching": true,
+                "oLanguage": {
+                    "sZeroRecords": "", "sEmptyTable": "",
+
+                }
+            });
+               ShowCorporateDetails();
+               CorpShowOptionMembership();
+               CorpShowCorporateOption();
+            });
+            $('#corp-mem-option').change(function () {
+                var data = {};
+                data.Id = $('#corp-mem-option').val();
+                corpid =i_id;
+                //console.log(i_id);
+                //var select = document.getElementById("corp-mem-option");
+                //var selectedoption = select.options[select.selectedIndex];
+                //console.log(selectedoption.text);
+            //document.getElementById("priv-names").innerHTML =selectedoption.text;
+            //              $('#privilegelistmodal2').modal('show');
+            //ShowprivilegeListModal(data.Id);
+                $.ajax({
+                url: '/Corporate/GetMembershipDescList',
+                    data: {
+                        data: data,
+                    },
+                    type: "POST",
+                    datatype: "json",
+                    success: function (response) {
+                        console.log(response);
+                       $('#desc').val(response[0].description);
+                       $('#usercount').val(response[0].userCount);
+                       $('#vipcount').val(response[0].vipCount);
+                       
+                    }
+                });
+           
+             });
+        function ShowprivilegeListModal(id,memid) {
+            var data = {};
+            data.Id = id;
+            data.memid = memid;
+            $.blockUI(reloadLoading);
+            setTimeout(function () {
+                $.ajax({
+                    url: '/MembershipPrivilege/PrivilegeCorporateList',
+                    data: {
+                        data: data
+                    },
+                    type: "POST",
+                    datatype: "json"
+                }).done(function (data) {
+                    privilegelisttable.clear().draw();
+
+                    var stats = "";
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].status == "1") {
+                            stats = "checked";
+                        }
+                        else {
+                            stats = "unchecked";
+                        }
+                        $('#privilegelist-table').dataTable().fnAddData([
+                            '<td>' + '<label for="cb' + data[i].privilegeID + '"><input type="checkbox" id="cb' + data[i].privilegeID + '" class="check-all" data-id="' + data[i].privilegeID +
+                            '" data-title="' + data[i].title + '" data-status="' + data[i].status + '"  data-usercount="' + data[i].userCount + '"  data-vipcount="' + data[i].vipCount +
+                            '"   data-membershipid="' + data[i].membershipID + '" ' + stats + '/>' +
+                            '<div>' +
+                            '<p></p>' +
+                            '<p>' + data[i].title + '</p>' + '</div><label></td>'
+                        ]);
+
+                    }
+                    $.unblockUI();
+                }).fail(function () {
+                    alert("There was an Error When Loading Data...");
+                });
+
+            }, 100);
+
+        }
+
+
+        function CheckedRows_2() {
+            IdList = [];
+            $('.check-all:checked').each(function (id, item) {
+                var id = $(item).data('id');
+                var status = $(item).data('status');
+
+                var stats = "";
+
+                IdList.push({
+                    privilegeID: id,
+                    status: "1",
+                    CorporateID: corpid,
+                    usercount: usercount,
+                    vipcount: vipcount,
+                    stats: "1"
+
+                });
+            });
+            return IdList;
+        }
+        $("#checkall").click(function () {
+            $("input:checkbox").not(this).prop("checked", this.checked);
+            if ($(this).prop("checked") == true) {
+                $("#checkers").html("Uncheck All");
+            } else {
+                $("#checkers").html("Check All");
+            }
+        });
+        $('#privlist2').submit(function (e) {
+            e.preventDefault();
+    
+        @* var data={}; *@
+                console.log(usercount);
+        @* data.CorporateID = corpid;
+            data.userCount = usercount;;
+            data.vipCount = vipcount; *@
+                              var data = {};
+                data.IdList = CheckedRows_2();
+         
+                message = 'Are you sure you want to Add new Privilege';
+            
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                id: 'question',
+                zindex: 999,
+                title: 'Confirmation',
+                message: message,
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+
+                        $.blockUI(reloadLoading);
+                        $.ajax({
+                            url: '/MembershipPrivilege/SavepCorporatePrivlist',
+                            data: {
+                                IdList: CheckedRows_2(),
+                            },
+                            type: "POST",
+                            datatype: "json"
+                        }).done(function (data) {
+                            //console.log(data);
+                            if (data.stats == "Duplicate Entry") {
+                                notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');
+                            }
+                            else {
+                                notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                                ShowprivilegeList();
+                            }
+
+                            $(".alert-warning").hide();
+
+                            $.unblockUI();
+
+                        }).fail(function () {
+                            alert("There was an Error When Loading Data...");
+                        });
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ]
+            });
+
+        });
+    
+            $('#add-newcorporate').click(function () {
+                      
+                i_id = 0;
+                $('input[type="text"]').val("");
+                $('input[type="email"]').val("");
+                $('input[type="number"]').val("");
+                $('#position').prop('selectedIndex', 0);
+                $('#gender').prop('selectedIndex', 0);
+            $('#corp-mem-option').prop('selectedIndex', 0);
+                $('#_corporateModal').modal('show');
+                document.getElementById("corporatemodal-name").innerHTML = ' Add New Corporate'.bold();
+
+            });
+
+
+            $('#_corporate-table').on('click', '.tbl-view', function () {
+
+                i_id = $(this).data("id");
+                corpid = i_id;
+                corporatename = $(this).data("corporatename");
+                address = $(this).data("address");
+                cno = $(this).data("cno");
+                description = $(this).data("description");
+                email = $(this).data("eadd");
+                tier = $(this).data("tier");
+                console.log(tier);
+                memid = $(this).data("memid");
+                usercount = $(this).data("ucount");
+                vipcount = $(this).data("vcount");
+                document.getElementById("priv-names").innerHTML = tier;
+                $('#privilegelistmodal2').modal('show');
+            ShowprivilegeListModal(i_id,memid);
+
+            });
+                $('#btn-download-corporate').click(function () {
+                      location.replace('../Corporate/DownloadHeader');
+                    });
+@* User register edit *@
+                    $('#_corporate-table').on('click', '.tbl-edit', function () {
+                      i_id = $(this).data("id");
+                      corporatename = $(this).data("corporatename");
+                      address = $(this).data("address");
+                      cno = $(this).data("cno");
+                      description = $(this).data("description");
+                      email = $(this).data("eadd");
+                      tier = $(this).data("tier");
+                      memid = $(this).data("memid");
+                      usercount = $(this).data("ucount");
+                      vipcount = $(this).data("vcount");
+                          dstart = $(this).data("dstart");
+                    dend = $(this).data("dend");    
+               
+                   
+                   formattedDate = formatDate(dend);
+                    formattedDate_dstart = formatDate(dstart);
+                   
+
+                console.log(formattedDate_dstart);
+                      $("#cname").val(corporatename);
+                      $("#address").val(address);
+                      $("#desc").val(description);
+                      $("#cno").val(cno);
+                      $("#email").val(email);
+                      $("#corp-mem-option").val(memid);
+                      $('#usercount').val(usercount);
+                      $('#vipcount').val(vipcount);
+                    $('#dateuse').val(formattedDate_dstart);
+                    $('#dateended').val(formattedDate);
+           
+                      document.getElementById("_btn-register").innerHTML = 'Update';
+                       document.getElementById("corporatemodal-name").innerHTML = 'Update Corporate Information'.bold();
+                      $('#_corporateModal').modal('show');
+                      $(".alert-warning").hide();
+
+                    });
+@* User Register Edit End Here*@
+       $('#_corporate-table').on('click', '.tbl-delete', function () {
+                      var data = {};
+                          i_id = $(this).data("id");
+                              data.id = i_id;
+                           
+                      iziToast.question({
+                          timeout: 20000,
+                          close: false,
+                          overlay: true,
+                          id: 'question',
+                          zindex: 999,
+                          title: 'Confirmation',
+                          message: 'Are you sure you want to delete?',
+                          position: 'center',
+                          buttons: [
+                              ['<button><b>YES</b></button>', function (instance, toast) {
+                                  $.blockUI(reloadLoading);
+                                  $.ajax({
+                                       url: '/Corporate/DeleteCorporateInfo',
+                                    data: {
+                                           data: data,
+                                      },
+                                      type: "POST",
+                                      datatype: "json"
+                                  }).done(function (data) {
+
+                                      if(data.stats=="Successfully Deleted" )
+                                      {
+                                            notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                                            ShowCorporateDetails();
+
+                                      }
+                                      else
+                                      {
+                                         notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');
+                                      }
+                                  
+                                   
+                                      $.unblockUI();
+
+                                  }).fail(function () {
+                                      alert("There was an Error When Loading Data...");
+                                  });
+                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                              }, true],
+                              ['<button>NO</button>', function (instance, toast) {
+
+                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                              }],
+                          ]
+                      });
+
+
+                    });
+  $('#corp-register').submit(function(e){
+        e.preventDefault();
+
+                    var data = {};
+                    data.id = i_id;
+                    data.corporateName = $('#cname').val();
+                    data.description = $('#desc').val();
+                    data.cNo = $('#cno').val();
+                    data.address = $('#address').val();
+                    data.emailAddress = $('#email').val();
+                    data.Active =2;
+                    data.MembershipID =  $('#corp-mem-option').val();
+                    data.Count =   $('#usercount').val();
+                    data.VipCount =  $('#vipcount').val();
+                        data.DateEnded =$('#dateended').val();
+                        data.DateUsed =$('#dateuse').val();
+                      console.log(data);
+            
+                    if ($('#cname').val() == '' || $('#desc').val() == '' ||  $('#cno').val() == '' || $('#address').val() == '' ||  $('#email').val() == '' || $('#corp-mem-option').prop('selectedIndex') == 0 ) 
+                    {
+                        notifyMsg('Warning!', 'Please fill up all required fields.', 'yellow', 'fas fa-exclamation-triangle');
+                    }
+                    else
+
+                    {
+                            if(parseInt($('#usercount').val()) <  parseInt($('#vipcount').val()))
+                            {
+                            notifyMsg('Warning!', 'VIP User cannot be Greater than User Count!.', 'yellow', 'fas fa-exclamation-triangle');
+                            }
+                            else
+                            {
+                            if (i_id != 0) {
+                        message = 'Are you sure you want to update ' + $('#cname').val();
+                            }
+                            else {
+                                message = 'Are you sure you want to Add new Corporate?';
+                            }
+                            iziToast.question({
+                            timeout: 20000,
+                            close: false,
+                            overlay: true,
+                            id: 'question',
+                            zindex: 999,
+                            title: 'Confirmation',
+                            message: message,
+                            position: 'center',
+                            buttons: [
+                                ['<button><b>YES</b></button>', function (instance, toast) {
+                                    $.blockUI(reloadLoading);
+                                    $.ajax({
+                                        url: '/Corporate/SaveCorporate',
+                                        data: {
+                                            data: data
+                                        },
+                                        type: "POST",
+                                        datatype: "json",
+                                    }).done(function (response) {
+
+                                         notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+                                            //$.ajax({
+                                            //url: '/Corporate/SaveMembershipPrivilegeCount',
+                                            //    data: {
+                                            //        data: data,
+                                            //    },
+                                            //    type: "POST",
+                                            //    datatype: "json",
+                                            //    success: function (response) {
+                                            //        if(response.stats != "Success")
+                                            //        {
+                                            //         notifyMsg('Warning!', response.stats, 'red', 'fas fa-exclamation-triangle');
+                                            //        }
+                                            //    }
+                                            //});
+                             
+                                            ShowCorporateDetails();
+                                            $(".cancel").click();
+                                           @* $.ajax({
+                                            url: '/Register/UploadFile',
+                                            type: 'POST',
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (result) {
+                                            }
+                                            });
+                                            notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+                                            ShowUserDetails();
+                                            clear();
+                                            $("#h-close").click();
+                                        *@
+                                        
+                                     
+                                        $.unblockUI();
+
+                                    }).fail(function () {
+                                        alert("There was an Error When Loading Data...");
+                                    });
+                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                                }, true],
+                                ['<button>NO</button>', function (instance, toast) {
+
+                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                                }],
+                            ]
+                        });
+                    }   }
+                    });
+
+</script>
+}
+
+        
