@@ -349,7 +349,7 @@ async function ShowOptBtype() {
   $.ajax({ url: "/Business/GetBusinessTypeList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
     // 
     $("#btype-option").empty();
-    $("#btype-option").append('<option value="0">-Select Business Type-</option>');
+      $("#btype-option").append('<option value="0" disabled selected>-Select Business Type-</option>');
     for (var i = 0; i < data.length; i++) {
       $("#btype-option").append('<option value="' + data[i].id + '">' + data[i].businessTypeName + "</option>");
     }
@@ -517,7 +517,7 @@ async function CorpShowOptionMembership() {
   setTimeout(function () {
     $.ajax({ url: "/Corporate/GetMembershipList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       $("#corp-mem-option").empty();
-      $("#corp-mem-option").append('<option value="0">-Select Tier-</option>');
+        $("#corp-mem-option").append('<option value="0" disabled selected>-Select Tier-</option>');
       for (var i = 0; i < data.length; i++) {
         $("#corp-mem-option").append('<option value="' + data[i].id + '">' + data[i].membershipName + "</option>");
       }
@@ -529,16 +529,16 @@ async function CorpShowOptionMembership() {
 async function ShowOptBloctype() {
   $.ajax({ url: "/Business/GetBusLoc", data: {}, type: "GET", datatype: "json" }).done(function (data) { // @* //  *@
     $("#btype-option").empty();
-    $("#bloc-option").append('<option value="0">-Select Business Location-</option>');
+      $("#bloc-option").append('<option value="0" disabled selected>-Select Business Location-</option>');
     for (var i = 0; i < data.length; i++) {
-      $("#bloc-option").append('<option value="' + data[i].id + '">' + data[i].city + "</option>");
+      $("#bloc-option").append('<option value="' + data[i].id + '" >' + data[i].city + "</option>");
     }
   });
 }
 async function ShowBusinessAddress() {
   $.ajax({ url: "/Business/GetBusinessList", data: {}, type: "GET", datatype: "json" }).done(function (data) { // @* //  *@
     $("#b-option").empty();
-    $("#b-option").append('<option value="0">-Select Business Address-</option>');
+      $("#b-option").append('<option value="0" disabled selected>-Select Business Address-</option>');
     for (var i = 0; i < data.length; i++) {
       $("#b-option").append('<option value="' + data[i].id + '">' + data[i].address + "</option>");
     }

@@ -22,7 +22,7 @@ namespace AOPC.Controllers
 {
     public class PositionController : Controller
     {
-
+        DBMethods dbmet = new DBMethods();
         private readonly AppSettings _appSettings;
         private ApiGlobalModel _global = new ApiGlobalModel();
         private GlobalService _globalService;

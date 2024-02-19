@@ -31,6 +31,7 @@ namespace AOPC.Controllers
 {
     public class VendorController : Controller
     {
+        DBMethods dbmet = new DBMethods();
         private ApiGlobalModel _global = new ApiGlobalModel();
         DbManager db = new DbManager();
         private IWebHostEnvironment Environment;
@@ -266,6 +267,11 @@ namespace AOPC.Controllers
                             case 12:
 
                                 item.Map = data.Map;
+
+                                break;
+                            case 13:
+
+                                item.WebsiteUrl = data.WebsiteUrl;
 
                                 break;
                             default:

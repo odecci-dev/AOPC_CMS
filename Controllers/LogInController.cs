@@ -24,6 +24,7 @@ namespace AOPC.Controllers
 
     public class LogInController : Controller
     {
+        DBMethods dbmet = new DBMethods();
         private ApiGlobalModel _global = new ApiGlobalModel();
         DbManager db = new DbManager();
         private IWebHostEnvironment Environment;
@@ -96,7 +97,7 @@ namespace AOPC.Controllers
             {
                 //var pass3 = Cryptography.Decrypt("8UFD7eD4sGtZ9r7Y1QXOc5qaxX7LBbkxTOEXLSlAZj0=");
                 string sql = $@"SELECT        UsersModel.Id, UsersModel.Username, UsersModel.Password, UsersModel.Fname, UsersModel.Lname, UsersModel.Active, tbl_UserTypeModel.UserType, tbl_CorporateModel.CorporateName, 
-                         tbl_PositionModel.Name AS PositionName, UsersModel.JWToken, UsersModel.FilePath, UsersModel.CorporateID, tbl_MembershipModel.Name as MembershipName
+                         tbl_PositionModel.Name AS PositionName,UsersModel.EmployeeID, UsersModel.JWToken, UsersModel.FilePath, UsersModel.CorporateID, tbl_MembershipModel.Name as MembershipName
 FROM            UsersModel INNER JOIN
                          tbl_UserTypeModel ON UsersModel.Type = tbl_UserTypeModel.Id INNER JOIN
                          tbl_CorporateModel ON UsersModel.CorporateID = tbl_CorporateModel.Id INNER JOIN
@@ -110,6 +111,7 @@ FROM            UsersModel INNER JOIN
                             HttpContext.Session.SetString("Position", dt.Rows[0]["PositionName"].ToString());
                             HttpContext.Session.SetString("UserType", dt.Rows[0]["UserType"].ToString());
                             HttpContext.Session.SetString("CorporateName", dt.Rows[0]["CorporateName"].ToString());
+                            HttpContext.Session.SetString("EmployeeID", dt.Rows[0]["EmployeeID"].ToString());
                             HttpContext.Session.SetString("CorporateID", dt.Rows[0]["CorporateID"].ToString());
                             HttpContext.Session.SetString("Id", dt.Rows[0]["Id"].ToString());
                             HttpContext.Session.SetString("MembershipName", dt.Rows[0]["MembershipName"].ToString());
@@ -139,7 +141,15 @@ FROM            UsersModel INNER JOIN
                             }
                             if(result == "Successfully Log In")
                             {
-                                HttpContext.Session.SetString("Bearer", token.ToString());
+                            //string action = data.Id == 0 ? "Added New" : "Updated";
+                            dbmet.InsertAuditTrail("User Id: " + dt.Rows[0]["Id"].ToString() +
+                               "Successfully LogIn UserId#: " + dt.Rows[0]["Id"].ToString(), DateTime.Now.ToString(),
+                               "CMS-Businesslocation",
+                               dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString(),
+                                dt.Rows[0]["Id"].ToString(),
+                               "2",
+                               dt.Rows[0]["EmployeeID"].ToString());
+                        HttpContext.Session.SetString("Bearer", token.ToString());
                                 string test = token_val.GetValue();
                                 token_val.GetValue();
 
@@ -149,6 +159,15 @@ FROM            UsersModel INNER JOIN
                 }
                 else
                 {
+                    //string action = "Deleted";
+                    //string action = data.Id == 0 ? "Added New" : "Updated";
+                    dbmet.InsertAuditTrail("User Id: Unknown" +
+                       "Failed to Log In", DateTime.Now.ToString(),
+                       "CMS-LogIn",
+                       data.Username,
+                       0,
+                       "2",
+                       "Unknown");
                     result = "Invalid Log IN";
                 }
                    

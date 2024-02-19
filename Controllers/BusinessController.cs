@@ -23,6 +23,9 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Net.WebRequestMethods;
 using static AOPC.Controllers.DashboardController;
 using AOPC_CMSv2.ViewModel;
+using static AOPC.Controllers.RegisterController;
+using static NPOI.HSSF.Util.HSSFColor;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AOPC.Controllers
 {
@@ -33,6 +36,7 @@ namespace AOPC.Controllers
         private ApiGlobalModel _global = new ApiGlobalModel();
         private GlobalService _globalService;
         DbManager db = new DbManager();
+        DBMethods dbmet = new DBMethods();
         public readonly QueryValueService token_;
         private readonly UserManager<ApplicationUser> _userManager;
         private IConfiguration _configuration;
@@ -133,6 +137,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                    " Deleted Business location Id#: " + data.Id, DateTime.Now.ToString(),
+                    "CMS-BusinessLocation",
+                    HttpContext.Session.GetString("Name"),
+                    HttpContext.Session.GetString("Id"),
+                    "2",
+                    HttpContext.Session.GetString("EmployeeID"));
+
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessLoc/DeleteBusinessLoc";
                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
@@ -155,6 +167,13 @@ namespace AOPC.Controllers
         {
             try
             {
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                    " Deleted BusinessType Id#: " + data.Id, DateTime.Now.ToString(),
+                    "CMS-BusinessType",
+                    HttpContext.Session.GetString("Name"),
+                    HttpContext.Session.GetString("Id"),
+                    "2",
+                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessType/DeleteBusinessType";
                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
@@ -177,6 +196,13 @@ namespace AOPC.Controllers
         {
             try
             {
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                    " Deleted Business Id#: " + data.Id, DateTime.Now.ToString(),
+                    "CMS-Business",
+                    HttpContext.Session.GetString("Name"),
+                    HttpContext.Session.GetString("Id"),
+                    "2",
+                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusiness/DeleteBusiness";
                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
@@ -199,6 +225,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action+ " Businesslocation Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Businesslocation",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessLoc/UpdateBusinessLoc";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
@@ -220,6 +254,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " Business Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Business",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusiness/SaveBusiness";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
@@ -241,6 +283,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " BusinessType Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-BusinessType",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessType/UpdateBusinessType";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
@@ -265,6 +315,7 @@ namespace AOPC.Controllers
             string contentPath = this.Environment.ContentRootPath;
             int ctr = 0;
             string img = "";
+
             for (i = 0; i < Request.Form.Files.Count; i++)
             {
                 if (Request.Form.Files[i].Length > 0)
@@ -277,7 +328,6 @@ namespace AOPC.Controllers
                             Directory.CreateDirectory(uploadsFolder);
                         }
                         List<string> uploadedFiles = new List<string>();
-
 
 
                         var image = System.Drawing.Image.FromStream(Request.Form.Files[i].OpenReadStream());

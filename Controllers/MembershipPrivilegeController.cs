@@ -40,7 +40,7 @@ namespace AOPC.Controllers
 {
     public class MembershipPrivilegeController : Controller
     {
-     
+        DBMethods dbmet = new DBMethods();
         private ApiGlobalModel _global = new ApiGlobalModel();
         DbManager db = new DbManager();
         private IWebHostEnvironment Environment;

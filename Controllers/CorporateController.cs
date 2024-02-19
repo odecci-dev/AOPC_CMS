@@ -32,7 +32,8 @@ namespace AOPC.Controllers
 {
     public class CorporateController : Controller
     {
-         string status="";
+        DBMethods dbmet = new DBMethods();
+        string status="";
          public readonly QueryValueService token_;
         private readonly AppSettings _appSettings;
         private ApiGlobalModel _global = new ApiGlobalModel();
@@ -106,6 +107,16 @@ namespace AOPC.Controllers
         {
             try
             {
+
+                string action ="Deleted";
+                //string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " Corporate Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Corporate",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiCorporate/DeleteCorproate";
                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -192,6 +203,15 @@ namespace AOPC.Controllers
         {
             try
             {
+                //string action = "Deleted";
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " Corporate Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Corporate",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiCorporate/UpdateCorporate";
                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -213,6 +233,16 @@ namespace AOPC.Controllers
         {
             try
             {
+                //string action = "Deleted";
+                string action = "Added New";
+                //string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " MembershipPrivilege MembershipId#: " + data.MembershipID, DateTime.Now.ToString(),
+                   "CMS-MembershipPrivilege",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiCorporate/UpdateMembershipPrivilege";
                  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -338,6 +368,15 @@ namespace AOPC.Controllers
         }
         public IActionResult DownloadHeader()
         {
+            //string action = "Deleted";
+            //string action = data.Id == 0 ? "Added New" : "Updated";
+            dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+               "Downloaded Header", DateTime.Now.ToString(),
+               "CMS-Corporate",
+               HttpContext.Session.GetString("Name"),
+               HttpContext.Session.GetString("Id"),
+               "2",
+               HttpContext.Session.GetString("EmployeeID"));
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
             {

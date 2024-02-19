@@ -234,7 +234,7 @@
                     <div class="mod-form-row">
 
                         <div class="input-container-whole">
-                            <label for="fname">Email <span class="req">*</span></label>
+                            <label for="fname">Email</label>
                             <input type="email" value="" id="email" class="mod-input" />
                         </div>
                         <div class="input-container-whole">
@@ -247,26 +247,17 @@
                         <div class="input-container-whole">
                             <label for="btype-option">Business Type <span class="req">*</span></label>
                             <select id="btype-option" class="mod-input" required style="width:100%">
-                                <option value="" disabled selected>Select your option</option>
+                                @*<option value="" disabled selected>Select your option</option>*@
                             </select>
                         </div>
                         <div class="input-container-whole">
-                            <label for="b-option">Hotel Business Address <span class="req">*</span></label>
-                            <select id="b-option" class="mod-input" required style="width:100%">
-                                <option value="" disabled selected>Select your option</option>
+                            <label for="bloc-option">Hotel Business Address <span class="req">*</span></label>
+                            <select id="bloc-option" class="mod-input" required style="width:100%">
+                                @*<option value="" disabled selected>Select your option</option>*@
                             </select>
                         </div>
                     </div>
-                    @*  <div class="mod-form-row">
-                          <div class="input-container-whole">
-                            <label for="lname">Address <span class="req" >*</span></label>
-                            <input type="text" value="" id="address"  class="mod-input" required/>
-                          </div>
-                          <div class="input-container-whole">
-                            <label for="lname">Map</label>
-                            <input type="text" value="" id="Map"  class="mod-input" />
-                          </div>
-                        </div>*@
+             
 
                     <div class="actionss_">
                         <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
@@ -512,7 +503,9 @@
             });
             paginationvendor(spanval);
             ShowBusinessAddress();
+            ShowOptBloctype();
             ShowOptBtype();
+
 
           
               
@@ -604,6 +597,7 @@
                         + '"   data-descript="' + data[0].items[i].description
                         + '"  data-serv="' + data[0].items[i].services
                         + '" data-weburl="' + data[0].items[i].websiteUrl
+                        + '" data-map="' + data[0].items[i].map
                         + '" data-cno="' + data[0].items[i].cno + '" data-email="'
                         + data[0].items[i].email + '" data-btid="'
                         + data[0].items[i].btypeID + '" data-address="'
@@ -866,7 +860,7 @@
             $("#btype-option").val(btypeID);
             $("#address").val(address);
             $("#Map").val(map);
-            $("#b-option").val(bid);
+            $("#bloc-option").val(bid);
             if (fimage != null) {
                 var img = $('<img>').attr('src', fimage);
                 img.attr('height', '120px');
@@ -952,7 +946,7 @@
             $('#description').val("");
             $('#upload-image-preview_multiple').empty();
             $('#address').val("");
-            $('#b-option').prop('selectedIndex', 0);
+            $('#bloc-option').prop('selectedIndex', 0);
             $('#btype-option').prop('selectedIndex', 0);
             $('#vendormodal').modal('show');
 
@@ -1002,7 +996,7 @@
             data.Email = $("#email").val();
             data.gallery = image;
             data.Address = $("#address").val();
-            data.BusinessLocationID = $("#b-option").val();
+            data.BusinessLocationID = $("#bloc-option").val();
             data.BusinessTypeId = $("#btype-option").val();
             data.FeatureImg = filename;
             data.VendorLogo = logofilename;
@@ -1014,7 +1008,7 @@
             var file_1 = featuredupload.files;
             var file_2 = logoUpload.files;
             var file_3 = gallery.files;
-
+            console.log(data);
             var formData = new FormData();
             formData.append('featuredupload', file_1[0]);
             formData.append('logoUpload', file_2[0]);
@@ -1029,13 +1023,14 @@
             formData.append('Email', $("#email").val());
             formData.append('gallery', image);
             formData.append('Address', $("#address").val());
-            formData.append('BusinessLocationID', $("#b-option").val());
+            formData.append('BusinessLocationID', $("#bloc-option").val());
             formData.append('BusinessTypeId', $("#btype-option").val());
             formData.append('FeatureImg', filename);
             formData.append('VendorLogo', logofilename);
             formData.append('Map', $("#Map").val());
+            formData.append('WebsiteUrl', $("#wURL").val());
 
-            console.log(formData);
+            
             iziToast.question({
                 timeout: 20000,
                 close: false,
@@ -1077,12 +1072,12 @@
                                     });
                                     notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
                                     $("#h-close").click();
-                                    ShowVendorDetails();
+                                       paginationvendor(spanval);
                                 }
                                 else {
                                     notifyMsg('Warning!', result.stats, 'red', 'fas fa-exclamation-triangle');
                                     $("#h-close").click();
-                                    ShowVendorDetails();
+                                      paginationvendor(spanval);
                                 }
                             }
                         });

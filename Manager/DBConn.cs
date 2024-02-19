@@ -16,6 +16,7 @@
          // return "http://172.31.17.67"; // live
         // return "http://ec2-54-251-135-135.ap-southeast-1.compute.amazonaws.com:8083"; // live AOPC
             return "https://api.alfardanoysterprivilegeclub.com"; // live AOPC
+           // return "http://ec2-54-251-135-135.ap-southeast-1.compute.amazonaws.com:8083"; // odecci server
          // return "https://43.204.237.103"; // live ALFARDAN 
         //  return "http://192.168.100.90"; // local 
            

@@ -28,6 +28,7 @@ namespace AOPC.Controllers
 {
     public class OfferingController : Controller
     {
+        DBMethods dbmet = new DBMethods();
         private string status = "";
         private readonly AppSettings _appSettings;
         private ApiGlobalModel _global = new ApiGlobalModel();

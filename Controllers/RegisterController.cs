@@ -27,7 +27,7 @@ namespace AOPC.Controllers
 {
     public class RegisterController : Controller
     {
-        
+        DBMethods dbmet = new DBMethods();
         string status="";
          private readonly QueryValueService token;
         private readonly AppSettings _appSettings;
