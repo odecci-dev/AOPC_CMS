@@ -12,7 +12,7 @@ namespace AuthSystem.Manager
         string sql = "";
         DbManager db = new DbManager();
 
-        public string InsertAuditTrail(string actions, string datecreated, string module, string name, string userid, string read, string reference, string employeeid)
+        public string InsertAuditTrail(string actions, string datecreated, string module, string name, string userid, string read,  string employeeid)
         {
            string query = $@"insert into tbl_audittrailModel (Actions,Module,UserId,status,EmployeeID,ActionID,Business,DateCreated) values 
                 ('" + actions + "'," +

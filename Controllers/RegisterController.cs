@@ -22,6 +22,8 @@ using System.Drawing;
 using static AOPC.Controllers.DashboardController;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using AOPC_CMSv2.ViewModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using String = System.String;
 
 namespace AOPC.Controllers
 {
@@ -88,6 +90,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " Position Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Position",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/SavePosition";
                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -122,6 +132,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   "Deleted Position Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Position",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/DeletePosition";
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -156,16 +174,6 @@ namespace AOPC.Controllers
             string result = "";
             try
             {
-                //HttpClient client = new HttpClient();
-                //var url = DBConn.HttpString + "/api/ApiRegister/Allownotif";
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
-                //StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-                //using (var response = await client.PostAsync(url, content))
-                //{
-                //    _global.Status = await response.Content.ReadAsStringAsync();
-                //    result = JsonConvert.DeserializeObject<notifresult>(_global.Status).notif;
-
-                //}.
 
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/Allownotif";
@@ -219,6 +227,15 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " User Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-User",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
+
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/UpdateUserInfo";
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -252,6 +269,14 @@ namespace AOPC.Controllers
             string status = "";
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " User Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-User",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/FinalUserRegistration2";
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -373,6 +398,14 @@ namespace AOPC.Controllers
             string result = "";
             try
             {
+                string action = id == "0" ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " Status User Id#: " + id, DateTime.Now.ToString(),
+                   "CMS-User",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/UpdateUserStatus";
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -432,6 +465,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   "Deleted User Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-User",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/DeleteUserInfo";
                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
@@ -998,6 +1039,15 @@ namespace AOPC.Controllers
         [HttpPost]
         public IActionResult SendemailUser(sendemaildata data)
         {
+           
+            dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+               "Send Email: " + data.Email, DateTime.Now.ToString(),
+               "CMS-SendEmail",
+               HttpContext.Session.GetString("Name"),
+               HttpContext.Session.GetString("Id"),
+               "2",
+               HttpContext.Session.GetString("EmployeeID"));
+            HttpClient client = new HttpClient();
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
             //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
@@ -1089,12 +1139,12 @@ namespace AOPC.Controllers
     " </div>" +
   " </body>";
             message.Body = bodyBuilder.ToMessageBody();
-            using (var client = new SmtpClient())
+            using (var clients = new SmtpClient())
             {
-                client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                client.Authenticate("app@alfardan.com.qa", "Oyster2023!");
-                client.Send(message);
-                client.Disconnect(true);
+                clients.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                clients.Authenticate("app@alfardan.com.qa", "Oyster2023!");
+                clients.Send(message);
+                clients.Disconnect(true);
                 status = "Successfully sent registration email";
 
             }
@@ -1134,6 +1184,13 @@ namespace AOPC.Controllers
         }
         public IActionResult AdminDownloadHeader()
         {
+            dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+            "User: " + HttpContext.Session.GetString("Name") +" Download Admin Header", DateTime.Now.ToString(),
+            "CMS-AdminDownloadHeader",
+            HttpContext.Session.GetString("Name"),
+            HttpContext.Session.GetString("Id"),
+            "2",
+            HttpContext.Session.GetString("EmployeeID"));
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
             {
@@ -1164,6 +1221,7 @@ namespace AOPC.Controllers
         }
         public IActionResult CorporateDownloadHeader()
         {
+
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
             {

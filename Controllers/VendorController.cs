@@ -157,6 +157,14 @@ namespace AOPC.Controllers
             string status = "";
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " Vendor Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Vendor",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 string uploadsFolder = "";
                 using var imageStream = new MemoryStream();
                 var item = new VendorModel();
@@ -333,6 +341,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   "Deleted Vendor Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Vendor",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiVendor/DeleteVendor";
                 //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
@@ -362,6 +378,7 @@ namespace AOPC.Controllers
         {
             try
             {
+              
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiOffering/SendEmailVendor";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());

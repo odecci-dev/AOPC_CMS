@@ -95,6 +95,14 @@ namespace AOPC.Controllers
         {
            try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " Offering Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Offering",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url =DBConn.HttpString + "/api/ApiOffering/SaveOffering";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
@@ -215,6 +223,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   "Deleted Offering Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Offering",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiOffering/DeleteOffering";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());

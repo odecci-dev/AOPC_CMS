@@ -92,6 +92,15 @@ namespace AOPC.Controllers
             string status = "";
             try
             {
+
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   action + " PrivilegeInfo Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-PrivilegeInfo",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiPrivilege/SavePrivilege";
                 // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
@@ -144,6 +153,7 @@ namespace AOPC.Controllers
             string status = "";
             try
             {
+               
                 var url = DBConn.HttpString + "/api/ApiCorporatePrivilege/SaveCorporatePrivilegeList";
 
                 using (var client = new HttpClient())
@@ -170,6 +180,7 @@ namespace AOPC.Controllers
             string status = "";
             try
             {
+
                 var url = DBConn.HttpString + "/api/ApiPrivilege/SavePrivilegeList";
 
                 using (var client = new HttpClient())
@@ -478,6 +489,14 @@ namespace AOPC.Controllers
         {
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   "Deleted Privilege Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-Privilege",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiPrivilege/DeletePrivilege";
                 //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
@@ -507,6 +526,14 @@ namespace AOPC.Controllers
         {      string status = "";
             try
             {
+                string action = data.Id == 0 ? "Added New" : "Updated";
+                dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
+                   "Deleted MemberInfo Id#: " + data.Id, DateTime.Now.ToString(),
+                   "CMS-MemberInfo",
+                   HttpContext.Session.GetString("Name"),
+                   HttpContext.Session.GetString("Id"),
+                   "2",
+                   HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiMembership/DeleteMemship";
                 //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
@@ -607,54 +634,7 @@ namespace AOPC.Controllers
             if (Request.Form.Files.Count == 0) { status = "Error"; }
             return Json(new { stats = status });
         }
-        //public JsonResult UploadMemberCard(List<IFormFile> postedFiles)
-        //{
-        //    int i;
-        //    string wwwPath = this.Environment.WebRootPath;
-        //    string contentPath = this.Environment.ContentRootPath;
-        //    for (i = 0; i < Request.Form.Files.Count; i++)
-        //    {
-        //        if (Request.Form.Files[i].Length > 0)
-        //        {
-        //            try
-        //            {
-        //                // var filePath = "C:\\Files\\";
-        //                var filePath = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\MembershipCard\\";
-        //                //var filePath = Environment.WebRootPath + "\\uploads\\";
-        //                if (!Directory.Exists(filePath))
-        //                {
-        //                    Directory.CreateDirectory(filePath);
-        //                }
-        //                List<string> uploadedFiles = new List<string>();
-
-
-        //                //Guid guid = Guid.NewGuid();
-        //                //string getextension = Path.GetExtension(Request.Form.Files[i].FileName);
-        //                //string MyUserDetailsIWantToAdd = "EMP-01" + getextension;
-        //                string file = Path.Combine(filePath, Request.Form.Files[i].FileName);
-
-        //                var stream = new FileStream(file, FileMode.Create);
-        //                Request.Form.Files[i].CopyToAsync(stream);
-        //                foreach (IFormFile postedFile in postedFiles)
-        //                {
-        //                    string fileName = Path.GetFileName(postedFile.FileName);
-        //                    using (FileStream streams = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
-        //                    {
-        //                        postedFile.CopyTo(streams);
-        //                        uploadedFiles.Add(fileName);
-        //                        //ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", fileName);
-        //                    }
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                status = "Error! " + ex.GetBaseException().ToString();
-        //            }
-        //        }
-        //    }
-        //    if (Request.Form.Files.Count == 0) { status = "Error"; }
-        //    return Json(new { stats = status });
-        //}
+     
         public IActionResult Index()
         {
             string token = HttpContext.Session.GetString("Bearer");

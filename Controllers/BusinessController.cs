@@ -138,7 +138,7 @@ namespace AOPC.Controllers
             try
             {
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                    " Deleted Business location Id#: " + data.Id, DateTime.Now.ToString(),
+                    " Deleted Business location Id : " + data.Id, DateTime.Now.ToString(),
                     "CMS-BusinessLocation",
                     HttpContext.Session.GetString("Name"),
                     HttpContext.Session.GetString("Id"),
@@ -168,7 +168,7 @@ namespace AOPC.Controllers
             try
             {
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                    " Deleted BusinessType Id#: " + data.Id, DateTime.Now.ToString(),
+                    " Deleted BusinessType Id : " + data.Id, DateTime.Now.ToString(),
                     "CMS-BusinessType",
                     HttpContext.Session.GetString("Name"),
                     HttpContext.Session.GetString("Id"),
@@ -197,7 +197,7 @@ namespace AOPC.Controllers
             try
             {
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                    " Deleted Business Id#: " + data.Id, DateTime.Now.ToString(),
+                    " Deleted Business Id : " + data.Id, DateTime.Now.ToString(),
                     "CMS-Business",
                     HttpContext.Session.GetString("Name"),
                     HttpContext.Session.GetString("Id"),
@@ -225,9 +225,9 @@ namespace AOPC.Controllers
         {
             try
             {
-                string action = data.Id == 0 ? "Added New" : "Updated";
+                string action = data.Id == 0 ? " Added New " : " Updated Business  Id: "+ data.Id;
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                   action+ " Businesslocation Id#: " + data.Id, DateTime.Now.ToString(),
+                   action+ ", Businesslocation Country Name : " + data.Country, DateTime.Now.ToString(),
                    "CMS-Businesslocation",
                    HttpContext.Session.GetString("Name"),
                    HttpContext.Session.GetString("Id"),
@@ -256,7 +256,7 @@ namespace AOPC.Controllers
             {
                 string action = data.Id == 0 ? "Added New" : "Updated";
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                   action + " Business Id#: " + data.Id, DateTime.Now.ToString(),
+                   action + " Business Id : " + data.Id, DateTime.Now.ToString(),
                    "CMS-Business",
                    HttpContext.Session.GetString("Name"),
                    HttpContext.Session.GetString("Id"),
@@ -285,7 +285,7 @@ namespace AOPC.Controllers
             {
                 string action = data.Id == 0 ? "Added New" : "Updated";
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                   action + " BusinessType Id#: " + data.Id, DateTime.Now.ToString(),
+                   action + " BusinessType Id : " + data.Id, DateTime.Now.ToString(),
                    "CMS-BusinessType",
                    HttpContext.Session.GetString("Name"),
                    HttpContext.Session.GetString("Id"),

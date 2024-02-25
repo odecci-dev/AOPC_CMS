@@ -143,8 +143,8 @@ FROM            UsersModel INNER JOIN
                             {
                             //string action = data.Id == 0 ? "Added New" : "Updated";
                             dbmet.InsertAuditTrail("User Id: " + dt.Rows[0]["Id"].ToString() +
-                               "Successfully LogIn UserId#: " + dt.Rows[0]["Id"].ToString(), DateTime.Now.ToString(),
-                               "CMS-Businesslocation",
+                               " Successfully LogIn Name : " + dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString(), DateTime.Now.ToString(),
+                               " CMS-LogIn",
                                dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString(),
                                 dt.Rows[0]["Id"].ToString(),
                                "2",
@@ -162,10 +162,10 @@ FROM            UsersModel INNER JOIN
                     //string action = "Deleted";
                     //string action = data.Id == 0 ? "Added New" : "Updated";
                     dbmet.InsertAuditTrail("User Id: Unknown" +
-                       "Failed to Log In", DateTime.Now.ToString(),
-                       "CMS-LogIn",
+                       " Failed to Log In", DateTime.Now.ToString(),
+                       " CMS-LogIn",
                        data.Username,
-                       0,
+                       "0",
                        "2",
                        "Unknown");
                     result = "Invalid Log IN";
