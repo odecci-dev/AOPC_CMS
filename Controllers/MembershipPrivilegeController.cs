@@ -147,6 +147,15 @@ namespace AOPC.Controllers
             public string? status { get; set; }
             public string? stats { get; set; }
         }
+        public class PrivCorpisVIP
+        {
+            public string? privilegeID { get; set; }
+            public string? usercount { get; set; }
+            public string? vipcount { get; set; }
+            public string? CorporateID { get; set; }
+            public string? status { get; set; }
+            public string? stats { get; set; }
+        }
         [HttpPost]
         public async Task<IActionResult> SavepCorporatePrivlist(List<PrivCorp> IdList)
         {
@@ -160,6 +169,33 @@ namespace AOPC.Controllers
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
                     StringContent content = new StringContent(JsonConvert.SerializeObject(IdList), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync(url, content))
+                    {
+                        _global.Status = await response.Content.ReadAsStringAsync();
+                        status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                status = ex.GetBaseException().ToString();
+            }
+            return Json(new { stats = status });
+        }
+        [HttpPost]
+        public async Task<IActionResult> SavepCorporatePrivlistisVIP(List<PrivCorpisVIP> VIPList)
+        {
+            string status = "";
+            try
+            {
+
+                var url = DBConn.HttpString + "/api/ApiCorporatePrivilege/SaveCorporatePrivilegeListisVIP";
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(VIPList), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync(url, content))
                     {
                         _global.Status = await response.Content.ReadAsStringAsync();
@@ -250,6 +286,7 @@ namespace AOPC.Controllers
             public string UserCount { get; set; }
             public string VIPCount { get; set; }
             public string Status { get; set; }
+            public string isVIP { get; set; }
 
         }
         public class privIDs

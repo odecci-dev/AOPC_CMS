@@ -221,17 +221,31 @@
                 <div class="col-sm-12" style="margin:10px">
 
                     <form action="" class="mod-form" id="privlist2">
-                        <table class="privTable" id="privilegelist-table">
-                            <thead>
-                            <th>
-                                <input type="checkbox" class="check-all" id="checkall" />
-                                <labebl id="checkers" style="text-align:center"> Check All</labebl>
+                        <div>
+                      
                                 <p style="
                                             color: white;
+                                            margin-bottom:15px;
                                             text-align: center;
                                             background: #c89328;
                                             padding: 5px;">Available Privilege</p>
+
+
+                     
+                        </div>
+                        <table class="privTable" id="privilegelist-table">
+                            <thead>
+                     
+                            <th>
+                                <input type="checkbox" class="check-all" id="checkall" />
+                                <labebl id="checkers" style="text-align:center"> Check All</labebl>
                             </th>
+                            <th>
+
+                                <input type="checkbox" class="check-all-vip" id="isVIP_CheckAll" />
+                                <labebl id="isVIP" style="text-align:center"> Check All</labebl>
+                            </th>
+
                             </thead>
                             <tbody style="
                                       height: 300px;">
@@ -344,9 +358,12 @@
                     type: "POST",
                     datatype: "json"
                 }).done(function (data) {
+                    console.log(data);
                     privilegelisttable.clear().draw();
 
                     var stats = "";
+                    var vipstats = "";
+                    var vipname = "";
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].status == "1") {
                             stats = "checked";
@@ -354,13 +371,27 @@
                         else {
                             stats = "unchecked";
                         }
+                        if (data[i].isVIP == "1") {
+                            vipstats = "checked";
+                      
+                        }
+                        else {
+                            vipstats = "unchecked";
+                   
+                        }
                         $('#privilegelist-table').dataTable().fnAddData([
                             '<td>' + '<label for="cb' + data[i].privilegeID + '"><input type="checkbox" id="cb' + data[i].privilegeID + '" class="check-all" data-id="' + data[i].privilegeID +
                             '" data-title="' + data[i].title + '" data-status="' + data[i].status + '"  data-usercount="' + data[i].userCount + '"  data-vipcount="' + data[i].vipCount +
                             '"   data-membershipid="' + data[i].membershipID + '" ' + stats + '/>' +
                             '<div>' +
                             '<p></p>' +
-                            '<p>' + data[i].title + '</p>' + '</div><label></td>'
+                            '<p>' + data[i].title + '</p>' + '</div><label></td>',
+                            '<td>' + '<label for="cb' + data[i].privilegeID + '"><input type="checkbox" id="cb' + data[i].privilegeID + '" class="check-all-vip" data-id="' + data[i].privilegeID +
+                            '" data-title="' + data[i].title + '" data-status="' + data[i].status + '"  data-usercount="' + data[i].userCount + '"  data-vipcount="' + data[i].vipCount +
+                            '"   data-membershipid="' + data[i].membershipID + '" ' + vipstats + '/>' +
+                            '<div>' +
+                            '<p></p>' +
+                            '<p>isVIP</p>' + '</div><label></td>'
                         ]);
 
                     }
@@ -371,8 +402,27 @@
 
             }, 100);
 
-        }
+        } 
+        function CheckedRows_3() {
+            VIPList = [];
+            $('.check-all-vip:checked').each(function (id, item) {
+                var id = $(item).data('id');
+                var status = $(item).data('status');
 
+                var stats = "";
+
+                VIPList.push({
+                    privilegeID: id,
+                    status: "1",
+                    CorporateID: corpid,
+                    usercount: usercount,
+                    vipcount: vipcount,
+                    stats: "1"
+
+                });
+            });
+            return VIPList;
+        }
 
         function CheckedRows_2() {
             IdList = [];
@@ -395,18 +445,27 @@
             return IdList;
         }
         $("#checkall").click(function () {
-            $("input:checkbox").not(this).prop("checked", this.checked);
+            $(".check-all").not(this).prop("checked", this.checked).toggleClass("check-all-vip", this.checked);
             if ($(this).prop("checked") == true) {
                 $("#checkers").html("Uncheck All");
             } else {
                 $("#checkers").html("Check All");
             }
         });
+            $("#isVIP_CheckAll").click(function () {
+            $(".check-all-vip").not(this).prop("checked", this.checked);
+            if ($(this).prop("checked") == true) {
+                $("#isVIP").html("Uncheck All");
+            } else {
+                $("#isVIP").html("Check All");
+            }
+        });
         $('#privlist2').submit(function (e) {
             e.preventDefault();
     
         @* var data={}; *@
-                console.log(usercount);
+            //console.log(usercount);
+            //console.log(CheckedRows_3());
         @* data.CorporateID = corpid;
             data.userCount = usercount;;
             data.vipCount = vipcount; *@
@@ -426,7 +485,7 @@
                 position: 'center',
                 buttons: [
                     ['<button><b>YES</b></button>', function (instance, toast) {
-
+               
                         $.blockUI(reloadLoading);
                         $.ajax({
                             url: '/MembershipPrivilege/SavepCorporatePrivlist',
@@ -443,6 +502,18 @@
                             else {
                                 notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
                                 ShowprivilegeList();
+
+                                $.ajax({
+                                        url: '/MembershipPrivilege/SavepCorporatePrivlistisVIP',
+                                        data: {
+                                        VIPList: CheckedRows_3(),
+                                        },
+                                        type: "POST",
+                                        datatype: "json",
+                                        success: function (data) {
+                                            //console.log(data);
+                                        }
+                                    });
                             }
 
                             $(".alert-warning").hide();
