@@ -155,6 +155,7 @@ namespace AOPC.Controllers
             public string? CorporateID { get; set; }
             public string? status { get; set; }
             public string? stats { get; set; }
+            public string? vipstats { get; set; }
         }
         [HttpPost]
         public async Task<IActionResult> SavepCorporatePrivlist(List<PrivCorp> IdList)
