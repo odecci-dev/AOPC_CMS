@@ -33,7 +33,7 @@
                         <div class="col-lg-10">
 
                                 <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
-                                    <table id="_corporate-table" class="myTableMedium">
+                                    <table id="_corporate-table" class="myTableLarge">
                                          <thead>
                                         <th>
                                            <button class="register"  style ="margin-bottom: 5px;font-size: 13px; height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem); width:100px" title="Add New" id="add-newcorporate"><i class="fas fa-user-plus"></i>Add New</button>
@@ -222,8 +222,8 @@
 
                     <form action="" class="mod-form" id="privlist2">
                         <div>
-                      
-                                <p style="
+
+                            <p style="
                                             color: white;
                                             margin-bottom:15px;
                                             text-align: center;
@@ -231,33 +231,35 @@
                                             padding: 5px;">Available Privilege</p>
 
 
-                     
+
                         </div>
-                        <table class="privTable" id="privilegelist-table">
-                            <thead>
-                     
-                            <th>
-                                <input type="checkbox" class="check-all" id="checkall" />
-                                <labebl id="checkers" style="text-align:center"> Check All</labebl>
-                            </th>
-                            <th>
+                        <div style="overflow-y: scroll; height: 500px">
+                            <table class="privTable" id="privilegelist-table">
+                                <thead>
 
-                                <input type="checkbox" class="check-all-vip" id="isVIP_CheckAll" />
-                                <labebl id="isVIP" style="text-align:center"> Check All</labebl>
-                            </th>
+                                <th>
+                                    <input type="checkbox" class="check-all" id="checkall" />
+                                    <labebl id="checkers" style="text-align:center"> Check All</labebl>
+                                </th>
+                                <th>
 
-                            </thead>
-                            <tbody style="
-                                      height: 300px;">
-                            </tbody>
-                        </table>
-                        <div class="mod-form-row">
-                            <div class="input-container-whole" style="width: 98%;">
-                                <div class="actionss_" style="align-items: center;">
-                                    <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
-                                    <input type="submit" value="Submit" id="save-privmemlist" />
-                                </div>
+                                    <input type="checkbox" class="check-all-vip" id="isVIP_CheckAll" />
+                                    <labebl id="isVIP" style="text-align:center"> Check All</labebl>
+                                </th>
+
+                                </thead>
+                                <tbody style="
+                                      height: auto;">
+                                </tbody>
+                            </table>
                             </div>
+                            <div class="mod-form-row">
+                                <div class="input-container-whole" style="width: 98%;">
+                                    <div class="actionss_" style="align-items: center;">
+                                        <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
+                                        <input type="submit" value="Submit" id="save-privmemlist" />
+                                    </div>
+                                </div>
                     </form>
 
 
@@ -288,7 +290,7 @@
                 "bAutoWidth": false,
                 "bLengthChange": false,
                 "paging": true,
-                "aLengthMenu": [4],
+                "aLengthMenu": [10],
                 "searching": true
                 , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
@@ -462,17 +464,10 @@
         });
         $('#privlist2').submit(function (e) {
             e.preventDefault();
-    
-        @* var data={}; *@
-            //console.log(usercount);
-            //console.log(CheckedRows_3());
-        @* data.CorporateID = corpid;
-            data.userCount = usercount;;
-            data.vipCount = vipcount; *@
-                              var data = {};
-                data.IdList = CheckedRows_2();
+            var data = {};
+            data.IdList = CheckedRows_2();
          
-                message = 'Are you sure you want to Add new Privilege';
+            message = 'Are you sure you want to Add new Privilege';
             
             iziToast.question({
                 timeout: 20000,
@@ -515,7 +510,7 @@
                                         }
                                     });
                             }
-
+                            $('#privilegelistmodal2').modal('hide');
                             $(".alert-warning").hide();
 
                             $.unblockUI();
@@ -544,7 +539,7 @@
                 $('input[type="number"]').val("");
                 $('#position').prop('selectedIndex', 0);
                 $('#gender').prop('selectedIndex', 0);
-            $('#corp-mem-option').prop('selectedIndex', 0);
+                $('#corp-mem-option').prop('selectedIndex', 0);
                 $('#_corporateModal').modal('show');
                 document.getElementById("corporatemodal-name").innerHTML = ' Add New Corporate'.bold();
 
@@ -567,13 +562,13 @@
                 vipcount = $(this).data("vcount");
                 document.getElementById("priv-names").innerHTML = tier;
                 $('#privilegelistmodal2').modal('show');
-            ShowprivilegeListModal(i_id,memid);
+                ShowprivilegeListModal(i_id,memid);
 
             });
                 $('#btn-download-corporate').click(function () {
                       location.replace('../Corporate/DownloadHeader');
                     });
-@* User register edit *@
+
                     $('#_corporate-table').on('click', '.tbl-edit', function () {
                       i_id = $(this).data("id");
                       corporatename = $(this).data("corporatename");
@@ -727,37 +722,10 @@
                                     }).done(function (response) {
 
                                          notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                            //$.ajax({
-                                            //url: '/Corporate/SaveMembershipPrivilegeCount',
-                                            //    data: {
-                                            //        data: data,
-                                            //    },
-                                            //    type: "POST",
-                                            //    datatype: "json",
-                                            //    success: function (response) {
-                                            //        if(response.stats != "Success")
-                                            //        {
-                                            //         notifyMsg('Warning!', response.stats, 'red', 'fas fa-exclamation-triangle');
-                                            //        }
-                                            //    }
-                                            //});
+                                       
                              
                                             ShowCorporateDetails();
                                             $(".cancel").click();
-                                           @* $.ajax({
-                                            url: '/Register/UploadFile',
-                                            type: 'POST',
-                                            data: formData,
-                                            processData: false,
-                                            contentType: false,
-                                            success: function (result) {
-                                            }
-                                            });
-                                            notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                            ShowUserDetails();
-                                            clear();
-                                            $("#h-close").click();
-                                        *@
                                         
                                      
                                         $.unblockUI();

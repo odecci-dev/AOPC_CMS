@@ -51,9 +51,31 @@
 </div> 
 @section Scripts{
         <script>
-          i_id=0;
+            i_id = 0;
+            var prev = 0;
+            var next = 0;
+            var spanval = "";
+            var currpage = "";
             $(document).ready(function () {
-               
+                var data = {};
+                data.FilterName = "";
+                data.page = "0";
+                $.ajax({
+                    url: '/Dashboard/GetDataNotification',
+                    data: {
+                        data: data,
+                    },
+                    type: "POST",
+                    datatype: "json",
+                    success: function (data) {
+                        //console.log(data[0].items);
+                        for (var i = 0; i < data[0].totalPage; i++) {
+                            var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
+
+                            $("#counter").append(newSpan);
+                        }
+                    }
+                });
                notiftable = $('#notif-table').DataTable({
                     "columnDefs": [
 
@@ -77,7 +99,35 @@
                       "searching": true,
                     "oLanguage": { "sZeroRecords": "", "sEmptyTable": ""
                 }});
-               ShowNotificationList();
+                //ShowNotificationList();
+                paginationnotification(spanval);
+            });
+            $('#counter').on('click', '.tbl-pagenumber', function () {
+                spanval = $(this).text();
+                $(".tbl-pagenumber").removeClass("active-page");
+
+                $(this).addClass("active-page");
+                paginationnotification(spanval);
+
+            });
+
+            $('#next').click(function () {
+                //
+                next = parseInt(next);
+                $(".tbl-pagenumber").removeClass("active-page");
+                console.log(next);
+                $("#spanId" + (next)).addClass("active-page");
+                paginationnotification(next);
+
+            });
+            $('#prev').click(function () {
+
+                prev = parseInt(prev);
+                $(".tbl-pagenumber").removeClass("active-page");
+                console.log(prev);
+                $("#spanId" + (prev)).addClass("active-page");
+                paginationnotification(prev);
+
             });
  function ShowNotificationList() {
    $.blockUI(reloadLoading);
@@ -114,7 +164,46 @@
 
             }, 100);
 
-}
+ }
+            //function paginationnotification(spanval) {
+            //    var data = {};
+            //    data.FilterName = "";
+            //    data.page = spanval;
+
+            //    $.blockUI(reloadLoading);
+            //    setTimeout(function () {
+            //        $.ajax({
+            //            url: '/Dashboard/GetDataNotification',
+            //            data: {
+
+            //            },
+            //            type: "GET",
+            //            datatype: "json"
+            //        }).done(function (data) {
+
+            //            notiftable.clear().draw();
+            //            for (var i = 0; i < data.length; i++) {
+
+            //                var tbl = "<div>" + "<p>" + data[i].employeeID + "</p>" + "<p>" + data[i].fullname + "</p>";
+
+
+            //                $('#notif-table').dataTable().fnAddData([
+
+            //                    '<td>' + tbl + '</td>',
+            //                    '<td>' + data[i].details + '</td>',
+            //                    '<td>' + data[i].isRead + '</td>',
+            //                    '<td>' + data[i].dateCreated + '</td>',
+
+
+            //                ]);
+            //            }
+            //            $.unblockUI();
+            //        }).fail(function () {
+            //            alert("There was an Error When Loading Data...");
+            //        });
+
+            //    }, 100);
+            //}
 
 </script>
 }

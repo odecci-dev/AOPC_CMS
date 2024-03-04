@@ -184,6 +184,7 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = status });
         }
+
         [HttpPost]
         public async Task<IActionResult> SavepCorporatePrivlistisVIP(List<PrivCorpisVIP> VIPList)
         {
@@ -295,6 +296,98 @@ namespace AOPC.Controllers
             public string Id { get; set; }
             public string memid { get; set; }
 
+        }public class VenIDs
+        {
+            public string Id { get; set; }
+            public string? vid { get; set; }
+
+        }
+        public class PrivVendListItem
+        {
+            public string? Id { get; set; }
+            public string? VendorName { get; set; }
+            public string? PrivilegeID { get; set; }
+            public string? vid { get; set; }
+            public string? stats { get; set; }
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SavepVendorPrivlist(List<PrivVendListItem> IdList)
+        {
+            string status = "";
+            try
+            {
+
+                var url = DBConn.HttpString + "/api/ApiMembership/SaveVendorePrivilegeList";
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(IdList), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync(url, content))
+                    {
+                        _global.Status = await response.Content.ReadAsStringAsync();
+                        status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                status = ex.GetBaseException().ToString();
+            }
+            return Json(new { stats = status });
+        }
+        public async Task<IActionResult> UploadFile(List<IFormFile> postedFiles)
+        {
+            int i;
+            var stream = (dynamic)null;
+            string wwwPath = this.Environment.WebRootPath;
+            string contentPath = this.Environment.ContentRootPath;
+            int ctr = 0;
+            string img = "";
+
+            for (i = 0; i < Request.Form.Files.Count; i++)
+            {
+                if (Request.Form.Files[i].Length > 0)
+                {
+                    var filePath = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\";
+                    //var filePath = Environment.WebRootPath + "\\uploads\\";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    List<string> uploadedFiles = new List<string>();
+
+
+                    Guid guid = Guid.NewGuid();
+                    string getextension = Path.GetExtension(Request.Form.Files[i].FileName);
+                    string MyUserDetailsIWantToAdd = "EMP-01" + getextension;
+                    string file = Path.Combine(filePath, Request.Form.Files[i].FileName);
+
+                   stream = new FileStream(file, FileMode.Create);
+                    Request.Form.Files[i].CopyToAsync(stream);
+                    //status = "https://www.alfardanoysterprivilegeclub.com/assets/img/" + MyUserDetailsIWantToAdd;
+                    foreach (IFormFile postedFile in postedFiles)
+                    {
+                        string fileName = Path.GetFileName(postedFile.FileName);
+                        using (FileStream streams = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
+                        {
+                            postedFile.CopyTo(streams);
+                            uploadedFiles.Add(fileName);
+                            ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", fileName);
+                        }
+                    }
+                }
+                ctr++;
+                stream.Close();
+                stream.Dispose();
+            }
+
+            if (Request.Form.Files.Count == 0) { status = "Error"; }
+            return Json(new { stats = status });
         }
         [HttpPost]
         public async Task<IActionResult> PrivilegeCorporateList(privIDs data)
@@ -316,6 +409,29 @@ namespace AOPC.Controllers
 
             return Json(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PrivilegeVendorList(VenIDs data)
+        {
+
+            List<PrivVendListItem> model = new List<PrivVendListItem>();
+            HttpClient client = new HttpClient();
+            var url = DBConn.HttpString + "/api/ApiMembership/PrivilegeVendorList";
+            _global.Token = _global.GenerateToken("token", _appSettings.Key.ToString());
+            // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            using (var response = await client.PostAsync(url, content))
+            {
+                var res = await response.Content.ReadAsStringAsync();
+                model = JsonConvert.DeserializeObject<List<PrivVendListItem>>(res);
+            }
+
+
+            return Json(model);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> SaveMembershipTier(MembershipModelVM data)
         {

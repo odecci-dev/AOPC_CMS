@@ -16,7 +16,7 @@
               </th>
  
               <th>Promo</th>
-              <th>Type</th>
+              @*<th>Type</th>*@
               <th>Date Created</th>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@
           <table class="myTableLarge" id="b-table">
             <thead>
               <th>
-                <button class="register" title="Add New" id="add-business"><i class="fas fa-plus-circle"></i>Add New</button>
+                <button xr title="Add New" id="add-business"><i class="fas fa-plus-circle"></i>Add New</button>
               </th>
               <th>Location</th>
               <th>Address</th>
@@ -123,7 +123,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 <div class="modal fade" id="btypemodal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
         aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static" >
    <div class="modal-dialog modal-error-dialog" style="max-width: 600px;margin: 1.75rem auto;">
@@ -163,14 +163,14 @@
               <input type="text" value="" id="btypename"  class="mod-input"  placeholder="Business Type Name" required />
              
             </div>
-            <div class="input-container-whole">
+            @*<div class="input-container-whole">
               <label for="vipStatus">VIP Status</label>
               <select id="vip-option"  class="mod-input" required>
                         <option value="" disabled selected>Select your option</option>
                         <option value="1">Yes</option>
                         <option value="0">No</option>            
               </select>
-            </div>
+            </div>*@
                
           </div>
           <div class="mod-form-row">
@@ -497,25 +497,13 @@
 
 
 
-  var tdbuttons = ' <div class="data-img">' +
+            var tdbuttons = ' <div class="data-img">' +
           '<img src=' + data[i].featureImg + ' alt=' + data[i].businessName + ' width="100%" />' +
           '</div>' +
           '<div>' +
           '<p>' + data[i].businessID + '</p>' +
           '<p>' + data[i].businessName + '</p>' +
-           '<div class="action"><a class="tbl-edit" data-id="'+data[i].id 
-                          + '" data-hotelname="' + data[i].businessName
-                          + '" data-btypeid="' + data[i].btypeid
-                          + '" data-blocid="' + data[i].blocid
-                          + '" data-desc="' + data[i].description
-                          + '" data-address="' + data[i].address
-                          + '" data-cno="' + data[i].cno
-                          + '" data-email="' + data[i].email
-                          + '" data-url="' + data[i].url
-                          + '" data-map="' + data[i].map
-                          + '" data-fimg="' + data[i].featureImg
-                            + '" data-gallery="' + data[i].gallery
-                          + '" data-services="' + data[i].services + '">'+
+           '<div class="action"><a class="tbl-edit" data-id="'+data[i].id  + '">'+
           '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
           '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
           'stroke="black"' +
@@ -549,8 +537,8 @@
 
 
               
- ]);
-      }
+                ]);
+        }
       $.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
@@ -576,87 +564,113 @@
           $('#b-table').on('click', '.tbl-edit', function () {
                     
                   i_id = $(this).data("id");
-                  BusinessName  = $(this).data("hotelname");
-                  TypeId  = $(this).data("btypeid");
-                  LocationId  = $(this).data("blocid");
-                  Description  = $(this).data("desc");
-                  Address  = $(this).data("address");
-                  Cno  = $(this).data("cno");
-                  Email  = $(this).data("email");
-                  Url  = $(this).data("url");
-                  Services  = $(this).data("services");
-                  FeatureImg   = $(this).data("fimg");
-                  Map   = $(this).data("map");
-                  gallery =  $(this).data("gallery");
-            //console.log(gallery);
-
-                  $('#hotelname').val(BusinessName);
-                  $('#btype-option').val(TypeId);
-                  $('#bloc-option').val(LocationId);
-                  $('#descrip').val(Description);
-                  $('#Address').val(Address);
-                  $('#cno').val(Cno);
-                  $('#email').val(Email);
-                  $('#Url').val(Url);
-                  $('#Services').val(Services);
-                  $('#Map').val(Map);
-
-                  if (FeatureImg != null) 
-                  {
-                    var img = $('<img>').attr('src', FeatureImg);
-                    img.attr('height', '120px');
-                    img.attr('width', '120px');
-                    $('.upload-image-preview').html(img);
-                  } 
-                  else {
-                    document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
-                  }
-                   img_edit= FeatureImg.split('/')[5];
-                  document.getElementById("bmodal-name").innerHTML= 'Edit Business Location';
-                  document.getElementById("btn-save").innerHTML= 'Update';
-                  let gal_img = gallery;
-                  const myarray = gal_img.split(";");
-                  for (var i = 0; i < myarray.length; i++) {
-                    //console.log(myarray[i].split('/')[5]);
-                   }
-                   var data = {};
-                    data.id = i_id;
-                        $.ajax({
-                            url: '/Business/GetBusinessGalArray',
+                  
+                  var data = {};
+              data.id = i_id;
+              console.log(data);
+                  $.ajax({
+                      url: '/Business/GetBusinessFilter',
                             data: {
                                 data: data,
                             },
                             type: "POST",
                             datatype: "json",
-                            success: function (data) {
-                                var container =  $('#upload-image-preview_multiple');     
-                                container.empty();
-                                for (var i = 0; i < data.length; i++) {
-                                    //console.log( data[i].gallery)
-                                        var img = $('<img>').attr('src', data[i].gallery);
-                                        var imgs = $('<img>').attr('name', data[i].gallery);
-                                        var span = $('<span>').attr('class', "remove");
-                                        var div = $('<span>').attr('class', "pip");
-                                        img.attr('height', '50px');
-                                        img.attr('width', '50px');
-                                        img.attr('id', data[i].id);
-                                        img.attr('class',"imageThumb");
-                                        span.text("x");
-                                        span.attr("onclick", "removegallerydata()");
-                                        div.append(img);
-                                        div.append(imgs);
-                                        div.append(span);
-                                        container.append(div);
+                      success: function (data) {
+                          //console.log(data);
+                          for (var i = 0; i < data.length; i++) {
 
-                        $(".remove").click(function () {
-                            $(this).parent(".pip").remove();
-                        });
 
-                    }
-                    }
-            });
-                  $('#bmodal').modal('show');
-          });
+
+
+                                                //BusinessName = $(this).data("hotelname");
+                                                //TypeId = $(this).data("btypeid");
+                                                //LocationId = $(this).data("blocid");
+                                                //Description = $(this).data("desc");
+                                                //Address = $(this).data("address");
+                                                //Cno = $(this).data("cno");
+                                                //Email = $(this).data("email");
+                                                //Url = $(this).data("url");
+                                                //Services = $(this).data("services");
+                                                FeatureImg = data[i].featureImg;
+                                                //Map = $(this).data("map");
+                                                gallery = data[i].gallery;
+                                                $('#hotelname').val(data[i].businessName);
+                                                $('#btype-option').val(data[i].btypeid);
+                                                $('#bloc-option').val(data[i].blocid);
+                                                $('#descrip').val(data[i].description);
+                                                $('#Address').val(data[i].address);
+                                                $('#cno').val(data[i].cno);
+                                                $('#email').val(data[i].email);
+                                                $('#Url').val(data[i].url);
+                                                $('#Services').val(data[i].services);
+                                                $('#Map').val(data[i].map);
+
+                                                if (FeatureImg != null) {
+                                                    var img = $('<img>').attr('src', FeatureImg);
+                                                    img.attr('height', '120px');
+                                                    img.attr('width', '120px');
+                                                    $('.upload-image-preview').html(img);
+                                                }
+                                                else {
+                                                    document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+                                                }
+                                                img_edit = FeatureImg.split('/')[5];
+                                                document.getElementById("bmodal-name").innerHTML = 'Edit Business Location';
+                                                document.getElementById("btn-save").innerHTML = 'Update';
+                                                let gal_img = gallery;
+                                                const myarray = gal_img.split(";");
+                                                for (var i = 0; i < myarray.length; i++) {
+                                                    //console.log(myarray[i].split('/')[5]);
+                                                }
+                                              var data = {};
+                                              data.id = i_id;
+                                              console.log(data);
+                                                $.ajax({
+                                                    url: '/Business/GetBusinessGalArray',
+                                                    data: {
+                                                        data: data,
+                                                    },
+                                                    type: "POST",
+                                                    datatype: "json",
+                                                    success: function (data) {
+                                                        //console.log(data);
+                                                        var container = $('#upload-image-preview_multiple');
+                                                        container.empty();
+                                                        for (var i = 0; i < data.length; i++) {
+                                                            //console.log( data[i].gallery)
+                                                            var img = $('<img>').attr('src', data[i].gallery);
+                                                            var imgs = $('<img>').attr('name', data[i].gallery);
+                                                            var span = $('<span>').attr('class', "remove");
+                                                            var div = $('<span>').attr('class', "pip");
+                                                            img.attr('height', '50px');
+                                                            img.attr('width', '50px');
+                                                            img.attr('id', data[i].id);
+                                                            img.attr('class', "imageThumb");
+                                                            span.text("x");
+                                                            span.attr("onclick", "removegallerydata()");
+                                                            div.append(img);
+                                                            div.append(imgs);
+                                                            div.append(span);
+                                                            container.append(div);
+
+                                                            $(".remove").click(function () {
+                                                                $(this).parent(".pip").remove();
+                                                            });
+
+                                                        }
+                                                    }
+                                                });
+                                                $('#bmodal').modal('show');
+                          }
+                      }
+
+                        
+                            //});
+                   });
+
+                 
+         
+     });
               
     function removegallerydata(e)
     {
@@ -672,7 +686,7 @@
                     imgurl = $(this).data("imgurl");
                     console.log(promoText);
                     $('#promoT').val(promoText);
-                    $('#vip-option').val(isVIP);
+                    //$('#vip-option').val(isVIP);
                     $('#btypename').val(btypename);
                     $('#description').val(desc);
                       if (imgurl != null) 
@@ -867,7 +881,7 @@
            $('#btypeadd-btn').click(function () {
                 i_id=0;
                 $('input[type="text"]').val("");
-                $('#vip-option').prop('selectedIndex', 0);
+                //$('#vip-option').prop('selectedIndex', 0);
                 document.getElementById("btypemodalmodal-name").innerHTML = 'Add Business Type';
                 document.getElementById("btypesave").innerHTML = 'Save';
                 $('#btypemodal').modal('show');
@@ -979,7 +993,7 @@
               data.id = i_id;
               data.BusinessTypeName = $('#btypename').val();
               data.Description = $('#description').val();
-              data.isVIP = $('#vip-option').val();
+                data.isVIP = "";
               data.PromoText = $('#promoT').val();
               data.ImgURL=filename;
               let message="";
@@ -1052,9 +1066,9 @@
               }
               var image="";
             $('#upload-image-preview_multiple').find('img').each(function (index, value) {
-                 image += this.name +"%";
+                 image += this.name +";";
                });
-
+       
             console.log(image);
                 var input = document.getElementById('fileUpload');
               var data = {};

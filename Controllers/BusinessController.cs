@@ -84,7 +84,36 @@ namespace AOPC.Controllers
             public string Gallery { get; set; }
 
         }
-     
+        public class Bid
+        {
+            public string id { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetBusinessFilter(Bid data)
+        {
+            string result = "";
+            var list = new List<BusinessModelVM>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiBusiness/BusinessFiltered";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<BusinessModelVM>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+
+        }
         [HttpGet]
         public async Task<JsonResult> GetBusinessList()
         {
@@ -105,9 +134,9 @@ namespace AOPC.Controllers
             public string Status { get; set; }
 
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> GetBusinessGalArray(Deletebloc data)
+        public async Task<IActionResult> GetBusinessGalArray(Bid data)
         {
 
             string result = "";
@@ -367,7 +396,7 @@ namespace AOPC.Controllers
         }
         public IActionResult Index()
         {
-            string  token = HttpContext.Session.GetString("Bearer");
+            string token = HttpContext.Session.GetString("Bearer");
             if (token == null)
             {
                 return RedirectToAction("Index", "LogIn");

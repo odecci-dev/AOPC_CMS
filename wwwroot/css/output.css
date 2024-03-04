@@ -1124,6 +1124,13 @@ table.privTable {
   -webkit-border-horizontal-spacing: 0;
   margin: 0 auto;
 }
+table.vndrTable {
+    width: 95%;
+    margin-top: 5px;
+    border-radius: 10px;
+    -webkit-border-horizontal-spacing: 0;
+    margin: 0 auto;
+}
 
 table.myTableMedium thead {
   background-color: var(--light);
@@ -1131,6 +1138,9 @@ table.myTableMedium thead {
 
 table.privTable thead {
   background-color: var(--light);
+}
+table.vndrTable thead {
+    background-color: var(--light);
 }
 
 table.myTableMedium th {
@@ -1150,6 +1160,14 @@ table.privTable th {
   border-bottom: 2px solid var(--shade);
   text-align: left;
 }
+table.vndrTable th {
+    height: 40px;
+    color: var(--dark);
+    border: 0;
+    font-size: clamp(0.5rem, 2vw, 0.7rem);
+    border-bottom: 2px solid var(--shade);
+    text-align: left;
+}
 
 table.myTableMedium th:first-child {
   /* display: flex; */
@@ -1163,6 +1181,12 @@ table.privTable th:first-child {
   align-items: center;
   justify-content: start;
   gap: 10px;
+}
+table.vndrTable th:first-child {
+    /* display: flex; */
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
 }
 
 table.myTableMedium tbody {
@@ -1180,6 +1204,9 @@ table.myTableMedium tbody tr {
 
 table.privTable tbody tr {
   transition: all 0.5s ease-in-out;
+}
+table.vndrTable tbody tr {
+    transition: all 0.5s ease-in-out;
 }
 
 table.myTableMedium tbody tr:nth-child(even) {
@@ -1205,6 +1232,10 @@ table.myTableMedium td {
 table.privTable td {
   font-size: clamp(0.5rem, 2vw, 0.7rem);
   color: var(--dark);
+}
+table.vndrTable td {
+    font-size: clamp(0.5rem, 2vw, 0.7rem);
+    color: var(--dark);
 }
 .dataTables_empty {
     visibility: collapse;
@@ -1254,12 +1285,11 @@ table.privTable tbody tr td:nth-child(1) p:nth-child(1) {
 }
 
 table.myTableMedium tbody tr td:nth-child(1) .actions {
-  font-size: clamp(0.3rem, 2vw, 0.5rem);
-  /* color: var(--shade); */
-  opacity: 0;
-  height: 0;
-  transition: all 0.3s ease-in;
-  display: flex;
+    font-size: clamp(0.3rem, 2vw, 0.5rem);
+    opacity: 1;
+    height: 2rem;
+    transition: all 0.3s ease-in;
+    display: flex;
 }
 #datecreated
 {
@@ -1281,12 +1311,11 @@ table.myTableMedium tbody tr td:nth-child(1) .actions_ {
 }
 
 table.privTable tbody tr td:nth-child(1) .actions {
-  font-size: clamp(0.3rem, 2vw, 0.5rem);
-  /* color: var(--shade); */
-  opacity: 0;
-  height: 0;
-  transition: all 0.3s ease-in;
-  display: flex;
+    font-size: clamp(0.3rem, 2vw, 0.5rem);
+    opacity: 1;
+    height: 2rem;
+    transition: all 0.3s ease-in;
+    display: flex;
 }
 
 table.myTableMedium tbody tr td:nth-child(1) p:nth-child(2) {

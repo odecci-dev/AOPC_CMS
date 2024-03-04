@@ -122,7 +122,56 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
-
+        [HttpPost]
+        public async Task<IActionResult> GetVendorListId(Bid data)
+        {
+            string result = "";
+            var list = new List<VendorVM>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiVendor/VendorFilterbYId";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<VendorVM>>(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        public class VendorNameModel
+        {
+            public string VendorName { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetVendorSearch(VendorNameModel data)
+        {
+            string result = "";
+            var list = new List<VendorVM>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiVendor/VendorSearch";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<VendorVM>>(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
         [HttpPost]
         public async Task<IActionResult> GetVendorGallery(Bid data)
         {
@@ -149,6 +198,7 @@ namespace AOPC.Controllers
             return Json(list);
         
         }
+
         [HttpPost]
         public async Task<IActionResult> SaveVendorInfo(VendorModel data)
         {
@@ -577,7 +627,7 @@ namespace AOPC.Controllers
         
         public IActionResult Index()
         {
-            string token = token_.GetValue();
+            string token = HttpContext.Session.GetString("Bearer");
             if (token == null)
             {
                 return RedirectToAction("Index", "LogIn");

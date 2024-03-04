@@ -23,6 +23,7 @@ using System.ComponentModel;
 using System.Drawing;
 using Net.SourceForge.Koogra.Excel2007.OX;
 using static AOPC.Controllers.RegisterController;
+using static AOPC.Controllers.VendorController;
 
 namespace AOPC.Controllers
 {
@@ -58,6 +59,43 @@ namespace AOPC.Controllers
                 return RedirectToAction("Index", "LogIn");
             }
             return View();
+        }
+        public class NotificationPaginateModel
+        {
+            public string? CurrentPage { get; set; }
+            public string? NextPage { get; set; }
+            public string? PrevPage { get; set; }
+            public string? TotalPage { get; set; }
+            public string? PageSize { get; set; }
+            public string? TotalRecord { get; set; }
+            public List<NotificationVM> items { get; set; }
+
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetDataNotification(paginate data)
+        {
+            string result = "";
+            var list = new List<NotificationPaginateModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiPagination/NotificationPaginate";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<NotificationPaginateModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
         }
         [HttpGet]
         public async Task<JsonResult> GetNewRegisteredWeekly()

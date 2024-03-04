@@ -134,11 +134,11 @@
           <div class="mod-form-row">
             <div class="input-container-whole">
               <label for="fname">Start Date</label>
-               <input type="date" id="startdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" required />
+               <input type="date" id="startdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input"  />
             </div>
             <div class="input-container-whole">
               <label for="fname">End Date</label>
-               <input type="date" id="endate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" required />
+               <input type="date" id="endate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input"  />
             </div>
           </div>
            <div class="mod-form-row">
@@ -147,19 +147,19 @@
                   flex-direction: column;
                   width: 50%;">
                <label for="fname">From Time</label>
-               <input type="text" id="fromtime" class="mod-input" required />
+               <input type="text" id="fromtime" class="mod-input"  />
               </div>
                 <div style="display: flex;
                   flex-direction: column;
                   width: 50%;">
                  <label for="fname">To Time</label>
-               <input type="text" id="totime"  class="mod-input" required />
+               <input type="text" id="totime"  class="mod-input"  />
               </div>
               
             </div>
               <div class="input-container-whole">
               <label for="offerdays">Offer Days</label>
-              <input type="text" value="" id="offerdays" class="mod-input" required/>
+              <input type="text" value="" id="offerdays" class="mod-input" />
             </div>
           </div>
           
@@ -278,6 +278,7 @@
          ShowOptBtype();
          ShowVendorOpt();
          ShowprivOpt();
+
        });
         function CheckedRows() {
             IdList = [];
@@ -426,8 +427,10 @@
                       $(".upload-image-preview").attr("src", );
                       $('input[type="text"]').val("");
                       $('input[type="email"]').val("");
-                      @* $('#position').prop('selectedIndex', 0);
-                      $('#gender').prop('selectedIndex', 0); *@
+            $('#memtier-option').prop('selectedIndex', 0);
+            $('#btype-option').prop('selectedIndex', 0);
+            $('#vendor-option').prop('selectedIndex', 0);
+        @*$('#gender').prop('selectedIndex', 0); *@
                       $('#offeringmodal').modal('show');
 
                     });
@@ -661,7 +664,7 @@
                       var dateEdate = endDateTime.split("-");
                       var Sdate = dateSdate[2] + "-" + dateSdate[0] + "-" + dateSdate[1]; 
                       var Edate = dateEdate[2] + "-" + dateEdate[0] + "-" + dateEdate[1]; 
-                      //console.log(toTime);
+                        console.log(vendorID);
 
                       if (imgUrl != null) 
                                     {

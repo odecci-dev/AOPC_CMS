@@ -39,6 +39,7 @@
 
                            
                         <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
+                            <div style="overflow-y:scroll; height500px">
                                     <table id="register-table" class="myTableMedium">
                                          <thead>
                                         <th>
@@ -53,6 +54,7 @@
                                         <th>Date Created</th>
                                     </thead> 
                                     </table>
+                                    </div>
                                </div>
                             
                         </div>
@@ -123,6 +125,7 @@
 
                      
                                 <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
+                                        <div style="overflow-y:scroll; height500px">
                                     <table id="adminuser-table" class="myTableMedium">
                                          <thead>
                                         <th>
@@ -140,6 +143,7 @@
 
                                     </tbody>
                                     </table>
+                               </div>
                                </div>
                       
                         </div>
@@ -198,6 +202,7 @@
 
                           
                                <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
+                                       <div style="overflow-y:scroll; height500px">
                                     <table id="corporate-user-table" class="myTableMedium">
                                           <thead>
                                         <th>
@@ -215,6 +220,7 @@
 
                                     </tbody>
                                     </table>
+                               </div>
                                </div>
                             
                         </div>
@@ -1442,7 +1448,7 @@ End here *@
                     data.gender = $('#admin-gender').val();
                     data.Email = $('#admin-email').val();
                     data.positionID =1004;
-                    data.CorporateID = 1;
+                    data.CorporateID = 14;
                     data.Active = 1;
                     data.Type= 1;
                     data.FilePath=filename;
@@ -1535,8 +1541,9 @@ End here *@
                     data.Email = $('#corp-email').val();
                     data.positionID = $('#corp-position').val();
                     data.CorporateID =  $('#corp-corporate-option').val();
-                    data.Active = 2;
+                    data.isVIP = $('#vip-option').val();
                     data.Type= 2;
+                       data.Active = "2";
                     data.FilePath=filename;
                     data.isVIP = 0;
                     let valid = true;
