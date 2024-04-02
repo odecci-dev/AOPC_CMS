@@ -303,14 +303,11 @@
 
                 <form action="" class="mod-form" id="mem-submit">
                     <div class="mod-form-row">
-
                         <div class="mod-form-col">
                             <label for="membershipCard" class="file-upload-container">
                                 <span>Upload Membership Card Here</span>
                                 <div class="img-container-membershipCard">
-                                    <img width="100%"
-                                         src="https://www.svgrepo.com/download/83325/id-card.svg"
-                                         alt="" />
+                                    <img id="membershipCardImg" width="100%" src="https://www.svgrepo.com/download/83325/id-card.svg" alt="" />
                                 </div>
                                 <input type="file"
                                        value=""
@@ -362,19 +359,19 @@
                             </label>
                         </div>
                         @*<div class="mod-form-col">
-                                <label for="qrFame" class="file-upload-container">
-                                    <span>Upload VIP Badge Here</span>
-                                    <div class="img-container">
-                                        <img width="100%"
-                                             src="https://www.svgrepo.com/download/83325/id-card.svg"
-                                             alt="" />
-                                    </div>
-                                    <input type="file"
-                                           value=""
-                                           id="VipBadge"
-                                           class="mod-input img-choose" />
-                                </label>
-                            </div>*@
+                        <label for="qrFame" class="file-upload-container">
+                        <span>Upload VIP Badge Here</span>
+                        <div class="img-container">
+                        <img width="100%"
+                        src="https://www.svgrepo.com/download/83325/id-card.svg"
+                        alt="" />
+                        </div>
+                        <input type="file"
+                        value=""
+                        id="VipBadge"
+                        class="mod-input img-choose" />
+                        </label>
+                        </div>*@
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
@@ -952,9 +949,42 @@ $("#checkAll2").click(function () {
                     });
                      $('#add-membershipTier').click(function () {
                       i_id = 0;
-                      $('.upload-image-preview').html(img);
-                      $(".upload-image-preview").attr("src", );
+
+
+                        var img = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+                        img.attr('height', '100px');
+                        img.attr('width', '100px');
+                        var img1 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+                        img1.attr('height', '100px');
+                        img1.attr('width', '100px');
+                          var img2 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+                        img2.attr('height', '100px');
+                        img2.attr('width', '100px');
+                          var img3 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+                        img3.attr('height', '100px');
+                        img3.attr('width', '100px');
+                    
+                        $('.img-container-membershipCard').html(img);
+                   
+                       $(".img-container-vipCard").html(img1);
+                       $(".img-container-qr").html(img2);
+                       $(".img-container-vipbadge").html(img3);
+                    
+                        //var vipbadge = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
+                        // //console.log(vipbadge);
+                        // if (vipbadge == "" || vipbadge == null) {
+                        //     vipbadge = vip_Badge_edit;
+                        // }
+                        // var qrFame = $("#qrFame").val().replace(/.*(\/|\\)/, '');
+                        // //console.log(qrFame);
+                        // if (qrFame == "" || qrFame == null) {
+                        //     qrFame = qrframe_edit;
+                        // }
+                        // var vipCard = $("#vipCard").val().replace(/.*(\/|\\)/, '');
+                      //$('.upload-image-preview').html(img);
+                      //$(".upload-image-preview").attr("src", );
                       $('input[type="text"]').val("");
+                      $('input[type="number"]').val("");
                       $('input[type="date"]').val("");
                       //$('#vendor-option').prop('selectedIndex', 0);
                       //$('#NoExpiry').prop('selectedIndex', 0);
@@ -1210,7 +1240,9 @@ $("#checkAll2").click(function () {
                          var qrFame = $("#qrFame").get(0);
                          var VipBadge = $("#VipBadge").get(0);
                          var files = membershipCard.files;
-                         var files_1 = vipCard.files;
+                         var files_1 = vipCard.
+                         
+                         .files;
                          var files_2 = qrFame.files;
                          var files_3 = VipBadge.files;
 
@@ -1225,10 +1257,11 @@ $("#checkAll2").click(function () {
                          formData.append('DateEnded', $('#dateended').val());
                          formData.append('UserCount',$('#usercount').val());
                          formData.append('VIPCount',$('#vipcount').val());
+                         formData.append('MembershipCard',membershipCard);
                          formData.append('VIPBadge', VipBadge);
                          formData.append('QRFrame', qrFame);
                          formData.append('VIPCard', vipCard);
-                         formData.append('MembershipCard',membershipCard);
+                     
                          formData.append('id',i_id);
                          console.log(formData);
                           var today = new Date();
@@ -1290,6 +1323,7 @@ $("#checkAll2").click(function () {
 
 
                                             }
+                                        $.unblockUI();
                                         }
                                     });
                                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
