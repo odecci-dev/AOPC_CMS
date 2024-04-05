@@ -594,7 +594,7 @@ async function ShowUserDetails() {
                 } else {
                     img = data[i].filePath;
                 }
-                //console.log(data[i].AllowNotif);
+                //console.log(data[i].allowNotif);
 
                 var tdbuttons = '<div class="data-img">' +
                     "<img src=" + img +
@@ -616,6 +616,7 @@ async function ShowUserDetails() {
                     '" data-pos="' + data[i].positionID +
                     '"  data-gender="' + data[i].gender +
                     '" data-utype="' + data[i].userType +
+                    '" data-notif="' + data[i].allowNotif +
                     '" data-usercorpid="' + data[i].corporateID +
                     '"  data-displayimg="' + data[i].filePath +
                     '"  data-vipstats="' + data[i].isVIP + '">' +

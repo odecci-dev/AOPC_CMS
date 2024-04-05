@@ -307,36 +307,38 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-
-                                string sql = $@"select Id from tbl_MembershipModel where Name='" + reader.GetValue(4).ToString() + "'";
-                                DataTable dt = db.SelectDb(sql).Tables[0];
-                                var memid = "";
-                                if (dt.Rows.Count > 0)
+                                if (reader.GetValue(1) != null)
                                 {
-                                    memid = dt.Rows[0]["Id"].ToString();
+                                    string sql = $@"select Id from tbl_MembershipModel where Name='" + reader.GetValue(4).ToString() + "'";
+                                    DataTable dt = db.SelectDb(sql).Tables[0];
+                                    var memid = "";
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        memid = dt.Rows[0]["Id"].ToString();
+                                    }
+                                    string CorporateName = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
+
+                                    string Address = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
+
+                                    string CNo = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
+
+                                    string EmailAddress = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
+
+                                    string MembershipID = reader.GetValue(4) == null ? "0" : memid;
+
+
+                                    data.Add(new CorporateModel
+                                    {
+                                        CorporateName = CorporateName,
+                                        Address = Address,
+                                        CNo = CNo,
+                                        EmailAddress = EmailAddress,
+                                        MembershipID = MembershipID,
+                                        Id = 0,
+                                        Status = 1
+
+                                    });
                                 }
-                                string CorporateName = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
-
-                                string Address = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
-
-                                string CNo = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
-
-                                string EmailAddress = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
-
-                                string MembershipID = reader.GetValue(4) == null ? "0" : memid;
-
-
-                                data.Add(new CorporateModel
-                                {
-                                    CorporateName = CorporateName,
-                                    Address = Address,
-                                    CNo = CNo,
-                                    EmailAddress = EmailAddress,
-                                    MembershipID = MembershipID,
-                                    Id = 0,
-                                    Status = 1
-
-                                });
                             }
                         }
                         reader.Close();
@@ -472,7 +474,9 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-                                string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
+                                if (reader.GetValue(1) != null)
+                                {
+                                    string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
                                 DataTable dt = db.SelectDb(sql).Tables[0];
                                 var corporateid = "";
                                 if (dt.Rows.Count > 0)
@@ -546,6 +550,7 @@ namespace AOPC.Controllers
                                     Id = 0,
 
                                 });
+                            }
                             }
                         }
                         reader.Close();

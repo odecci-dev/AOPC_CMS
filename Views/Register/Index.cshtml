@@ -894,7 +894,8 @@ End here *@
                       utype = $(this).data("utype");
                       vipstats = $(this).data("vipstats");
                       displayimg = $(this).data("displayimg");
-                      //console.log(vipstats);
+                      notif = $(this).data("notif");
+                      console.log(notif);
                       if (displayimg != null) {
                       var img = $('<img>').attr('src', displayimg);
                       img.attr('height', '120px');
@@ -914,21 +915,9 @@ End here *@
                       $("#user-corporate-option").val(corpid);
                       $("#usertype-option").val(utype);
                       $("#vip-option").val(vipstats);
-                        var data = {};
-                        data.Id = $('#user-corporate-option').val();
-                        var model ={};
-                             model.userid = i_id;
-                           $.ajax({
-                            url: '/Register/GetAllowEmailNotif',
-                            data: {
-                        model: model,
-                            },
-                            type: "POST",
-                            datatype: "json",
-                            success: function (response) {
-                            //console.log(response.stats);
-                        if (response.stats == 1) {
-                                console.log("true");
+    
+                             if ( $(this).data("notif") == 1) {
+                                //console.log("true");
                                 $("#checkp").prop("checked", true);
                             }
                             else
@@ -936,8 +925,31 @@ End here *@
                                   $("#checkp").prop("checked", false);
                             }
                             //$('#mem-option').val(response.stats);
-                          }
-                        });
+                          
+                        var data = {};
+                        data.Id = $('#user-corporate-option').val();
+                        //var model ={};
+                        //     model.userid = i_id;
+                        //   $.ajax({
+                        //    url: '/Register/GetAllowEmailNotif',
+                        //    data: {
+                        //model: model,
+                        //    },
+                        //    type: "POST",
+                        //    datatype: "json",
+                        //    success: function (response) {
+                        //    //console.log(response.stats);
+                        //if (response.stats == 1) {
+                        //        console.log("true");
+                        //        $("#checkp").prop("checked", true);
+                        //    }
+                        //    else
+                        //    {          console.log("false");
+                        //          $("#checkp").prop("checked", false);
+                        //    }
+                        //    //$('#mem-option').val(response.stats);
+                        //  }
+                        //});
                         
                         $.ajax({
                             url: '/Register/CorporateFilterMembership',

@@ -65,9 +65,10 @@ namespace AOPC.Controllers
             return response;
         }
         [HttpGet]
-                public async Task<JsonResult> GetuserList()
+        public async Task<JsonResult> GetuserList()
         {
-             var url = DBConn.HttpString + "/api/ApiRegister/UserAllist";
+            //var pass = Cryptography.Decrypt("P3wTSdRnPqH6NgzQ1Y7Mo7+3cfW8jPXUbhybTaPbhvw=");
+            var url = DBConn.HttpString + "/api/ApiRegister/UserAllist";
             HttpClient client = new HttpClient();
                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
             string response = await client.GetStringAsync(url);
@@ -676,7 +677,9 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-                                string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + reader.GetValue(7).ToString() + "'";
+                                if (reader.GetValue(1) != null)
+                                {
+                                    string sql = $@"select Id from tbl_CorporateModel where LOWER(CorporateName)='" + reader.GetValue(7).ToString().ToLower() + "'";
                                 DataTable dt = db.SelectDb(sql).Tables[0];
                                 var corporateid = "";
                                 if (dt.Rows.Count > 0)
@@ -687,7 +690,7 @@ namespace AOPC.Controllers
                                 {
                                     corporateid = "0";
                                 }
-                                string pos = $@"select Id from tbl_PositionModel where Name='" + reader.GetValue(4).ToString() + "'  ";
+                                string pos = $@"select Id from tbl_PositionModel where  LOWER(Name) ='" + reader.GetValue(4).ToString().ToLower() + "'  ";
                                 DataTable dts = db.SelectDb(pos).Tables[0];
                                 var positionid = "";
                                 if (dts.Rows.Count > 0)
@@ -751,6 +754,7 @@ namespace AOPC.Controllers
                                     Id = 0,
 
                                 });
+                            }
                             }
                         }
                         reader.Close();
@@ -829,7 +833,9 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-                                string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
+                                if (reader.GetValue(1) != null)
+                                {
+                                    string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
                                 DataTable dt = db.SelectDb(sql).Tables[0];
                                 var corporateid = "";
                                 if (dt.Rows.Count > 0)
@@ -840,7 +846,7 @@ namespace AOPC.Controllers
                                 {
                                     corporateid = "0";
                                 }
-                                string pos = $@"select Id from tbl_PositionModel where Name='" + reader.GetValue(4).ToString() + "'  ";
+                                string pos = $@"select Id from tbl_PositionModel where  LOWER(Name) ='" + reader.GetValue(4).ToString().ToLower() + "'  ";
                                 DataTable dts = db.SelectDb(pos).Tables[0];
                                 var positionid = "";
                                 if (dts.Rows.Count > 0)
@@ -903,6 +909,7 @@ namespace AOPC.Controllers
                                     Id = 0,
 
                                 });
+                            }
                             }
                         }
                         reader.Close();

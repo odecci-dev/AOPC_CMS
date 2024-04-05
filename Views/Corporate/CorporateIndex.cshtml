@@ -291,7 +291,7 @@
              </select>
           </div>
           </div>
-          <div class="actions">
+          <div class="corp_actions" style="display: flex; */ /* width: 100%; */ display: flex; /* width: 100%; */ justify-content: flex-end; align-items: center; gap: 20px; flex-direction: row; ">
             <a  data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel">Cancel</a>
             <input type="button" value="Submit" id="btn-register"/>
           </div>
@@ -358,14 +358,42 @@
 
                         }
                     });
-                    ShowPositionList();
+
+        CorpShowPositionList();
       ShowCorporateAdminList();
        @* UserShowPositionName(); *@
        @* ShowUserDetails(); *@
        @* ShowUserType();  *@
        UserAdminShowPositionName();
        });
+    async function CorpShowPositionList() {
+        $.blockUI(reloadLoading);
+        setTimeout(function () {
+            $.ajax({
+                url: "/Register/GetPosition",
+                data: {
+                },
+                type: "GET",
+                datatype: "json"
+            }).done(function (data) {
+                //console.log(data);
+                postable.clear().draw();
+                for (var i = 0; i < data.length; i++) {
 
+                    var tdbuttons = "<div>" + "<p>" + data[i].positionID + "</p>" + "<p>" + data[i].positionName + "</p>" +
+                        '<div class="actions"><a class="tbl-edit" data-id="' + data[i].id + '" data-posname="' + data[i].positionName + '"  data-description="' + data[i].description + '"   >' + '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' + '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + "</svg>" + "<span >Edit</span>" + " </a>";
+                    $("#pos-table").dataTable().fnAddData([
+                        "<td>" + tdbuttons + "</td>",
+                        "<td><p>" + data[i].description + "</p></td>",
+                        "<td><p>" + data[i].dateCreated + "</p></td>"]);
+                }
+                $.unblockUI();
+            })
+                .fail(function () {
+                    alert("There was an Error When Loading Data...");
+                });
+        }, 100);
+    }
    $('#user-corporate-option').change(function () {
                         var data = {};
                         data.Id = $('#user-corporate-option').val();
@@ -448,7 +476,7 @@ function ShowCorporateAdminList() {
               '<p>' + data[i].fname + ' ' + data[i].lname + '</p>' +
               '<div class="actions"><a class="tbl-edit" data-id="' + data[i].id + '" data-username="' + data[i].username + '" data-employeeid="' + data[i].employeeID +
               '" data-fname="' + data[i].fname + '" data-lname="' + data[i].lname + '" data-email="' + data[i].email + '" data-pos="' + data[i].positionID + '"  data-gender="' + data[i].gender + 
-              '" data-utype="' + data[i].userType + '" data-usercorpid="' + data[i].corporateID + '"  data-displayimg="' + data[i].filePath + '">' +
+              '" data-utype="' + data[i].userType + '" data-vipstats="' + data[i].isVIP + '" data-usercorpid="' + data[i].corporateID + '"  data-displayimg="' + data[i].filePath + '">' +
               '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
               '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
               'stroke="black"' +
@@ -482,7 +510,7 @@ function ShowCorporateAdminList() {
               '<td>' + data[i].corporatename + '</td>' +
               '<td>' + data[i].position + '</td>' +
               '<td>' + data[i].status + '</td>' +
-              '<td><p>' + data[i].dateCreated + '</p><p>' + data[i].dateCreated + '</p></td>',
+              '<td><p>' + data[i].dateCreated + '</p></td>',
               +'</tr>'
 
 
@@ -586,6 +614,7 @@ function ShowCorporateAdminList() {
                       gender = $(this).data("gender");
                       positionID = $(this).data("pos");
                       displayimg = $(this).data("displayimg");
+                      isVIP = $(this).data("vipstats");
                       console.log(i_id);
                       if (displayimg != null) {
                       var img = $('<img>').attr('src', displayimg);
@@ -601,7 +630,8 @@ function ShowCorporateAdminList() {
                       $("#fname").val(fname);
                       $("#lname").val(lname);
                       $("#email").val(email);
-                      $("#gender").val(gender);
+                        $("#gender").val(gender);
+                        $('#vip-option').val(isVIP);
                       $("#corpadminuser-position").val(positionID);
                         var data = {};
                         data.Id = $('#user-corporate-option').val();
@@ -752,7 +782,7 @@ function ShowCorporateAdminList() {
                     data.Active = "2";
                     data.Type=  3;
                     data.FilePath=filename;
-                    data.isVIP = $('#vipStatus').val();
+                        data.isVIP = $('#vip-option').val();
                     let valid = true;
                      
                     
@@ -818,6 +848,7 @@ function ShowCorporateAdminList() {
                                           ShowCorporateAdminList();
                                             clear();
                                             $("#h-close").click();
+                                            $('#registermodal').modal('hide');
                                        
                                         } 
                                      
