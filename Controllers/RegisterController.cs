@@ -676,7 +676,9 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-                                string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + reader.GetValue(7).ToString() + "'";
+                                if (reader.GetValue(1) != null)
+                                {
+                                    string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + reader.GetValue(7).ToString() + "'";
                                 DataTable dt = db.SelectDb(sql).Tables[0];
                                 var corporateid = "";
                                 if (dt.Rows.Count > 0)
@@ -751,6 +753,7 @@ namespace AOPC.Controllers
                                     Id = 0,
 
                                 });
+                            }
                             }
                         }
                         reader.Close();
@@ -829,7 +832,9 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-                                string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
+                                if (reader.GetValue(1) != null)
+                                {
+                                    string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
                                 DataTable dt = db.SelectDb(sql).Tables[0];
                                 var corporateid = "";
                                 if (dt.Rows.Count > 0)
@@ -903,6 +908,7 @@ namespace AOPC.Controllers
                                     Id = 0,
 
                                 });
+                            }
                             }
                         }
                         reader.Close();
@@ -1047,7 +1053,108 @@ namespace AOPC.Controllers
                HttpContext.Session.GetString("Id"),
                "2",
                HttpContext.Session.GetString("EmployeeID"));
-            HttpClient client = new HttpClient();
+            //          HttpClient client = new HttpClient();
+            //          var message = new MimeMessage();
+            //          message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
+            //          //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
+            //          message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, data.Email));
+            //          //message.To.Add(new MailboxAddress("Carl Jecson", "carl.jecson.d.galvez@odecci.com"));
+            //          //message.To.Add(new MailboxAddress("Agabi", "allan.gabriel@odecci.com"));
+            //          //message.To.Add(new MailboxAddress("Alibaba", "alisandro.villegas@odecci.com"));
+            //          message.Subject = "Email Registration Link";
+            //          var bodyBuilder = new BodyBuilder();
+
+            //          // bodyBuilder.HtmlBody = @"
+            //          // <div style='background-color:white;color:black;padding:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);'>
+            //          // <h1 style='text-align: center; font-family: 'Sigmar One', cursive;'>Welcome to Alfardan Oyster Privilege Club</h1>
+            //          // <p>Hello " + data.Fname + ",</p></br>" +
+            //          // "<p>This email  was sent to confirm your registration for Alfardan Oyster Privilege Club</p>" + 
+            //          // "<p>Name: " + data.Fname + " " + data.Lname + "</p>" +
+            //          // "<p>Email Address: " + data.Email + "</p></br>" +
+            //          // "<p>Please click this this link  " + "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'>Here</a> and complete your details and registration </br>" +
+            //          // "<p>For any concern please contact your admin.</p></br>" +
+            //          // "<p>Thank you,</p></br>" +
+            //          // "<p>Alfardan Oyster Privilege Club</p></br>" +
+            //          // @"
+            //          // </div>         
+            //          // ";
+            //          string img = "../img/AOPCBlack.jpg";
+            //          bodyBuilder.HtmlBody = @"<style>" +
+
+            //  "body {margin: 0;box-sizing: border-box;}" +
+            //  ".login-container {background-image: url(" + img + ");height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
+            //  ".gradient-border {height: 600px;width: 700px; display: flex;justify-content: center;background-color: transparent;border-width: 3px;box-sizing: content-box;border-style: solid;border-image-slice: 1;" +
+            //  "gap: 20px;border-image-source: linear-gradient(" +
+            //      "180deg," +
+            //      "#b07b29 17.26%," +
+            //      "#ebcc77 31.95%," +
+            //      "#b98732 53.29%," +
+            //      "#ecce79 74.41%," +
+            //      "#c69840 99.86%" +
+            //    ");" +
+            //    "flex-direction: column;}" +
+            //  ".login-container img {" +
+            //    "margin: 20px auto;" +
+            //    "width: 300px;" +
+            //    "height: 110px;" +
+            //  "}" +
+            //   "h1 {" +
+            //    " text-align: center;" +
+            //    " color: #d7d2cb;" +
+            //    " font-family: 'Montserrat-SemiBold';" +
+            //    " font-size: 2rem;" +
+            //   " font-style: italic;" +
+            //  " }" +
+            //   "h3 {" +
+            //    " text-align: center;" +
+            //    " color: #d7d2cb;" +
+            //     "font-family: 'Montserrat-Reg';" +
+            //     "font-size: 1.5rem;" +
+            //    " font-style: italic;" +
+            //   "}" +
+            //  " a {" +
+            //   "  text-decoration: none;" +
+            //   "}" +
+            //   "h4 {" +
+            //     "text-align: center;" +
+            //    " color: #d7d2cb;" +
+            //    " font-family: 'Montserrat-Reg';" +
+            //    " font-size: 1.2rem;" +
+            //    " font-style: italic;" +
+            //  "}" +
+            //" </style>" +
+            //" <body>" +
+            //  " <div class='login-container'>" +
+            //    " <div class='login-logo-conctainer'>" +
+            //      " <div class='gradient-border'>" +
+            //         "<img src='/img/AOPCWHITEPNG.png' alt='AOPC' width='100%'' />" +
+
+            //        " <h1>" +
+            //          " WELCOME TO<br />ALFARDAN OYSTER <br />" +
+            //          " PRIVILEGE CLUB" +
+            //         "</h1>" +
+            //        " <h3>REGISTRATION FORM</h3>" +
+            //         "<a" +
+            //           "href='https://www.alfardanoysterprivilegeclub.com/user-registration'" +
+            //          " ><h4>" +
+            //            " Click Here to Register in<br />Alfardan Oyster Privilege Club" +
+            //          " </h4>" +
+            //         "</a>" +
+            //      " </div>" +
+            //   "  </div>" +
+            //  " </div>" +
+            //" </body>";
+            //          message.Body = bodyBuilder.ToMessageBody();
+            //          using (var clients = new SmtpClient())
+            //          {
+            //              clients.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            //              clients.Authenticate("app@alfardan.com.qa", "Oyster2023!");
+            //              clients.Send(message);
+            //              clients.Disconnect(true);
+            //              status = "Successfully sent registration email";
+
+            //          }
+
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
             //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
@@ -1057,26 +1164,20 @@ namespace AOPC.Controllers
             //message.To.Add(new MailboxAddress("Alibaba", "alisandro.villegas@odecci.com"));
             message.Subject = "Email Registration Link";
             var bodyBuilder = new BodyBuilder();
-
-            // bodyBuilder.HtmlBody = @"
-            // <div style='background-color:white;color:black;padding:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);'>
-            // <h1 style='text-align: center; font-family: 'Sigmar One', cursive;'>Welcome to Alfardan Oyster Privilege Club</h1>
-            // <p>Hello " + data.Fname + ",</p></br>" +
-            // "<p>This email  was sent to confirm your registration for Alfardan Oyster Privilege Club</p>" + 
-            // "<p>Name: " + data.Fname + " " + data.Lname + "</p>" +
-            // "<p>Email Address: " + data.Email + "</p></br>" +
-            // "<p>Please click this this link  " + "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'>Here</a> and complete your details and registration </br>" +
-            // "<p>For any concern please contact your admin.</p></br>" +
-            // "<p>Thank you,</p></br>" +
-            // "<p>Alfardan Oyster Privilege Club</p></br>" +
-            // @"
-            // </div>         
-            // ";
-            string img = "../img/AOPCBlack.jpg";
+            string img = "https://www.alfardanoysterprivilegeclub.com/assets/img/AOPC%20Logo%20-%20White.png";
+            string bg = "https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg";
             bodyBuilder.HtmlBody = @"<style>" +
-
+   " @font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}" +
+    "@font-face {" +
+      "font-family: 'Montserrat-Bold';" +
+      "src: url('/fonts/Montserrat/Montserrat-Bold.ttf');" +
+    "}" +
+    "@font-face {" +
+      "font-family: 'Montserrat-SemiBold';" +
+      "src: url('/fonts/Montserrat/Montserrat-SemiBold.ttf');" +
+    "}" +
     "body {margin: 0;box-sizing: border-box;}" +
-    ".login-container {background-image: url(" + img + ");height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
+    ".login-container {background-image: url(" + bg + ");height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
     ".gradient-border {height: 600px;width: 700px; display: flex;justify-content: center;background-color: transparent;border-width: 3px;box-sizing: content-box;border-style: solid;border-image-slice: 1;" +
     "gap: 20px;border-image-source: linear-gradient(" +
         "180deg," +
@@ -1121,30 +1222,25 @@ namespace AOPC.Controllers
     " <div class='login-container'>" +
       " <div class='login-logo-conctainer'>" +
         " <div class='gradient-border'>" +
-           "<img src='/img/AOPCWHITEPNG.png' alt='AOPC' width='100%'' />" +
+           "<img src='" + img + "' alt='AOPC' width='100%'' />" +
 
           " <h1>" +
             " WELCOME TO<br />ALFARDAN OYSTER <br />" +
             " PRIVILEGE CLUB" +
            "</h1>" +
           " <h3>REGISTRATION FORM</h3>" +
-           "<a" +
-             "href='https://www.alfardanoysterprivilegeclub.com/user-registration'" +
-            " ><h4>" +
-              " Click Here to Register in<br />Alfardan Oyster Privilege Club" +
-            " </h4>" +
-           "</a>" +
+           "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'><h4> Click Here to Register in<br />Alfardan Oyster Privilege Club</h4></a>" +
         " </div>" +
      "  </div>" +
     " </div>" +
   " </body>";
             message.Body = bodyBuilder.ToMessageBody();
-            using (var clients = new SmtpClient())
+            using (var client = new SmtpClient())
             {
-                clients.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                clients.Authenticate("app@alfardan.com.qa", "Oyster2023!");
-                clients.Send(message);
-                clients.Disconnect(true);
+                client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                client.Authenticate("app@alfardan.com.qa", "Oyster2023!");
+                client.Send(message);
+                client.Disconnect(true);
                 status = "Successfully sent registration email";
 
             }

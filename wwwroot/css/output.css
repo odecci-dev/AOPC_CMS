@@ -771,14 +771,15 @@ body {
   padding: 0 10px;
 }
 
-.alert-warning
-{
-  background-color: #F48484;
-  color: white;
-  margin-bottom: 15px;
-  padding: 20px;
-  margin: 0px 45px 0 35px;
-  border-radius: 10px;
+.alert-warning {
+    background-color: #F48484;
+    color: white;
+    margin-bottom: 15px;
+    padding: 20px;
+    margin: 0px 45px 0 35px;
+    border-radius: 10px;
+    height: 100% !important;
+    width: 100% !important;
 }
 
 .alert-success
@@ -906,6 +907,10 @@ input.input-search:focus-within .search-form {
 .info .name {
   font-size: clamp(0.3rem, 2vw, 1rem);
   color: var(--dark);
+}
+.name {
+    font-size: clamp(0.3rem, 2vw, 1rem);
+    color: var(--dark);
 }
 
 .info .role {
@@ -1470,6 +1475,7 @@ table.myTableLarge tbody tr td:nth-child(3) p:nth-child(1) {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 table.myTableLarge tbody tr td:nth-child(4) p:nth-child(1) {
   width: 100px;
@@ -3071,7 +3077,20 @@ label {
 .mod-input:focus {
   background-color: #ffde9d;
 }
-
+.corp_actions {
+    /*display: flex;*/
+    /* width: 100%; */
+    /*justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row;*/
+    display: flex;
+    /* width: 100%; */
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row;
+}
 .actions {
     /*display: flex;*/
     /* width: 100%; */
@@ -8647,6 +8666,7 @@ a.badge-dark.focus {
 .alert {
     width:100%;
     margin-left:0px;
+    height:100%;
   position: relative;
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
@@ -8731,9 +8751,11 @@ a.badge-dark.focus {
 }
 
 .alert-warning {
-  color: #856404;
-  background-color: #fff3cd;
-  border-color: #ffeeba;
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    height: 100% !important;
+    width: 100% !important;
 }
 
 .alert-warning hr {

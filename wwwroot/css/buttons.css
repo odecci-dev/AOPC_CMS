@@ -465,6 +465,8 @@
   padding: 20px;
   margin: 0px 45px 0 35px;
   border-radius: 10px;
+  height:100%;
+  width:100%;
 
 }
 .alert-success

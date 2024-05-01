@@ -1215,7 +1215,7 @@ $("#checkAll2").click(function () {
                      $('#mem-submit').submit(function(e){
                     e.preventDefault();
                          var vipbadge = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
-                         //console.log(vipbadge);
+        
                          if (vipbadge == "" || vipbadge == null) {
                              vipbadge = vip_Badge_edit;
                          }
@@ -1234,18 +1234,19 @@ $("#checkAll2").click(function () {
                          if (membershipCard == "" || membershipCard == null) {
                              membershipCard = mcard_edit;
                          }
-
+                       
                          var membershipCard = $("#membershipCard").get(0);
                          var vipCard = $("#vipCard").get(0);
                          var qrFame = $("#qrFame").get(0);
                          var VipBadge = $("#VipBadge").get(0);
                          var files = membershipCard.files;
-                         var files_1 = vipCard.
-                         
-                         .files;
+                         var files_1 = vipCard.files;
                          var files_2 = qrFame.files;
                          var files_3 = VipBadge.files;
-
+                           // console.log(membershipCard);
+                           //   console.log(vipCard);
+                           //     console.log(qrFame);
+                           //       console.log(VipBadge);
                          var formData = new FormData();
                          formData.append('file', files[0]);
                          formData.append('vip', files_1[0]);
@@ -1263,8 +1264,7 @@ $("#checkAll2").click(function () {
                          formData.append('VIPCard', vipCard);
                      
                          formData.append('id',i_id);
-                         console.log(formData);
-                          var today = new Date();
+                          // var today = new Date();
                           var dd = String(today.getDate()).padStart(2, '0');
                           var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                           var yyyy = today.getFullYear();
@@ -1477,8 +1477,9 @@ $('#membership-table').on('click', '.tbl-edit', function () {
     vip_Card = $(this).data("cards");
     vip_Badge = $(this).data("badges");
 
-    //console.log(vip_Badge);
-    //console.log(vip_Card);
+    console.log(vip_Badge);
+    console.log(vip_Card);
+            console.log(mcard);
     var formattedDate = formatDate(dend);
     var formattedDate_dstart = formatDate(dstart);
     //console.log(formattedDate);
@@ -1491,24 +1492,24 @@ $('#membership-table').on('click', '.tbl-edit', function () {
         $('#membershipmodal').modal('show');
 
 
-    if (mcard != "https://www.svgrepo.com/download/83325/id-card.svg") {
+            if (mcard != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', mcard);
-        img.attr('height', '100px');
-        img.attr('width', '100px');
+        img.attr('height', '100%');
+                img.attr('width', '100%');
         $('.img-container-membershipCard').html(img);
     }
     else {
         var img = $('<img>').attr('src', mcard);
-        img.attr('height', '100px');
-        img.attr('width', '100px');
+                img.attr('height', '100%');
+                img.attr('width', '100%');
         $('.img-container-membershipCard').html(img);
 
     }
 
-    if (qrframe != "https://www.svgrepo.com/download/83325/id-card.svg") {
+     if (qrframe != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', qrframe);
-        img.attr('height', '100px');
-        img.attr('width', '100px');
+        img.attr('height', '100%');
+                img.attr('width', '100%');
         $('.img-container-qr').html(img);
     }
     else {
@@ -1518,30 +1519,30 @@ $('#membership-table').on('click', '.tbl-edit', function () {
         $('.img-container-qr').html(img);
     }
 
-    if (vip_Card != "https://www.svgrepo.com/download/83325/id-card.svg") {
+            if (vip_Card != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', vip_Card);
-        img.attr('height', '100px');
-        img.attr('width', '100px');
+        img.attr('height', '100%');
+                img.attr('width', '100%');
         $('.img-container-vipCard').html(img);
     }
     else {
         var img = $('<img>').attr('src', vip_Card);
-        img.attr('height', '100px');
-        img.attr('width', '100px');
+        img.attr('height', '100%');
+                img.attr('width', '100%');
         $('.img-container-vipCard').html(img);
     }
 
-    if (vip_Badge != "https://www.svgrepo.com/download/83325/id-card.svg") {
+            if (vip_Badge != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', vip_Badge);
-        img.attr('height', '50px');
-        img.attr('width', '100px');
+                img.attr('height', '100%');
+                img.attr('width', '100%');
         $('.img-container-vipbadge').html(img);
     }
     else {
 
         var img = $('<img>').attr('src', vip_Badge);
-        img.attr('height', '100px');
-        img.attr('width', '100px');
+                img.attr('height', '100%');
+                img.attr('width', '100%');
         $('.img-container-vipbadge').html(img);
     }
 
@@ -1549,8 +1550,7 @@ $('#membership-table').on('click', '.tbl-edit', function () {
     qrframe_edit = qrframe.split('/')[6];
     vip_Card_edit = vip_Card.split('/')[6];
     vip_Badge_edit = vip_Badge.split('/')[6];
-
-    //console.log(mcard_edit);
+            // console.log(mcard_edit);
 });
 
 $('#membership-table').on('click', '.tbl-delete', function () {

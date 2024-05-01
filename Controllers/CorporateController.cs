@@ -27,6 +27,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using AOPC_CMSv2.ViewModel;
+using static AOPC.Controllers.VendorController;
 
 namespace AOPC.Controllers
 {
@@ -134,6 +135,7 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = status });
         }
+
         [HttpPost]
         public async Task<IActionResult> GetMembershipDescList(membershipid data)
         {
@@ -151,6 +153,51 @@ namespace AOPC.Controllers
 
 
             return Json(model);
+        }
+        public class PaginationCorpUserModel
+        {
+            public string? CurrentPage { get; set; }
+            public string? NextPage { get; set; }
+            public string? PrevPage { get; set; }
+            public string? TotalPage { get; set; }
+            public string? PageSize { get; set; }
+            public string? TotalRecord { get; set; }
+            public List<UserVM> items { get; set; }
+
+
+        }
+        public class paginateCorpUser
+        {
+            public string? CorpId { get; set; }
+            public string? PosId { get; set; }
+            public string? FilterName { get; set; }
+            public int page { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetDataCorporateUser(paginateCorpUser data)
+        {
+            string result = "";
+            var list = new List<PaginationCorpUserModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiPagination/DisplayCorporateUser";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<PaginationCorpUserModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
         }
         [HttpPost]
         public async Task<IActionResult> GetCorporateAdminUserList(CorporateID data)
@@ -307,36 +354,38 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-
-                                string sql = $@"select Id from tbl_MembershipModel where Name='" + reader.GetValue(4).ToString() + "'";
-                                DataTable dt = db.SelectDb(sql).Tables[0];
-                                var memid = "";
-                                if (dt.Rows.Count > 0)
+                                if (reader.GetValue(1) != null)
                                 {
-                                    memid = dt.Rows[0]["Id"].ToString();
+                                    string sql = $@"select Id from tbl_MembershipModel where Name='" + reader.GetValue(4).ToString() + "'";
+                                    DataTable dt = db.SelectDb(sql).Tables[0];
+                                    var memid = "";
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        memid = dt.Rows[0]["Id"].ToString();
+                                    }
+                                    string CorporateName = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
+
+                                    string Address = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
+
+                                    string CNo = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
+
+                                    string EmailAddress = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
+
+                                    string MembershipID = reader.GetValue(4) == null ? "0" : memid;
+
+
+                                    data.Add(new CorporateModel
+                                    {
+                                        CorporateName = CorporateName,
+                                        Address = Address,
+                                        CNo = CNo,
+                                        EmailAddress = EmailAddress,
+                                        MembershipID = MembershipID,
+                                        Id = 0,
+                                        Status = 1
+
+                                    });
                                 }
-                                string CorporateName = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
-
-                                string Address = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
-
-                                string CNo = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
-
-                                string EmailAddress = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
-
-                                string MembershipID = reader.GetValue(4) == null ? "0" : memid;
-
-
-                                data.Add(new CorporateModel
-                                {
-                                    CorporateName = CorporateName,
-                                    Address = Address,
-                                    CNo = CNo,
-                                    EmailAddress = EmailAddress,
-                                    MembershipID = MembershipID,
-                                    Id = 0,
-                                    Status = 1
-
-                                });
                             }
                         }
                         reader.Close();
@@ -356,7 +405,7 @@ namespace AOPC.Controllers
                     }
                     else
                     {
-                        ViewData["Message"] = "Error: sadaInvalid file.";
+                        ViewData["Message"] = "Error: Invalid file.";
                     }
                 }
                 else
@@ -472,7 +521,9 @@ namespace AOPC.Controllers
 
                             if (i > 1)
                             {
-                                string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
+                                if (reader.GetValue(1) != null)
+                                {
+                                    string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
                                 DataTable dt = db.SelectDb(sql).Tables[0];
                                 var corporateid = "";
                                 if (dt.Rows.Count > 0)
@@ -547,6 +598,7 @@ namespace AOPC.Controllers
 
                                 });
                             }
+                            }
                         }
                         reader.Close();
 
@@ -562,7 +614,7 @@ namespace AOPC.Controllers
                             _global.Status = await response.Content.ReadAsStringAsync();
                         }
                         System.IO.File.Delete(filename);
-                        ViewData["Message"] = "New Entry" + _global.Status;
+                        ViewData["Message"] =  _global.Status;
                     }
                     else
                     {

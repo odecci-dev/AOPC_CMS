@@ -16,6 +16,7 @@ using AuthSystem.Manager;
 using _CMS.Manager;
 using ExcelDataReader;
 using AOPC_CMSv2.ViewModel;
+using static AOPC.Controllers.VendorController;
 
 namespace AOPC.Controllers
 {
@@ -80,7 +81,72 @@ namespace AOPC.Controllers
               }
              return new (result);
          }
-         [HttpGet]
+
+        public class AuditTrailPaginationModel
+        {
+            public string? CurrentPage { get; set; }
+            public string? NextPage { get; set; }
+            public string? PrevPage { get; set; }
+            public string? TotalPage { get; set; }
+            public string? PageSize { get; set; }
+            public string? TotalRecord { get; set; }
+            public List<Audittrailvm> items { get; set; }
+
+
+        }
+        public class AuditFullName
+        {
+            public string FullName { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetAuditSearch(AuditFullName data)
+        {
+            string result = "";
+            var list = new List<Audittrailvm>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/AuditTrail/AuditTrailSearch";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<Audittrailvm>>(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetDataAuditTrailList(paginate data)
+        {
+            string result = "";
+            var list = new List<AuditTrailPaginationModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiPagination/AuditTrailPaginate";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<AuditTrailPaginationModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        [HttpGet]
          public async Task<JsonResult> GetAuditTrailList()
          {
              var url = DBConn.HttpString + "/api/AuditTrail/AudittrailList";
