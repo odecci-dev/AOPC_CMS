@@ -162,6 +162,7 @@ namespace AOPC.Controllers
             public string? TotalPage { get; set; }
             public string? PageSize { get; set; }
             public string? TotalRecord { get; set; }
+            public string? TotalVIP { get; set; }
             public List<UserVM> items { get; set; }
 
 
@@ -193,6 +194,35 @@ namespace AOPC.Controllers
                 }
             }
 
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        public class CorporateModelId
+        {
+            public string Id { get; set; }
+            public string CorpId { get; set; }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetCorpUserListId(CorporateModelId data)
+        {
+            string result = "";
+            var list = new List<UserVM>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiRegister/CorporateAdminUserFilderById";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<UserVM>>(res);
+                }
+            }
             catch (Exception ex)
             {
                 string status = ex.GetBaseException().ToString();

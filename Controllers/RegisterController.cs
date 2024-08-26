@@ -24,6 +24,8 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using AOPC_CMSv2.ViewModel;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using String = System.String;
+using System.Collections.Generic;
+using static AOPC.Controllers.CorporateController;
 
 namespace AOPC.Controllers
 {
@@ -373,15 +375,25 @@ namespace AOPC.Controllers
             string result = "";
             try
             {
+                //HttpClient client = new HttpClient();
+                //var url = DBConn.HttpString + "/api/ApiCorporate/MembershipCorporate";
+                //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                //StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                //using (var response = await client.PostAsync(url, content))
+                //{
+                //    string res = await response.Content.ReadAsStringAsync();
+                //    result = JsonConvert.DeserializeObject<membershiptier>(res).Id;
+
+                //}
+
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiCorporate/MembershipCorporate";
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<membershiptier>(res).Id;
-
                 }
 
             }
@@ -460,11 +472,45 @@ namespace AOPC.Controllers
             public string? otp { get; set; }
             public string? Email { get; set; }
         }
+        public class paginateRegUser
+        {
+            public string? CorpId { get; set; }
+            public string? PosId { get; set; }
+            public string? FilterName { get; set; }
+            public int page { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetDataRegistrationList(paginateRegUser data)
+        {
+            string result = "";
+            var list = new List<PaginationCorpUserModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiPagination/DisplayRegistrationList";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<PaginationCorpUserModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
         [HttpPost]
         public async Task<IActionResult> DeleteUserInfo(DeleteUser data)
         {
             try
             {
+                string result = "";
                 string action = data.Id == 0 ? "Added New" : "Updated";
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
                    "Deleted User Id#: " + data.Id, DateTime.Now.ToString(),
@@ -475,11 +521,13 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/DeleteUserInfo";
-                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue()); 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
-                    _global.Status = await response.Content.ReadAsStringAsync();
+                    //_global.Status = await response.Content.ReadAsStringAsync();
+                    result = await response.Content.ReadAsStringAsync();
+                    _global.Status = JsonConvert.DeserializeObject<LoginStats>(result).Status;
                 }
             }
 
@@ -941,6 +989,7 @@ namespace AOPC.Controllers
         }
         public class sendemaildata
         {
+            public string? Id { get; set; }
             public string? Email { get; set; }
             public string? Fname { get; set; }
             public string? Lname { get; set; }
@@ -950,10 +999,12 @@ namespace AOPC.Controllers
         [HttpPost]
         public IActionResult Sendemail(sendemaildata data)
         {
+            string sql = $@"select Id,Fname,Lname,Email,EmployeeID from UsersModel where Id='" + data.Id + "'";
+            DataTable dt = db.SelectDb(sql).Tables[0];
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
             //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
-            message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, data.Email));
+            message.To.Add(new MailboxAddress(dt.Rows[0]["Fname"].ToString() + " " + dt.Rows[0]["Lname"].ToString(), dt.Rows[0]["Email"].ToString()));
             //message.To.Add(new MailboxAddress("Carl Jecson", "carl.jecson.d.galvez@odecci.com"));
             //message.To.Add(new MailboxAddress("Agabi", "allan.gabriel@odecci.com"));
             //message.To.Add(new MailboxAddress("Alibaba", "alisandro.villegas@odecci.com"));
@@ -1045,120 +1096,20 @@ namespace AOPC.Controllers
         [HttpPost]
         public IActionResult SendemailUser(sendemaildata data)
         {
-           
+            string sql = $@"select Id,Fname,Lname,Email,EmployeeID from UsersModel where Id='" + data.Id + "'";
+            DataTable dt = db.SelectDb(sql).Tables[0];
+
             dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-               "Send Email: " + data.Email, DateTime.Now.ToString(),
+               "Send Email: " + dt.Rows[0]["Email"].ToString(), DateTime.Now.ToString(),
                "CMS-SendEmail",
                HttpContext.Session.GetString("Name"),
                HttpContext.Session.GetString("Id"),
                "2",
                HttpContext.Session.GetString("EmployeeID"));
-            //          HttpClient client = new HttpClient();
-            //          var message = new MimeMessage();
-            //          message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
-            //          //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
-            //          message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, data.Email));
-            //          //message.To.Add(new MailboxAddress("Carl Jecson", "carl.jecson.d.galvez@odecci.com"));
-            //          //message.To.Add(new MailboxAddress("Agabi", "allan.gabriel@odecci.com"));
-            //          //message.To.Add(new MailboxAddress("Alibaba", "alisandro.villegas@odecci.com"));
-            //          message.Subject = "Email Registration Link";
-            //          var bodyBuilder = new BodyBuilder();
-
-            //          // bodyBuilder.HtmlBody = @"
-            //          // <div style='background-color:white;color:black;padding:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);'>
-            //          // <h1 style='text-align: center; font-family: 'Sigmar One', cursive;'>Welcome to Alfardan Oyster Privilege Club</h1>
-            //          // <p>Hello " + data.Fname + ",</p></br>" +
-            //          // "<p>This email  was sent to confirm your registration for Alfardan Oyster Privilege Club</p>" + 
-            //          // "<p>Name: " + data.Fname + " " + data.Lname + "</p>" +
-            //          // "<p>Email Address: " + data.Email + "</p></br>" +
-            //          // "<p>Please click this this link  " + "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'>Here</a> and complete your details and registration </br>" +
-            //          // "<p>For any concern please contact your admin.</p></br>" +
-            //          // "<p>Thank you,</p></br>" +
-            //          // "<p>Alfardan Oyster Privilege Club</p></br>" +
-            //          // @"
-            //          // </div>         
-            //          // ";
-            //          string img = "../img/AOPCBlack.jpg";
-            //          bodyBuilder.HtmlBody = @"<style>" +
-
-            //  "body {margin: 0;box-sizing: border-box;}" +
-            //  ".login-container {background-image: url(" + img + ");height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
-            //  ".gradient-border {height: 600px;width: 700px; display: flex;justify-content: center;background-color: transparent;border-width: 3px;box-sizing: content-box;border-style: solid;border-image-slice: 1;" +
-            //  "gap: 20px;border-image-source: linear-gradient(" +
-            //      "180deg," +
-            //      "#b07b29 17.26%," +
-            //      "#ebcc77 31.95%," +
-            //      "#b98732 53.29%," +
-            //      "#ecce79 74.41%," +
-            //      "#c69840 99.86%" +
-            //    ");" +
-            //    "flex-direction: column;}" +
-            //  ".login-container img {" +
-            //    "margin: 20px auto;" +
-            //    "width: 300px;" +
-            //    "height: 110px;" +
-            //  "}" +
-            //   "h1 {" +
-            //    " text-align: center;" +
-            //    " color: #d7d2cb;" +
-            //    " font-family: 'Montserrat-SemiBold';" +
-            //    " font-size: 2rem;" +
-            //   " font-style: italic;" +
-            //  " }" +
-            //   "h3 {" +
-            //    " text-align: center;" +
-            //    " color: #d7d2cb;" +
-            //     "font-family: 'Montserrat-Reg';" +
-            //     "font-size: 1.5rem;" +
-            //    " font-style: italic;" +
-            //   "}" +
-            //  " a {" +
-            //   "  text-decoration: none;" +
-            //   "}" +
-            //   "h4 {" +
-            //     "text-align: center;" +
-            //    " color: #d7d2cb;" +
-            //    " font-family: 'Montserrat-Reg';" +
-            //    " font-size: 1.2rem;" +
-            //    " font-style: italic;" +
-            //  "}" +
-            //" </style>" +
-            //" <body>" +
-            //  " <div class='login-container'>" +
-            //    " <div class='login-logo-conctainer'>" +
-            //      " <div class='gradient-border'>" +
-            //         "<img src='/img/AOPCWHITEPNG.png' alt='AOPC' width='100%'' />" +
-
-            //        " <h1>" +
-            //          " WELCOME TO<br />ALFARDAN OYSTER <br />" +
-            //          " PRIVILEGE CLUB" +
-            //         "</h1>" +
-            //        " <h3>REGISTRATION FORM</h3>" +
-            //         "<a" +
-            //           "href='https://www.alfardanoysterprivilegeclub.com/user-registration'" +
-            //          " ><h4>" +
-            //            " Click Here to Register in<br />Alfardan Oyster Privilege Club" +
-            //          " </h4>" +
-            //         "</a>" +
-            //      " </div>" +
-            //   "  </div>" +
-            //  " </div>" +
-            //" </body>";
-            //          message.Body = bodyBuilder.ToMessageBody();
-            //          using (var clients = new SmtpClient())
-            //          {
-            //              clients.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-            //              clients.Authenticate("app@alfardan.com.qa", "Oyster2023!");
-            //              clients.Send(message);
-            //              clients.Disconnect(true);
-            //              status = "Successfully sent registration email";
-
-            //          }
-
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
             //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
-            message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, data.Email));
+            message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, dt.Rows[0]["Email"].ToString()));
             //message.To.Add(new MailboxAddress("Carl Jecson", "carl.jecson.d.galvez@odecci.com"));
             //message.To.Add(new MailboxAddress("Agabi", "allan.gabriel@odecci.com"));
             //message.To.Add(new MailboxAddress("Alibaba", "alisandro.villegas@odecci.com"));
