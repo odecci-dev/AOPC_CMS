@@ -13,6 +13,17 @@
 
 
 <!-- Tab content -->
+@* Card Test *@
+<div id="card-holder">
+    <d@* iv class="card" style="width: 18rem;">
+         <div class="card-body">
+         <h5 class="card-title">Card title</h5>
+         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+         <a href="#" class="btn btn-primary">Go somewhere</a>
+         </div>
+         </di *@v>
+</div>
+@* Card Test *@
 <div class="corporate-main-container">
 
     <div class="bloc-data">
@@ -44,6 +55,7 @@
                                 <input type="text" class="input-search" />
                               </form>
                             </div> *@
+                            
                         <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
                             <table class="myTableLarge" id="privilege-table">
                                 <thead>
@@ -93,9 +105,12 @@
             <tbody>
             </tbody>
         </table>
-
-
     </div>
+
+
+
+
+
 </div>
 @* modal start here *@
 <div class="modal fade" id="privilegemodal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
@@ -130,6 +145,7 @@
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
+                            @* Title *@
                             <label for="employeeID">Title <span class="req">*</span></label>
                             <input type="text" value="" id="title" class="mod-input" required />
                         </div>
@@ -144,9 +160,10 @@
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
+                            @* Description *@
                             <label for="email">Description </label>
                             @* <input type="text" value="" id="description" class="mod-input" /> *@
-                            <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px;"></textarea>
+                            <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px; white-space: break-spaces"></textarea>
                         </div>
                     </div>
                     <div class="mod-form-row">
@@ -157,6 +174,7 @@
                             </select>
                         </div>*@
                         <div class="input-container-whole">
+                            @* Validity *@
                             <label for="fname">Validity </label>
                             <input type="date" id="validity" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" />
                         </div>
@@ -164,6 +182,7 @@
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
+                            @* Business Type Name *@
                             <label for="vipStatus">Business Type Name<span class="req">*</span></label>
                             <select id="btype-option" class="mod-input" required>
                                 <option value="" disabled selected>Select your option</option>
@@ -179,33 +198,36 @@
                             </div>*@
                     </div>
                     <div class="mod-form-row">
+                        @* Terms and Conditions *@
                         <div class="input-container-whole">
                             <label for="txtCont1">Terms and Conditions <span class="req">*</span></label>
-
-                            <div class="textContainer">
+                            @* <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px;"></textarea> *@
+                            <textarea id="tmc" class="mod-input" style="white-space: break-spaces; min-height: 300px; "></textarea>
+                        
+                            <!--<div class="textContainer">
                                 <div id="txtCont1" class="textCont">
                                     <div id="parentTextContainer" class="parentTextContainer">
                                         ●<textarea></textarea>
                                         <button onclick="addTermsParent()" type="button" class="btnAddParentText" return false;>+</button>
                                     </div>
-                                    <div class="childTextContainer" >
+                                    <div class="childTextContainer">
                                         <div id="childTextContainer1" class="childTextItem">
                                             ○<textarea></textarea>
                                             <button type="button" onclick="addChildParentText('1')" class="btnAddChildText" return false;>
                                                 +
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
                             <label for="txtConts1">Mechanics <span class="req">*</span></label>
-
-                            <div class="Mechanics">
+                            <textarea id="mecha" class="mod-input" style=" white-space: break-spaces; min-height: 300px; "></textarea>
+                            @* <div class="Mechanics">
                                 <div id="txtConts1" class="textConts">
                                     <div id="parentTextContainers" class="parentTextContainer">
                                         ●<textarea></textarea>
@@ -221,7 +243,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div>  *@
 
                         </div>
                     </div>
@@ -473,8 +495,49 @@
 </div>
 
 @* modal end here *@
+<style>
+    #card-holder{
+        z-index: 9999;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: white;
+        padding: 100px;
+        display: none;
+    }
+    #card-holder p{
+        margin-bottom: 50px;
+        white-space: break-spaces;
+    }
+</style>
 @section Scripts{
-    <script>
+<script>
+    
+    
+        
+    setTimeout(function () {
+        $.ajax(
+            {
+                url: "/MembershipPrivilege/GetPrivilegeList",
+                data: {},
+                type: "GET",
+                datatype: "json"
+            })
+            .done(function (data) {
+                ////console.log(data);
+                privilegetable.clear().draw();
+                   
+                for (var i = 0; i < data.length; i++) {
+                        const para = document.createElement("p");
+                        para.innerHTML = data[i].tmc+"<br>";
+                        document.getElementById("card-holder").appendChild(para);
+                }
+                $.unblockUI();
+            })
+            .fail(function () {
+                alert("There was an Error When Loading Data...");
+            });
+    }, 100);
   var i_id = "";
   var img_edit="";
   var privid="";
@@ -1135,14 +1198,16 @@ $("#checkAll2").click(function () {
                       data.id = i_id;
                       data.Title =$('#title').val();
                       data.Description = $('#descrip').val();
-                      data.Mechanics = Mecha;
+                      // data.Mechanics = Mecha;
+                      data.Mechanics = $('#mecha').val();
                       data.Validity =$('#validity').val();
-                         data.NoExpiry = "";
+                      data.NoExpiry = "";
                       data.ImgUrl =filename;
-                         data.VendorID = "";
+                      data.VendorID = "";
                       data.isVIP =$('#isVIP').val();
                       data.BusinessTypeID =$('#btype-option').val();
-                      data.tmc =TMC;
+                      // data.tmc =TMC;
+                      data.tmc = $('#tmc').val();
                       data.Active = 5;
 
                       console.log(data);
@@ -1634,13 +1699,20 @@ $('#privilege-table').on('click', '.tbl-edit', function () {
                       }
     ShowprivilegeList();
     $('#title').val(title);
-                $('#descrip').val(description);
+    $('#descrip').val(description);
     $('#mechanics').val(mechanics);
-                $('#validity').val(formattedDate_dstart);
+    $('#validity').val(formattedDate_dstart);
     //$('#NoExpiry').val(noExpiry);
     //$('#vendor-option').val(vendorID);
     $('#isVIP').val(isVIP);
     $('#btype-option').val(btypeid);
+
+    // tmcContent = tmc.replaceAll("?", "•");
+    tmcContent = tmc;
+            // France
+    $('#tmc').val(tmc);
+    $('#mecha').val(mechanics);
+    // France
     populate(tmc);
     populateMechanics(mechanics);
     $('#privilegemodal').modal('show');
