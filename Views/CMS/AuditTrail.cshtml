@@ -293,7 +293,7 @@
             var data = {};
             data.FilterName = "";
             data.page = spanval;
-
+            console.log(data.page);
             $.blockUI(reloadLoading);
             $.ajax({
                 url: '/CMS/GetDataAuditTrailList',
@@ -308,7 +308,7 @@
                 prev = data[0].prevPage;
                 next = data[0].nextPage;
                 currpage = data[0].currentPage;
-                //console.log(prev);
+                // console.log(prev);
 
                 if (prev == 0) {
                     $("#prev").attr("disabled", true);

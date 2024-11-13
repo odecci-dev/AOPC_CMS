@@ -115,6 +115,7 @@ FROM            UsersModel INNER JOIN
                             HttpContext.Session.SetString("CorporateID", dt.Rows[0]["CorporateID"].ToString());
                             HttpContext.Session.SetString("Id", dt.Rows[0]["Id"].ToString());
                             HttpContext.Session.SetString("MembershipName", dt.Rows[0]["MembershipName"].ToString());
+                            HttpContext.Session.SetString("Username", data.Username);
                             if (dt.Rows[0]["FilePath"].ToString() == null || dt.Rows[0]["FilePath"].ToString() == string.Empty)
                             {
                                 HttpContext.Session.SetString("ImgUrl", "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png");

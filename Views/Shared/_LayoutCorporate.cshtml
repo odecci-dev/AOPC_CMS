@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="~/image/favicon.ico" />
     <title>@ViewData["Title"] - AOPC</title>
-
+    <link rel="stylesheet" href="~/css/registration-page.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/corporate-dashboard.css" asp-append-version="true" />
     <link href="~/css/iziToast.min.css" rel="stylesheet" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
@@ -20,6 +21,7 @@
 
 
 @Html.Partial("_TopBarCorporate")
+@Html.Partial("_SideBarCorporate")
     <main>
 @* @Html.Partial("_Main") *@
 @RenderBody()

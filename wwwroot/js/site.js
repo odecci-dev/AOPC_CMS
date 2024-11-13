@@ -822,7 +822,7 @@ async function ShowGetCallToActions() {
                 type: "GET",
                 datatype: "json"
             }).done(function (data) {
-                 
+                //console.log(data);
                 cAbtable.clear().draw();
                 for (var i = 0; i < data.length; i++) {
                     $("#cAction_table").dataTable().fnAddData([

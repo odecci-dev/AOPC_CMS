@@ -38,9 +38,16 @@
         color: #c89328;
         cursor: pointer;
     }
+
+    .corpuserregister-tabl th,
+    .corpuserregister-tabl td
+    {
+        
+        width: 300px !important;
+    }
 </style>
 
-<div class="register-main-container_2">
+<div class="register-main-container">
          <ul class="nav nav-tabs justify-content-lg-start">
             <li class="nav-items">
                 <a class="nav-link" href="#User" data-toggle="tab" aria-expanded="true"><i class="fas fa-users"></i>User Registration</a>
@@ -68,44 +75,77 @@
 
                                 </div>
                                 <div style="display: flex;flex-wrap: wrap;gap: 6px;" class="info">
-                                    <div >
-                                    <p class="name" style="    margin: 5px 10px 0px 10px;" for="srchbox">Search</p>
+                                    <button class="register-btn filter" id="registerFilter">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                            <path d="M5.5 7H17.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                            <path d="M5.5 12H15.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                            <path d="M5.5 17H11.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                        </svg>
+                                        Filter
+                                    </button>
+                                    <div class="search-holder">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
+                                            <g opacity="0.5">
+                                                <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
+                                                <path d="M11.4583 8.8335C11.0479 8.8335 10.6416 8.91433 10.2624 9.07137C9.8833 9.22842 9.5388 9.4586 9.24862 9.74879C8.95844 10.039 8.72825 10.3835 8.5712 10.7626C8.41416 11.1418 8.33333 11.5481 8.33333 11.9585" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                                <path d="M20.8333 21.3335L17.7083 18.2085" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                            </g>
+                                        </svg>
+                                        <input type="text" class="user-registration-search" id="user-registration-search" placeholder="Search...">
+                                    </div>
+                                    @* <div >
+                                        <p class="name" style="    margin: 5px 10px 0px 10px;" for="srchbox">Search</p>
                                     </div >
                                     <div style="flex: 1 0 250px;">
                                         <input type="text" value="" id="srchbox" style="
-                                    height: 25px;
-                                    width:100%;
-                                    outline: none;
-                                    border: 1px solid #e7e6e6;
-                                    box-shadow: inset 1px 2px 1px 1px rgba(116, 113, 113, 0.5);
-                                    border-radius: 5px;
-                                    " />
+                                        height: 25px;
+                                        width:100%;
+                                        outline: none;
+                                        border: 1px solid #e7e6e6;
+                                        box-shadow: inset 1px 2px 1px 1px rgba(116, 113, 113, 0.5);
+                                        border-radius: 5px;
+                                        " />
                                     </div>
 
                                     <div style="flex: 1 0 130px;">
-                                    <select id="position" class="mod-input" style="width:100%">
-                                        <option required value="" disabled selected>Select your Position</option>
-                                    </select>
-                                    </div>
-                            </div>
+                                        <select id="position" class="mod-input" style="width:100%">
+                                            <option required value="" disabled selected>Select your Position</option>
+                                        </select>
+                                    </div> *@
+                                </div>
                             </div>
                         </div>
                             <div class="row ">
-                                <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
-                                    <table id="corpuserregister-table" class="myTableMedium">
+                            <div 
+                                id="register-table_wrapper" 
+                                class="dataTables_wrapper no-footer" 
+                                style="
+                                    width:100vw;
+                                    overflow: scroll;
+                                    border: 1px solid black;
+                                    border-radius: 15px;
+                                    padding: 15px; 
+                                    height: 70vh;
+                                ">
+                                <table id="register-table" class="corpuserregister-tabl">
                                          <thead>
-                                        <th>
-                                           <button class="register"  style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add-newuser"><i class="fas fa-user-plus"></i>Add New</button>
-                                        </th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Gender</th>
-                                        <th>Company Name</th>
-                                        <th>Position</th>
-                                        <th>Status</th>
-                                        <th>Date Created</th>
-                                    </thead>
-                                    <tbody>
+                                            <th>
+                                               <button class="register"  style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add-newuser"><i class="fas fa-user-plus"></i>Add New</button>
+                                            </th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Gender</th>
+                                            <th>Company Name</th>
+                                            <th>Position</th>
+                                            <th>VIP</th>
+                                            <th>Status</th>
+                                            <th>Date Created</th>
+                                        </thead>
+                                    <tbody
+                                        style="
+                                            gap: 10px;   
+                                        "    
+                                    >
 
                                     </tbody>
                                     </table>
@@ -127,9 +167,9 @@
                                     <div>
                                     @using (Html.BeginForm("CorpAdminIndex", "Corporate", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                     {
-                                                                <label class="name">Import Excel File:</label>
-                                                                <input id="upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
-                                                                <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i> Upload</button>
+                                        <label class="name">Import Excel File:</label>
+                                        <input id="upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
+                                        <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i> Upload</button>
                                     }
                                     </div>
                                 </div>
@@ -389,9 +429,107 @@
         </div>
 
   </div>
-    
+
+@* Filter Modal *@
+<div class="filterModal" id="filtermodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Filter</h4>
+        <button type="button" class="closeFilterbtn" id="closeFilterbtn">x</button>
+    </div>
+    <div class="companyNameFltr">
+        <h4>Company name:</h4>
+        <div class="search-holder">
+            @*  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
+            <g opacity="0.5">
+            <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="white" stroke-width="2" />
+            <path d="M11.4583 8.8335C11.0479 8.8335 10.6416 8.91433 10.2624 9.07137C9.8833 9.22842 9.5388 9.4586 9.24862 9.74879C8.95844 10.039 8.72825 10.3835 8.5712 10.7626C8.41416 11.1418 8.33333 11.5481 8.33333 11.9585" stroke="width" stroke-width="2" stroke-linecap="round" />
+            <path d="M20.8333 21.3335L17.7083 18.2085" stroke="white" stroke-width="2" stroke-linecap="round" />
+            </g>
+            </svg>
+            <input type="text" class="companyNameFltrSearch" id="companyNameFilter" placeholder="Search..."> *@
+            <select id="corporateFilter" class="corporateFilter">
+            </select>
+        </div>
+    </div>
+    <div class="genderFltr">
+        <div class="gender">
+            <h4>Gender:</h4>
+            <div class="options">
+                <input type="radio" id="maleRadioFilter" value="Male" />
+                <label>Male</label>
+            </div>
+            <div class="options">
+                <input type="radio" id="femaleRadioFilter" value="Female" />
+                <label>Female</label>
+            </div>
+        </div>
+
+        <div class="options">
+            <input type="checkbox" id="allGenderFilter" />
+            <label>Show all</label>
+        </div>
+    </div>
+    <div class="positionFltr">
+        <div class="position">
+            <h4>Position:</h4>
+            <select id="positionFilter" class="positionFilter">
+            </select>
+        </div>
+        <div class="options">
+            <input type="checkbox" id="allPositionFilter" />
+            <label>Show all</label>
+        </div>
+    </div>
+    <div class="vipFltr">
+        <div class="vip">
+            <h4>VIP:</h4>
+            <div class="options">
+                <input type="checkbox" value="1" id="isVipYesFilter" />
+                <label>Yes</label>
+            </div>
+            <div class="options">
+                <input type="checkbox" value="0" id="isVipNoFilter" />
+                <label>No</label>
+            </div>
+        </div>
+
+        <div class="options">
+            <input type="checkbox" id="isVipAllFilter" />
+            <label>Show all</label>
+        </div>
+    </div>
+    <div class="statusFltr">
+        <div class="status">
+            <h4>Status:</h4>
+            <div class="options">
+                <input type="radio" value="REGISTERED" id="registeredFilter" />
+                <label>Registered</label>
+            </div>
+            <div class="options">
+                <input type="radio" value="UNREGISTERED" id="unregisteredFilter" />
+                <label>Unregistered</label>
+            </div>
+        </div>
+
+        <div class="options">
+            <input type="checkbox" id="statusAllFilter" />
+            <label>Show all</label>
+        </div>
+    </div>
+
+    <div class="filter-modal-footer">
+        <div class="footer-control">
+            <a id="cancelFilterbtn">Clear</a>
+            <button class="apply-filter" id="apply-filter-user" style="display: none">Apply</button>
+            <button class="apply-filter" id="apply-filter-corporate" style="display: none">Apply</button>
+        </div>
+    </div>
+</div>
+@* End Here *@
+
+<script src="/js/register.js" async defer></script>
 @section Scripts{
-<script>
+    <script>
         var i_id = "";
         var img_edit="";
         var prev = 0;
@@ -401,6 +539,11 @@
         var currpage = "";
         var posId = "";
     $(document).ready(function () {
+
+            ShowFilter(); 
+            UserShowSelectFilter()
+            userRegistrationListTableLayout();
+            getUserRegistration();
             $('#srchbox').keypress(function (event) {
                 // Check if the key pressed is Enter (key code 13)
                 if (event.which === 13) {
@@ -446,11 +589,14 @@
             dbtable = $('#corpuserregister-table').DataTable({
                 "columnDefs": [
 
-                    { "width": "150px", "targets": 0 },
-                    { "width": "150px", "targets": 1 },
-                    { "width": "150px", "targets": 2 },
+                    { "width": "200px", "targets": 0 },
+                    { "width": "200px", "targets": 1 },
+                    { "width": "200px", "targets": 2 },
                     { "width": "200px", "targets": 3 },
-                    { "width": "150px", "targets": 4 }
+                    { "width": "200px", "targets": 4 },
+                    { "width": "200px", "targets": 5 },
+                    { "width": "200px", "targets": 6 },
+                    { "width": "150px", "targets": 7 }
                     // { "width": "70px", "targets": 9 }
                 ],
                 "deferRender": true,
@@ -506,9 +652,9 @@
                         }
                     });
         paginationCorpUser(spanval, filtername, posId);
-      CorpShowPositionList();
+        CorpShowPositionList();
         ShowPositionName();
-       UserAdminShowPositionName();
+        UserAdminShowPositionName();
        });
         function ShowPositionName() {
             $.blockUI(reloadLoading);
@@ -757,7 +903,13 @@ function UserAdminShowPositionName() {
                     else {
                         img = data[0].items[i].filePath;
                     }
-
+                    var vip = "";
+                    if(data[0].items[i].isVIP == 1){
+                        vip = "Yes";
+                    }
+                    else{
+                        vip = "No";
+                    }
                     $('#corpuserregister-table tbody').append([
                         '<tr>' +
                         '<td>' +
@@ -798,9 +950,11 @@ function UserAdminShowPositionName() {
                         '<td>' + data[0].items[i].gender + '</td>' +
                         '<td>' + data[0].items[i].corporatename + '</td>' +
                         '<td>' + data[0].items[i].position + '</td>' +
+                        '<td class="isVIP">' + vip + '</td>' +
                         '<td>' + data[0].items[i].status + '</td>' +
-                        '<td><p>' + data[0].items[i].dateCreated + '</p> </td>',
-                        +'</tr>']);
+                        '<td><p>' + data[0].items[i].dateCreated + '</p> </td>',  
+                        +'</tr>']); 
+                      
                 }
             
           
@@ -818,7 +972,7 @@ function UserAdminShowPositionName() {
 @* User Register Send Email *@
                     $('#corpuserregister-table').on('click', '.tbl-sendemail', function () {
                     
-                       var data = {};
+                        var data = {};
                         data.Id = $(this).data("id");
                         var id = $(this).data("id");
                         console.log(data);
@@ -1088,7 +1242,7 @@ function UserAdminShowPositionName() {
                     data.Active = "2";
                     data.Type=  3;
                     data.FilePath=filename;
-                        data.isVIP = $('#vip-option').val();
+                    data.isVIP = $('#vip-option').val();
                     let valid = true;
                      
                     

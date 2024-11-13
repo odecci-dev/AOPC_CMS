@@ -24,6 +24,8 @@ using System.Drawing;
 using Net.SourceForge.Koogra.Excel2007.OX;
 using static AOPC.Controllers.RegisterController;
 using static AOPC.Controllers.VendorController;
+using OfficeOpenXml.DataValidation;
+using static NPOI.HSSF.Util.HSSFColor;
 
 namespace AOPC.Controllers
 {
@@ -60,6 +62,43 @@ namespace AOPC.Controllers
             }
             return View();
         }
+        public IActionResult CorporateDashboard()
+        {
+            string token = HttpContext.Session.GetString("Bearer");
+            if (token == null)
+            {
+                return RedirectToAction("Index", "LogIn");
+            }
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetAllUserCount(UserFilterUsername data)
+        {
+            string result = "";
+            var list = new List<UserCountListing>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiCorporateListing/GetAllUserCount";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<UserCountListing>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+
+
+
         public class NotificationPaginateModel
         {
             public string? CurrentPage { get; set; }
@@ -769,8 +808,9 @@ namespace AOPC.Controllers
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
+                  
                     list = JsonConvert.DeserializeObject<List<CallToActionsModel>>(res);
-
+                   
                 }
             }
 
@@ -806,7 +846,7 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> PostMostClickedHospitality(UserFilterday data)
         {
@@ -842,7 +882,7 @@ namespace AOPC.Controllers
             try
             {
                 HttpClient client = new HttpClient();
-                var url = DBConn.HttpString + "/api/ApiSupport/PostMostCickStoreList ";
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostCickStoreList";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
@@ -859,10 +899,320 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
+        [HttpPost]
+        public async Task<IActionResult> PostMostCickWellness(UserFilterday data)
+        {
+
+            string result = "";
+            var list = new List<MostClickStoreModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostClickWellnessList";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<MostClickStoreModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostMostCickOffer(UserFilterday data)
+        {
+            string result = "";
+            var list = new List<MostClickStoreModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostClickHealthList";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<MostClickStoreModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        
+
+        [HttpPost]
+        public async Task<IActionResult> PostCompanyInformation(CorporateUserCountFilter data)
+        {
+            string result = "";
+            var list = new List<PaginationCorpUserCountModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiCorporateListing/CorporateUserCount";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<PaginationCorpUserCountModel>>(res);
+
+                }
+               
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        
+        public IActionResult DownloadCompanyInformationExcel()
+        {
+            var stream = new MemoryStream();
+            using (var pck = new ExcelPackage(stream))
+            {
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet 1");
+                ws.Cells["A:AZ"].Style.Font.Size = 11;
+                ws.Cells["A8:G8"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A8:G8"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A8:G8"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A8:G8"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+
+
+                ws.Cells["A1"].Value = "Company Information Report";
+                ws.Cells[1, 1].Style.Font.Bold = true;
+                ws.Cells[1, 1].Style.Font.SetFromFont(new System.Drawing.Font("Arial Black", 22));
+
+                ws.Cells["A3"].Value = "User:" + HttpContext.Session.GetString("Name");
+                //ws.Cells["B3"].Value = ;
+                ws.Cells["A4"].Value = "Date Printed:     " + DateTime.Now.ToString("yyyy-MM-dd"); ;
+                //ws.Cells["B4"].Value =
+
+                ws.Cells["A8"].Value = "Corporate Name";
+                ws.Cells["B8"].Value = "Registered Users";
+                ws.Cells["C8"].Value = "Unregistered Users";
+                ws.Cells["D8"].Value = "VIP Registered";
+                ws.Cells["E8"].Value = "VIP User Count";
+                ws.Cells["F8"].Value = "User Count";
+                ws.Cells["G8"].Value = "Total Users";
+                for (var col = 1; col <= 10; col++)
+                {
+                    ws.Cells[1, col].Style.Font.Bold = true;
+                }
+                string sql = $@"
+                    select 
+                        Corp.CorporateName,
+                        Coalesce(Reg.RegCount,0) 'Registered',
+                        Coalesce(UnReg.UnRegCount,0) 'Unregistered',
+                        Coalesce(VIP.VipCount,0) 'Registered VIP',
+                        Coalesce(TotVIP.Count,0) 'Total VIP Count',
+                        Coalesce(TotVIP.Count,0) - Coalesce(VIP.VipCount,0) 'Remaining VIP',
+                        TotVIP.Count 'User Count' ,
+                        Coalesce(Reg.RegCount,0)  + Coalesce(VIP.VipCount,0) 'Total User' 
+                            
+                    from (select Id, CorporateName from tbl_CorporateModel group by Id,CorporateName)As Corp
+                                
+                        left join (select CorporateID,Count(*) 'RegCount' from UsersModel where Active = '1' and isVIP = 0 group by CorporateID)Reg on Corp.Id = Reg.CorporateID
+                        left join (select CorporateID,Count(*) 'UnRegCount' from UsersModel where Active = '6' group by CorporateID)UnReg on Corp.Id = UnReg.CorporateID
+                        left join (select CorporateID,Count(*) 'VipCount' from UsersModel where Active = '1' and isVIP = 1 group by CorporateID)VIP on Corp.Id = VIP.CorporateID
+                        left join (select Id,Coalesce(VipCount,0) 'Count',Count 'UserCount' from tbl_CorporateModel)TotVIP on Corp.Id = TotVIP.Id";
+                
+                DataTable dt = db.SelectDb(sql).Tables[0];
+                int ctr = 9;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ws.Cells[ctr, 1].Value = dr["CorporateName"].ToString();
+                    ws.Cells[ctr, 2].Value = dr["Registered"].ToString();
+                    ws.Cells[ctr, 3].Value = dr["Unregistered"].ToString();
+                    ws.Cells[ctr, 4].Value = dr["Registered VIP"].ToString();
+                    ws.Cells[ctr, 5].Value = dr["Total VIP Count"].ToString();
+                    ws.Cells[ctr, 6].Value = dr["User Count"].ToString();
+                    ws.Cells[ctr, 7].Value = dr["Total User"].ToString();
+
+                    ws.Cells["A" + ctr + ":G" + ctr].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    ctr++;
+                }
+                ws.Cells.AutoFitColumns();
+                pck.Save();
+            }
+
+            stream.Position = 0;
+            string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Company Information Result.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+
+        public class CorporateUserCountExportFilter
+        {
+            public string Registered { get; set; }
+            public string Unregistered { get; set; }
+            public string RegisteredVIP { get; set; }
+            public string TotalVIP { get; set; }
+            public string UserCount { get; set; }
+            public string TotalUser { get; set; }
+        }
+
+        //[HttpPost]
+        public IActionResult ExportExcelTest(bool Registered, bool Unregistered, bool RegisteredVIP, bool TotalVIP, bool UserCount, bool TotalUser)
+         //public IActionResult ExportExcelTest()
+        {
+            Console.WriteLine(Registered);
+            Console.WriteLine(Unregistered);
+            Console.WriteLine(RegisteredVIP);
+            Console.WriteLine(TotalVIP);
+            Console.WriteLine(UserCount);
+            Console.WriteLine(TotalUser);
+           
+            string sql = $@"select Corp.CorporateName";
+            if (Registered == true)
+            {
+                sql += " ,Coalesce(Reg.RegCount,0) 'Registered' ";
+            }
+            if (Unregistered == true)
+            {
+                sql += " ,Coalesce(UnReg.UnRegCount,0) 'Unregistered'";
+            }
+            if (RegisteredVIP == true)
+            {
+                sql += " ,Coalesce(VIP.VipCount,0) 'Registered VIP'";
+            }
+            if (TotalVIP == true)
+            {
+                sql += " ,Coalesce(TotVIP.Count,0) 'Total VIP Count'";
+                //sql += " Coalesce(TotVIP.Count,0) - Coalesce(VIP.VipCount,0) 'Remaining VIP',";
+            }
+            if (UserCount == true)
+            {
+                sql += " ,TotVIP.Count 'User Count' ";
+            }
+            if (TotalUser == true)
+            {
+                sql += " ,Coalesce(Reg.RegCount,0)  + Coalesce(VIP.VipCount,0) 'Total User' ";
+            }
+
+            sql += "    from (select Id, CorporateName from tbl_CorporateModel group by Id,CorporateName)As Corp";
+            sql += "    left join (select CorporateID,Count(*) 'RegCount' from UsersModel where Active = '1' and isVIP = 0 group by CorporateID)Reg on Corp.Id = Reg.CorporateID";
+            sql += "    left join (select CorporateID,Count(*) 'UnRegCount' from UsersModel where Active = '6' group by CorporateID)UnReg on Corp.Id = UnReg.CorporateID";
+            sql += "    left join (select CorporateID,Count(*) 'VipCount' from UsersModel where Active = '1' and isVIP = 1 group by CorporateID)VIP on Corp.Id = VIP.CorporateID";
+            sql += "    left join (select Id,Coalesce(VipCount,0) 'Count',Count 'UserCount' from tbl_CorporateModel)TotVIP on Corp.Id = TotVIP.Id";
+
+            Console.WriteLine(sql);
+            string stm = sql;
+            DataSet ds = db.SelectDb(sql);
+            var stream = new MemoryStream();
+
+            using (var package = new ExcelPackage(stream))
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+                
+                worksheet.Cells["A:AZ"].Style.Font.Size = 11;
+                //worksheet.Cells["A8:G8"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                //worksheet.Cells["A8:G8"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                //worksheet.Cells["A8:G8"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                //worksheet.Cells["A8:G8"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+
+                worksheet.Cells["A1"].Value = "Company Information Report";
+                worksheet.Cells[1, 1].Style.Font.Bold = true;
+                worksheet.Cells[1, 1].Style.Font.SetFromFont(new System.Drawing.Font("Arial Black", 22));
+
+                worksheet.Cells["A3"].Value = "User:" + HttpContext.Session.GetString("Name");
+                //ws.Cells["B3"].Value = ;
+                worksheet.Cells["A4"].Value = "Date Printed:     " + DateTime.Now.ToString("yyyy-MM-dd"); ;
+                //ws.Cells["B4"].Value =
+             
+                worksheet.Cells["A6:Z6"].Style.Font.Bold = true;
+                worksheet.Cells["A6"].LoadFromDataTable(ds.Tables[0], true);
+                worksheet.Cells["A6:Z10000"].AutoFitColumns();
+               
+                package.Save();
+            }
+            stream.Position = 0;
+            string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Company Information Result.xlsx";
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            //return View("index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EmailCorporate(CorporateNotificationEmailRequest data)
+        {
+            var list = new List<CorporateNotificationEmailRequest>();
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiNotifcation/EmailCorporate";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<CorporateNotificationEmailRequest>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+
+
 
         #endregion
 
         #region DataModels
+        public class CorporateNotificationEmailRequest
+        {
+            public string Body { get; set; }
+            public string Subject { get; set; }
+            public string[] CorporateList { get; set; }
+
+        }
+        public class CorporateUserCountFilter
+        {
+            public string? Corporatename { get; set; }
+            public int page { get; set; }
+        }
+        public class CorporateUserCountVM
+        {
+            public string CorporateName { get; set; }
+            public string Registered { get; set; }
+            public string Unregistered { get; set; }
+            public string RegisteredVIP { get; set; }
+            public string TotalVIP { get; set; }
+            public string RemainingVip { get; set; }
+            public string UserCount { get; set; }
+            public string TotalUser { get; set; }
+        }
+        public class PaginationCorpUserCountModel
+        {
+            public string? CurrentPage { get; set; }
+            public string? NextPage { get; set; }
+            public string? PrevPage { get; set; }
+            public string? TotalPage { get; set; }
+            public string? PageSize { get; set; }
+            public string? TotalRecord { get; set; }
+            public string? TotalVIP { get; set; }
+            public List<CorporateUserCountVM> items { get; set; }
+
+
+        }
         public class emailpost
         {
             public string EmailAddress { get; set; }
@@ -918,13 +1268,16 @@ namespace AOPC.Controllers
         {
             public int day { get; set; }
             public string category { get; set; }
-        }        
-  
+        }
+
+    
+        
         public class NewRegCount
         {
             public int count { get; set; }
 
         }
+
         public class ClicCountModel
         {
             public string Module { get; set; }
@@ -990,6 +1343,22 @@ namespace AOPC.Controllers
             public string DateCreated { get; set; }
             public int count { get; set; }
             public double Total { get; set; }
+
+        }
+
+        public class UserFilterUsername
+        {
+            public string userName { get; set; }
+        }
+
+        public class UserCountListing
+        {
+            public int registered { get; set; }
+            public int unregistered { get; set; }
+            public int isVIP { get; set; }
+            public int totalVIP { get; set; }
+            public int remainingVIP { get; set; }
+
 
         }
 

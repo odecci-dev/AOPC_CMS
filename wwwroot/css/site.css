@@ -9,6 +9,7 @@
 @import "table-basic.css";
 @import "table-medium.css";
 @import "table-large.css";
+@import "corporate-dashboard.css";
 @import "dashboard.css";
 @import "business-page.css";
 @import "table.css";
@@ -17,6 +18,7 @@
 @import "file-upload.css";
 @import "topbarcorporate.css";
 @import "nav.css";
+
 
 * {
   margin: 0;

@@ -1,0 +1,495 @@
+﻿@inject IHttpContextAccessor Accessor;
+@{
+    ViewData["Title"] = "Corporate Dashboard";
+    Layout = "~/Views/Shared/_LayoutCorporate.cshtml";
+    string message = "";
+    if (ViewData["Message"] != null)
+    {  
+        message = ViewData["Message"].ToString();
+    }
+
+} 
+ 
+<div class="main-container-corp">    
+    <!-- Employee Count  --> 
+    <div class="row-group corp-dash"> 
+        <div class="employee-count">
+            <div class="inner-group">
+                <div class="box-count"> 
+                    <div class="controls">
+                        <h4>Registered Employee</h4>
+                    </div>
+                    <div class="user-counter">
+                        <div id="registered">
+                            <p class="count" id="registered_employee">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-group">
+                <div class="box-count">
+                    <div class="controls">
+                        <h4>Unregistered Employee</h4>
+                    </div> 
+                    <div class="user-counter">
+                        <div id="unregistered">
+                            <p class="count" id="unregistered_employee">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="vip-count">
+            <div class="inner-group">
+                <div class="box-count">
+                    <div class="controls">
+                        <h4>Total VIP:</h4>
+                    </div>
+                    <div class="user-counter">
+                        <div id="total-vip">
+                            <p class="count" id="total_vip">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-group"> 
+                <div class="box-count">
+                    <div class="controls">
+                        <h4>Remaining VIP Slots:</h4>
+                    </div>
+                    <div class="user-counter">
+                        <div id="remaining-vip-slots">
+                            <p class="count" id="remaining_vip_slots">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel  -->
+    
+    <div class="row-group2 carousel-holder">
+        <div class="carousel">
+            
+            <div class="carousel-container">
+                <div class="card">
+                    <!-- Top Restaurants  -->
+                    <div class="top-restaurants">
+                    <div class="">
+                        <h4 style="color: black; font-weight:700">
+                            Top 3 Restaurant
+                        </h4>
+                    </div>
+                    <div class="outlet-data">
+                        @* <div class="to-pie-graph pie-default" id="to-pie-graph"></div> *@
+                        <canvas id="topRestoChart" style="width:50%;"></canvas>
+                        <div class="tr-pie-graph-info" id="tr-pie-graph-info">
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: var(--accent)"></span>
+                                <span class="data-name" style="color: var(--accent)" id="mcr_top1">Others</span>
+                                <span class="data-value" style="color: var(--accent)" id="mcr_perc1">40%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color:#132D28"></span>
+                                <span class="data-name" style="color:#132D28" id="mcr_top2">Business1</span>
+                                <span class="data-value" style="color:#132D28" id="mcr_perc2">30%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #8F9092"></span>
+                                <span class="data-name" style="color:#8F9092" id="mcr_top3">Business2</span>
+                                <span class="data-value" style="color: #8F9092" id="mcr_perc3">20%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color:#AB262A"></span>
+                                <span class="data-name" style="color: #AB262A" id="mcr_top4">Business3</span>
+                                <span class="data-value"
+                                      style="color: #AB262A" id="mcr_perc4">
+                                    10%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <select id="mcr" class="option-filters">
+                            <option value="7">Last 7 Days</option>
+                            <option value="15">Last 15 Days</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="1">Last 12 Months</option>
+
+                        </select>
+                        <a class="btn-view-more" id="mcr_vm">View Details</a>
+                    </div>
+                </div>
+                </div>
+                <div class="card">
+                    <!-- Top Hotels  -->
+                    <div class="top-hospitality">
+                    <div class="">
+                        <h4 style="color: black; font-weight:700">
+                            Top 3 Hotels
+                        </h4>
+                    </div>
+                    <div class="user-data">
+                        @* <div class="th-pie-graph pie-default" id="th-pie-graph"></div> *@
+                        <canvas id="topHotelChart" style="width:50%;"></canvas>
+                        <div class="th-pie-graph-info">
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: var(--accent)"></span>
+                                <span class="data-name" style="color: var(--accent)" id="mch_top1">Others</span>
+                                <span class="data-value" style="color: var(--accent)" id="mch_perc1">40%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #132D28"></span>
+                                <span class="data-name" style="color: #132D28" id="mch_top2">John Doe</span>
+                                <span class="data-value" style="color: #132D28" id="mch_perc2">30%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #8F9092"></span>
+                                <span class="data-name" style="color: #8F9092" id="mch_top3">Jane Doe</span>
+                                <span class="data-value" style="color: #8F9092" id="mch_perc3">20%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #AB262A"></span>
+                                <span class="data-name" style="color: #AB262A" id="mch_top4">Alfred Doe</span>
+                                <span class="data-value"
+                                      style="color: #AB262A" id="mch_perc4">
+                                    10%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <select id="mch" class="option-filters">
+                            <option value="7">Last 7 Days</option>
+                            <option value="15">Last 15 Days</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="1">Last 12 Months</option>
+                     
+                        </select>
+                        <a class="btn-view-more" id="mch_vm">View Details</a>
+                    </div>
+                </div>
+                </div>
+                <div class="card">
+                    <!-- Top Store  --> 
+                    <div class="top-stores">
+                    <div class="head">
+                        <h4 style="color: black; font-weight:700">
+                            Top 3 Store
+                        </h4>
+                    </div>
+                    <div class="user-data">
+                        @* <div class="ts-pie-graph pie-default" id="ts-pie-graph"></div> *@
+                        <canvas id="topStoreChart" style="width:50%;"></canvas>
+                        <div class="ts-pie-graph-info">
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: var(--accent)"></span>
+                                <span class="data-name" style="color: var(--accent)" id="mcs_top1"></span>
+                                <span class="data-value" style="color: var(--accent)" id="mcs_perc1">40%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #132D28"></span>
+                                <span class="data-name" style="color: #132D28" id="mcs_top2">John Doe</span>
+                                <span class="data-value" style="color: #132D28" id="mcs_perc2">30%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #8F9092"></span>
+                                <span class="data-name" style="color: #8F9092" id="mcs_top3">Jane Doe</span>
+                                <span class="data-value" style="color: #8F9092" id="mcs_perc3">20%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #AB262A"></span>
+                                <span class="data-name" style="color: #AB262A" id="mcs_top4">Alfred Doe</span>
+                                <span class="data-value"
+                                      style="color: #AB262A" id="mcs_perc4">
+                                    10%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <select id="mcs" class="option-filters">
+                            <option value="7">Last 7 Days</option>
+                            <option value="15">Last 15 Days</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="1">Last 12 Months</option>
+
+                        </select>
+                        <a class="btn-view-more" id="mcs_vm">View Details</a>
+                    </div>
+                </div>
+                </div>
+                <div class="card">
+                    <!-- Top Wellness  -->
+                    <div class="top-wellness">
+                    <div class="head">
+                        <h4 style="color: black; font-weight:700">
+                            Top 3 Wellness
+                        </h4>
+                    </div>
+                    <div class="user-data">
+                        @* <div class="tw-pie-graph pie-default" id="tw-pie-graph"></div> *@
+                        <canvas id="topWellnessChart" style="width:50%;"></canvas>
+                        <div class="tw-pie-graph-info">
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: var(--accent)"></span>
+                                <span class="data-name" style="color: var(--accent)" id="mcw_top1">Others</span>
+                                <span class="data-value" style="color: var(--accent)" id="mcw_perc1">40%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #132D28"></span>
+                                <span class="data-name" style="color: #132D28" id="mcw_top2">John Doe</span>
+                                <span class="data-value" style="color: #132D28" id="mcw_perc2">30%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #8F9092"></span>
+                                <span class="data-name" style="color: #8F9092" id="mcw_top3">Jane Doe</span>
+                                <span class="data-value" style="color: #8F9092" id="mcw_perc3">20%</span>
+                            </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: #AB262A"></span>
+                                <span class="data-name" style="color: #AB262A" id="mcw_top4">Alfred Doe</span>
+                                <span class="data-value"
+                                      style="color: #AB262A" id="mcw_perc4">
+                                    10%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <select id="mcw" class="option-filters">
+                            <option value="7">Last 7 Days</option>
+                            <option value="15">Last 15 Days</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="1">Last 12 Months</option>
+
+                        </select>
+                        <a class="btn-view-more" id="mcw_vm">View Details</a>
+                    </div>
+                </div>
+                </div>
+                <div class="card">
+                    <!-- Top Offers  --> 
+                    <div class="top-offers">
+                <div class="head">
+                    <h4 style="color: black; font-weight:700">
+                        Top 3 Offers
+                    </h4>
+                </div>
+                <div class="user-data">
+                    @* <div class="tof-pie-graph pie-default" id="tof-pie-graph"></div> *@
+                    <canvas id="topOfferChart" style="width:50%;"></canvas>
+                    <div class="tof-pie-graph-info">
+                        <div class="data">
+                            <span class="data-label"
+                                  style="background-color: var(--accent)"></span>
+                            <span class="data-name" style="color: var(--accent)" id="mcof_top1">Others</span>
+                            <span class="data-value" style="color: var(--accent)" id="mcof_perc1">40%</span>
+                        </div>
+                        <div class="data">
+                            <span class="data-label"
+                                  style="background-color: #132D28"></span>
+                            <span class="data-name" style="color: #132D28" id="mcof_top2">John Doe</span>
+                            <span class="data-value" style="color: #132D28" id="mcof_perc2">30%</span>
+                        </div>
+                        <div class="data">
+                            <span class="data-label"
+                                  style="background-color: #8F9092"></span>
+                            <span class="data-name" style="color: #8F9092" id="mcof_top3">Jane Doe</span>
+                            <span class="data-value" style="color: #8F9092" id="mcof_perc3">20%</span>
+                        </div>
+                        <div class="data">
+                            <span class="data-label"
+                                  style="background-color: #AB262A"></span>
+                            <span class="data-name" style="color: #AB262A" id="mcof_top4">Alfred Doe</span>
+                            <span class="data-value"
+                                  style="color: #AB262A" id="mcof_perc4">
+                                10%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <select id="mcof" class="option-filters">
+                        <option value="7">Last 7 Days</option>
+                        <option value="15">Last 15 Days</option>
+                        <option value="30">Last 30 Days</option>
+                        <option value="1">Last 12 Months</option>
+                     
+                    </select>
+                    <a class="btn-view-more" id="mco_vm">View Details</a>
+                </div>
+            </div>
+                </div>
+            </div> 
+        </div>
+        <button class="prev" onclick="move(-1)">&#10094;</button>
+        <button class="next" onclick="move(1)">&#10095;</button>
+    </div> 
+     
+</div> 
+  @* Top 3 Modal *@
+<div class="modal fade" id="ShowMostClickModal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
+     aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-error-dialog" style="max-width: 600px;margin: 1.75rem auto;">
+        <div class="modal-content">
+            <div class="modal-header"> 
+                <h4 class="modal-title">Most Click <span id="modalTitle"></span> List</h4>
+                <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
+            </div>
+            <div style="margin:10px">
+
+                <button type="button" class="btn btn-warning btn-msc" id="btn-mcs" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
+                <button type="button" class="btn btn-warning btn-mch" id="btn-mch" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
+                <button type="button" class="btn btn-warning btn-mcr" id="btn-mcr" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
+               
+                <table class="myTableMedium" id="mcr_call">
+                    <thead>
+                        <tr>
+                            <th><span id="modalTHTitle"></span></th>
+                            <th>Click Count</th>
+                            <th>Total Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"></div> 
+
+<script src="/js/app.js" async defer></script>
+<script src="/js/corporateDashboard.js" async defer></script>
+<script src="/js/Dashboard.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+
+
+@section Scripts{
+    <script>
+        var username = "@Accessor.HttpContext.Session.GetString("Username")";
+        $(document).ready(function () {
+            corporateUserCount();
+
+            runTopRestoChart();
+            runTopHotelChart();
+            runTopStoreChart();
+            runTopWellnessChart();
+            runTopOfferChart();
+
+        });
+        $('#mcr').change(function () {
+            runTopRestoChart();
+
+        });
+        $('#mch').change(function () {
+            runTopHotelChart();
+
+        });
+        $('#mcs').change(function () {
+            runTopStoreChart();
+
+        });
+
+        $('#mcw').change(function () {
+            runTopWellnessChart();
+
+        });
+        $('#mcof').change(function () {
+
+            runTopOfferChart();
+
+        });
+        // topRestoFilter();
+        // topHotelFilter();
+        // topStoreFilter();
+        // topWellnessFilter();
+        // topOfferFilter();
+
+        mcrtable = $('#mcr_call').DataTable({
+            "columnDefs": [
+
+                { "width": "150px", "targets": 0 },
+                { "width": "100px", "targets": 1 },
+                { "width": "100px", "targets": 2 },
+                // { "width": "70px", "targets": 9 }
+            ],
+            "bPaginate": false,
+            "bFilter": false,
+            "stripeClasses": [],
+            "ordering": false,
+            "ordering": false,
+            "info": false,
+            "bInfo": false,
+            "bAutoWidth": false,
+            "bLengthChange": false,
+            "searching": false,
+            "paging": true,
+            "aLengthMenu": [10],
+            "searching": true,
+            "paging": true,
+            "aLengthMenu": [10],
+            "searching": true
+            , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+        });
+          
+        
+        $('.btn-msc').click(function () {
+            location.replace("/Dashboard/DownloadMCS");
+
+        });
+        $('.btn-mch').click(function () {
+            location.replace("/Dashboard/DownloadMCH");
+
+        });
+        $('.btn-mcr').click(function () {
+            location.replace("/Dashboard/DownloadMCR");
+
+        });
+
+        
+       
+
+        let currentIndex = 0;
+        function move(direction) {
+            const cards = document.querySelectorAll('.card');
+            const totalCards = cards.length - 2;
+
+            currentIndex += direction;
+
+            if (currentIndex < 0) {
+                currentIndex = totalCards - 1; // wrap around to last card
+            } else if (currentIndex >= totalCards) {
+                currentIndex = 0; // wrap around to first card
+            }
+
+            const offset = -currentIndex * 510; // card width + margin
+            document.querySelector('.carousel-container').style.transform = `translateX(${offset}px)`;
+        }
+
+
+        showRestaurantDetails();
+        showHotelDetails();
+        showStoreDetails();
+        showWellnessDetails();
+        showOfferDetails();
+    </script>
+}

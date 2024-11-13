@@ -39,6 +39,20 @@
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="Libgdiplus.rntime.osx_arm64" Version="6.1.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="Views\Dashboard\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\notification.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\register.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
  
 
 </Project>

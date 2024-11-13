@@ -2,14 +2,53 @@
 
 <html>
   <head>
-        <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <link rel="icon" type="image/x-icon" href="~/image/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="~/image/favicon.ico" />
     <title>AOPC LOG IN</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        form .pass-cont {
+            font-family: "Montserrat-Reg";
+            background-color: white;
+            display: flex;
+            box-shadow: inset 1px 2px 2px 1px rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        form .pass-cont > .cl-pass {
+            height: 30px;
+            background-color: transparent;
+            border: none;
+            padding: 5px 10px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            width: 90%;
+        }
+        form .pass-cont > #view-pass {
+            display: flex;
+            justify-content: center;
+            width: 10%;
+            align-items: center;
+            padding: 5px 10px;
+            box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.595);
+            background-color: #d7d2cb;
+            cursor: pointer;
+        }
+
+        #text{
+            color: var(--light);
+            font-weight: 800;
+            display: none;
+        }
+    </style>
+
+
   </head>
   <body>
     @RenderBody()
@@ -21,10 +60,21 @@
         </div>
         <h1>Content Management System</h1>
         <form class="form">
-          <input type="text" placeholder="Username" id="username" required/>
-          <input type="password" placeholder="Password" id="password" required/>
-          <a href="https://www.alfardanoysterprivilegeclub.com/forgot-password">Forgot Password?</a>
-          <button type="button" value="Save" class="btn-save" id="save" onclick="Login()">Submit</button>
+            <input type="text" placeholder="Username" id="username" required/>
+            @* <input type="password" placeholder="Password" id="password" required /> *@
+            <div class="pass-cont">
+                <input type="password"
+                        placeholder="Password"
+                        class="cl-pass"
+                        id="password"
+                        name="password"
+                        required />
+                <span id="view-pass"><i class="fa fa-eye-slash"></i></span>
+            </div>
+
+            <p id="text">Caps Lock is ON</p>
+            <a href="https://www.alfardanoysterprivilegeclub.com/forgot-password">Forgot Password?</a>
+            <button type="button" value="Save" class="btn-save" id="save" onclick="Login()">Submit</button>
 
         </form>
       </div>
@@ -40,7 +90,28 @@
     <script src="" async defer></script>
   </body>
 </html>
-    <script>
+<script>
+
+    const viewpass = document.querySelector("#view-pass");
+    const passwordInput = document.querySelector("#password");
+    var text = document.getElementById("text");
+    viewpass.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            viewpass.innerHTML = '<i class="fa fa-eye"></i>';
+        } else {
+            passwordInput.type = "password";
+            viewpass.innerHTML = '<i class="fa fa-eye-slash"></i>';
+        }
+    });
+    passwordInput.addEventListener("keyup", function (event) {
+
+        if (event.getModifierState("CapsLock")) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none"
+        }
+    });
 var input = document.getElementById("password");
 var u_input = document.getElementById("username");
 input.addEventListener("keypress", function(event) {
@@ -55,6 +126,7 @@ u_input.addEventListener("keypress", function(event) {
     document.getElementById("save").click();
   }
 });
+
 
 function Login() {
                       if ( $('#username').val() == '' || $('#password').val() == ''  ) 

@@ -1,0 +1,171 @@
+﻿.compose-notification-btn {
+    background-color: transparent;
+    border: 2px solid var(--accent);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 35px;
+    border-radius: 8px;
+    color: var(--accent);
+    font-weight: bold;
+    cursor: pointer;
+}
+.control-notification{
+/*    background-color: red;*/
+    justify-content: flex-end;
+    padding-right: 20px
+}
+.compose-notification-modal-holder {
+    z-index: 9;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: ease-out;
+    display: none;
+}
+.compose-notification-modal {
+    position: absolute;
+    background-color: var(--light);
+    width: 700px;
+    height: 500px;
+}
+.cl-checkbox {
+    padding: 20px;
+}
+.checkbox-option label{
+    color: var(--dark);
+}
+
+.subject-section {
+/*    height: 50px;*/
+    border-top: 1px solid var(--dark);
+    border-bottom: 1px solid var(--dark);
+    display: flex;
+/*    padding: 10px;*/
+/*    justify-content: space-between;*/
+    align-items: center;
+}
+.corporateSearch{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.subject {
+    display: flex;
+/*    justify-content: space-between;*/
+    align-items: center;
+    gap: 5px;
+    padding-left: 20px;
+}
+.subject input{
+    height: 50px;
+    width: 300px;
+    border: none;
+}
+
+.subject input:focus {
+    outline: none;
+}
+.corporateSearch label,
+.subject label{
+    margin:0;
+    color: var(--dark);
+}
+.compose-notification-search-corporate {
+    height: 30px;
+    width: 230px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--dark);
+}
+.body-textarea {
+    padding: 10px 20px;
+    position: relative;
+}
+
+.corporateOptions {
+    position: absolute;
+    height: 190px;
+    width: 230px;
+    background: var(--light);
+    border: 1px solid var(--dark);
+    border-radius: 8px;
+    right: 25px;
+    top: -11px;
+    overflow-y: scroll;
+    display: none;
+    transition-timing-function: ease-in;
+    transition: 1s;
+}
+.corporateOptions .search-corporate {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--dark);
+    border-radius: 8px;
+    width: 190px;
+}
+#corporateOptions {
+    margin-top: 20px;
+    padding: 10px;
+}
+#closeSvg {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+#corporateOptions .formControl {
+    display: flex;
+    gap: 10px;
+    align-items: start;
+}
+.body-textarea textarea {
+    height: 175px;
+    width: 100%;
+    border: none;
+    background-color: var(--light);
+    color: var(--dark);
+}
+.body-textarea textarea:focus {
+    outline: none;
+}
+.compose-notification-modal-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+/*    height: 50px;*/
+    border-top: 1px solid var(--dark);
+}
+.compose-notification-modal-footer .footer-control{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.compose-notification-modal-footer .footer-control label{
+    margin: 0;
+}
+
+.compose-notification-modal-footer .footer-control .sendNotificatoin{
+    background-color: var(--accent);
+    color: var(--light);
+}
+.compose-notification-modal-footer .footer-control .discardNotificatoin{
+    color: var(--dark);
+}
+#selectCorporateError{
+    height: 50px;
+    font-size: 12px;
+    padding: 10px;
+}

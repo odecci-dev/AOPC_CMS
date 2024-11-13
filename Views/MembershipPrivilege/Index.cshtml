@@ -8,8 +8,9 @@
     }
 }
 <style>
+    
 </style>
-
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" />
 
 
 <!-- Tab content -->
@@ -203,7 +204,7 @@
                             <label for="txtCont1">Terms and Conditions <span class="req">*</span></label>
                             @* <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px;"></textarea> *@
                             <textarea id="tmc" class="mod-input" style="white-space: break-spaces; min-height: 300px; "></textarea>
-                        
+                            
                             <!--<div class="textContainer">
                                 <div id="txtCont1" class="textCont">
                                     <div id="parentTextContainer" class="parentTextContainer">
@@ -510,6 +511,36 @@
         white-space: break-spaces;
     }
 </style>
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+        }
+    }
+</script>
+<script src="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js"></script>
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph,
+    } from 'ckeditor5';
+    import { List } from 'ckeditor5';
+    ClassicEditor
+        .create(document.querySelector('#'), {
+            plugins: [Essentials, Bold, Italic, Font, Paragraph, List],
+            toolbar: [
+                // 'undo', 'redo', '|',
+                'bold', 'italic', '|',
+                'fontColor', 'fontBackgroundColor',
+                'numberedList', 'bulletedList'
+            ]
+        });
+// </script>
 @section Scripts{
 <script>
     
@@ -1711,11 +1742,17 @@ $('#privilege-table').on('click', '.tbl-edit', function () {
     tmcContent = tmc;
             // France
     $('#tmc').val(tmc);
+    
     $('#mecha').val(mechanics);
     // France
     populate(tmc);
     populateMechanics(mechanics);
+    // var textare = document.getElementsByClassName("editor__main");
+
+    // textare.style = "background-color: red !important";
+    
     $('#privilegemodal').modal('show');
+
     //noexpiry();
 
 });
@@ -1873,6 +1910,7 @@ function CheckedRows() {
                       });
 
                     });
+
 
     </script>
 }
