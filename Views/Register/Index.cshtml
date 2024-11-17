@@ -1202,7 +1202,8 @@ End here *@
                         data.id = $(this).data("id");
                                      
                        var id=  $(this).data("id");
-           
+                var model = {};
+                model.Id = $(this).data("id");
                        //console.log(id);
                        if($(this).data("emailstatus") =="REGISTERED")
                        {
@@ -1227,8 +1228,8 @@ End here *@
 
                                     
                                        url: '/Register/UpdateUserStatus',
-                                    data: {
-                                        data:id
+                                        data: {
+                                        model:model
                                       },
                                       type: "POST",
                                       datatype: "json"
@@ -1279,38 +1280,40 @@ End here *@
                         data.fname = $(this).data("fname");
                         data.lname = $(this).data("lname");
                         data.email = $(this).data("corpemail");
-                       data.id = $(this).data("corporateid");
-                       var id=  $(this).data("corporateid");
-                        // console.log(data);
-                       if($(this).data("corpstatus") =="REGISTERED")
-                       {
-                          notifyMsg('Warning!', 'User Already Verified.', 'yellow', 'fas fa-exclamation-triangle');
-                       }
-                       else
-                       {
-                          iziToast.question({
-                          timeout: 20000,
-                          close: false,
-                          overlay: true,
-                          id: 'question',
-                          zindex: 999,
-                          title: 'Confirmation',
-                          message: 'Are you sure you want to Send Email?',
-                          position: 'center',
-                          buttons: [
-                          
-                              ['<button><b>YES</b></button>', function (instance, toast) {
-                                  $.blockUI(reloadLoading);
-                                  $.ajax({
+                        data.id = $(this).data("corporateid");
+                        var model = {};
+                model.Id = $(this).data("corporateid");
+                var id = $(this).data("id");
 
-                                    
-                                       url: '/Register/UpdateUserStatus',
-                                        data: {
-                                        data:data
-                                      },
-                                      type: "POST",
-                                      datatype: "json"
-                                  }).done(function (response) {
+                // console.log(model);
+                if ($(this).data("emailstatus") == "REGISTERED") {
+                    notifyMsg('Warning!', 'User Already Verified.', 'yellow', 'fas fa-exclamation-triangle');
+                }
+                else {
+                    iziToast.question({
+                        timeout: 20000,
+                        close: false,
+                        overlay: true,
+                        id: 'question',
+                        zindex: 999,
+                        title: 'Confirmation',
+                        message: 'Are you sure you want to Send Email?',
+                        position: 'center',
+                        buttons: [
+
+                            ['<button><b>YES</b></button>', function (instance, toast) {
+                                $.blockUI(reloadLoading);
+                                $.ajax({
+
+
+                                    url: '/Register/UpdateUserStatus',
+                                    data: {
+                                        model: model
+                                    },
+                                    type: "POST",
+                                    datatype: "json"
+                                }).done(function (response) {
+
                                     $.ajax({
                                         type: "POST",
                                         url: '/Register/Sendemail',
@@ -1319,31 +1322,32 @@ End here *@
                                         },
                                         dataType: 'json',
                                         success: function (response) {
-                                      
+
 
                                         }
                                     });
-                                      notifyMsg('Success!', 'Email Successfully Sent!', 'green', 'fas fa-check');
-                                      
-                                    ShowUserCorporateList();
-                                  $(".alert-warning").hide();
 
-                                      $.unblockUI();
+                                    notifyMsg('Success!', 'Email Successfully Sent!', 'green', 'fas fa-check');
 
-                                  }).fail(function () {
-                                      alert("There was an Error When Loading Data...");
-                                  });
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                                    cms_paginationCorpUser(spanval, filtername, posId, corpid);
+                                    $(".alert-warning").hide();
 
-                              }, true],
-                              ['<button>NO</button>', function (instance, toast) {
+                                    $.unblockUI();
 
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                                }).fail(function () {
+                                    alert("There was an Error When Loading Data...");
+                                });
+                                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                              }],
-                          ]
-                      });
-                       }
+                            }, true],
+                            ['<button>NO</button>', function (instance, toast) {
+
+                                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                            }],
+                        ]
+                    });
+                }
                          
 
                     });

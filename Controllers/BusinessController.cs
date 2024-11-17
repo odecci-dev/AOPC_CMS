@@ -124,7 +124,7 @@ namespace AOPC.Controllers
             List<BusinessModelVM> models = JsonConvert.DeserializeObject<List<BusinessModelVM>>(response);
             return new(models);
         }
-          public class Deletebloc
+        public class Deletebloc
         {
 
             public int Id { get; set; }

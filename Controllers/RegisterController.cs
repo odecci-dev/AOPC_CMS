@@ -26,6 +26,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using String = System.String;
 using System.Collections.Generic;
 using static AOPC.Controllers.CorporateController;
+using MailKit.Security;
 
 namespace AOPC.Controllers
 {
@@ -404,15 +405,20 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = result });
         }
+        public class UserID
+        {
+
+            public int Id { get; set; }
+        }
         [HttpPost]
-        public async Task<IActionResult> UpdateUserStatus(string id)
+        public async Task<IActionResult> UpdateUserStatus(UserID model)
         {
             string result = "";
             try
             {
-                string action = id == "0" ? "Added New" : "Updated";
+                string action = model.Id == null ? "Added New" : "Updated";
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                   action + " Status User Id#: " + id, DateTime.Now.ToString(),
+                   action + " Status User Id#: " + model.Id, DateTime.Now.ToString(),
                    "CMS-User",
                    HttpContext.Session.GetString("Name"),
                    HttpContext.Session.GetString("Id"),
@@ -421,7 +427,7 @@ namespace AOPC.Controllers
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/UpdateUserStatus";
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
-                StringContent content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
+                StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
@@ -437,6 +443,7 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = result });
         }
+        
         [HttpPost]
         public async Task<IActionResult> VerifyOTP(OTPnumber data)
         {
@@ -1083,6 +1090,9 @@ namespace AOPC.Controllers
             message.Body = bodyBuilder.ToMessageBody();
             using (var client = new SmtpClient())
             {
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true; // Bypass SSL validation
+
+                //client.Connect("smtp.yourserver.com", 465, SecureSocketOptions.SslOnConnect);
                 client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
                 client.Authenticate("app@alfardan.com.qa", "Oyster2023!");
                 client.Send(message);
