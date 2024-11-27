@@ -24,7 +24,7 @@ toggle.addEventListener("click", function () {
 
 // Top User Graph, Please 4 data only and make sure that the data value are converted to percentage
 async function ShowPiegraphMostClickRestaurant() {
-    $.blockUI(reloadLoading);
+    //$.blockUI(reloadLoading);
     setTimeout(function () {
         $.ajax(
             {
@@ -118,14 +118,14 @@ async function ShowPiegraphMostClickRestaurant() {
                     };
 
                     pieGraphMovement("#to-pie-graph", topBusinesOutlet);
-                $.unblockUI();
+                //$.unblockUI();
             }).fail(function () {
                 alert("There was an Error When Loading Data...");
             });
     }, 100);
 }
 async function ShowPiegraphMostClickHospitality() {
-    $.blockUI(reloadLoading);
+    //$.blockUI(reloadLoading);
     setTimeout(function () {
         $.ajax(
             {
@@ -219,14 +219,14 @@ async function ShowPiegraphMostClickHospitality() {
 
                 pieGraphMovement("#th-pie-graph", topBusinesOutlet);
 
-                $.unblockUI();
+                //$.unblockUI();
             }).fail(function () {
                 alert("There was an Error When Loading Data...");
             });
     }, 100);
 }
 async function ShowPiegraphMostClickStore() {
-    $.blockUI(reloadLoading);
+    //$.blockUI(reloadLoading);
     setTimeout(function () {
         $.ajax(
             {
@@ -320,7 +320,7 @@ async function ShowPiegraphMostClickStore() {
 
                 pieGraphMovement("#ts-pie-graph", topBusinesOutlet);
 
-                $.unblockUI();
+                //$.unblockUI();
             }).fail(function () {
                 alert("There was an Error When Loading Data...");
             });
@@ -376,7 +376,7 @@ async function ShowVendorOpt() {
   });
 }
 async function ShowPositionName() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Register/GetPosition", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       $("#position").empty();
@@ -384,14 +384,14 @@ async function ShowPositionName() {
       for (var i = 0; i < data.length; i++) {
         $("#position").append('<option value="' + data[i].id + '">' + data[i].name + "</option>");
       }
-      $.unblockUI();
+      //$.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
   }, 100);
 }
 async function ShowPositionName() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Register/GetPosition", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       $("#corp-position").empty();
@@ -399,14 +399,14 @@ async function ShowPositionName() {
       for (var i = 0; i < data.length; i++) {
         $("#corp-position").append('<option value="' + data[i].id + '">' + data[i].positionName + "</option>");
       }
-      $.unblockUI();
+      //$.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
   }, 100);
 }
 async function UserShowPositionName() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax(
       {
@@ -423,7 +423,7 @@ async function UserShowPositionName() {
         for (var i = 0; i < data.length; i++) {
           $("#user-position").append('<option value="' + data[i].id + '">' + data[i].positionName + "</option>");
         }
-        $.unblockUI();
+        //$.unblockUI();
       }).fail(function () {
         alert("There was an Error When Loading Data...");
       });
@@ -431,7 +431,7 @@ async function UserShowPositionName() {
 }
 
 async function _ShowMembershipOption() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Corporate/GetMembershipList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       // 
@@ -441,30 +441,34 @@ async function _ShowMembershipOption() {
       for (var i = 0; i < data.length; i++) {
         $("#memtier-option").append('<option value="' + data[i].id + '">' + data[i].membershipName + "</option>");
       }
-      $.unblockUI();
+      //$.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
   }, 100);
 }
 async function ShowMembershipOption() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
-    $.ajax({ url: "/Corporate/GetMembershipList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
+      $.ajax({ url: "/Corporate/GetMembershipListOption", data: {}, type: "GET", datatype: "json" }).done(function (data) {
+          //console.log(data);
       
       $("#mem-option").empty();
       $("#mem-option").append('<option value="0">-Select Tier-</option>');
+      $("#corp-mem-option").empty();
+      $("#corp-mem-option").append('<option value="0">-Select Tier-</option>');
       for (var i = 0; i < data.length; i++) {
         $("#mem-option").append('<option value="' + data[i].id + '">' + data[i].membershipName + "</option>");
+        $("#corp-mem-option").append('<option value="' + data[i].id + '">' + data[i].membershipName + "</option>");
       }
-      $.unblockUI();
+      //$.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
   }, 100);
 }
 async function ShowCorporateOption() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Corporate/GetCorporateList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       console.log("aw");
@@ -481,7 +485,7 @@ async function ShowCorporateOption() {
   }, 100);
 }
 async function ShowUserType() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Register/GetUserType", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       // 
@@ -490,7 +494,7 @@ async function ShowUserType() {
       for (var i = 0; i < data.length; i++) {
         $("#usertype-option").append('<option value="' + data[i].id + '">' + data[i].userType + "</option>");
       }
-      $.unblockUI();
+      //$.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
@@ -498,7 +502,7 @@ async function ShowUserType() {
 }
 
 async function ShowOptionMembership() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Corporate/GetMembershipList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       $("#membership-option").empty();
@@ -506,14 +510,14 @@ async function ShowOptionMembership() {
       for (var i = 0; i < data.length; i++) {
         $("#membership-option").append('<option value="' + data[i].id + '">' + data[i].membershipName + "</option>");
       }
-      $.unblockUI();
+      //$.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
   }, 100);
 }
 async function CorpShowOptionMembership() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Corporate/GetMembershipList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       $("#corp-mem-option").empty();
@@ -545,7 +549,7 @@ async function ShowBusinessAddress() {
   });
 }
 async function ShowCorporateOption() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
     $.ajax({ url: "/Corporate/GetCorporateList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
       $("#user-corporate-option").empty();
@@ -553,22 +557,22 @@ async function ShowCorporateOption() {
       for (var i = 0; i < data.length; i++) {
         $("#user-corporate-option").append('<option value="' + data[i].id + '">' + data[i].corporateName + "</option>");
       }
-      $.unblockUI();
+      //$.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
   }, 100);
 }
 async function CorpShowCorporateOption() {
-  $.blockUI(reloadLoading);
+  //$.blockUI(reloadLoading);
   setTimeout(function () {
-    $.ajax({ url: "/Corporate/GetCorporateList", data: {}, type: "GET", datatype: "json" }).done(function (data) { // // 
+      $.ajax({ url: "/Corporate/GetCompanyList", data: {}, type: "GET", datatype: "json" }).done(function (data) { // // 
       $("#corp-corporate-option").empty();
       $("#corp-corporate-option").append('<option value="0">-Select Corporate-</option>');
       for (var i = 0; i < data.length; i++) {
         $("#corp-corporate-option").append('<option value="' + data[i].id + '">' + data[i].corporateName + "</option>");
       }
-      $.unblockUI();
+     // $.unblockUI();
     }).fail(function () {
       alert("There was an Error When Loading Data...");
     });
@@ -903,77 +907,172 @@ async function CorpShowCorporateOption() {
             }, 100);
         }
         async function ShowCorporateDetails() {
-            $.blockUI(reloadLoading);
-            setTimeout(function () {
-                $.ajax({
-                    url: "/Corporate/GetCorporateList",
-                    data: {},
-                    type: "GET",
-                    datatype: "json"
-                }).done(function (data) {
-                    console.log(data);
-                    corptable.clear().draw();
-                    for (var i = 0; i < data.length; i++) {
-                        var tdbuttons = ' <div>' +
-                            "<div>" + "<p>" + data[i].companyID +
-                            "</p>" + "<p>" + data[i].corporateName + "</p>" +
-                            '<div class="actions"><a class="tbl-edit" data-id="' + data[i].id +
-                            '" data-corporatename="' + data[i].corporateName +
-                            '"data-address="' + data[i].address +
-                            '"  data-cno="' + data[i].cNo +
-                            '" data-eadd="' + data[i].emailAddress +
-                            '"   data-description="' + data[i].description +
-                            '"  data-tier="' + data[i].tier +
-                            '" data-dstart="' + data[i].dateUsed +
-                            '" data-dend="' + data[i].dateEnded +
-                            '"   data-memid="' + data[i].memid +
-                            '"   data-ucount="' + data[i].userCount +
-                            '" data-vcount="' + data[i].vipCount + '">' +
-                            '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
-                            '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
-                            'stroke="black"' + 'stroke-linecap="round"' +
-                            'stroke-linejoin="round"/>' + "</svg>" +
-                            "<span >Edit</span>" + " </a>" +
-                            '<a class="tbl-delete" data-id="' + data[i].id +
-                            '" data-corporatename="' + data[i].corporateName +
-                            '"data-address="' + data[i].address +
-                            '"  data-cno="' + data[i].cNo +
-                            '" data-eadd="' + data[i].emailAddress + '"  >' +
-                            '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
-                            '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
-                            'fill="black"/>' + "</svg>" +
-                            "<span>Delete</span></a>" +
-                            '<a class="tbl-view"  data-id="' + data[i].id +
-                            '" data-corporatename="' + data[i].corporateName +
-                            '"data-address="' + data[i].address +
-                            '"  data-cno="' + data[i].cNo +
-                            '" data-eadd="' + data[i].emailAddress +
-                            '"   data-description="' + data[i].description +
-                            '"  data-tier="' + data[i].tier +
-                            '"   data-memid="' + data[i].memid +
-                            '"   data-ucount="' + data[i].userCount +
-                            '" data-vcount="' + data[i].vipCount + '">' +
-                            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-eye" viewBox="0 0 16 16"> <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/> <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/> </svg>' +
-                            "<span>View</span></a>" + "</div></div>";
-           $('#_corporate-table').dataTable().fnAddData([
+           // $.blockUI(reloadLoading);
+           // setTimeout(function () {
+           //     $.ajax({
+           //         url: "/Corporate/GetCorporateList",
+           //         data: {},
+           //         type: "GET",
+           //         datatype: "json"
+           //     }).done(function (data) {
+           //         console.log(data);
+           //         corptable.clear().draw();
+           //         for (var i = 0; i < data.length; i++) {
+           //             var tdbuttons = ' <div>' +
+           //                 "<div>" + "<p>" + data[i].companyID +
+           //                 "</p>" + "<p>" + data[i].corporateName + "</p>" +
+           //                 '<div class="actions"><a class="tbl-edit" data-id="' + data[i].id +
+           //                 '" data-corporatename="' + data[i].corporateName +
+           //                 '"data-address="' + data[i].address +
+           //                 '"  data-cno="' + data[i].cNo +
+           //                 '" data-eadd="' + data[i].emailAddress +
+           //                 '"   data-description="' + data[i].description +
+           //                 '"  data-tier="' + data[i].tier +
+           //                 '" data-dstart="' + data[i].dateUsed +
+           //                 '" data-dend="' + data[i].dateEnded +
+           //                 '"   data-memid="' + data[i].memid +
+           //                 '"   data-ucount="' + data[i].userCount +
+           //                 '" data-vcount="' + data[i].vipCount + '">' +
+           //                 '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
+           //                 '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
+           //                 'stroke="black"' + 'stroke-linecap="round"' +
+           //                 'stroke-linejoin="round"/>' + "</svg>" +
+           //                 "<span >Edit</span>" + " </a>" +
+           //                 '<a class="tbl-delete" data-id="' + data[i].id +
+           //                 '" data-corporatename="' + data[i].corporateName +
+           //                 '"data-address="' + data[i].address +
+           //                 '"  data-cno="' + data[i].cNo +
+           //                 '" data-eadd="' + data[i].emailAddress + '"  >' +
+           //                 '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
+           //                 '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
+           //                 'fill="black"/>' + "</svg>" +
+           //                 "<span>Delete</span></a>" +
+           //                 '<a class="tbl-view"  data-id="' + data[i].id +
+           //                 '" data-corporatename="' + data[i].corporateName +
+           //                 '"data-address="' + data[i].address +
+           //                 '"  data-cno="' + data[i].cNo +
+           //                 '" data-eadd="' + data[i].emailAddress +
+           //                 '"   data-description="' + data[i].description +
+           //                 '"  data-tier="' + data[i].tier +
+           //                 '"   data-memid="' + data[i].memid +
+           //                 '"   data-ucount="' + data[i].userCount +
+           //                 '" data-vcount="' + data[i].vipCount + '">' +
+           //                 '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-eye" viewBox="0 0 16 16"> <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/> <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/> </svg>' +
+           //                 "<span>View</span></a>" + "</div></div>";
+           //$('#_corporate-table').dataTable().fnAddData([
 
-                            '<td>' + tdbuttons + '</td>',
-                            // '<td><p>' + data[i].promoReleaseText+'</p></td>',
-                            '<td><p>' + data[i].address + '</p></td>',
-                            '<td><p>' + data[i].cNo + '</p></td>',
-                            '<td><p>' + data[i].emailAddress + '</p></td>',
-                            '<td><p>' + data[i].tier + '</p></td>',
-                            '<td><p>' + data[i].userCount + '</p></td>',
-                            '<td><p>' + data[i].vipCount + '</p></td>',
-                            '<td><p>' + data[i].description + '</p></td>',
-                            '<td><p>' + data[i].dateCreated + '</p></td>'
-                        ]);
+           //                 '<td>' + tdbuttons + '</td>',
+           //                 // '<td><p>' + data[i].promoReleaseText+'</p></td>',
+           //                 '<td><p>' + data[i].address + '</p></td>',
+           //                 '<td><p>' + data[i].cNo + '</p></td>',
+           //                 '<td><p>' + data[i].emailAddress + '</p></td>',
+           //                 '<td><p>' + data[i].tier + '</p></td>',
+           //                 '<td><p>' + data[i].userCount + '</p></td>',
+           //                 '<td><p>' + data[i].vipCount + '</p></td>',
+           //                 '<td><p>' + data[i].description + '</p></td>',
+           //                 '<td><p>' + data[i].dateCreated + '</p></td>'
+           //             ]);
+           //         }
+           //         $.unblockUI();
+           //     }).fail(function () {
+           //         alert("There was an Error When Loading Data...");
+           //     });
+           // }, 100);
+
+            new DataTable('#_corporate-table', {
+                ajax: {
+                    url: '/Corporate/GetCorporateList',
+                    //url: '/Dashboard/GetCompanyInformation', 
+                    type: "GET",
+                    dataType: "json",
+                    //processing: true,
+                    //serverSide: true,
+                    complete: function (xhr) {
+                        //console.log(xhr);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
                     }
-                    $.unblockUI();
-                }).fail(function () {
-                    alert("There was an Error When Loading Data...");
-                });
-            }, 100);
+                }, responsive: true,
+                searching: true,
+                ordering: true,
+                paging: true,
+                buttons: ["copy", "excel", "pdf"],
+                columns: [
+                    {
+                        data: 'companyID',
+                        render: function (data, type, row) {
+                            var tdbuttons = ' <div>' +
+                                "<div>" + "<p>" + data +
+                                "</p>" + "<p>" + row.corporateName + "</p>" +
+                                '<div class="actions"><a class="tbl-edit" data-id="' + row.id +
+                                '" data-corporatename="' + row.corporateName +
+                                '"data-address="' + row.address +
+                                '"  data-cno="' + row.cNo +
+                                '" data-eadd="' + row.emailAddress +
+                                '"   data-description="' + row.description +
+                                '"  data-tier="' + row.tier +
+                                '" data-dstart="' + row.dateUsed +
+                                '" data-dend="' + row.dateEnded +
+                                '"   data-memid="' + row.memid +
+                                '"   data-ucount="' + row.userCount +
+                                '" data-vcount="' + row.vipCount + '">' +
+                                '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
+                                '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
+                                'stroke="black"' + 'stroke-linecap="round"' +
+                                'stroke-linejoin="round"/>' + "</svg>" +
+                                "<span >Edit</span>" + " </a>" +
+                                '<a class="tbl-delete" data-id="' + row.id +
+                                '" data-corporatename="' + row.corporateName +
+                                '"data-address="' + row.address +
+                                '"  data-cno="' + row.cNo +
+                                '" data-eadd="' + row.emailAddress + '"  >' +
+                                '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
+                                '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
+                                'fill="black"/>' + "</svg>" +
+                                "<span>Delete</span></a>" +
+                                '<a class="tbl-view"  data-id="' + row.id +
+                                '" data-corporatename="' + row.corporateName +
+                                '"data-address="' + row.address +
+                                '"  data-cno="' + row.cNo +
+                                '" data-eadd="' + row.emailAddress +
+                                '"   data-description="' + row.description +
+                                '"  data-tier="' + row.tier +
+                                '"   data-memid="' + row.memid +
+                                '"   data-ucount="' + row.userCount +
+                                '" data-vcount="' + row.vipCount + '">' +
+                                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-eye" viewBox="0 0 16 16"> <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/> <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/> </svg>' +
+                                "<span>View</span></a>" + "</div></div>";
+
+                            return tdbuttons;
+                        }
+                    },
+                    {
+                        data: 'address'
+                    },
+                    {
+                        data: 'cNo'
+                    },
+                    {
+                        data: 'emailAddress'
+                    },
+                    {
+                        data: 'tier'
+                    },
+                    {
+                        data: 'userCount'
+                    },
+                    {
+                        data: 'vipCount'
+                    },
+                    {
+                        data: 'description'
+                    },
+                    {
+                        data: 'dateCreated'
+                    }
+                ]
+            });
         }
 
 

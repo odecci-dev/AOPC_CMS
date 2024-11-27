@@ -26,6 +26,7 @@ using static AOPC.Controllers.RegisterController;
 using static AOPC.Controllers.VendorController;
 using OfficeOpenXml.DataValidation;
 using static NPOI.HSSF.Util.HSSFColor;
+using static AOPC.Controllers.CMSController;
 
 namespace AOPC.Controllers
 {
@@ -69,7 +70,7 @@ namespace AOPC.Controllers
             {
                 return RedirectToAction("Index", "LogIn");
             }
-            return View();
+            return View("CorporateDashboard");
         }
         [HttpPost]
         public async Task<IActionResult> GetAllUserCount(UserFilterUsername data)
@@ -156,7 +157,40 @@ namespace AOPC.Controllers
             List<Usertotalcount> models = JsonConvert.DeserializeObject<List<Usertotalcount>>(response);
             return new(models);
         }
-            
+        public class UserFilterDateRange
+        {
+            public int day { get; set; }
+            public string? startdate { get; set; }
+            public string? enddate { get; set; }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostCountAllUser(UserFilterDateRange data)
+        {
+            string result = "";
+            var list = new List<Usertotalcount>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostNewRegistered";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+
+                    list = JsonConvert.DeserializeObject<List<Usertotalcount>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+
         [HttpGet]
         public async Task<JsonResult> GetClickCounts()
         {
@@ -166,7 +200,35 @@ namespace AOPC.Controllers
             string response = await client.GetStringAsync(url);
             List<ClicCountModel> models = JsonConvert.DeserializeObject<List<ClicCountModel>>(response);
             return new(models.ToList().Take(2));
-        }  
+            //return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostMostClickCounts(UserFilterDateRange data)
+        {
+
+            string result = "";
+            var list = new List<ClicCountModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/GetClickCountsListAll ";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<ClicCountModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
         [HttpGet]
         public async Task<JsonResult> GetClickCountsGetAll()
         {
@@ -277,7 +339,8 @@ namespace AOPC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<QrTrailVM> models = JsonConvert.DeserializeObject<List<QrTrailVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetSupportDetails()
@@ -287,7 +350,8 @@ namespace AOPC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<SupportDetailModel> models = JsonConvert.DeserializeObject<List<SupportDetailModel>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetNotification()
@@ -297,7 +361,8 @@ namespace AOPC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<NotificationVM> models = JsonConvert.DeserializeObject<List<NotificationVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetLineGraphCount()
@@ -793,10 +858,143 @@ namespace AOPC.Controllers
             string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Restaurant Reports.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        [HttpPost]
-        public async Task<IActionResult> PostCallToActions(UserFilterday data)
+        public IActionResult DownloadMCW()
         {
+            var stream = new MemoryStream();
+            using (var pck = new ExcelPackage(stream))
+            {
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet 1");
+                ws.Cells["A:AZ"].Style.Font.Size = 11;
+                ws.Cells["A6:C6"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Font.Bold = true;
 
+
+                ws.Cells["A1"].Value = "Most Click Wellness Report";
+                ws.Cells[1, 1].Style.Font.Bold = true;
+                ws.Cells[1, 1].Style.Font.SetFromFont(new System.Drawing.Font("Arial Black", 22));
+
+                ws.Cells["A3"].Value = "User:                      " + HttpContext.Session.GetString("Name");
+                //ws.Cells["B3"].Value = ;
+                ws.Cells["A4"].Value = "Date Printed:     " + DateTime.Now.ToString("yyyy-MM-dd"); ;
+                //ws.Cells["B4"].Value =
+
+                ws.Cells["A6"].Value = "Wellness";
+                ws.Cells["B6"].Value = "Click Count";
+                ws.Cells["C6"].Value = "Total Percentage";
+                for (var col = 1; col <= 10; col++)
+                {
+                    ws.Cells[1, col].Style.Font.Bold = true;
+                }
+
+                string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Wellness' 
+                        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                DataTable dt = db.SelectDb(sql).Tables[0];
+                int ctr = 7;
+                int total = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    total += int.Parse(dr["count"].ToString());
+                }
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ws.Cells[ctr, 1].Value = dr["Business"].ToString();
+                    ws.Cells[ctr, 2].Value = dr["count"].ToString();
+                    double val1 = double.Parse(dr["count"].ToString());
+                    double val2 = double.Parse(total.ToString());
+
+                    double results = val1 / val2 * 100;
+                    ws.Cells[ctr, 3].Value = Math.Round(results, 2);
+                    ws.Cells["A" + ctr + ":C" + ctr].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    ctr++;
+                }
+                ws.Cells.AutoFitColumns();
+                pck.Save();
+            }
+
+            stream.Position = 0;
+            string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Wellness Reports.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+        public IActionResult DownloadMCO()
+        {
+            var stream = new MemoryStream();
+            using (var pck = new ExcelPackage(stream))
+            {
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet 1");
+                ws.Cells["A:AZ"].Style.Font.Size = 11;
+                ws.Cells["A6:C6"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A6:C6"].Style.Font.Bold = true;
+
+
+                ws.Cells["A1"].Value = "Most Click Offer Report";
+                ws.Cells[1, 1].Style.Font.Bold = true;
+                ws.Cells[1, 1].Style.Font.SetFromFont(new System.Drawing.Font("Arial Black", 22));
+
+                ws.Cells["A3"].Value = "User:                      " + HttpContext.Session.GetString("Name");
+                //ws.Cells["B3"].Value = ;
+                ws.Cells["A4"].Value = "Date Printed:     " + DateTime.Now.ToString("yyyy-MM-dd"); ;
+                //ws.Cells["B4"].Value =
+
+                ws.Cells["A6"].Value = "Offer";
+                ws.Cells["B6"].Value = "Click Count";
+                ws.Cells["C6"].Value = "Total Percentage";
+                for (var col = 1; col <= 10; col++)
+                {
+                    ws.Cells[1, col].Style.Font.Bold = true;
+                }
+
+                string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Health' 
+                        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                DataTable dt = db.SelectDb(sql).Tables[0];
+                int ctr = 7;
+                int total = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    total += int.Parse(dr["count"].ToString());
+                }
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ws.Cells[ctr, 1].Value = dr["Business"].ToString();
+                    ws.Cells[ctr, 2].Value = dr["count"].ToString();
+                    double val1 = double.Parse(dr["count"].ToString());
+                    double val2 = double.Parse(total.ToString());
+
+                    double results = val1 / val2 * 100;
+                    ws.Cells[ctr, 3].Value = Math.Round(results, 2);
+                    ws.Cells["A" + ctr + ":C" + ctr].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    ctr++;
+                }
+                ws.Cells.AutoFitColumns();
+                pck.Save();
+            }
+
+            stream.Position = 0;
+            string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Offer Reports.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+        public class UserFilterCat
+
+        {
+            public int day { get; set; }
+            public string? startdate { get; set; }
+            public string? enddate { get; set; }
+
+            //public int day { get; set; }
+            public string category { get; set; }
+
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> PostCallToActions(UserFilterCat data)
+        {
             string result = "";
             var list = new List<CallToActionsModel>();
             try
@@ -808,9 +1006,8 @@ namespace AOPC.Controllers
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
-                  
                     list = JsonConvert.DeserializeObject<List<CallToActionsModel>>(res);
-                   
+
                 }
             }
 
@@ -818,10 +1015,11 @@ namespace AOPC.Controllers
             {
                 string status = ex.GetBaseException().ToString();
             }
-            return Json(list);
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
         }
         [HttpPost]
-        public async Task<IActionResult> PostMostClickRestaurant(UserFilterday data)
+        public async Task<IActionResult> PostMostClickRestaurant(UserFilterDateRange data)
         {
 
             string result = "";
@@ -846,9 +1044,36 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
-        
         [HttpPost]
-        public async Task<IActionResult> PostMostClickedHospitality(UserFilterday data)
+        public async Task<IActionResult> PostViewMostClickRestaurant(UserFilterDateRange data)
+        {
+
+            string result = "";
+            var list = new List<MostClickRestoModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostClickRestaurantList ";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<MostClickRestoModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostMostClickedHospitalityv2(UserFilterDateRange data)
         {
 
             string result = "";
@@ -874,7 +1099,34 @@ namespace AOPC.Controllers
             return Json(list);
         }
         [HttpPost]
-        public async Task<IActionResult> PostMostCickStore(UserFilterday data)
+        public async Task<IActionResult> PostViewClickedHospitalityv2(UserFilterDateRange data)
+        {
+
+            string result = "";
+            var list = new List<MostClickHospitalityModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostClickedHospitalityList ";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<MostClickHospitalityModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostMostCickStorev2(UserFilterDateRange data)
         {
 
             string result = "";
@@ -900,7 +1152,34 @@ namespace AOPC.Controllers
             return Json(list);
         }
         [HttpPost]
-        public async Task<IActionResult> PostMostCickWellness(UserFilterday data)
+        public async Task<IActionResult> PostViewMostCickStorev2(UserFilterDateRange data)
+        {
+
+            string result = "";
+            var list = new List<MostClickStoreModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostCickStoreList ";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<MostClickStoreModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostMostCickWellnessv2(UserFilterDateRange data)
         {
 
             string result = "";
@@ -926,7 +1205,34 @@ namespace AOPC.Controllers
             return Json(list);
         }
         [HttpPost]
-        public async Task<IActionResult> PostMostCickOffer(UserFilterday data)
+        public async Task<IActionResult> PostViewMostCickWellnessv2(UserFilterDateRange data)
+        {
+
+            string result = "";
+            var list = new List<MostClickStoreModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostClickWellnessList ";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<MostClickStoreModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostMostCickOfferv2(UserFilterDateRange data)
         {
             string result = "";
             var list = new List<MostClickStoreModel>();
@@ -950,8 +1256,71 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> PostViewMostCickOfferv2(UserFilterDateRange data)
+        {
 
+            string result = "";
+            var list = new List<MostClickStoreModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/PostMostClickHealthList ";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<MostClickStoreModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
+
+        //Company Info
+        [HttpGet]
+        public async Task<JsonResult> GetCompanyInformationv2()
+        {
+            ////var url = DBConn.HttpString + "/api/AuditTrail/AudittrailList";
+            //var url = DBConn.HttpString + "/api/ApiCorporateListing/CorporateUserCountAll";
+            //HttpClient client = new HttpClient();
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            //string response = await client.GetStringAsync(url);
+            //List<CorporateUserCountVM> models = JsonConvert.DeserializeObject<List<CorporateUserCountVM>>(response);
+            ////return new(models);
+            //return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+
+            var url = DBConn.HttpString + "/api/ApiCorporateListing/CorporateUserCountAll";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<CorporateUserCountVM> models = JsonConvert.DeserializeObject<List<CorporateUserCountVM>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+
+
+
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetCompanyInformation()
+        {
+            string test = token_.GetValue();
+            var url = DBConn.HttpString + "/api/ApiCorporateListing/CorporateUserCountAll";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+
+            string response = await client.GetStringAsync(url);
+            List<CorporateUserCountVM> models = JsonConvert.DeserializeObject<List<CorporateUserCountVM>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
         [HttpPost]
         public async Task<IActionResult> PostCompanyInformation(CorporateUserCountFilter data)
         {
@@ -1227,12 +1596,6 @@ namespace AOPC.Controllers
             public string DateCreated { get; set; }
             public int count { get; set; }
             public double Total { get; set; }
-
-        }
-        public class UserFilterCatday
-        {
-            public int day { get; set; }
-            public string category { get; set; }
 
         }
         public class MostClickHospitalityModel

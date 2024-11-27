@@ -10,8 +10,27 @@
 <style>
     
 </style>
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" />
+@* <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" /> *@
+ @* quill richtext editor *@@* 
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> *@
 
+@* summer note rich text editor
+ *@
+@* <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script> *@
+
+<link rel="stylesheet" href="/richtexteditor/rte_theme_default.css" />
+<script type="text/javascript" src="/richtexteditor/rte.js"></script>
+<script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
+@* <script type="text/javascript" src='/richtexteditor/plugins/inserttemplate.js'></script> *@
+@* 
+<script type="text/javascript" src=''></script> *@
+@* New DataTables Start*@
+<link rel="stylesheet" href="/css/datatable.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+@* New DataTables End*@
 
 <!-- Tab content -->
 @* Card Test *@
@@ -142,6 +161,7 @@
                                    id="img"
                                    class="mod-input img-choose"
                                    name="uploadimg" accept="image/*" />
+                            <input type="hidden" value="" id="imgUrl"/>
                         </div>
                     </div>
                     <div class="mod-form-row">
@@ -203,7 +223,7 @@
                         <div class="input-container-whole">
                             <label for="txtCont1">Terms and Conditions <span class="req">*</span></label>
                             @* <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px;"></textarea> *@
-                            <textarea id="tmc" class="mod-input" style="white-space: break-spaces; min-height: 300px; "></textarea>
+                            <div id="tmc" class="mod-input" style="white-space: break-spaces; min-height: 300px; "></div>
                             
                             <!--<div class="textContainer">
                                 <div id="txtCont1" class="textCont">
@@ -227,7 +247,7 @@
                     <div class="mod-form-row">
                         <div class="input-container-whole">
                             <label for="txtConts1">Mechanics <span class="req">*</span></label>
-                            <textarea id="mecha" class="mod-input" style=" white-space: break-spaces; min-height: 300px; "></textarea>
+                            <div id="mecha" class="mod-input" style=" white-space: break-spaces; min-height: 300px; "></div>
                             @* <div class="Mechanics">
                                 <div id="txtConts1" class="textConts">
                                     <div id="parentTextContainers" class="parentTextContainer">
@@ -511,7 +531,8 @@
         white-space: break-spaces;
     }
 </style>
-<script type="importmap">
+
+@* <script type="importmap">
     {
         "imports": {
             "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
@@ -519,7 +540,8 @@
         }
     }
 </script>
-<script src="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js"></script>
+ <script src="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js"></script>
+
 <script type="module">
     import {
         ClassicEditor,
@@ -531,7 +553,7 @@
     } from 'ckeditor5';
     import { List } from 'ckeditor5';
     ClassicEditor
-        .create(document.querySelector('#'), {
+        .create(document.querySelector('#tmc'), {
             plugins: [Essentials, Bold, Italic, Font, Paragraph, List],
             toolbar: [
                 // 'undo', 'redo', '|',
@@ -540,13 +562,24 @@
                 'numberedList', 'bulletedList'
             ]
         });
-// </script>
+// </script>  *@
+<script>
+
+    
+</script>
 @section Scripts{
 <script>
-    
-    
-        
-    setTimeout(function () {
+   
+        // var quill = new Quill('#tmc', {
+        //     modules: { toolbar: [['bold', 'italic', 'underline']] }
+        // });
+        // const quill = new Quill('#tmc', {
+        //     theme: 'snow'
+        //   });
+        // const quill1 = new Quill('#mecha', {
+        //     theme: 'snow'
+        // });
+   @* setTimeout(function () {
         $.ajax(
             {
                 url: "/MembershipPrivilege/GetPrivilegeList",
@@ -568,7 +601,7 @@
             .fail(function () {
                 alert("There was an Error When Loading Data...");
             });
-    }, 100);
+    }, 100);*@
   var i_id = "";
   var img_edit="";
   var privid="";
@@ -580,8 +613,13 @@
     var qrframe_edit = "";
     var vip_Card_edit = "";
     var vip_Badge_edit = "";
+    var tmcEditor;
+    var mechaEditor;
     $(document).ready(function () {
+            tmcEditor = new RichTextEditor("#tmc");
+            mechaEditor = new RichTextEditor("#mecha");
 
+            $('rte-powerby').attr('style', 'display: none !important');
         document.querySelector("#usercount").addEventListener("keypress", function (evt) {
     if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
     {
@@ -646,47 +684,47 @@
 
                 }});
 
-                 membershiptable = $('#membership-table').DataTable({
+                //  membershiptable = $('#membership-table').DataTable({
 
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                     "paging": true,
-                      "aLengthMenu": [30],
-                      "searching": true,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
+                //     "bPaginate": false,
+                //     "bFilter": false,
+                //     "stripeClasses": [],
+                //     "ordering": false,
+                //     "ordering": false,
+                //     "info": false,
+                //     "bInfo": false,
+                //     "bAutoWidth": false,
+                //     "bLengthChange": false,
+                //      "paging": true,
+                //       "aLengthMenu": [30],
+                //       "searching": true,
+                //     "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
 
-                }});
-                privilegetable = $('#privilege-table').DataTable({
-                       "columnDefs": [
-                        { "width": "100px", "targets": 0 },
-                        { "width": "120px", "targets": 1 },
-                        { "width": "70px", "targets": 2 },
-                        { "width": "70px", "targets": 3 },
-                        { "width": "70px", "targets": 4 },
-                        { "width": "70px", "targets": 5 }
-                      ],
-                  "bPaginate": false,
-                  "bFilter": false,
-                  "stripeClasses": [],
-                  "ordering": false,
-                  "ordering": false,
-                  "info": false,
-                  "bInfo": false,
-                  "bAutoWidth": false,
-                  "bLengthChange": false,
-                  "bLengthChange": false,
-                     "paging": true,
-                      "aLengthMenu": [4],
-                          "searching": true,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-                });
+                // }});
+                // privilegetable = $('#privilege-table').DataTable({
+                //        "columnDefs": [
+                //         { "width": "100px", "targets": 0 },
+                //         { "width": "120px", "targets": 1 },
+                //         { "width": "70px", "targets": 2 },
+                //         { "width": "70px", "targets": 3 },
+                //         { "width": "70px", "targets": 4 },
+                //         { "width": "70px", "targets": 5 }
+                //       ],
+                //   "bPaginate": false,
+                //   "bFilter": false,
+                //   "stripeClasses": [],
+                //   "ordering": false,
+                //   "ordering": false,
+                //   "info": false,
+                //   "bInfo": false,
+                //   "bAutoWidth": false,
+                //   "bLengthChange": false,
+                //   "bLengthChange": false,
+                //      "paging": true,
+                //       "aLengthMenu": [4],
+                //           "searching": true,
+                //     "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+                // });
         $("input[name=uploadimg]").change(function () {
 
             if (this.files && this.files[0]) {
@@ -1140,7 +1178,7 @@ $("#checkAll2").click(function () {
                             type: "POST",
                             datatype: "json"
                         }).done(function (data) {
-                            console.log(data);
+                            // console.log(data);
                             $('#vlistmodal').modal('hide');
                             $(".alert-warning").hide();
 
@@ -1166,9 +1204,17 @@ $("#checkAll2").click(function () {
                     console.log(filename);
                     if(filename =="" || filename == null)
                     {
-                      filename = img_edit;
+                        if (i_id != 0) {
+                            var newImg = $("#imgUrl").val();
+                            newImg = newImg.replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "");
+                            newImg = newImg.replace("%20", " ");
+                            filename = newImg;
+                        }else{
+                            filename = img_edit;
+                        }
                     }
 
+                    // console.log(filename);
                      var TMC = "";
                      var Mecha = "";
                      var tnc_counter=0;
@@ -1224,29 +1270,38 @@ $("#checkAll2").click(function () {
 
                      
                         });
-                     console.log($(".textConts #parentTextContainers textarea").length);
+                     // console.log($(".textConts #parentTextContainers textarea").length);
                       var data={};
                       data.id = i_id;
                       data.Title =$('#title').val();
                       data.Description = $('#descrip').val();
                       // data.Mechanics = Mecha;
-                      data.Mechanics = $('#mecha').val();
+                      // data.Mechanics = $('#mecha').val();
                       data.Validity =$('#validity').val();
                       data.NoExpiry = "";
+                        
+                    
                       data.ImgUrl =filename;
                       data.VendorID = "";
                       data.isVIP =$('#isVIP').val();
                       data.BusinessTypeID =$('#btype-option').val();
                       // data.tmc =TMC;
-                      data.tmc = $('#tmc').val();
+                        //var newTMC = document.getElementById("tmc").innerHTML;
+                      var newTMC = tmcEditor.getHTMLCode();
+                      var newMecha = mechaEditor.getHTMLCode();
+                      newTMC = newTMC.replaceAll(`"`, `'`);
+                      data.tmc = newTMC;
+                      newMecha = newMecha.replaceAll(`"`, `'`);
+                      data.Mechanics = newMecha;
                       data.Active = 5;
-
-                      console.log(data);
+                      // document.getElementById("mecha").innerHTML = newTMC;
+                      // console.log(data);
                       var fileUpload = $("#img").get(0);
                       var files = fileUpload.files;
                       var formData = new FormData();
                       formData.append('file', files[0]);
                       var fileUpload = $("#upload-img").get(0);
+                        // console.log(data.ImgUrl);
                      if (i_id != 0) {
                             message = 'Are you sure you want to update this '+ $('#title').val() ;
                             }
@@ -1573,9 +1628,9 @@ $('#membership-table').on('click', '.tbl-edit', function () {
     vip_Card = $(this).data("cards");
     vip_Badge = $(this).data("badges");
 
-    console.log(vip_Badge);
-    console.log(vip_Card);
-            console.log(mcard);
+    // console.log(vip_Badge);
+    // console.log(vip_Card);
+    //     console.log(mcard);
     var formattedDate = formatDate(dend);
     var formattedDate_dstart = formatDate(dstart);
     //console.log(formattedDate);
@@ -1715,24 +1770,25 @@ $('#privilege-table').on('click', '.tbl-edit', function () {
     validity  = $(this).data("validity");
     vendorID  = $(this).data("vid");
     imgUrl  = $(this).data("imgfile");
-                console.log(validity);
     //var date = new Date(validity);
     //var formattedDate = validity.replace(/-/g,"/");
-                      formattedDate_dstart = formatDate(validity);
-                      if (imgUrl != null) {
-                      var img = $('<img>').attr('src', imgUrl);
-                      img.attr('height', '120px');
-                      img.attr('width', '120px');
-                      $('.upload-image-preview').html(img);
-                      }
-                      else {
-                          document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
-                      }
-    ShowprivilegeList();
+    formattedDate_dstart = formatDate(validity);
+    if (imgUrl != null) {
+    var img = $('<img>').attr('src', imgUrl);
+    img.attr('height', '120px');
+    img.attr('width', '120px');
+    $('.upload-image-preview').html(img);
+    }
+    else {
+        document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+    }
+    // ShowprivilegeList();
     $('#title').val(title);
     $('#descrip').val(description);
     $('#mechanics').val(mechanics);
     $('#validity').val(formattedDate_dstart);
+    $('#imgUrl').val(imgUrl);
+    
     //$('#NoExpiry').val(noExpiry);
     //$('#vendor-option').val(vendorID);
     $('#isVIP').val(isVIP);
@@ -1740,10 +1796,14 @@ $('#privilege-table').on('click', '.tbl-edit', function () {
 
     // tmcContent = tmc.replaceAll("?", "•");
     tmcContent = tmc;
-            // France
-    $('#tmc').val(tmc);
-    
-    $('#mecha').val(mechanics);
+    // France TMC-Edit
+    // document.getElementById('tmc').innerHTML = tmc;
+    tmcEditor.setHTMLCode(tmc);
+    mechaEditor.setHTMLCode(mechanics);
+    // $('#tmc').val(tmc);
+            
+    // $('#mecha').val(mechanics);
+    // document.getElementById('mecha').getElementsByClassName("ql-editor")[0].innerHTML = mechanics;
     // France
     populate(tmc);
     populateMechanics(mechanics);

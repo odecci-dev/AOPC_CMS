@@ -205,7 +205,10 @@
 /*carousel*/
 
 
-
+.carousel{
+/*    height: 350px !important;*/
+    position: relative !important;
+}
 .carousel-container {
     display: flex;
     gap: 30px;
@@ -233,6 +236,10 @@ button.next {
     cursor: pointer;
     border-radius: 5px;
     background-color: var(--accent);
+}
+button.corp-prev,
+button.corp-next {
+    top: 10%;
 }
 
 .prev {

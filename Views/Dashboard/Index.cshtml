@@ -9,7 +9,12 @@
 
     
 }
-
+ @* <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css"  *@
+@* New DataTables Start*@
+<link rel="stylesheet" href="/css/datatable.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+@* New DataTables End*@
 <div class="main-container">
     <!-- Top Corp User  -->
 
@@ -17,7 +22,7 @@
         <div class="chart-class">
          <h4 style="color:#c89328">Total User</h4>
                 <div class="top-corp-user">
-   
+
                     <canvas id="myChart" style="width:1000px"></canvas>
                 </div>
         </div>
@@ -32,12 +37,14 @@
                         </svg>
                         Select Date
                     </button>
-                    @* <select id="nur" class="option-filters">
+                    <select id="nur" class="option-filters">
+
+                        <option value="0">Select</option>
                         <option value="7">Last 7 Days</option>
                         <option value="15">Last 15 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="1">Last 12 Months</option>
-                    </select> *@
+                    </select>
                 </div>
                 <div class="user-counter">
                     <div id="new-registered">
@@ -127,13 +134,13 @@
                                 </svg>
                                 Select Date
                             </button>
-                            @* <select id="mcr" class="option-filters">
+                            <select id="mcr" class="option-filters">
                                 <option value="7">Last 7 Days</option>
                                 <option value="15">Last 15 Days</option>
                                 <option value="30">Last 30 Days</option>
                                 <option value="1">Last 12 Months</option>
 
-                            </select> *@
+                            </select>
                             <a class="btn-view-more" id="mcr_vm">View Details</a>
                         </div>
                     </div>
@@ -186,13 +193,13 @@
                                 </svg>
                                 Select Date
                             </button>
-                            @* <select id="mch" class="option-filters">
+                            <select id="mch" class="option-filters">
                                 <option value="7">Last 7 Days</option>
                                 <option value="15">Last 15 Days</option>
                                 <option value="30">Last 30 Days</option>
                                 <option value="1">Last 12 Months</option>
                      
-                            </select> *@
+                            </select>
                             <a class="btn-view-more" id="mch_vm">View Details</a>
                         </div>
                     </div>
@@ -245,13 +252,13 @@
                                 </svg>
                                 Select Date
                             </button>
-                            @* <select id="mcs" class="option-filters">
+                            <select id="mcs" class="option-filters">
                                 <option value="7">Last 7 Days</option>
                                 <option value="15">Last 15 Days</option>
                                 <option value="30">Last 30 Days</option>
                                 <option value="1">Last 12 Months</option>
 
-                            </select> *@
+                            </select>
                             <a class="btn-view-more" id="mcs_vm">View Details</a>
                         </div>
                     </div>
@@ -304,13 +311,13 @@
                                 </svg>
                                 Select Date
                             </button>
-                            @* <select id="mcw" class="option-filters">
+                            <select id="mcw" class="option-filters">
                                 <option value="7">Last 7 Days</option>
                                 <option value="15">Last 15 Days</option>
                                 <option value="30">Last 30 Days</option>
                                 <option value="1">Last 12 Months</option>
 
-                            </select> *@
+                            </select>
                             <a class="btn-view-more" id="mcw_vm">View Details</a>
                         </div>
                     </div>
@@ -328,12 +335,6 @@
                             <canvas id="topOfferChart" style="width:50%;"></canvas>
 
                         <div class="tof-pie-graph-info">
-                            <div class="data">
-                                <span class="data-label"
-                                      style="background-color: var(--accent)"></span>
-                                <span class="data-name" style="color: var(--accent)" id="mcof_top1">Others</span>
-                                <span class="data-value" style="color: var(--accent)" id="mcof_perc1">40%</span>
-                            </div>
                             <div class="data">
                                 <span class="data-label"
                                       style="background-color: #132D28"></span>
@@ -355,6 +356,12 @@
                                     10%
                                 </span>
                             </div>
+                            <div class="data">
+                                <span class="data-label"
+                                      style="background-color: var(--accent)"></span>
+                                <span class="data-name" style="color: var(--accent)" id="mcof_top1">Others</span>
+                                <span class="data-value" style="color: var(--accent)" id="mcof_perc1">40%</span>
+                            </div>
                         </div>
                     </div>
                     <div class="controls">
@@ -364,13 +371,13 @@
                                 </svg>
                                 Select Date
                             </button>
-                        @* <select id="mcof" class="option-filters">
+                        <select id="mcof" class="option-filters">
                             <option value="7">Last 7 Days</option>
                             <option value="15">Last 15 Days</option>
                             <option value="30">Last 30 Days</option>
                             <option value="1">Last 12 Months</option>
                      
-                        </select> *@
+                        </select>
                         <a class="btn-view-more" id="mco_vm">View Details</a>
                     </div>
                 </div>
@@ -403,14 +410,14 @@
                         </svg>
                         Select Date
                     </button>
-                    @* <select id="cta-day" class="option-filters">
+                    <select id="cta-day" class="option-filters">
                         <option value="0" style="color:gray" hidden>Filter Date</option>
                         <option value="7">Last 7 Days</option>
                         <option value="15">Last 15 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="1">Last 12 Months</option>
                         
-                    </select> *@
+                    </select>
                 </div>
             </div>
 
@@ -429,7 +436,7 @@
                 </tbody>
             </table>
            
-            <a class="btn-view-more" id="vm_action">View More</a>
+            <a class="btn-view-more" id="vm_action">Export Excel File</a>
         </div>
         <div class="news-feed">
             <div class="controls">
@@ -441,13 +448,13 @@
                         </svg>
                         Select Date
                     </button>
-                    @* <select id="cnt-opt" class="option-filters">
+                    <select id="cnt-opt" class="option-filters">
                         <option value="7">Last 7 Days</option>
                         <option value="15">Last 15 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="1">Last 12 Months</option>
                         
-                    </select> *@
+                    </select>
                 </div>
             </div>
             <table id="tbl_cnt">
@@ -455,7 +462,7 @@
                     
                 </tbody>
             </table>
-            <a class="btn-view-more" id="vm_feedclicks">View More</a>
+            <a class="btn-view-more" id="vm_feedclicks">Export Excel File</a>
         </div>
     </div>
     <div class="row-group4">
@@ -531,7 +538,7 @@
             <div class="controls">
                 <h4>Company Information</h4>
                 <div class="export">
-                    <div class="search-holder">
+                    @* <div class="search-holder">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
                             <g opacity="0.5">
                                 <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
@@ -540,7 +547,7 @@
                             </g>
                         </svg>
                         <input type="text" class="ciSearch" id="ciSearch" placeholder="Search...">
-                    </div>
+                    </div> *@
                     <button id="compInfoBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
                             <path d="M3.16666 10.9838C3.16666 9.71351 3.16666 9.07839 3.44468 8.60776C3.61636 8.31714 3.8588 8.0747 4.14942 7.90302C4.62005 7.625 5.25517 7.625 6.52542 7.625V7.625C7.07956 7.625 7.35662 7.625 7.61551 7.69576C7.77766 7.74007 7.93358 7.80466 8.07958 7.88798C8.31267 8.02101 8.50859 8.21693 8.90042 8.60876L9.14395 8.85228C9.69828 9.40661 9.97545 9.68378 10.3253 9.83528C10.3448 9.84376 10.3645 9.85192 10.3844 9.85976C10.7389 10 11.1308 10 11.9148 10H12.6667C13.7553 10 14.2997 10 14.7179 10.2063C15.1128 10.401 15.4324 10.7206 15.6271 11.1154C15.8333 11.5337 15.8333 12.078 15.8333 13.1667V13.1667C15.8333 14.2553 15.8333 14.7997 15.6271 15.2179C15.4324 15.6128 15.1128 15.9324 14.7179 16.1271C14.2997 16.3333 13.7553 16.3333 12.6667 16.3333H7.16667C5.28105 16.3333 4.33824 16.3333 3.75245 15.7475C3.16666 15.1618 3.16666 14.219 3.16666 12.3333V10.9838Z" stroke="#888888" stroke-width="2"/>
@@ -641,6 +648,8 @@
                 <button type="button" class="btn btn-warning btn-msc" id="btn-mcs" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
                 <button type="button" class="btn btn-warning btn-mch" id="btn-mch" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
                 <button type="button" class="btn btn-warning btn-mcr" id="btn-mcr" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
+                <button type="button" class="btn btn-warning btn-mcw" id="btn-mcw" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
+                <button type="button" class="btn btn-warning btn-mco" id="btn-mco" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%; display: none"><i class="fas fa-file-excel"></i>Export excel file</button>
 
                 <table class="myTableMedium" id="mcr_call">
                     <thead>
@@ -674,7 +683,7 @@
                     <input type="date" id="dateTo" required />
                 </div>
             </div>
-            <input class="button" type="submit" value="Apply"/>
+            <input class="button" type="button" value="Apply" id="applyDateFilter"/>
         </form>
     </div>
 </div>
@@ -692,226 +701,242 @@
     <script>
         let myChart = new Chart();
         $(document).ready(function () {
-
-            dateFilter();
-            runTopRestoChart();
-            runTopHotelChart();
-            runTopStoreChart();
-            runTopWellnessChart();
-            runTopOfferChart();
-
-
-
-            nbtable = $('#n_clicktbl').DataTable({
-                         
-            "bPaginate": false,
-            "bFilter": false,
-            "stripeClasses": [],
-            "ordering": false,
-            "ordering": false,
-            "info": false,
-            "bInfo": false,
-            "bAutoWidth": false,
-            "bLengthChange": false,
-            "searching": false,
-            "paging": true,
-            "aLengthMenu": [10],
-            "searching": false,
-            "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-            }); 
-            nctable = $('#n_call').DataTable({
-                "columnDefs": [
-
-                    { "width": "150px", "targets": 0 },
-                    { "width": "100px", "targets": 1 },
-                    { "width": "100px", "targets": 2 },
-                    { "width": "100px", "targets": 3 },
-                    // { "width": "70px", "targets": 9 }
-                    ],
-                "bPaginate": false,
-                "bFilter": false,
-                "stripeClasses": [],
-                "ordering": false,
-                "ordering": false,
-                "info": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bLengthChange": false,
-                "paging": true,
-                "aLengthMenu": [10],
-                "searching": true,
-                "paging": true,
-                "aLengthMenu": [10],
-                "searching": true, 
-                "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-            });      
-            mcstable = $('#mcs_call ').DataTable({
-                "columnDefs": [
-                    { "width": "150px", "targets": 0 },
-                    { "width": "100px", "targets": 1 },
-                    { "width": "100px", "targets": 2 },
-                    // { "width": "70px", "targets": 9 }
-                    ],
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                    "searching": false,
-                    "paging": true,
-                    "aLengthMenu": [10],
-                    "searching": true,
-                    "paging": true,
-                    "aLengthMenu": [10],
-                    "searching": true, 
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-              });
-            mchtable = $('#mch_call').DataTable({
-                "columnDefs": [
-
-                    { "width": "150px", "targets": 0 },
-                    { "width": "100px", "targets": 1 },
-                    { "width": "100px", "targets": 2 },
-                    // { "width": "70px", "targets": 9 }
-                ],
-                "bPaginate": false,
-                "bFilter": false,
-                "stripeClasses": [],
-                "ordering": false,
-                "ordering": false,
-                "info": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bLengthChange": false,
-                "paging": true,
-                "aLengthMenu": [10],
-                "searching": true,
-                "paging": true,
-                "aLengthMenu": [10],
-                "searching": true, 
-                "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-              });   
-            tbl_cnttable = $('#tbl_cnt').DataTable({
-                "columnDefs": [
-
-                    { "width": "200px", "targets": 0 },
-                    { "width": "50px", "targets": 1 },
-                    // { "width": "70px", "targets": 9 }
-                ],
-                "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                    "searching": false,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-              });
-
-            mcrtable = $('#mcr_call').DataTable({
-                "columnDefs": [
-
-                    { "width": "150px", "targets": 0 },
-                    { "width": "100px", "targets": 1 },
-                    { "width": "100px", "targets": 2 },
-                    // { "width": "70px", "targets": 9 }
-                ],
-                "bPaginate": false,
-                "bFilter": false,
-                "stripeClasses": [],
-                "ordering": false,
-                "ordering": false,
-                "info": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bLengthChange": false,
-                "searching": false,
-                "paging": true,
-                "aLengthMenu": [10],
-                "searching": true,
-                 "paging": true,
-                                      "aLengthMenu": [10],
-                                      "searching": true
-                                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-            });
-            cAbtable = $('#cAction_table').DataTable({
-                "columnDefs": [
-
-                    { "width": "180px", "targets": 0 },
-                    { "width": "80px", "targets": 1 },
-                    { "width": "70px", "targets": 2 },
-                    { "width": "70px", "targets": 3 },
-                    { "width": "70px", "targets": 4 },
-                    // { "width": "70px", "targets": 9 }
-                ],
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                    "aLengthMenu": [5],
-                    "paging": true,
-                    "searching": true, 
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-              });
-            ShowGetLineGraphCountList();
-            ShowFilteredNewRegistered();
-            GetClickCountTop2();
+            
             ShowSupportcount();
             ShowAllUserCount();
-            ShowGetCallToActions();
+                    
+            dateFilter();
+            // Carousel
+            postNewUser();
+            runTopRestoChart();
+            viewRestoDetails();
+            viewRestaurantDetails();
+            runTopHotelChart();
+            viewHotelDetails();
+            runTopStoreChart();
+            viewStoreDetails();
+            runTopWellnessChart();
+            viewWellnessDetails();
+            runTopOfferChart();
+            viewOfferDetails();
+
+            PostClickCountTop2();
+
+            PostCallToAction();
+            // nbtable = $('#n_clicktbl').DataTable({
+                         
+            // "bPaginate": false,
+            // "bFilter": false,
+            // "stripeClasses": [],
+            // "ordering": false,
+            // "ordering": false,
+            // "info": false,
+            // "bInfo": false,
+            // "bAutoWidth": false,
+            // "bLengthChange": false,
+            // "searching": false,
+            // "paging": true,
+            // "aLengthMenu": [10],
+            // "searching": false,
+            // "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            // }); 
+            // nctable = $('#n_call').DataTable({
+            //     "columnDefs": [
+
+            //         { "width": "150px", "targets": 0 },
+            //         { "width": "100px", "targets": 1 },
+            //         { "width": "100px", "targets": 2 },
+            //         { "width": "100px", "targets": 3 },
+            //         // { "width": "70px", "targets": 9 }
+            //         ],
+            //     "bPaginate": false,
+            //     "bFilter": false,
+            //     "stripeClasses": [],
+            //     "ordering": false,
+            //     "ordering": false,
+            //     "info": false,
+            //     "bInfo": false,
+            //     "bAutoWidth": false,
+            //     "bLengthChange": false,
+            //     "paging": true,
+            //     "aLengthMenu": [10],
+            //     "searching": true,
+            //     "paging": true,
+            //     "aLengthMenu": [10],
+            //     "searching": true, 
+            //     "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            // });      
+            // mcstable = $('#mcs_call ').DataTable({
+            //     "columnDefs": [
+            //         { "width": "150px", "targets": 0 },
+            //         { "width": "100px", "targets": 1 },
+            //         { "width": "100px", "targets": 2 },
+            //         // { "width": "70px", "targets": 9 }
+            //         ],
+            //         "bPaginate": false,
+            //         "bFilter": false,
+            //         "stripeClasses": [],
+            //         "ordering": false,
+            //         "ordering": false,
+            //         "info": false,
+            //         "bInfo": false,
+            //         "bAutoWidth": false,
+            //         "bLengthChange": false,
+            //         "searching": false,
+            //         "paging": true,
+            //         "aLengthMenu": [10],
+            //         "searching": true,
+            //         "paging": true,
+            //         "aLengthMenu": [10],
+            //         "searching": true, 
+            //         "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            //   });
+            // mchtable = $('#mch_call').DataTable({
+            //     "columnDefs": [
+
+            //         { "width": "150px", "targets": 0 },
+            //         { "width": "100px", "targets": 1 },
+            //         { "width": "100px", "targets": 2 },
+            //         // { "width": "70px", "targets": 9 }
+            //     ],
+            //     "bPaginate": false,
+            //     "bFilter": false,
+            //     "stripeClasses": [],
+            //     "ordering": false,
+            //     "ordering": false,
+            //     "info": false,
+            //     "bInfo": false,
+            //     "bAutoWidth": false,
+            //     "bLengthChange": false,
+            //     "paging": true,
+            //     "aLengthMenu": [10],
+            //     "searching": true,
+            //     "paging": true,
+            //     "aLengthMenu": [10],
+            //     "searching": true, 
+            //     "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            //   });   
+            // tbl_cnttable = $('#tbl_cnt').DataTable({
+            //     "columnDefs": [
+
+            //         { "width": "200px", "targets": 0 },
+            //         { "width": "50px", "targets": 1 },
+            //         // { "width": "70px", "targets": 9 }
+            //     ],
+            //     "bPaginate": false,
+            //         "bFilter": false,
+            //         "stripeClasses": [],
+            //         "ordering": false,
+            //         "ordering": false,
+            //         "info": false,
+            //         "bInfo": false,
+            //         "bAutoWidth": false,
+            //         "bLengthChange": false,
+            //         "searching": false,
+            //         "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            //   });
+
+            // mcrtable = $('#mcr_call').DataTable({
+            //     "columnDefs": [
+
+            //         { "width": "150px", "targets": 0 },
+            //         { "width": "100px", "targets": 1 },
+            //         { "width": "100px", "targets": 2 },
+            //         // { "width": "70px", "targets": 9 }
+            //     ],
+            //     "bPaginate": false,
+            //     "bFilter": false,
+            //     "stripeClasses": [],
+            //     "ordering": false,
+            //     "ordering": false,
+            //     "info": false,
+            //     "bInfo": false,
+            //     "bAutoWidth": false,
+            //     "bLengthChange": false,
+            //     "searching": false,
+            //     "paging": true,
+            //     "aLengthMenu": [10],
+            //     "searching": true,
+            //      "paging": true,
+            //                           "aLengthMenu": [10],
+            //                           "searching": true
+            //                     , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            // });
+            // cAbtable = $('#cAction_table').DataTable({
+            //     "columnDefs": [
+
+            //         { "width": "180px", "targets": 0 },
+            //         { "width": "80px", "targets": 1 },
+            //         { "width": "70px", "targets": 2 },
+            //         { "width": "70px", "targets": 3 },
+            //         { "width": "70px", "targets": 4 },
+            //         // { "width": "70px", "targets": 9 }
+            //     ],
+            //         "bPaginate": false,
+            //         "bFilter": false,
+            //         "stripeClasses": [],
+            //         "ordering": false,
+            //         "ordering": false,
+            //         "info": false,
+            //         "bInfo": false,
+            //         "bAutoWidth": false,
+            //         "bLengthChange": false,
+            //         "aLengthMenu": [5],
+            //         "paging": true,
+            //         "searching": true, 
+            //         "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+
+            //   });
+            // ShowGetLineGraphCountList();
+            // ShowFilteredNewRegistered();
+            // GetClickCountTop2();
+            // ShowGetCallToActions();
 
 
         }); 
-        $('#mcr').change(function () {
-            runTopRestoChart();
+        // $('#mcr').change(function () {
+        //     runTopRestoChart();
 
-        });
-        $('#mch').change(function () {
-            runTopHotelChart();
+        // });
+        // $('#mch').change(function () {
+        //     runTopHotelChart();
 
-        });
-        $('#mcs').change(function () {
-            runTopStoreChart();
+        // });
+        // $('#mcs').change(function () {
+        //     runTopStoreChart();
 
-        });
+        // });
 
-        $('#mcw').change(function () {
-            runTopWellnessChart();
+        // $('#mcw').change(function () {
+        //     runTopWellnessChart();
 
-        });
-        $('#mcof').change(function () {
+        // });
+        // $('#mcof').change(function () {
 
-            runTopOfferChart();
+        //     runTopOfferChart();
 
-        });
-
-
+        // });
 
 
 
-        $('.btn-print').click(function () {
+
+        $('#vm_action').click(function () {
+        // $('.btn-print').click(function () {
+            // console.log("Test Download");
             location.replace("/Dashboard/DownloadCalltoActionExcel");
 
         });  
+           
+        $('#vm_feedclicks').click(function () {
+            location.replace("/Dashboard/DownloadNewsFeedClick");
+
+        });
         $('.btn-msc').click(function () {
             location.replace("/Dashboard/DownloadMCS");
 
@@ -923,323 +948,251 @@
         $('.btn-mcr').click(function () {
             location.replace("/Dashboard/DownloadMCR");
 
-        });    
-        $('.btn-nfc').click(function () {
-            location.replace("/Dashboard/DownloadMSC");
+        });  
+        $('.btn-mcw').click(function () {
+            location.replace("/Dashboard/DownloadMCW");
 
-        });
+        });  
+        $('.btn-mco').click(function () {
+            location.replace("/Dashboard/DownloadMCO");
 
-        $('#vm_feedclicks').click(function () {
-            GetClickCountAll();
-            $('#clickModal').modal('show');
-        });
+        });  
 
-        $('#vm_action').click(function () {
-            ShowGetCallToActionsModal();
-            $('#CallModal').modal('show');
-        });
+        // $('#vm_feedclicks').click(function () {
+        //     cntTable.destroy();
+        //     PostClickCountTop2();
+        //     $('#clickModal').modal('show');
+        // });
 
-        $('#mcs_vm').click(function () {
+        // $('#vm_action').click(function () {
+        //     // ShowGetCallToActionsModal();
+        //     $('#CallModal').modal('show');
+        // });
+
+        // $('#mcs_vm').click(function () {
          
-              $.blockUI(reloadLoading);
-                setTimeout(function () {
-                    $.ajax(
-                        {
-                            url: "/Dashboard/GetMostClickStore",
-                            data: {
+        //       $.blockUI(reloadLoading);
+        //         setTimeout(function () {
+        //             $.ajax(
+        //                 {
+        //                     url: "/Dashboard/GetMostClickStore",
+        //                     data: {
 
-                            },
-                            type: "GET",
-                            datatype: "json"
-                        }).done(function (data) {
+        //                     },
+        //                     type: "GET",
+        //                     datatype: "json"
+        //                 }).done(function (data) {
                         
-                            mcstable.clear().draw();
-                            for (var i = 0; i < data.length; i++) {
-                                $("#mcs_call").dataTable().fnAddData([
-                                    "<td><p></p><p>" + data[i].business + "</p></td>",
-                                    "<td><p>" + data[i].count + "</p></td>",
-                                "<td><p>" + data[i].total +" %"+ "</p></td>",
+        //                     mcstable.clear().draw();
+        //                     for (var i = 0; i < data.length; i++) {
+        //                         $("#mcs_call").dataTable().fnAddData([
+        //                             "<td><p></p><p>" + data[i].business + "</p></td>",
+        //                             "<td><p>" + data[i].count + "</p></td>",
+        //                         "<td><p>" + data[i].total +" %"+ "</p></td>",
 
-                                ]);
-                            }
-                            $.unblockUI();
-                        }).fail(function () {
-                            alert("There was an Error When Loading Data...");
-                        });
-                }, 100);
-            $('#MostClickStoreModal').modal('show');
-        });
-        $('#mch_vm').click(function () {
+        //                         ]);
+        //                     }
+        //                     $.unblockUI();
+        //                 }).fail(function () {
+        //                     alert("There was an Error When Loading Data...");
+        //                 });
+        //         }, 100);
+        //     $('#MostClickStoreModal').modal('show');
+        // });
+        // $('#mch_vm').click(function () {
          
-            $.blockUI(reloadLoading);
-                setTimeout(function () {
-                    $.ajax(
-                        {
-                            url: "/Dashboard/GetMostClickedHospitalityAll",
-                            data: {
+        //     $.blockUI(reloadLoading);
+        //         setTimeout(function () {
+        //             $.ajax(
+        //                 {
+        //                     url: "/Dashboard/GetMostClickedHospitalityAll",
+        //                     data: {
 
-                            },
-                            type: "GET",
-                            datatype: "json"
-                        }).done(function (data) {
+        //                     },
+        //                     type: "GET",
+        //                     datatype: "json"
+        //                 }).done(function (data) {
                  
-                          mchtable.clear().draw();
-                            for (var i = 0; i < data.length; i++) {
-                                $("#mch_call").dataTable().fnAddData([
-                                    "<td><p></p><p>" + data[i].business + "</p></td>",
-                                    "<td><p>" + data[i].count + "</p></td>",
-                                    "<td><p>" + data[i].total + " %"+ "</p></td>",
+        //                   mchtable.clear().draw();
+        //                     for (var i = 0; i < data.length; i++) {
+        //                         $("#mch_call").dataTable().fnAddData([
+        //                             "<td><p></p><p>" + data[i].business + "</p></td>",
+        //                             "<td><p>" + data[i].count + "</p></td>",
+        //                             "<td><p>" + data[i].total + " %"+ "</p></td>",
 
-                                ]);
-                            }
-                            $.unblockUI();
-                        }).fail(function () {
-                            alert("There was an Error When Loading Data...");
-                        });
-                }, 100);
-            $('#ShowGetMostClickModal').modal('show');
-        });
-        $('#mcr_vm').click(function () {
+        //                         ]);
+        //                     }
+        //                     $.unblockUI();
+        //                 }).fail(function () {
+        //                     alert("There was an Error When Loading Data...");
+        //                 });
+        //         }, 100);
+        //     $('#ShowGetMostClickModal').modal('show');
+        // });
+        // $('#mcr_vm').click(function () {
     
-             $.blockUI(reloadLoading);
-                setTimeout(function () {
-                    $.ajax(
-                        {
-                            url: "/Dashboard/GetMostClickRestaurantAll",
-                            data: {
+        //      $.blockUI(reloadLoading);
+        //         setTimeout(function () {
+        //             $.ajax(
+        //                 {
+        //                     url: "/Dashboard/GetMostClickRestaurantAll",
+        //                     data: {
 
-                            },
-                            type: "GET",
-                            datatype: "json"
-                        }).done(function (data) {
+        //                     },
+        //                     type: "GET",
+        //                     datatype: "json"
+        //                 }).done(function (data) {
                  
                           
-                              mcrtable.clear().draw();
-                            for (var i = 0; i < data.length; i++) {
-                                $("#mcr_call").dataTable().fnAddData([
-                                    "<td><p></p><p>" + data[i].business + "</p></td>",
-                                    "<td><p>" + data[i].count + "</p></td>",
-                                    "<td><p>" + data[i].total + " %"+ "</p></td>",
+        //                       mcrtable.clear().draw();
+        //                     for (var i = 0; i < data.length; i++) {
+        //                         $("#mcr_call").dataTable().fnAddData([
+        //                             "<td><p></p><p>" + data[i].business + "</p></td>",
+        //                             "<td><p>" + data[i].count + "</p></td>",
+        //                             "<td><p>" + data[i].total + " %"+ "</p></td>",
 
-                                ]);
-                            }
-                            $.unblockUI();
-                        }).fail(function () {
-                            alert("There was an Error When Loading Data...");
-                        });
-                }, 100);
-            $('#ShowMostClickRestoModal').modal('show');
-        });
-        $('#cta-opt').change(function () {
-            var data = {};
-            var cat = "";
-            var day = "";
-            if ($(this).val() === '0' && $('#cta-day').val() === '0')   
-            {
-               cat = "0";
-                day = "0";
-            }
-            else
-            {
-                cat = $('#cta-opt').val();
-                day = $('#cta-day').val();
-            }
+        //                         ]);
+        //                     }
+        //                     $.unblockUI();
+        //                 }).fail(function () {
+        //                     alert("There was an Error When Loading Data...");
+        //                 });
+        //         }, 100);
+        //     $('#ShowMostClickRestoModal').modal('show');
+        // });
+        // $('#cta-opt').change(function () {
+        //     var data = {};
+        //     var cat = "";
+        //     var day = "";
+        //     if ($(this).val() === '0' && $('#cta-day').val() === '0')   
+        //     {
+        //        cat = "0";
+        //         day = "0";
+        //     }
+        //     else
+        //     {
+        //         cat = $('#cta-opt').val();
+        //         day = $('#cta-day').val();
+        //     }
            
-            data.day = day;
-            data.category=cat;
-            //console.log(data);
-            $.ajax({
-                url: '/Dashboard/PostCallToActions',
-                data: {
-                    data: data,
-                }, 
-                type: "POST",
-                datatype: "json",
-                success: function (data) {
-                    //console.log(data);
-                    cAbtable.clear().draw();
-                    for (var i = 0; i < data.length; i++) {
-                        $("#cAction_table").dataTable().fnAddData([
-                            "<td><p></p><p>" + data[i].business + "</p></td>",
-                            "<td><p>" + data[i].category + "</p></td>",
-                            "<td><p>" + data[i].callCount + "</p></td>",
-                            "<td><p>" + data[i].emailCount + "</p></td>",
-                            "<td><p>" + data[i].bookCount + "</p></td>",
+        //     data.day = day;
+        //     data.category=cat;
+        //     console.log(data);
+        //     $.ajax({
+        //         url: '/Dashboard/PostCallToActionsv2',
+        //         data: {
+        //             data: data,
+        //         }, 
+        //         type: "POST",
+        //         datatype: "json",
+        //         success: function (data) {
+        //             console.log(data);
+        //             cAbtable.clear().draw();
+        //             for (var i = 0; i < data.length; i++) {
+        //                 $("#cAction_table").dataTable().fnAddData([
+        //                     "<td><p></p><p>" + data[i].business + "</p></td>",
+        //                     "<td><p>" + data[i].category + "</p></td>",
+        //                     "<td><p>" + data[i].callCount + "</p></td>",
+        //                     "<td><p>" + data[i].emailCount + "</p></td>",
+        //                     "<td><p>" + data[i].bookCount + "</p></td>",
 
-                        ]);
-                    }
+        //                 ]);
+        //             }
 
-                }
-            });
-        });
+        //         }
+        //     });
+        // });
    
-        $('#cta-day').change(function () {
-            var data = {};
-            var cat = "";
-            var day = "";
-            if ($(this).val() === '0' && $('#cta-opt').val() === '0') {
-                cat = "0";
-                day = "0";
-            }
-            else {
-                cat = $('#cta-opt').val();
-                day = $('#cta-day').val();
-            }
+        // $('#cta-day').change(function () {
+        //     var data = {};
+        //     var cat = "";
+        //     var day = "";
+        //     if ($(this).val() === '0' && $('#cta-opt').val() === '0') {
+        //         cat = "0";
+        //         day = "0";
+        //     }
+        //     else {
+        //         cat = $('#cta-opt').val();
+        //         day = $('#cta-day').val();
+        //     }
 
             
-            data.day = day
-            data.category=cat;
-            //console.log(data);
-            $.ajax({
-                url: '/Dashboard/PostCallToActions',
-                data: {
-                    data: data,
-                },
-                type: "POST",
-                datatype: "json",
-                success: function (data) {
-                    //console.log(data);
-                    cAbtable.clear().draw();
-                    for (var i = 0; i < data.length; i++) {
-                    $("#cAction_table").dataTable().fnAddData([
-                        "<td><p></p><p>" + data[i].business + "</p></td>",
-                        "<td><p>" + data[i].category + "</p></td>",
-                        "<td><p>" + data[i].callCount + "</p></td>",
-                        "<td><p>" + data[i].emailCount + "</p></td>",
-                        "<td><p>" + data[i].bookCount + "</p></td>",
+        //     data.day = day
+        //     data.category=cat;
+        //     console.log(data);
+        //     $.ajax({
+        //         url: '/Dashboard/PostCallToActions',
+        //         data: {
+        //             data: data,
+        //         },
+        //         type: "POST",
+        //         datatype: "json",
+        //         success: function (data) {
+        //             console.log(data);
+        //             cAbtable.clear().draw();
+        //             for (var i = 0; i < data.length; i++) {
+        //             $("#cAction_table").dataTable().fnAddData([
+        //                 "<td><p></p><p>" + data[i].business + "</p></td>",
+        //                 "<td><p>" + data[i].category + "</p></td>",
+        //                 "<td><p>" + data[i].callCount + "</p></td>",
+        //                 "<td><p>" + data[i].emailCount + "</p></td>",
+        //                 "<td><p>" + data[i].bookCount + "</p></td>",
 
-                    ]);
-                }
+        //             ]);
+        //         }
                     
-                }
-            });
+        //         }
+        //     });
 
-        });
+        // });
    
-        $('#nur').change(function () {
-  
-            const ctx = document.getElementById("myChart").getContext("2d");
+        
+        // $('#cnt-opt').change(function () {
+        //     var data = {};
+        //     data.day = $('#cnt-opt').val();
+        //     console.log(data);
 
-            const arrdate = new Array();
-            const arrval = new Array();
-            var data = {};
-            data.day = $('#nur').val();
-            ////console.log(data);
+        //     $.ajax({
+        //         url: '/Dashboard/PostClickCountAll',
+        //         data: {
+        //             data: data,
+        //         },
+        //         type: "POST",
+        //         datatype: "json",
+        //         success: function (data) {
+        //         //console.log(data);
+        //         tbl_cnttable.clear().draw();
+        //        for (var i = 0; i < data.length; i++) {
 
-            $.ajax({
-                url: '/Dashboard/PostNewRegisteredCount',
-                data: {
-                    data: data,
-                },
-                type: "POST",
-                datatype: "json",
-                success: function (response) {
-                     //console.log(response);
-              
-                      for (var i = 0; i < response.length; i++) {
-                        arrdate.push(response[i].date);
-                        arrval.push(response[i].graph_count);
-                        document.getElementById("new_user").innerHTML = response[0].count;
-                        document.getElementById("percent-registered").innerHTML = response[0].percentage.toFixed(2) + " %";
-                      }
-                    //console.log(arrval);
-                    var chartData = {
-                        labels: arrdate, // conditions to made
-                        datasets: [
-                            {
-                                label: "",
-                                data: arrval,
-                                backgroundColor: ['rgb(0,0,0)'],
-                                borderColor: ['rgb(200, 147, 40)'],
-                                borderWidth: 1,
-                            },
-                        ],
-                    };
+        //             $("#tbl_cnt tbody").append([
+        //                 "<tr>" +
+        //                 "<td>" + data[i].module + "</td>" +
+        //                 "<td>" + data[i].count + "</td>", + "</tr>"
+        //             ]);
 
-                    var chartOptions = {
-                        responsive: true,
-                        maintainAspectRatio: false,
-
-                        scales: {
-                            yAxes: [
-                                {
-                                    ticks: {
-                                        beginAtZero: false,
-                                    },
-                                },
-                            ],
-                        },
-                              plugins: {
-                                 legend: {
-                                    display: false
-                                 }
-                              }
-                            
-                    };
-
-                      myChart.destroy();
-                       myChart = new Chart(ctx, {
-                            type: "line",
-                            data: chartData,
-                            options: chartOptions
-                        });
-                      
-                
-                   
-                    // Update the chart data
-                    setInterval(function () {
-
-                        myChart.update();
-                    }, 5000);
-                }
-            });
-        });
-        $('#cnt-opt').change(function () {
-            var data = {};
-            data.day = $('#cnt-opt').val();
-            //console.log(data);
-
-            $.ajax({
-                url: '/Dashboard/PostClickCountAll',
-                data: {
-                    data: data,
-                },
-                type: "POST",
-                datatype: "json",
-                success: function (data) {
-                ////console.log(data);
-                tbl_cnttable.clear().draw();
-               for (var i = 0; i < data.length; i++) {
-
-                    $("#tbl_cnt tbody").append([
-                        "<tr>" +
-                        "<td>" + data[i].module + "</td>" +
-                        "<td>" + data[i].count + "</td>", + "</tr>"
-                    ]);
-
-                }
-            }
-            });
-        });
+        //         }
+        //     }
+        //     });
+        // });
 
         //New Added Function for Top 3 Carouserl
-        $(document).ready(function () { 
-            // topResto(); 
-            // topHotel();
-            // topStore();
-            // topWellness();
-            // topOffer();
-        });
+        // $(document).ready(function () { 
+        //     topResto(); 
+        //     topHotel();
+        //     topStore();
+        //     topWellness();
+        //     topOffer();
+        // });
         // topRestoFilter();
         // topHotelFilter();
         // topStoreFilter();
         // topWellnessFilter();
         // topOfferFilter();
-        showRestaurantDetails(); 
-        showHotelDetails();
-        showStoreDetails();
-        showWellnessDetails();
-        showOfferDetails();
+        // showRestaurantDetails(); 
+        // showHotelDetails();
+        // showStoreDetails();
+        // showWellnessDetails();
+        // showOfferDetails();
 
         companyInformationShowFilter();
         filterCheckBox();
@@ -1250,18 +1203,18 @@
         downloadCompanyInfortmation();
         // SearchComponyInformation();
 
-        $('.btn-msc').click(function () {
-            location.replace("/Dashboard/DownloadMCS");
+        // $('.btn-msc').click(function () {
+        //     location.replace("/Dashboard/DownloadMCS");
 
-        });
-        $('.btn-mch').click(function () {
-            location.replace("/Dashboard/DownloadMCH");
+        // });
+        // $('.btn-mch').click(function () {
+        //     location.replace("/Dashboard/DownloadMCH");
 
-        });
-        $('.btn-mcr').click(function () {
-            location.replace("/Dashboard/DownloadMCR");
+        // });
+        // $('.btn-mcr').click(function () {
+        //     location.replace("/Dashboard/DownloadMCR");
 
-        });
+        // });
 
         
        

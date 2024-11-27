@@ -138,7 +138,8 @@ async function topRestoFilter() {
 }
 function topResto() {
     var data = {};
-    data.day = $('#mcr').val();
+    data.startdate = lastWeekDate;
+    data.enddate = currentDate;
     $.ajax({
         url: '/Dashboard/PostMostClickRestaurant',
         data: {
@@ -1137,7 +1138,8 @@ async function showRestaurantDetails() {
         document.getElementById("modalTitle").innerHTML = "Restaurant";
         document.getElementById("modalTHTitle").innerHTML = "Restaurant";
         var data = {};
-        data.day = $('#mcr').val();
+        data.startdate = lastWeekDate;
+        data.enddate = currentDate;
         // $.blockUI(reloadLoading);
         setTimeout(function () {
             $.ajax(

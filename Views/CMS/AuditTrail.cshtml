@@ -43,6 +43,14 @@
         text-overflow: ellipsis;
     }
 </style>
+@* <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> *@
+
+@* <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" /> *@
+
+<link rel="stylesheet" href="/css/datatable.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
 <div class="register-main-container">
  
     <div class="card-header">
@@ -64,13 +72,13 @@
                             <div class="row ">
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin: 10px 0; padding-right:40px">
 
-                            <div>
-                                <label for="srchbox">Search Fullname</label>
-                                <input type="text" value="" id="srchbox" class="mod-input" />
-                            </div>
+                             @* <div>
+                                 <label for="srchbox">Search Fullname</label>
+                                 <input type="text" value="" id="srchbox" class="mod-input" />
+                             </div> *@
                         </div>
                                 <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
-                                    <table id="audittrail-table" class="myTableMedium">
+                                    <table id="audittrails-table" class="myTableMedium">
                                          <thead>
                                       
                                         <th>Employee ID</th>
@@ -86,11 +94,11 @@
 
                                     </tbody>
                                     </table>
-                            <div class="cust-pagination">
-                                <span id="prev">Prev</span>
-                                <div id="counter"></div>
-                                <span id="next">Next</span>
-                            </div>
+                             @* <div class="cust-pagination">
+                                 <span id="prev">Prev</span>
+                                 <div id="counter"></div>
+                                 <span id="next">Next</span>
+                             </div> *@
                                </div>
                             </div>
                         </div>
@@ -102,293 +110,60 @@
             </div>
     </div>
 @* End here *@
-        @section Scripts{
-        <script>
+@section Scripts{
+    <script>
           i_id=0;
         var prev = 0;
         var next = 0;
         var spanval = "";
         var currpage = "";
-            // $(document).ready(function () {
-
-
-     
-            // audittrailtable = $('#audittrail-table').DataTable({
-            //     columnDefs: [
-            //         {
-            //             type: 'time-date-sort',
-            //             targets: [7],
-            //         }],
-            //     "deferRender": true,
-            //     "bPaginate": false,
-            //     "bFilter": false,
-            //     "stripeClasses": [],
-            //     "ordering": false,
-            //     "ordering": false,
-            //     "info": false,
-            //     "bInfo": false,
-            //     "bAutoWidth": false,
-            //     "bLengthChange": false,
-            //     "paging": false,
-            //     "aLengthMenu": [10],
-            //     "searching": false
-            //     , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-            // }});
-            //     ShowAuditTrail();
-            // });
+        var data = {};
         $(document).ready(function () {
-            var data = {};
-            data.FilterName = "";
-            data.page = "0";
-
-            $.blockUI(reloadLoading);
-            $.ajax({
-                url: '/CMS/GetDataAuditTrailList',
-                data: {
-                    data: data,
-                },
-                type: "POST",
-                datatype: "json",
-                success: function (data) {
-                  //  console.log(data[0].items);
-                    for (var i = 0; i < data[0].totalPage; i++) 
-                    {
-                        var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
-
-                        $("#counter").append(newSpan);
-                    }
-                    $.unblockUI();
-                }
-                 
-
-            }).fail(function () {
-                alert("There was an Error When Loading Data...");
-            });
-            // audittrailtable = $('#audittrail-table').DataTable({
-            //     columnDefs: [
-            //         {
-            //             type: 'time-date-sort',
-            //             targets: [7],
-            //         }],
-            //     order: [[7, "desc"]],
-            //     "bPaginate": false,
-            //     "bFilter": false,
-            //     "stripeClasses": [],
-            //     "ordering": false,
-            //     "ordering": false,
-            //     "info": false,
-            //     "bInfo": false,
-            //     "bAutoWidth": false,
-            //     "bLengthChange": false,
-            //     "paging": true,
-            //     "aLengthMenu": [30],
-            //     "searching": true,
-            //     "oLanguage": {
-            //         "sZeroRecords": "", "sEmptyTable": ""
-            //     }
-            // });
-
-            audittrailtable = $('#audittrail-table').DataTable({
-               
-                "deferRender": true,
-                "bPaginate": false,
-                "bFilter": false,
-                "stripeClasses": [],
-                "ordering": false,
-                "ordering": false,
-                "info": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bLengthChange": false,
-                "paging": false,
-                "aLengthMenu": [10],
-                "searching": false
-                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-
-            });
-            paginateAuditTrail(spanval);
-            // ShowAuditTrail();
+            getAuditTrail();
         });
-        $("#srchbox").on('input', function () {
-            // Check if the key pressed is Enter (key code 13)
-
-            search();
-
-        });
-        function search() {
-            var searchInputValue = $("#srchbox").val();
-
-            if (searchInputValue.trim() !== "") {
-
-                var data = {};
-                data.fullName = searchInputValue;
-                $.blockUI(reloadLoading);
-                $.ajax({
-                    url: '/CMS/GetAuditSearch',
-                    data: {
-                        data: data,
+        function getAuditTrail() {
+            new DataTable('#audittrails-table', {
+                ajax: {
+                    url: '@Url.Action("GetAuditTrailList", "CMS")',
+                    type: "GET",
+                    dataType: "json",
+                    processing: true,
+                    serverSide: true,
+                    complete: function (xhr) {
+                        // console.log(xhr);
                     },
-                    type: "POST",
-                    datatype: "json"
-                }).done(function (data) {
-                    audittrailtable.clear().draw();
-
-                    for (var i = 0; i < data.length; i++) {
-
-                        $('#audittrail-table').dataTable().fnAddData([
-
-                            '<td>' + data[i].employeeID + '</td>',
-                            '<td>' + data[i].fullName + '</td>',
-                            '<td>' + data[i].actions + '</td>',
-                            '<td>' + data[i].module + '</td>',
-                            '<td>' + data[i].positionName + '</td>',
-                            '<td>' + data[i].corporateName + '</td>',
-                            '<td>' + data[i].userType + '</td>',
-                            '<td>' + data[i].dateCreated + '</td>',
-
-
-                        ]);
+                    error: function (err) {
+                        alert(err.responseText);
                     }
-                    $.unblockUI();
-
-                }).fail(function () {
-                    alert("There was an Error When Loading Data...");
-                });
-                }
-                else {
-                    paginateAuditTrail(spanval);
-
-                }
-
-        }
-        $('#counter').on('click', '.tbl-pagenumber', function () {
-            spanval = $(this).text();
-            $(".tbl-pagenumber").removeClass("active-page");
-
-            $(this).addClass("active-page");
-            paginateAuditTrail(spanval);
-
-        });
-
-        $('#next').click(function () {
-            //
-            next = parseInt(next);
-            $(".tbl-pagenumber").removeClass("active-page");
-            console.log(next);
-            $("#spanId" + (next)).addClass("active-page");
-            paginateAuditTrail(next);
-
-        });
-        $('#prev').click(function () {
-
-            prev = parseInt(prev);
-            $(".tbl-pagenumber").removeClass("active-page");
-            console.log(prev);
-            $("#spanId" + (prev)).addClass("active-page");
-            paginateAuditTrail(prev);
-
-        });
-
-        function paginateAuditTrail(spanval) {
-            var data = {};
-            data.FilterName = "";
-            data.page = spanval;
-            console.log(data.page);
-            $.blockUI(reloadLoading);
-            $.ajax({
-                url: '/CMS/GetDataAuditTrailList',
-                data: {
-                    data: data,
                 },
-                type: "POST",
-                datatype: "json"
-                }).done(function (data) {
-                audittrailtable.clear().draw();
-                console.log(data[0]);
-                prev = data[0].prevPage;
-                next = data[0].nextPage;
-                currpage = data[0].currentPage;
-                // console.log(prev);
-
-                if (prev == 0) {
-                    $("#prev").attr("disabled", true);
-                    $("#prev").css("color", "gray").css("pointer-event", "none");
-                }
-                else {
-                    $("#prev").attr("enabled", true);
-                    $("#prev").css("color", "#c89328");
-                }
-                if (next == 0) {
-                    console.log(next);
-
-                    $("#next").attr("disabled", true);
-                    $("#next").css("color", "gray").css("pointer-event", "none");
-                }
-                else {
-                    $("#next").attr("enabled", true);
-                    $("#next").css("color", "#c89328");
-                }
-                //console.log(next);
-                for (var i = 0; i < data[0].items.length; i++) {
-                    $('#audittrail-table').dataTable().fnAddData([
-
-                            '<td>' + data[0].items[i].employeeID + '</td>',
-                            '<td>' + data[0].items[i].fullName + '</td>',
-                            '<td>' + data[0].items[i].actions + '</td>',
-                            '<td>' + data[0].items[i].module + '</td>',
-                            '<td>' + data[0].items[i].positionName + '</td>',
-                            '<td>' + data[0].items[i].corporateName + '</td>',
-                            '<td>' + data[0].items[i].userType + '</td>',
-                            '<td>' + data[0].items[i].dateCreated + '</td>',
-
-
-                    ]);
-                }
-                $.unblockUI();
-
-            }).fail(function () {
-                alert("There was an Error When Loading Data...");
+                columns: [
+                    {
+                        data: 'employeeID'
+                    },
+                    {
+                        data: 'fullName'
+                    },
+                    {
+                        data: 'actions'
+                    },
+                    {
+                        data: 'module'
+                    },
+                    {
+                        data: 'positionName'
+                    },
+                    {
+                        data: 'corporateName'
+                    },
+                    {
+                        data: 'userType'
+                    },
+                    {
+                        data: 'dateCreated'
+                    }
+                ]
             });
         }
-
- function ShowAuditTrail() {
-   $.blockUI(reloadLoading);
-            setTimeout(function () {
-  $.ajax({
-      url: '/CMS/GetAuditTrailList',
-      data: {
-
-      },
-      type: "GET",
-      datatype: "json"
-  }).done(function (data) {
-       
-      audittrailtable.clear().draw();
-                    for (var i = 0; i < data[0].items.length; i++) {
-
-                        $('#audittrail-table').dataTable().fnAddData([
-
-                            '<td>' + data[i].items[i].employeeID + '</td>',
-                            '<td>' + data[i].items[i].fullName + '</td>',
-                            '<td>' + data[i].items[i].actions + '</td>',
-                            '<td>' + data[i].items[i].module + '</td>',
-                            '<td>' + data[i].items[i].positionName + '</td>',
-                            '<td>' + data[i].items[i].corporateName + '</td>',
-                            '<td>' + data[i].items[i].userType + '</td>',
-                            '<td>' + data[i].items[i].dateCreated + '</td>',
-
-
-                        ]);
-      }
- $.unblockUI();
-                }).fail(function () {
-                    alert("There was an Error When Loading Data...");
-                });
-
-            }, 100);
-
-}
-
 </script>
 }
 

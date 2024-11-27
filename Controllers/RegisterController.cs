@@ -76,16 +76,38 @@ namespace AOPC.Controllers
             List<UserVM> model = JsonConvert.DeserializeObject<List<UserVM>>(response);
             return new(model);
         }
-       
+
         [HttpGet]
         public async Task<JsonResult> GetPosition()
         {
             var url = DBConn.HttpString + "/api/ApiRegister/PositionList";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<PositionModel> models = JsonConvert.DeserializeObject<List<PositionModel>>(response);
             return new(models);
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetPositionv2()
+        {
+            var url = DBConn.HttpString + "/api/ApiRegister/PositionList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<PositionModel> models = JsonConvert.DeserializeObject<List<PositionModel>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetPositionList()
+        {
+            var url = DBConn.HttpString + "/api/ApiRegister/PositionList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<PositionModel> models = JsonConvert.DeserializeObject<List<PositionModel>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpPost]
         public async Task<IActionResult> SavePosition(PositionModel data)
@@ -212,7 +234,8 @@ namespace AOPC.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
             string response = await client.GetStringAsync(url);
             List<AdminUserVM> models = JsonConvert.DeserializeObject<List<AdminUserVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetUserType()
@@ -1404,17 +1427,17 @@ namespace AOPC.Controllers
         public async Task<IActionResult> PostDisplayRegistrationList(paginateCorpUserv2 data)
         {
             string result = "";
-            var list = new List<PaginationCorpUserModel>();
+            var list = new List<UserVMv2>();
             try
             {
                 HttpClient client = new HttpClient();
-                var url = DBConn.HttpString + "/api/ApiPagination/DisplayRegistrationList";
+                var url = DBConn.HttpString + "/api/ApiPagination/DisplayRegistrationListv2";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
-                    list = JsonConvert.DeserializeObject<List<PaginationCorpUserModel>>(res);
+                    list = JsonConvert.DeserializeObject<List<UserVMv2>>(res);
 
                 }
 
@@ -1424,7 +1447,8 @@ namespace AOPC.Controllers
             {
                 string status = ex.GetBaseException().ToString();
             }
-            return Json(list);
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
         }
 
         [HttpPost]
@@ -1451,7 +1475,8 @@ namespace AOPC.Controllers
             {
                 string status = ex.GetBaseException().ToString();
             }
-            return Json(list);
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
         }
         public class FamilyMemberpagedModel
         {
@@ -1494,6 +1519,38 @@ namespace AOPC.Controllers
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     list = JsonConvert.DeserializeObject<List<FamilyMemberpagedModel>>(res);
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        public class FamilyMemberStatus
+        {
+
+            public int Id { get; set; }
+            public string Status { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateFamilyMember(FamilyMemberStatus data)
+        {
+            string result = "";
+            var list = new List<FamilyMemberStatus>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiRegister/updateFamilyMemberStatus/";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<FamilyMemberStatus>>(res);
 
                 }
 

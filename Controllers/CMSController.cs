@@ -17,6 +17,7 @@ using _CMS.Manager;
 using ExcelDataReader;
 using AOPC_CMSv2.ViewModel;
 using static AOPC.Controllers.VendorController;
+using System.Collections.Generic;
 
 namespace AOPC.Controllers
 {
@@ -130,6 +131,7 @@ namespace AOPC.Controllers
             {
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiPagination/AuditTrailPaginate";
+                //var url = DBConn.HttpString + "/api/ApiAuditTrail/AudittrailList";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
@@ -149,13 +151,15 @@ namespace AOPC.Controllers
         [HttpGet]
          public async Task<JsonResult> GetAuditTrailList()
          {
-             var url = DBConn.HttpString + "/api/AuditTrail/AudittrailList";
-             HttpClient client = new HttpClient();
-             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
-             string response = await client.GetStringAsync(url);
-             List<Audittrailvm> models = JsonConvert.DeserializeObject<List<Audittrailvm>>(response);
-             return new(models);
-         }
+             //var url = DBConn.HttpString + "/api/AuditTrail/AudittrailList";
+            var url = DBConn.HttpString + "/api/ApiAuditTrail/AudittrailList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<Audittrailvm> models = JsonConvert.DeserializeObject<List<Audittrailvm>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
        
         public IActionResult Index()
         {

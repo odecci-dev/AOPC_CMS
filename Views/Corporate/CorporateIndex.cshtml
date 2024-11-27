@@ -46,7 +46,11 @@
         width: 300px !important;
     }
 </style>
-
+@* New DataTables Start*@
+<link rel="stylesheet" href="/css/datatable.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+@* New DataTables End*@
 <div class="register-main-container">
          <ul class="nav nav-tabs justify-content-lg-start">
             <li class="nav-items">
@@ -65,16 +69,96 @@
                 <div class="card-body ">
                     <div class="row">
 
+                        @* <div class="col-lg-10">
+                            <div style="width: 100%; display: flex; justify-content: flex-end; margin: 10px 0; padding-right:20px">
+                                <div style="display:flex;flex-wrap: wrap;gap: 6px;width: 100%;justify-content: space-between;">
+                                    <div class="info" style="display: flex;flex-wrap: wrap;    margin-left: 25px;flex-direction: column;">
+                                        <p class="name" id="ucount"></p>
+                                        <p class="name" id="vipcounter"></p>
+
+
+                                    </div>
+                                    <div style="display: flex;flex-wrap: wrap;gap: 6px;" class="info">
+                                        <button class="register-btn filter" id="registerFilter">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                                <path d="M5.5 7H17.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                                <path d="M5.5 12H15.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                                <path d="M5.5 17H11.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                            </svg>
+                                            Filter
+                                        </button>
+                                        @* <div class="search-holder">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
+                                                <g opacity="0.5">
+                                                    <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
+                                                    <path d="M11.4583 8.8335C11.0479 8.8335 10.6416 8.91433 10.2624 9.07137C9.8833 9.22842 9.5388 9.4586 9.24862 9.74879C8.95844 10.039 8.72825 10.3835 8.5712 10.7626C8.41416 11.1418 8.33333 11.5481 8.33333 11.9585" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                                    <path d="M20.8333 21.3335L17.7083 18.2085" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                                </g>
+                                            </svg>
+                                            <input type="text" class="user-registration-search" id="user-registration-search" placeholder="Search...">
+                                        </div> *@
+                                        @* <div >
+                                            <p class="name" style="    margin: 5px 10px 0px 10px;" for="srchbox">Search</p>
+                                        </div >
+                                        <div style="flex: 1 0 250px;">
+                                            <input type="text" value="" id="srchbox" style="
+                                            height: 25px;
+                                            width:100%;
+                                            outline: none;
+                                            border: 1px solid #e7e6e6;
+                                            box-shadow: inset 1px 2px 1px 1px rgba(116, 113, 113, 0.5);
+                                            border-radius: 5px;
+                                            " />
+                                        </div>
+
+                                        <div style="flex: 1 0 130px;">
+                                            <select id="position" class="mod-input" style="width:100%">
+                                                <option required value="" disabled selected>Select your Position</option>
+                                            </select>
+                                        </div> *@
+                                    @*</div>
+                                </div>
+                            </div>
+                        <div id="register-table_wrapper"
+                             class="col-lg-10 dataTables_wrapper no-footer"
+                             style="">
+                            <table id="register-table" class="corpuserregister-tabl">
+                                <thead>
+                                <th>
+                                    <button class="register" style="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add-newuser"><i class="fas fa-user-plus"></i>Add New</button>
+                                </th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Company Name</th>
+                                <th>Position</th>
+                                <th>VIP</th>
+                                <th>Status</th>
+                                <th>Date Created</th>
+                                </thead>
+                                <tbody style="
+                                            gap: 10px;
+                                        ">
+                                </tbody>
+                            </table>
+                            @* <div class="cust-pagination">
+                            <span id="prev">Prev</span>
+                            <div>
+                            <div style="display:flex;flex-wrap:wrap"id="counter"></div>
+                            </div>
+                            <span id="next">Next</span>
+                            </div> *@
+                            @*</div>
+                        </div> *@
                         <div class="col-lg-10">
                         <div style="width: 100%; display: flex; justify-content: flex-end; margin: 10px 0; padding-right:20px">
                             <div style="display:flex;flex-wrap: wrap;gap: 6px;width: 100%;justify-content: space-between;">
                                 <div class="info" style="display: flex;flex-wrap: wrap;    margin-left: 25px;flex-direction: column;">
                                     <p class="name" id="ucount"></p>
                                     <p class="name" id="vipcounter"></p>
-
-
                                 </div>
                                 <div style="display: flex;flex-wrap: wrap;gap: 6px;" class="info">
+
                                     <button class="register-btn filter" id="registerFilter">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                                             <path d="M5.5 7H17.5" stroke="white" stroke-width="2" stroke-linecap="round" />
@@ -83,84 +167,57 @@
                                         </svg>
                                         Filter
                                     </button>
-                                    <div class="search-holder">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
-                                            <g opacity="0.5">
-                                                <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
-                                                <path d="M11.4583 8.8335C11.0479 8.8335 10.6416 8.91433 10.2624 9.07137C9.8833 9.22842 9.5388 9.4586 9.24862 9.74879C8.95844 10.039 8.72825 10.3835 8.5712 10.7626C8.41416 11.1418 8.33333 11.5481 8.33333 11.9585" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
-                                                <path d="M20.8333 21.3335L17.7083 18.2085" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
-                                            </g>
+                                    @* <button class="register-btn email" id="registerBulkEmail">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.0132 9.15129C3 9.69022 3 10.3021 3 11V13C3 15.8284 3 17.2426 3.87868 18.1213C4.75736 19 6.17157 19 9 19H15C17.8284 19 19.2426 19 20.1213 18.1213C21 17.2426 21 15.8284 21 13V11C21 10.3021 21 9.69022 20.9868 9.15129L12.9713 13.6044C12.3672 13.9399 11.6328 13.9399 11.0287 13.6044L3.0132 9.15129ZM3.24297 7.02971C3.32584 7.05052 3.4074 7.08237 3.48564 7.12584L12 11.856L20.5144 7.12584C20.5926 7.08237 20.6742 7.05052 20.757 7.02971C20.6271 6.55619 20.4276 6.18491 20.1213 5.87868C19.2426 5 17.8284 5 15 5H9C6.17157 5 4.75736 5 3.87868 5.87868C3.57245 6.18491 3.37294 6.55619 3.24297 7.02971Z" fill="white" />
                                         </svg>
-                                        <input type="text" class="user-registration-search" id="user-registration-search" placeholder="Search...">
-                                    </div>
-                                    @* <div >
-                                        <p class="name" style="    margin: 5px 10px 0px 10px;" for="srchbox">Search</p>
-                                    </div >
-                                    <div style="flex: 1 0 250px;">
-                                        <input type="text" value="" id="srchbox" style="
-                                        height: 25px;
-                                        width:100%;
-                                        outline: none;
-                                        border: 1px solid #e7e6e6;
-                                        box-shadow: inset 1px 2px 1px 1px rgba(116, 113, 113, 0.5);
-                                        border-radius: 5px;
-                                        " />
-                                    </div>
+                                        Bulk Email
+                                    </button> *@
 
-                                    <div style="flex: 1 0 130px;">
-                                        <select id="position" class="mod-input" style="width:100%">
-                                            <option required value="" disabled selected>Select your Position</option>
-                                        </select>
+                                    @* <div class="search-holder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
+                                    <g opacity="0.5">
+                                    <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
+                                    <path d="M11.4583 8.8335C11.0479 8.8335 10.6416 8.91433 10.2624 9.07137C9.8833 9.22842 9.5388 9.4586 9.24862 9.74879C8.95844 10.039 8.72825 10.3835 8.5712 10.7626C8.41416 11.1418 8.33333 11.5481 8.33333 11.9585" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M20.8333 21.3335L17.7083 18.2085" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                    </g>
+                                    </svg>
+                                    <input type="text" class="user-registration-search" id="user-registration-search" placeholder="Search...">
                                     </div> *@
+
                                 </div>
                             </div>
                         </div>
-                            <div class="row ">
-                            <div 
-                                id="register-table_wrapper" 
-                                class="dataTables_wrapper no-footer" 
-                                style="
-                                    width:100vw;
-                                    overflow: scroll;
-                                    border: 1px solid black;
-                                    border-radius: 15px;
-                                    padding: 15px; 
-                                    height: 70vh;
-                                ">
-                                <table id="register-table" class="corpuserregister-tabl">
-                                         <thead>
-                                            <th>
-                                               <button class="register"  style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add-newuser"><i class="fas fa-user-plus"></i>Add New</button>
-                                            </th>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Gender</th>
-                                            <th>Company Name</th>
-                                            <th>Position</th>
-                                            <th>VIP</th>
-                                            <th>Status</th>
-                                            <th>Date Created</th>
-                                        </thead>
-                                    <tbody
-                                        style="
-                                            gap: 10px;   
-                                        "    
-                                    >
 
-                                    </tbody>
-                                    </table>
-                                <div class="cust-pagination">
-                                    <span id="prev">Prev</span>
-                                    <div>
-                                    <div style="display:flex;flex-wrap:wrap"id="counter"></div>
-                                    </div>
-                                    <span id="next">Next</span>
+                        <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
+                            <div>
+                                <table id="register-table" class="myTableMedium">
+                                    <thead>
+                                    <th>
+                                        <button class="register" title="Add New" id="add-newuser"><i class="fas fa-user-plus"></i>Add New</button>
+                                    </th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Gender</th>
+                                    <th>Company Name</th>
+                                    <th>Position</th>
+                                    <th>Status</th>
+                                    <th>VIP</th>
+                                    <th>Date Created</th>
+                                    </thead>
+                                </table>
+                                @* <div class="cust-pagination">
+                                <span id="prev">Prev</span>
+                                <div>
+                                <div style="display:flex;flex-wrap:wrap" id="counter"></div>
                                 </div>
-                               </div>
+                                <span id="next">Next</span>
+                                </div> *@
                             </div>
                         </div>
 
-                    <div class="col-lg-2">
+                    </div>
+                        <div class="col-lg-2">
 
                         <div class="col-sm-12">
                                     <hr>
@@ -538,83 +595,94 @@
         var filtername = "";
         var currpage = "";
         var posId = "";
+
+        //Filter Variables
+        var corporateFilter = null;
+        var companyNameFilter = null;
+        var genderFilter = null;
+        var positionFilter = null;
+        var isVipFilter = null;
+        var statusFilter = null;
+        var spanval = 0;
+
     $(document).ready(function () {
 
             ShowFilter(); 
             UserShowSelectFilter()
-            userRegistrationListTableLayout();
+
+            // userRegistrationListTableLayout();
             getUserRegistration();
-            $('#srchbox').keypress(function (event) {
-                // Check if the key pressed is Enter (key code 13)
-                if (event.which === 13) {
-                    spanval = "0";
-                    // Prevent the default action of the Enter key (e.g., form submission)
-                    event.preventDefault();
+        //     $('#srchbox').keypress(function (event) {
+        //         // Check if the key pressed is Enter (key code 13)
+        //         if (event.which === 13) {
+        //             spanval = "0";
+        //             // Prevent the default action of the Enter key (e.g., form submission)
+        //             event.preventDefault();
 
-                }
-                else { 
-                }
-            });
-            if (spanval =="" && posId== "" && filtername == "") {
-                var data = {};
-                data.FilterName = filtername;
-                data.page = spanval;
-                data.posId = posId;
-                data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
+        //         }
+        //         else { 
+        //         }
+        //     });
+        //     if (spanval =="" && posId== "" && filtername == "") {
+        //         var data = {};
+        //         data.FilterName = filtername;
+        //         data.page = spanval;
+        //         data.posId = posId;
+        //         data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
 
-                $.ajax({
-                    url: '/Corporate/GetDataCorporateUser',
-                    data: {
-                        data: data,
-                    },
-                    type: "POST",
-                    datatype: "json",
-                    success: function (data) {
-                        // console.log(data[0].items);
-                        $('#counter').empty();
-                        for (var i = 0; i < data[0].totalPage; i++) {
-                            var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
+        //         $.ajax({
+        //             url: '/Corporate/GetDataCorporateUser',
+        //             data: {
+        //                 data: data,
+        //             },
+        //             type: "POST",
+        //             datatype: "json",
+        //             success: function (data) {
+        //                 // console.log(data[0].items);
+        //                 $('#counter').empty();
+        //                 for (var i = 0; i < data[0].totalPage; i++) {
+        //                     var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
 
-                            $("#counter").append(newSpan);
-                        }
-                    }
-                });
-        }
+        //                     $("#counter").append(newSpan);
+        //                 }
+        //             }
+        //         });
+        // }
         // $('#position').change(function () {
         //         var selectedValue = $(this).val();
         //         var selectedText = $(this).find('position:selected').text();
         //         posId = selectedValue;
                
         // });
-            dbtable = $('#corpuserregister-table').DataTable({
-                "columnDefs": [
+            // dbtable = $('#corpuserregister-table').DataTable({
+            //     "columnDefs": [
 
-                    { "width": "200px", "targets": 0 },
-                    { "width": "200px", "targets": 1 },
-                    { "width": "200px", "targets": 2 },
-                    { "width": "200px", "targets": 3 },
-                    { "width": "200px", "targets": 4 },
-                    { "width": "200px", "targets": 5 },
-                    { "width": "200px", "targets": 6 },
-                    { "width": "150px", "targets": 7 }
-                    // { "width": "70px", "targets": 9 }
-                ],
-                "deferRender": true,
-                "bPaginate": false,
-                "bFilter": false,
-                "stripeClasses": [],
-                "ordering": false,
-                "ordering": false,
-                "info": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bLengthChange": false,
-                "paging": false,
-                "aLengthMenu": [10],
-                "searching": false
-                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+            //         { "width": "200px", "targets": 0 },
+            //         { "width": "200px", "targets": 1 },
+            //         { "width": "200px", "targets": 2 },
+            //         { "width": "200px", "targets": 3 },
+            //         { "width": "200px", "targets": 4 },
+            //         { "width": "200px", "targets": 5 },
+            //         { "width": "200px", "targets": 6 },
+            //         { "width": "150px", "targets": 7 }
+            //         // { "width": "70px", "targets": 9 }
+            //     ],
+            //     "deferRender": true,
+            //     "bPaginate": false,
+            //     "bFilter": false,
+            //     "stripeClasses": [],
+            //     "ordering": false,
+            //     "ordering": false,
+            //     "info": false,
+            //     "bInfo": false,
+            //     "bAutoWidth": false,
+            //     "bLengthChange": false,
+            //     "paging": false,
+            //     "aLengthMenu": [10],
+            //     "searching": false
+            //     , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-            });
+            // });
 
 
       $("input[name=uploadimg]").change(function () {
@@ -627,31 +695,32 @@
         $('.upload-image-preview').html(img);};
         reader.readAsDataURL(this.files[0]);
                         }
-                    }); postable = $('#pos-table').DataTable({
-                        "columnDefs": [
+                    }); 
+                    // postable = $('#pos-table').DataTable({
+                    //     "columnDefs": [
 
-                            { "width": "80px", "targets": 0 },
-                            { "width": "150px", "targets": 1 },
-                            { "width": "70px", "targets": 2 }
-                        ],
-                        order: [[2, "desc"]],
-                        "bPaginate": false,
-                        "bFilter": false,
-                        "stripeClasses": [],
-                        "ordering": false,
-                        "info": false,
-                        "bInfo": false,
-                        "bAutoWidth": false,
-                        "bLengthChange": false,
-                        "paging": true,
-                        "aLengthMenu": [10],
-                        "searching": true,
-                        "oLanguage": {
-                            "sZeroRecords": "", "sEmptyTable": "",
+                    //         { "width": "80px", "targets": 0 },
+                    //         { "width": "150px", "targets": 1 },
+                    //         { "width": "70px", "targets": 2 }
+                    //     ],
+                    //     order: [[2, "desc"]],
+                    //     "bPaginate": false,
+                    //     "bFilter": false,
+                    //     "stripeClasses": [],
+                    //     "ordering": false,
+                    //     "info": false,
+                    //     "bInfo": false,
+                    //     "bAutoWidth": false,
+                    //     "bLengthChange": false,
+                    //     "paging": true,
+                    //     "aLengthMenu": [10],
+                    //     "searching": true,
+                    //     "oLanguage": {
+                    //         "sZeroRecords": "", "sEmptyTable": "",
 
-                        }
-                    });
-        paginationCorpUser(spanval, filtername, posId);
+                    //     }
+                    // });
+        // paginationCorpUser(spanval, filtername, posId);
         CorpShowPositionList();
         ShowPositionName();
         UserAdminShowPositionName();
@@ -707,30 +776,66 @@
 
         });
    function CorpShowPositionList() {
-    $.blockUI(reloadLoading);
-            $.ajax({
-                url: "/Register/GetPosition",
-                data: {
-                },
-                type: "GET",
-                datatype: "json"
-            }).done(function (data) {
-                //console.log(data);
-                postable.clear().draw();
-                for (var i = 0; i < data.length; i++) {
+    // $.blockUI(reloadLoading);
+    //         $.ajax({
+    //             url: "/Register/GetPosition",
+    //             data: {
+    //             },
+    //             type: "GET",
+    //             datatype: "json"
+    //         }).done(function (data) {
+    //             //console.log(data);
+    //             postable.clear().draw();
+    //             for (var i = 0; i < data.length; i++) {
 
-                    var tdbuttons = "<div>" + "<p>" + data[i].positionID + "</p>" + "<p>" + data[i].positionName + "</p>" +
-                        '<div class="actions"><a class="tbl-edit" data-id="' + data[i].id + '" data-posname="' + data[i].positionName + '"  data-description="' + data[i].description + '"   >' + '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' + '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + "</svg>" + "<span >Edit</span>" + " </a>";
-                    $("#pos-table").dataTable().fnAddData([
-                        "<td>" + tdbuttons + "</td>",
-                        "<td><p>" + data[i].description + "</p></td>",
-                        "<td><p>" + data[i].dateCreated + "</p></td>"]);
+    //                 var tdbuttons = "<div>" + "<p>" + data[i].positionID + "</p>" + "<p>" + data[i].positionName + "</p>" +
+    //                     '<div class="actions"><a class="tbl-edit" data-id="' + data[i].id + '" data-posname="' + data[i].positionName + '"  data-description="' + data[i].description + '"   >' + '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' + '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + "</svg>" + "<span >Edit</span>" + " </a>";
+    //                 $("#pos-table").dataTable().fnAddData([
+    //                     "<td>" + tdbuttons + "</td>",
+    //                     "<td><p>" + data[i].description + "</p></td>",
+    //                     "<td><p>" + data[i].dateCreated + "</p></td>"]);
+    //             }
+    //                     $.unblockUI();
+
+    //                 }).fail(function () {
+    //                     alert("There was an Error When Loading Data...");
+    //                 });
+
+
+    new DataTable('#pos-table', {
+        ajax: {
+            url: '/Register/GetPositionv2',
+            type: "GET",
+            dataType: "json",
+            processing: true,
+            serverSide: true,
+            complete: function (xhr) {
+                //console.log(xhr);
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        },
+        columns: [
+            {
+                data: 'positionID',
+                render: function (data, type, row) {
+                    
+                    var tdbuttons = "<div>" + "<p>" + data + "</p>" + "<p>" + row.positionName + "</p>" +
+                        '<div class="actions"><a class="tbl-edit" data-id="' + row.id + '" data-posname="' + row.positionName + '"  data-description="' + row.description + '"   >' + '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' + '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + "</svg>" + "<span >Edit</span>" + " </a>";
+                    
+
+                    return tdbuttons;
                 }
-                        $.unblockUI();
-
-                    }).fail(function () {
-                        alert("There was an Error When Loading Data...");
-                    });
+            },
+            {
+                data: 'description'
+            },
+            {
+                data: 'dateCreated'
+            }
+        ]
+    });
     }
    $('#user-corporate-option').change(function () {
                         var data = {};
@@ -753,217 +858,217 @@
                  });
 function UserAdminShowPositionName() {
 
-    $.ajax({
-        url: '/Register/GetPosition',
-        data: {
-
-        },
-        type: "GET",
-        datatype: "json"
-    }).done(function (data) {
-
-        $('#corpadminuser-position').empty();
-        $("#corpadminuser-position").append('<option value="0" >-Select Position-</option>');
-        for (var i = 0; i < data.length; i++) {
-            $("#corpadminuser-position").append('<option value="' + data[i].id + '">' +
-                data[i].positionName + '</option>');
-        }
-    
-    });
-
-        } 
-        $("#srchbox").keypress(function (event) {
-            // Check if the key pressed is Enter (key code 13)
-            if (event.which === 13) {
-                // Prevent the default action of the Enter key (e.g., form submission)
-                event.preventDefault();
-
-                // Perform your desired action here
-                var userInput = $(this).val(); // Get the input value
-                spanval = "0";
-                posId = $('#position').val();
-                paginationCorpUser(spanval, userInput, posId);
-                var data = {};
-                data.FilterName = filtername;
-                data.page = spanval;
-                data.posId = posId;
-                data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
-
-                $.ajax({
-                    url: '/Corporate/GetDataCorporateUser',
-                    data: {
-                        data: data,
-                    },
-                    type: "POST",
-                    datatype: "json",
-                    success: function (data) {
-                        // console.log(data[0].items);
-                        $('#counter').empty();
-                        for (var i = 0; i < data[0].totalPage; i++) {
-                            var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
-
-                            $("#counter").append(newSpan);
-                        }
-                    }
-                });
-                // Optionally, you can call a function or submit a form here
-                // Example: submitForm();
-            }
-   
-
-        });
-        $('#position').change(function () {
-            var selectedValue = $(this).val();
-            var selectedText = $(this).find('position:selected').text();
-            posId = selectedValue;
-            spanval = "0";
-            filtername = $("#srchbox").val();
-            paginationCorpUser(spanval, filtername, posId);
-            var data = {};
-            data.FilterName = filtername;
-            data.page = spanval;
-            data.posId = posId;
-            data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
-
             $.ajax({
-                url: '/Corporate/GetDataCorporateUser',
+                url: '/Register/GetPosition',
                 data: {
-                    data: data,
-                },
-                type: "POST",
-                datatype: "json",
-                success: function (data) {
-                    // console.log(data[0].items);
-                    $('#counter').empty();
-                    for (var i = 0; i < data[0].totalPage; i++) {
-                        var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
 
-                        $("#counter").append(newSpan);
-                    }
-                }
-            });
-
-        });
-    
-        function paginationCorpUser(spanval, filtername, posId) {
-            var data = {};
-            data.FilterName = filtername;
-            data.page = spanval;
-            data.posId = posId;
-            data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
-            $.blockUI(reloadLoading);
-            $.ajax({
-                url: '/Corporate/GetDataCorporateUser',
-                data: {
-                    data: data,
                 },
-                type: "POST",
+                type: "GET",
                 datatype: "json"
             }).done(function (data) {
-              
-                // console.log(data);
-                dbtable.clear().draw();
-                prev = data[0].prevPage;
-                next = data[0].nextPage;
-                currpage = data[0].currentPage;
-                // $("#ucount").text(data[0].TotalRecord);
-                $('#ucount').text('Total Record of ' + data[0].totalRecord + ' Registered Users');
-                $('#vipcounter').text('Total Record of ' + data[0].totalVIP + ' VIP');
-                if (prev == 0) {
-                        $("#prev").attr("disabled", true);
-                        $("#prev").css("color", "gray").css("pointer-event", "none");
-                    }
-                    else {
-                        $("#prev").attr("enabled", true);
-                        $("#prev").css("color", "#c89328");
-                    }
-                    if (next == 0) {
-                         // console.log(next);
 
-                        $("#next").attr("disabled", true);
-                        $("#next").css("color", "gray").css("pointer-event", "none");
-                    }
-                    else {
-                    // console.log(next);
-                        $("#next").attr("enabled", true);
-                        $("#next").css("color", "#c89328");
-                    }
-                // $('#counter').empty();
-                // for (var i = 0; i < data[0].totalPage; i++) {
-                //     var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
-
-                //     $("#counter").append(newSpan);
-                // }
-                for (var i = 0; i < data[0].items.length; i++) {
-
-                    var img = data[0].items[i].filePath;
-                    if (img == "") {
-                        img = "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png";
-                    }
-                    else {
-                        img = data[0].items[i].filePath;
-                    }
-                    var vip = "";
-                    if(data[0].items[i].isVIP == 1){
-                        vip = "Yes";
-                    }
-                    else{
-                        vip = "No";
-                    }
-                    $('#corpuserregister-table tbody').append([
-                        '<tr>' +
-                        '<td>' +
-                        ' <div class="data-img">' +
-                        '<img src=' + img + ' alt=' + data[0].items[i].fname + ' width="100%" />' +
-                        '</div>' +
-                        '<div>' +
-                        '<p>' + data[0].items[i].employeeID + '</p>' +
-                        '<p>' + data[0].items[i].fname + ' ' + data[0].items[i].lname + '</p>' +
-                        '<div class="actions"><a class="tbl-edit" data-id="' + data[0].items[i].id + '" ">' +
-                        '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
-                        '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
-                        'stroke="black"' +
-                        'stroke-linecap="round"' +
-                        'stroke-linejoin="round"/>' +
-                        '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
-                        'stroke="black"' +
-                        'stroke-linecap="round"' +
-                        'stroke-linejoin="round"/>' +
-                        '</svg>' +
-
-                        '<span >Edit</span>' +
-                        ' </a>' +
-                        '<a class="tbl-delete" data-id="' + data[0].items[i].id + '"  " >' +
-                        '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
-                        '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
-                        'fill="black"/>' +
-                        '</svg>' +
-                        '<span>Delete</span></a>' +
-                        '<a class="tbl-sendemail" data-id="' + data[0].items[i].id + '"  " >' +
-                        '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-                        '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' +
-                        '</svg>' +
-                        '<span>Send Email</span></a>' +
-                        '</div></div>' + '</td>' +
-                        '<td>' + data[0].items[i].username + '</td>' +
-                        '<td>' + data[0].items[i].email + '</td>' +
-                        '<td>' + data[0].items[i].gender + '</td>' +
-                        '<td>' + data[0].items[i].corporatename + '</td>' +
-                        '<td>' + data[0].items[i].position + '</td>' +
-                        '<td class="isVIP">' + vip + '</td>' +
-                        '<td>' + data[0].items[i].status + '</td>' +
-                        '<td><p>' + data[0].items[i].dateCreated + '</p> </td>',  
-                        +'</tr>']); 
-                      
+                $('#corpadminuser-position').empty();
+                $("#corpadminuser-position").append('<option value="0" >-Select Position-</option>');
+                for (var i = 0; i < data.length; i++) {
+                    $("#corpadminuser-position").append('<option value="' + data[i].id + '">' +
+                        data[i].positionName + '</option>');
                 }
+    
+            });
+
+        } 
+        // $("#srchbox").keypress(function (event) {
+        //     // Check if the key pressed is Enter (key code 13)
+        //     if (event.which === 13) {
+        //         // Prevent the default action of the Enter key (e.g., form submission)
+        //         event.preventDefault();
+
+        //         // Perform your desired action here
+        //         var userInput = $(this).val(); // Get the input value
+        //         spanval = "0";
+        //         posId = $('#position').val();
+        //         paginationCorpUser(spanval, userInput, posId);
+        //         var data = {};
+        //         data.FilterName = filtername;
+        //         data.page = spanval;
+        //         data.posId = posId;
+        //         data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
+
+        //         $.ajax({
+        //             url: '/Corporate/GetDataCorporateUser',
+        //             data: {
+        //                 data: data,
+        //             },
+        //             type: "POST",
+        //             datatype: "json",
+        //             success: function (data) {
+        //                 // console.log(data[0].items);
+        //                 $('#counter').empty();
+        //                 for (var i = 0; i < data[0].totalPage; i++) {
+        //                     var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
+
+        //                     $("#counter").append(newSpan);
+        //                 }
+        //             }
+        //         });
+        //         // Optionally, you can call a function or submit a form here
+        //         // Example: submitForm();
+        //     }
+   
+
+        // });
+        // $('#position').change(function () {
+        //     var selectedValue = $(this).val();
+        //     var selectedText = $(this).find('position:selected').text();
+        //     posId = selectedValue;
+        //     spanval = "0";
+        //     filtername = $("#srchbox").val();
+        //     paginationCorpUser(spanval, filtername, posId);
+        //     var data = {};
+        //     data.FilterName = filtername;
+        //     data.page = spanval;
+        //     data.posId = posId;
+        //     data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
+
+        //     $.ajax({
+        //         url: '/Corporate/GetDataCorporateUser',
+        //         data: {
+        //             data: data,
+        //         },
+        //         type: "POST",
+        //         datatype: "json",
+        //         success: function (data) {
+        //             // console.log(data[0].items);
+        //             $('#counter').empty();
+        //             for (var i = 0; i < data[0].totalPage; i++) {
+        //                 var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
+
+        //                 $("#counter").append(newSpan);
+        //             }
+        //         }
+        //     });
+
+        // });
+    
+        // function paginationCorpUser(spanval, filtername, posId) {
+        //     var data = {};
+        //     data.FilterName = filtername;
+        //     data.page = spanval;
+        //     data.posId = posId;
+        //     data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
+        //     $.blockUI(reloadLoading);
+        //     $.ajax({
+        //         url: '/Corporate/GetDataCorporateUser',
+        //         data: {
+        //             data: data,
+        //         },
+        //         type: "POST",
+        //         datatype: "json"
+        //     }).done(function (data) {
+              
+        //         // console.log(data);
+        //         dbtable.clear().draw();
+        //         prev = data[0].prevPage;
+        //         next = data[0].nextPage;
+        //         currpage = data[0].currentPage;
+        //         // $("#ucount").text(data[0].TotalRecord);
+        //         $('#ucount').text('Total Record of ' + data[0].totalRecord + ' Registered Users');
+        //         $('#vipcounter').text('Total Record of ' + data[0].totalVIP + ' VIP');
+        //         if (prev == 0) {
+        //                 $("#prev").attr("disabled", true);
+        //                 $("#prev").css("color", "gray").css("pointer-event", "none");
+        //             }
+        //             else {
+        //                 $("#prev").attr("enabled", true);
+        //                 $("#prev").css("color", "#c89328");
+        //             }
+        //             if (next == 0) {
+        //                  // console.log(next);
+
+        //                 $("#next").attr("disabled", true);
+        //                 $("#next").css("color", "gray").css("pointer-event", "none");
+        //             }
+        //             else {
+        //             // console.log(next);
+        //                 $("#next").attr("enabled", true);
+        //                 $("#next").css("color", "#c89328");
+        //             }
+        //         // $('#counter').empty();
+        //         // for (var i = 0; i < data[0].totalPage; i++) {
+        //         //     var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
+
+        //         //     $("#counter").append(newSpan);
+        //         // }
+        //         for (var i = 0; i < data[0].items.length; i++) {
+
+        //             var img = data[0].items[i].filePath;
+        //             if (img == "") {
+        //                 img = "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png";
+        //             }
+        //             else {
+        //                 img = data[0].items[i].filePath;
+        //             }
+        //             var vip = "";
+        //             if(data[0].items[i].isVIP == 1){
+        //                 vip = "Yes";
+        //             }
+        //             else{
+        //                 vip = "No";
+        //             }
+        //             $('#corpuserregister-table tbody').append([
+        //                 '<tr>' +
+        //                 '<td>' +
+        //                 ' <div class="data-img">' +
+        //                 '<img src=' + img + ' alt=' + data[0].items[i].fname + ' width="100%" />' +
+        //                 '</div>' +
+        //                 '<div>' +
+        //                 '<p>' + data[0].items[i].employeeID + '</p>' +
+        //                 '<p>' + data[0].items[i].fname + ' ' + data[0].items[i].lname + '</p>' +
+        //                 '<div class="actions"><a class="tbl-edit" data-id="' + data[0].items[i].id + '" ">' +
+        //                 '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
+        //                 '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
+        //                 'stroke="black"' +
+        //                 'stroke-linecap="round"' +
+        //                 'stroke-linejoin="round"/>' +
+        //                 '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
+        //                 'stroke="black"' +
+        //                 'stroke-linecap="round"' +
+        //                 'stroke-linejoin="round"/>' +
+        //                 '</svg>' +
+
+        //                 '<span >Edit</span>' +
+        //                 ' </a>' +
+        //                 '<a class="tbl-delete" data-id="' + data[0].items[i].id + '"  " >' +
+        //                 '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
+        //                 '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
+        //                 'fill="black"/>' +
+        //                 '</svg>' +
+        //                 '<span>Delete</span></a>' +
+        //                 '<a class="tbl-sendemail" data-id="' + data[0].items[i].id + '"  " >' +
+        //                 '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+        //                 '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' +
+        //                 '</svg>' +
+        //                 '<span>Send Email</span></a>' +
+        //                 '</div></div>' + '</td>' +
+        //                 '<td>' + data[0].items[i].username + '</td>' +
+        //                 '<td>' + data[0].items[i].email + '</td>' +
+        //                 '<td>' + data[0].items[i].gender + '</td>' +
+        //                 '<td>' + data[0].items[i].corporatename + '</td>' +
+        //                 '<td>' + data[0].items[i].position + '</td>' +
+        //                 '<td class="isVIP">' + vip + '</td>' +
+        //                 '<td>' + data[0].items[i].status + '</td>' +
+        //                 '<td><p>' + data[0].items[i].dateCreated + '</p> </td>',  
+        //                 +'</tr>']); 
+                      
+        //         }
             
           
-                $.unblockUI();
+        //         $.unblockUI();
 
-            }).fail(function () {
-                alert("There was an Error When Loading Data...");
-            });
-        }
+        //     }).fail(function () {
+        //         alert("There was an Error When Loading Data...");
+        //     });
+        // }
 
 
 

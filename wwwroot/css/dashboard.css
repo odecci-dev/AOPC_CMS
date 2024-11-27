@@ -20,20 +20,27 @@
     padding-right: 30px;
 }
 
-
+.filters{
+    display: flex;
+    gap: 10px;
+}
 .option-filters {
     background-color: var(--accent);
     color: white;
-    padding: 5px 10px;
+    padding: 5px 10px !important;
     border-radius: 10px;
     box-shadow: 2px 2px 3px 2px var(--shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 .row-group1 {
     display: flex;
     height: 400px;
     width: 100%;
-    flex: 10;
+/*    flex: 10;*/
     padding: 10px;
     gap: 10px;
 }
@@ -152,11 +159,11 @@
 
 .row-group2 {
     display: flex;
-    height: 100%;
+    height: 625px;
     gap: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    
+    height: 335px;
     
 }
 
@@ -258,17 +265,19 @@
     gap: 20px;
 }
 
-    .tr-pie-graph-info .data {
-        display: flex;
-        margin-left: 20px;
-    }
-
+.tr-pie-graph-info .data {
+    display: flex;
+    margin-left: 20px;
+}
+.row-group3{
+    height: 300px;
+}
 .row-group3,
 .row-group4 {
     display: flex;
-    height: 400px;
+    /*    height: 400px;*/
     width: 100%;
-    flex: 10;
+    /*    flex: 10;*/
     padding: 10px;
     gap: 10px;
 }
@@ -684,10 +693,13 @@
     border-radius: 10px;
     padding: 30px;
     position: relative;
+    
+    gap: 10px;
 }
 
 .controls {
     display: flex;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -836,15 +848,23 @@
     width: 100%;
     box-shadow: 1px 1px 5px 2px var(--shadow);
     border-radius: 10px;
-    padding: 10px;
-    padding: 15px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
+/*    height: 400px;*/
+}
+.news-feed .controls{
+    margin-bottom: 10px;
+}
+.news-feed .dataTables_wrapper {
+    height: 90%;
+    overflow-y: scroll
 }
 
-    .news-feed .controls h4 {
-        color: var(--accent);
-    }
+.news-feed .controls h4 {
+    color: var(--accent);
+}
 
     .news-feed .controls .filters {
         position: relative;
@@ -936,8 +956,8 @@ input[type=text] {
     .row-group3,
     .row-group4
     {
-        flex-direction: column;
-        height: auto;
+/*        flex-direction: column;*/
+/*        height: auto;*/
     }
 }
 .export{
@@ -980,7 +1000,7 @@ input[type=text] {
 }
 .row-group4 {
     position: relative;
-    height: 100%;
+/*    height: 100%;*/
     
 }
 .ci-table {
@@ -1154,7 +1174,7 @@ input[type=text] {
     background-color: var(--accent);
     border: none;
     border-radius: 15px;
-    padding: 5px 20px;
+    padding: 5px 10px;
     display: flex;
     gap: 5px;
     align-items: center;

@@ -65,7 +65,8 @@ namespace AOPC.Controllers
 
              string response = await client.GetStringAsync(url);
             List<BusinessLocVM> models = JsonConvert.DeserializeObject<List<BusinessLocVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetBusinessTypeList()
@@ -75,7 +76,8 @@ namespace AOPC.Controllers
               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
             string response = await client.GetStringAsync(url);
             List<BusinessTypeVM> models = JsonConvert.DeserializeObject<List<BusinessTypeVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         public class BusinessArray
         {
@@ -122,7 +124,8 @@ namespace AOPC.Controllers
                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
             string response = await client.GetStringAsync(url);
             List<BusinessModelVM> models = JsonConvert.DeserializeObject<List<BusinessModelVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
           public class Deletebloc
         {
@@ -336,6 +339,7 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = _global.Status });
         }
+
         public async Task<IActionResult> UploadFile(List<IFormFile> postedFiles)
         {
             int i;

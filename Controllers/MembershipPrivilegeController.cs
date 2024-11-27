@@ -79,7 +79,8 @@ namespace AOPC.Controllers
              client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<PrivilegeVM> models = JsonConvert.DeserializeObject<List<PrivilegeVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         public class LoginStats
         {

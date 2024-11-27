@@ -70,10 +70,22 @@ namespace AOPC.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
            string response = await client.GetStringAsync(url);
             List<CorporateModelVM> model = JsonConvert.DeserializeObject<List<CorporateModelVM>>(response);
-            return new(model);
+            //return new(model);
+            return Json(new { draw = 1, data = model, recordFiltered = model?.Count, recordsTotal = model?.Count });
         }
-#region ModelView
- public class membershipid
+        [HttpGet]
+        public async Task<JsonResult> GetCompanyList()
+        {
+            var url = DBConn.HttpString + "/api/ApiCorporate/CompanyList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<CorporateModelVM> model = JsonConvert.DeserializeObject<List<CorporateModelVM>>(response);
+            return new(model);
+            //return Json(new { draw = 1, data = model, recordFiltered = model?.Count, recordsTotal = model?.Count });
+        }
+        #region ModelView
+        public class membershipid
         {
 
             public string Id { get; set; }
@@ -255,7 +267,19 @@ namespace AOPC.Controllers
                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
             string response = await client.GetStringAsync(url);
             List<MembershipVM> model = JsonConvert.DeserializeObject<List<MembershipVM>>(response);
+            //return new(model);
+            return Json(new { draw = 1, data = model, recordFiltered = model?.Count, recordsTotal = model?.Count });
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetMembershipListOption()
+        {
+            var url = DBConn.HttpString + "/api/ApiMembership/MembershipList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<MembershipVM> model = JsonConvert.DeserializeObject<List<MembershipVM>>(response);
             return new(model);
+            //return Json(new { draw = 1, data = model, recordFiltered = model?.Count, recordsTotal = model?.Count });
         }
 
         public class CorporateModel

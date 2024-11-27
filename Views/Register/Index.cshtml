@@ -36,7 +36,13 @@
         cursor: pointer;
     }
 </style>
-
+@* <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> *@
+@* @* New DataTables Start
+<link rel="stylesheet" href="/css/datatable.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+ New DataTables End *@
 <div class="register-main-container">
     <ul class="nav nav-tabs justify-content-lg-start">
         <li class="nav-items">
@@ -84,7 +90,7 @@
                                         Bulk Email
                                     </button>
                                     
-                                    <div class="search-holder">
+                                    @* <div class="search-holder">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
                                             <g opacity="0.5">
                                                 <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
@@ -93,14 +99,14 @@
                                             </g>
                                         </svg>
                                         <input type="text" class="user-registration-search" id="user-registration-search" placeholder="Search...">
-                                    </div>
+                                    </div> *@
 
                                 </div>
                             </div>
                         </div>
                            
                         <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
-                            <div style="overflow-y:scroll; height500px">
+                            <div>
                                     <table id="register-table" class="myTableMedium">
                                             <thead>
                                         <th>
@@ -116,13 +122,13 @@
                                         <th>Date Created</th>
                                     </thead> 
                                     </table>
-                                    <div class="cust-pagination">
+                                    @* <div class="cust-pagination">
                                         <span id="prev">Prev</span>
                                         <div>
                                             <div style="display:flex;flex-wrap:wrap" id="counter"></div>
                                         </div>
                                         <span id="next">Next</span>
-                                    </div>
+                                    </div> *@
                                 </div>
                             </div>
                             
@@ -279,7 +285,7 @@
                                     Filter
                                 </button>
 
-                                <div class="search-holder">
+                                @*<div class="search-holder">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
                                         <g opacity="0.5">
                                             <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
@@ -288,12 +294,12 @@
                                         </g>
                                     </svg>
                                     <input type="text" class="user-registration-search" id="" placeholder="Search...">
-                                </div>
+                            </div>*@
 
                             </div>
                           
                             <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
-                                <div style="overflow-y:scroll; height500px">
+                                <div >
                                     <table id="corporate-user-table" class="myTableMedium">
                                         <thead>
                                             <th>
@@ -450,20 +456,20 @@ End here *@
                         </div>
                         </div>
                         <div class="mod-form-row">
-                        <div class="input-container-whole" required>
-                            <label for="corporateName">Corporate Name</label>
-                            <select id="user-corporate-option" class="mod-input" disa>
-                                    <option value="" disabled selected>Select your option</option>
-                            </select>
+                            <div class="input-container-whole" required>
+                                <label for="corporateName">Corporate Name</label>
+                                <select id="user-corporate-option" class="mod-input" disa>
+                                        <option value="" disabled selected>Select your option</option>
+                                </select>
+                            </div>
+                            <div class="input-container-whole" required>
+                                <label for="membershipTier">Membership Tier</label>
+                                <select id="mem-option" class="mod-input" disabled>
+                                    <option value=""  selected>Select your option</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="input-container-whole" required>
-                            <label for="membershipTier">Membership Tier</label>
-                            <select id="mem-option" class="mod-input" disabled>
-                                <option value=""  selected>Select your option</option>
-                            </select>
-                        </div>
-                        </div>
-                    <div class="family-member" id="family-member">
+                        <div class="family-member" id="family-member">
                             <table id="family-member-table">
                                 <thead>
                                     <tr>
@@ -573,21 +579,53 @@ End here *@
         </div>
         </div>
         <div class="mod-form-row">
-            <div class="input-container-whole" required>
-            <label for="corporateName">Corporate Name</label>
-            <select id="corp-corporate-option" class="mod-input" required >
+            <div class="input-container-whole">
+                <label for="vipStatus">VIP Status</label>
+                <select id="corp-vip-option" class="mod-input">
                     <option value="" disabled selected>Select your option</option>
-            </select>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="input-container-whole">
+                <label for="gender">Gender</label>
+                <select id="corp-gender" class="mod-input" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
         </div>
-        <div class="input-container-whole">
-            <label for="gender">Gender</label>
-            <select id="corp-gender" class="mod-input" required>
-                <option value="" disabled selected>Select your option</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
+        <div class="mod-form-row">
+            <div class="input-container-whole" required>
+                <label for="corporateName">Corporate Name</label>
+                <select id="corp-corporate-option" class="mod-input" required>
+                    <option value="" disabled selected>Select your option</option>
+                </select>
+            </div>
+            
+            <div class="input-container-whole" required>
+                <label for="membershipTier">Membership Tier</label>
+                <select id="corp-mem-option" class="mod-input" disabled>
+                    <option value=""  selected>Select your option</option>
+                </select>
+            </div>
         </div>
-        </div>
+                    <div class="family-member" id="corporate-family-member">
+                        <table id="corporate-family-member-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Relationship</th>
+                                    <th>Status</th>
+                                    <th>Date Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
           
         <div class="actionss_">
               
@@ -858,61 +896,79 @@ End here *@
 
 
 
-<script src="/js/register.js" async defer></script>
+<script src="/js/register.js"></script>
 
 
 @section Scripts{
 <script>
   var i_id = "";
   var img_edit="";
-        var prev = 0;
-        var next = 0;
-        var spanval = "";
-        var filtername = "";
-        var currpage = "";
-        var posId = "";
-        var corpid = "";
+    var prev = 0;
+    var next = 0;
+    var spanval = "";
+    var filtername = "";
+    var currpage = "";
+    var posId = "";
+    var corpid = "";
+
+
+
+    //Filter Variables
+    var corporateFilter = null;
+    var companyNameFilter = null;
+    var genderFilter = null;
+    var positionFilter = null;
+    var isVipFilter = null;
+    var statusFilter = null;
+    var spanval = 0;
+
+
   var switchStatus = false;
     $(document).ready(function () {
-
-        ShowFilter();
-        getUnregisteredList();
+       // $('#corporate-user-table').DataTable();
+       
+        getOysterAdmin();
         getCorporateRegistration();
+        getUserRegistration();
+        // $.blockUI(reloadLoading);
+        getUnregisteredList();
         registerShowBulkEmailModal();
         userRegistrationListTableLayout();
-
+        // ShowFilter();
         UserShowSelectFilter();
 
-        getUserRegistration();
         editUserRegistration();
-        $('#srchbox').keypress(function (event) {
-            // Check if the key pressed is Enter (key code 13)
-            if (event.which === 13) {
-                spanval = "0";
-                // Prevent the default action of the Enter key (e.g., form submission)
-                event.preventDefault();
+        changeFamilyMemberStatus();
+        
+        ShowFilter();
+        // $('#srchbox').keypress(function (event) {
+        //     // Check if the key pressed is Enter (key code 13)
+        //     if (event.which === 13) {
+        //         spanval = "0";
+        //         // Prevent the default action of the Enter key (e.g., form submission)
+        //         event.preventDefault();
 
-            }
-            else {
-            }
-        });
+        //     }
+        //     else {
+        //     }
+        // });
           
         
-      adminusertable = $('#adminuser-table').DataTable({
-        "bPaginate": false,
-        "bFilter": false,
-        "stripeClasses": [],
-        "ordering": false,
-        "ordering": false,
-        "info": false,
-        "bInfo": false,
-        "bAutoWidth": false,
-        "bLengthChange": false, 
+      // adminusertable = $('#adminuser-table').DataTable({
+      //   "bPaginate": false,
+      //   "bFilter": false,
+      //   "stripeClasses": [],
+      //   "ordering": false,
+      //   "ordering": false,
+      //   "info": false,
+      //   "bInfo": false,
+      //   "bAutoWidth": false,
+      //   "bLengthChange": false, 
 
-                "aLengthMenu": [7],
-                "searching": true,
-                "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-      });
+      //           "aLengthMenu": [7],
+      //           "searching": true,
+      //           "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+      // });
       
 
       $("input[name=uploadimg]").change(function () {
@@ -935,7 +991,7 @@ End here *@
        // ShowCorporateOption();
        ShowMembershipOption();
        // ShowUserCorporateList();
-       ShowUserAdminList();
+       // ShowUserAdminList();
        ShowPositionName();
        });
         $('#counter').on('click', '.tbl-pagenumber', function () {
@@ -1080,7 +1136,7 @@ End here *@
             data.page = spanval;
             data.posId = posId;
             data.CorpId = $("#cms-corporation").val();
-            console.log($("#cms-corporation").val());
+            // console.log($("#cms-corporation").val());
             cms_paginationCorpUser(spanval, filtername, posId, corpid);
             // $.ajax({
             //     url: '/Register/GetDataRegistrationList',
@@ -1117,7 +1173,7 @@ End here *@
                 datatype: "json"
             }).done(function (data) {
 
-                console.log(data);
+                // console.log(data);
                 regtable.clear().draw();
                 prev = data[0].prevPage;
                 next = data[0].nextPage;
@@ -1255,7 +1311,7 @@ End here *@
             $.blockUI(reloadLoading);
             setTimeout(function () {
                 $.ajax({
-                    url: "/Corporate/GetCorporateList",
+                    url: "/Corporate/GetCompanyList",
                     data: {},
                     type: "GET",
                     datatype: "json"
@@ -1333,6 +1389,7 @@ End here *@
                     $('#user-corporate-option').change(function () {
                         var data = {};
                         data.Id = $('#user-corporate-option').val();
+                        console.log(data);
                         @*   *@
                         
                         $.ajax({
@@ -1343,7 +1400,8 @@ End here *@
                             type: "POST",
                             datatype: "json",
                             success: function (response) {
-                            //console.log(response.stats);
+
+                            // console.log(response.stats);
                             $('#mem-option').val(response.stats);
                         }
                         });
@@ -1651,10 +1709,12 @@ End here *@
                       positionID = $(this).data("corporateposition");
                       corpid = $(this).data("corporateid");
                       displayimg = $(this).data("corpdisplayimg");
+                      isVIP = $(this).data("vipstats"); 
                       $("#corp-user").val(uname);
                       $("#corp-empid").val(empid);
                       $("#corp-fname").val(fname);
                       $("#corp-lname").val(lname);
+                    $("#corp-vip-option").val(isVIP);
                       $("#corp-email").val(email);
                       $("#corp-gender").val(gender);
                       $("#corp-position").val(positionID);
@@ -1669,8 +1729,8 @@ End here *@
                           document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
                       
                       } 
-                     img_edit= displayimg.split('/')[5];
-                     //console.log(img_edit);
+                     // img_edit= displayimg.split('/')[5];
+                     // console.log(img_edit);
                      //console.log(displayimg);
                     });
 @* Corporate User Edit End Here*@
@@ -1911,7 +1971,7 @@ End here *@
                     $('#add-newuser').click(function () {
                       i_id = 0;
                       // var img = $('<img>').attr('src', "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png");
-                var img = $('<img>').attr('src', "/img/defaultavatar.png");
+                      var img = $('<img>').attr('src', "/img/defaultavatar.png");
                       img.attr('height', '120px');
                       img.attr('width', '120px');
                       $('.upload-image-preview').html(img);
@@ -2116,6 +2176,7 @@ End here *@
                                             } 
                                      
                                             $.unblockUI();
+                                            getUserRegistration();
 
                                         }).fail(function () {
                                             alert("There was an Error When Loading Data...");
@@ -2320,7 +2381,6 @@ End here *@
                         
                     });
 @* Corporate Add new Register Function End Here*@
-
        
  
 
