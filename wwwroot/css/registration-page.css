@@ -104,3 +104,271 @@
   flex-direction: row;
   margin-right: 30px;
 }
+
+.user-registration-search {
+    padding: 10px 20px;
+    padding-left: 50px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px 2px var(--shadow);
+    width: 300px;
+}
+
+.search-holder {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.user-registration-search {
+    padding: 10px 20px;
+    padding-left: 50px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px 2px var(--shadow);
+    width: 300px;
+}
+
+.search-holder svg {
+    position: absolute;
+    left: 10px;
+}
+
+.register-btn {
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: 15px;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    color: white;
+    cursor: pointer;
+}
+.register-btn.email {
+    padding: 5px 35px;
+}
+
+.filterModal {
+    width: 450px;
+    height: 500px;
+    border-radius: 20px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 20%;
+    box-shadow: 1px 1px 5px 2px var(--shadow);
+    display: none;
+    z-index: 1;
+    background-color: var(--light) !important;
+    color: var(--dark);
+}
+.filterModal label {
+    color: var(--dark);
+}
+.companyNameFltr,
+.genderFltr,
+.positionFltr,
+.vipFltr,
+.statusFltr {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #D3D3D3;
+}
+.companyNameFltrSearch {
+    padding: 10px 15px;
+    padding-left: 40px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px 2px var(--shadow);
+    width: 200px;
+    background-color: var(--accent) !important;
+    color: var(--light) !important;
+}
+.companyNameFltrSearch::placeholder {
+    color: white;
+}
+.companyNameFltr .search-holder svg {
+    stroke: var(--light);
+}
+
+.genderFltr .gender,
+.positionFltr .position,
+.vipFltr .vip,
+.statusFltr .status{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.positionFltr .position select,
+.companyNameFltr select{
+    width: 200px;
+    padding: 10px 10px;
+    background-color: var(--accent);
+    border: none;
+    color: white;
+    border-radius: 15px;
+}
+.genderFltr .gender h4,
+.positionFltr .position h4,
+.statusFltr .status h4,
+.vipFltr .vip h4 {
+    font-weight: bold;
+    color: var(--dark);
+    width: 80px;
+}
+
+.vipFltr .vip h4 {
+    color: var(--accent);
+}
+.filter-modal-footer {
+   
+    position: absolute;
+    bottom: 0px;
+}
+.filter-modal-footer .footer-control {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 450px;
+    gap: 20px;
+}
+.filter-modal-footer .footer-control a{
+    color: var(--dark);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.filter-modal-footer .footer-control button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--accent);
+    color: white;
+}
+
+
+/*Bulk Email*/
+.bulkEmailModal {
+    position: absolute;
+    height: 600px;
+    width: 700px;
+    background-color: var(--light);
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 20%;
+    text-align: center;
+    box-shadow: 1px 1px 5px 2px var(--shadow);
+/*    display: none;*/
+    z-index: 1;
+    color: var(--dark);
+}
+
+.bulkEmailModal .control {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #888888;
+}
+.bulkEmailModal .control h4{
+    color: var(--accent)
+}
+
+.bulkEmailModal .options form {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+}
+.bulkEmailModal .options form .formControl{
+    width: 33.33%;
+    padding: 15px;
+    text-align: left;
+    display: flex;
+    align-items: start;
+    gap: 5px;
+}
+.bulkEmailModal .footer-control{
+    width: 700px;
+    justify-content: flex-end;
+    gap: 20px;
+}
+.bulkEmailModal .footer-control button{
+    padding: 8px 20px;
+}
+#unregisteredEmails{
+    height: 420px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.bulkEmailModal{
+    display: none;
+}
+#bulkEmailFormError {
+    height: 40px;
+    position: absolute;
+    opacity: .9;
+}
+
+tr p{
+    color: var(--dark) !important;
+}
+tr th {
+    color: var(--dark) !important;
+}
+.family-member{
+    margin-top: 30px;
+/*    display: none;*/
+}
+
+#family-member-table,
+#corporate-family-member-table {
+    border: 1px solid var(--dark);
+    border-radius: 15px;
+    padding-top: 0px;
+}
+.family-member thead {
+    background-color: #ECECEC;
+    border-radius: 15px;
+    z-index: -1;
+}
+.family-member thead tr th {
+    padding: 20px;
+}
+.action__{
+    justify-content: flex-end !important;
+}
+.action__ div{
+    gap: 10px;
+}
+#family-member-table tr td {
+    padding: 20px;
+    border-radius: 15px;
+}
+.approve-btn{
+    display: flex;
+    gap: 10px;
+}
+#declineBtn {
+    background-color: #bb2124;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#approveBtn {
+    background-color: var(--accent);
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+td{
+/*    max-width: 30px !important;*/
+}

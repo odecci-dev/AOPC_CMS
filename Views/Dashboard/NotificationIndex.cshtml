@@ -14,7 +14,21 @@
     <div class="card-header">
         <div class="row">
             <div class="list-title" style="border-radius:10px 10px 0px 0px">
-                <h4 style="font-size: 26px;" class="text-left"><i class="fas fa-bell"></i> @ViewData["Title"].ToString()</h4>
+                <h4 class="text-left"
+                    style="
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 26px;
+                ">
+
+                   @*  <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="var(--light)">
+                        <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" />
+                    </svg> *@
+                    <i class="fas fa-bell"></i> 
+                    @ViewData["Title"].ToString()
+                </h4>
             </div>
         </div>
 
@@ -26,7 +40,27 @@
             <div class="row">
 
                 <div class="col-lg-12">
+                    <div style="display: flex;flex-wrap: wrap;gap: 6px;" class="control-notification info">
 
+                        <button class="compose-notification-btn filter" id="compose-notification-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <path d="M18.2597 5.73184L14.7683 2.24122C14.6522 2.12511 14.5144 2.03301 14.3628 1.97018C14.2111 1.90734 14.0485 1.875 13.8843 1.875C13.7202 1.875 13.5576 1.90734 13.4059 1.97018C13.2542 2.03301 13.1164 2.12511 13.0003 2.24122L3.36676 11.8748C3.25018 11.9905 3.15775 12.1281 3.09485 12.2798C3.03195 12.4315 2.99983 12.5942 3.00035 12.7584V16.2498C3.00035 16.5813 3.13205 16.8993 3.36647 17.1337C3.60089 17.3681 3.91883 17.4998 4.25035 17.4998H17.3753C17.5411 17.4998 17.7001 17.434 17.8173 17.3168C17.9345 17.1995 18.0003 17.0406 18.0003 16.8748C18.0003 16.7091 17.9345 16.5501 17.8173 16.4329C17.7001 16.3157 17.5411 16.2498 17.3753 16.2498H9.50972L18.2597 7.49981C18.3758 7.38373 18.4679 7.24592 18.5308 7.09425C18.5936 6.94257 18.6259 6.78 18.6259 6.61583C18.6259 6.45165 18.5936 6.28908 18.5308 6.13741C18.4679 5.98573 18.3758 5.84792 18.2597 5.73184ZM7.74176 16.2498H4.25035V12.7584L11.1253 5.8834L14.6168 9.37481L7.74176 16.2498ZM15.5003 8.49122L12.0097 4.99981L13.8847 3.12481L17.3753 6.61622L15.5003 8.49122Z" fill="var(--accent)"/>
+                            </svg>
+                            Composse Notifications
+                        </button>
+                        
+                        <div class="search-holder" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
+                                <g opacity="0.5">
+                                    <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="#33363F" stroke-width="2" />
+                                    <path d="M11.4583 8.8335C11.0479 8.8335 10.6416 8.91433 10.2624 9.07137C9.8833 9.22842 9.5388 9.4586 9.24862 9.74879C8.95844 10.039 8.72825 10.3835 8.5712 10.7626C8.41416 11.1418 8.33333 11.5481 8.33333 11.9585" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M20.8333 21.3335L17.7083 18.2085" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
+                                </g>
+                            </svg>
+                            <input type="text" class="user-registration-search" id="user-registration-search" placeholder="Search...">
+                        </div>
+
+                    </div>
                     <div class="row ">
                         <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
                             <table id="notif-table" class="myTableMedium">
@@ -49,6 +83,95 @@
         </div>
     </div>
 </div> 
+<div class="compose-notification-modal-holder" id="compose-notification-modal-holder">
+    <div class="compose-notification-modal" id="">
+        <div class="modal-header">
+            <h4 class="modal-title">New Message</h4>
+            <button type="button" class="closeFilterbtn" id="closeComposeNotification">x</button>
+        </div>
+        <div class="cl-checkbox">
+            <div class="checkbox-option">
+                <input type="checkbox" id="discount" value="20% Discount for New VIP at Restaurant Beach" />
+                <label>20% Discount for New <strong>VIP</strong> at Restaurant Beach</label>
+            </div>
+            <div class="checkbox-option">
+                <input type="checkbox" id="foodBeverageAdded" value="New food & Beverage Outlet Have Been Added to AOPC Mobile App" />
+                <label>New food & Beverage Outlet Have Been Added to AOPC Mobile App</label>
+            </div>
+            <div class="checkbox-option">
+                <input type="checkbox" id="jewelryBrands" value="New Jewelry Brands Have Been Added to Your Priveleges" />
+                <label>New Jewelry Brands Have Been Added to Your Priveleges</label>
+            </div>
+            <div class="checkbox-option">
+                <input type="checkbox" id="foodBeverageAvailable" value="New food & Beverage Offers Are Available on the AOPC Mobile App" />
+                <label>New food & Beverage Offers Are Available on the AOPC Mobile App</label>
+            </div>
+        </div>
+        <div class="subject-section">
+            <div class="subject">
+                <label>Subject:</label>
+                <input type="text" class="" id="notoficationSubject" placeholder="" value="" disabled/>
+            </div>
+            <div class="corporateSearch">
+                <label> Corporate</label>
+                
+                
+                <div class="compose-notification-search-corporate openmodal" id="compose-notification-search-corporate-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
+                        <g opacity="0.5">
+                            <circle cx="11.4583" cy="11.9582" r="7.29167" stroke="var(--dark)" stroke-width="2" />
+                            <path d="M11.4583 8.8335C11.0479 8.8335 10.6416 8.91433 10.2624 9.07137C9.8833 9.22842 9.5388 9.4586 9.24862 9.74879C8.95844 10.039 8.72825 10.3835 8.5712 10.7626C8.41416 11.1418 8.33333 11.5481 8.33333 11.9585" stroke="var(--dark)" stroke-width="2" stroke-linecap="round" />
+                            <path d="M20.8333 21.3335L17.7083 18.2085" stroke="var(--dark)" stroke-width="2" stroke-linecap="round" />
+                        </g>
+                    </svg>
+                    <svg id="arrowSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--dark)">
+                        <path d="M480-360 280-560h400L480-360Z" />
+                    </svg>
+                    
+                    @* <input type="text" class="compose-notification-search-corporate" id="" placeholder="Search..."> *@
+                </div>
+            </div>
+        </div>
+        <div class="body-textarea">
+            <div class="corporateOptions" id="corporateOptionsModal">
+                <svg id="closeSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--dark)">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                </svg>
+                @* <input type="text" class="search-corporate" id="" placeholder="Search..."> *@
+                <div class="alert alert-danger" role="alert" style="display: none;" id="selectCorporateError">
+                    Error: Please select at least one name before proceeding.
+                </div>
+                <form id="corporateOptions">
+                    
+                    <div></div>
+                </form>
+            </div>
+            <textarea id="notificationBody"></textarea>
+        </div>
+
+        <div class="compose-notification-modal-footer">
+            <div class="footer-control">
+                <div class="btn-holder">
+                    <button class="sendNotificatoin btn" id="sendNotificatoin">
+                        Send
+                    </button>
+                    <button class="discardNotificatoin btn" id="discardNotificatoin">
+                        Discard
+                    </button>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="send-to-all" />
+                    <label>Send to All Corporation</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/notification.js" async defer></script>
+
+
 @section Scripts{
         <script>
             i_id = 0;
@@ -57,6 +180,12 @@
             var spanval = "";
             var currpage = "";
             $(document).ready(function () {
+
+                displayComposeNotificationModal();
+                composeNotificationDOM();
+
+
+
                 var data = {};
                 data.FilterName = "";
                 data.page = "0";
@@ -76,29 +205,29 @@
                         }
                     }
                 });
-               notiftable = $('#notif-table').DataTable({
-                    "columnDefs": [
+               // notiftable = $('#notif-table').DataTable({
+               //      "columnDefs": [
 
-                    { "width": "100px", "targets": 0 },
-                    { "width": "200px", "targets": 1 },
-                    { "width": "100px", "targets": 2 },
-                    { "width": "100px", "targets": 3 },
-                    // { "width": "70px", "targets": 9 }
-                ],
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false, 
-                     "paging": true,
-                      "aLengthMenu": [20],
-                      "searching": true,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": ""
-                }});
+               //      { "width": "100px", "targets": 0 },
+               //      { "width": "200px", "targets": 1 },
+               //      { "width": "100px", "targets": 2 },
+               //      { "width": "100px", "targets": 3 },
+               //      // { "width": "70px", "targets": 9 }
+               //  ],
+               //      "bPaginate": false,
+               //      "bFilter": false,
+               //      "stripeClasses": [],
+               //      "ordering": false,
+               //      "ordering": false,
+               //      "info": false,
+               //      "bInfo": false,
+               //      "bAutoWidth": false,
+               //      "bLengthChange": false, 
+               //       "paging": true,
+               //        "aLengthMenu": [20],
+               //        "searching": true,
+               //      "oLanguage": { "sZeroRecords": "", "sEmptyTable": ""
+               //  }});
                 ShowNotificationList();
                // paginationnotification(spanval);
             });
@@ -129,42 +258,75 @@
                 paginationnotification(prev);
 
             });
- function ShowNotificationList() {
-   $.blockUI(reloadLoading);
-            setTimeout(function () {
-  $.ajax({
-      url: '/Dashboard/GetNotification',
-      data: {
+             function ShowNotificationList() {
+             //   $.blockUI(reloadLoading);
+             //            setTimeout(function () {
+             //  $.ajax({
+             //      url: '/Dashboard/GetNotification',
+             //      data: {
 
-      },
-      type: "GET",
-      datatype: "json"
-  }).done(function (data) {
+             //      },
+             //      type: "GET",
+             //      datatype: "json"
+             //  }).done(function (data) {
        
-      notiftable.clear().draw();
-      for (var i = 0; i < data.length; i++) {
+             //      notiftable.clear().draw();
+             //      for (var i = 0; i < data.length; i++) {
 
-                        var tbl = "<div>" + "<p>" + data[i].employeeID + "</p>" + "<p>" + data[i].fullname + "</p>";
+             //                        var tbl = "<div>" + "<p>" + data[i].employeeID + "</p>" + "<p>" + data[i].fullname + "</p>";
          
         
-                        $('#notif-table').dataTable().fnAddData([
+             //                        $('#notif-table').dataTable().fnAddData([
                      
-                            '<td>'+tbl+'</td>',
-                            '<td>' + data[i].details + '</td>',
-                            '<td>' + data[i].isRead + '</td>',
-                            '<td>' + data[i].dateCreated + '</td>',
+             //                            '<td>'+tbl+'</td>',
+             //                            '<td>' + data[i].details + '</td>',
+             //                            '<td>' + data[i].isRead + '</td>',
+             //                            '<td>' + data[i].dateCreated + '</td>',
 
 
-                        ]);
-      }
- $.unblockUI();
-                }).fail(function () {
-                    alert("There was an Error When Loading Data...");
+             //                        ]);
+             //      }
+             // $.unblockUI();
+             //                }).fail(function () {
+             //                    alert("There was an Error When Loading Data...");
+             //                });
+
+             //            }, 100);
+                new DataTable('#notif-table', {
+                    ajax: {
+                        url: '/Dashboard/GetNotification',
+                        type: "GET",
+                        dataType: "json",
+                        processing: true,
+                        serverSide: true,
+                        complete: function (xhr) {
+                            // console.log(xhr);
+                        },
+                        error: function (err) {
+                            alert(err.responseText);
+                        }
+                    },
+                    columns: [
+                        {
+                            data: 'employeeID',
+                            render: function (data, type, row) {
+                                var tbl = "<div>" + "<p>" + data + "</p>" + "<p>" + row.fullname + "</p>";
+
+                                return tbl;
+                            }
+                        },
+                        {
+                            data: 'details'
+                        },
+                        {
+                            data: 'isRead'
+                        },
+                        {
+                            data: 'dateCreated'
+                        }
+                    ]
                 });
-
-            }, 100);
-
- }
+             }
             //function paginationnotification(spanval) {
             //    var data = {};
             //    data.FilterName = "";

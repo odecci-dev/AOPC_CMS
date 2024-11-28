@@ -31,7 +31,7 @@ namespace AOPC.Controllers
 {
     public class BusinessController : Controller
     {
-        string status="";
+        string status = "";
         private readonly AppSettings _appSettings;
         private ApiGlobalModel _global = new ApiGlobalModel();
         private GlobalService _globalService;
@@ -54,32 +54,34 @@ namespace AOPC.Controllers
             apiUrl = _configuration.GetValue<string>("AppSettings:WebApiURL");
             _appSettings = appSettings.Value;
             Environment = _environment;
-        }    
+        }
         [HttpGet]
         public async Task<JsonResult> GetBusLoc()
         {
             string test = token_.GetValue();
             var url = DBConn.HttpString + "/api/ApiBusinessLoc/BusinessLocList";
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
 
-             string response = await client.GetStringAsync(url);
+            string response = await client.GetStringAsync(url);
             List<BusinessLocVM> models = JsonConvert.DeserializeObject<List<BusinessLocVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetBusinessTypeList()
         {
-             var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeList";
+            var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeList";
             HttpClient client = new HttpClient();
-              client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<BusinessTypeVM> models = JsonConvert.DeserializeObject<List<BusinessTypeVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         public class BusinessArray
         {
-           
+
             public string Id { get; set; }
             public string Gallery { get; set; }
 
@@ -119,10 +121,11 @@ namespace AOPC.Controllers
         {
             var url = DBConn.HttpString + "/api/ApiBusiness/BusinessList";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<BusinessModelVM> models = JsonConvert.DeserializeObject<List<BusinessModelVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         public class Deletebloc
         {
@@ -176,7 +179,7 @@ namespace AOPC.Controllers
 
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessLoc/DeleteBusinessLoc";
-                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -205,7 +208,7 @@ namespace AOPC.Controllers
                     HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessType/DeleteBusinessType";
-                  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -220,7 +223,7 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = status });
         }
-             [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> DeleteBusinessInfo(Deletebloc data)
         {
             try
@@ -234,7 +237,7 @@ namespace AOPC.Controllers
                     HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusiness/DeleteBusiness";
-                  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -254,9 +257,9 @@ namespace AOPC.Controllers
         {
             try
             {
-                string action = data.Id == 0 ? " Added New " : " Updated Business  Id: "+ data.Id;
+                string action = data.Id == 0 ? " Added New " : " Updated Business  Id: " + data.Id;
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                   action+ ", Businesslocation Country Name : " + data.Country, DateTime.Now.ToString(),
+                   action + ", Businesslocation Country Name : " + data.Country, DateTime.Now.ToString(),
                    "CMS-Businesslocation",
                    HttpContext.Session.GetString("Name"),
                    HttpContext.Session.GetString("Id"),
@@ -264,7 +267,7 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessLoc/UpdateBusinessLoc";
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -293,7 +296,7 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusiness/SaveBusiness";
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -322,7 +325,7 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiBusinessType/UpdateBusinessType";
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -336,6 +339,7 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = _global.Status });
         }
+
         public async Task<IActionResult> UploadFile(List<IFormFile> postedFiles)
         {
             int i;
@@ -370,27 +374,27 @@ namespace AOPC.Controllers
                         //var id = table.Rows[0]["OfferingID"].ToString();
                         string getextension = Path.GetExtension(Request.Form.Files[i].FileName);
                         //string MyUserDetailsIWantToAdd = str + ".jpg";
-    
 
-                        img += "https://www.alfardanoysterprivilegeclub.com/assets/img/"+ Request.Form.Files[i].FileName + ";";
+
+                        img += "https://www.alfardanoysterprivilegeclub.com/assets/img/" + Request.Form.Files[i].FileName + ";";
 
                         string file = Path.Combine(uploadsFolder, Request.Form.Files[i].FileName.Trim());
                         FileInfo f1 = new FileInfo(file);
 
                         stream = new FileStream(file, FileMode.Create);
-                        await  Request.Form.Files[i].CopyToAsync(stream);
+                        await Request.Form.Files[i].CopyToAsync(stream);
                     }
                     catch (Exception ex)
                     {
                         status = "Error! " + ex.GetBaseException().ToString();
                     }
-             
+
                 }
                 ctr++;
                 stream.Close();
                 stream.Dispose();
             }
-        
+
             if (Request.Form.Files.Count == 0) { status = "Error"; }
             return Json(new { stats = status });
         }

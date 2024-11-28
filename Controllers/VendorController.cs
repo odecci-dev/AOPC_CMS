@@ -60,7 +60,7 @@ namespace AOPC.Controllers
             Environment = _environment;
             token_ = _token;
         }
-   
+
         [HttpGet]
         public async Task<JsonResult> GetVendorList()
         {
@@ -69,7 +69,8 @@ namespace AOPC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<VendorVM> models = JsonConvert.DeserializeObject<List<VendorVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         public class Deletebloc
         {
@@ -196,7 +197,7 @@ namespace AOPC.Controllers
                 string status = ex.GetBaseException().ToString();
             }
             return Json(list);
-        
+
         }
 
         [HttpPost]
@@ -264,7 +265,7 @@ namespace AOPC.Controllers
                 {
                     try
                     {
-                       
+
                         switch (i)
                         {
                             case 0:
@@ -291,7 +292,7 @@ namespace AOPC.Controllers
 
                                 break;
                             case 6:
-                              
+
 
                                 item.Gallery = data.Gallery;
 
@@ -367,7 +368,7 @@ namespace AOPC.Controllers
             return Json(new { stats = status });
             //try
             //{
-            
+
             //}
 
             //catch (Exception ex)
@@ -402,7 +403,7 @@ namespace AOPC.Controllers
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiVendor/DeleteVendor";
                 //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
-                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
@@ -428,7 +429,7 @@ namespace AOPC.Controllers
         {
             try
             {
-              
+
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiOffering/SendEmailVendor";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
@@ -559,7 +560,7 @@ namespace AOPC.Controllers
                                 Gallery = "",
                                 Email = Email,
                                 Cno = Cno,
-                                VideoUrl= "",
+                                VideoUrl = "",
                                 VrUrl = "",
                                 BusinessLocationID = "",
                                 Status = 5
@@ -592,7 +593,7 @@ namespace AOPC.Controllers
             return View("Index");
         }
 
-         public IActionResult DownloadHeader()
+        public IActionResult DownloadHeader()
         {
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
@@ -606,7 +607,7 @@ namespace AOPC.Controllers
                 ws.Cells["F1"].Value = "Email";
                 ws.Cells["G1"].Value = "Address";
                 ws.Cells["H1"].Value = "Map";
-               
+
 
                 ws.Cells["K1"].Style.Font.Italic = true;
                 ws.Cells["K1"].Style.Font.Color.SetColor(Color.Red);
@@ -624,7 +625,7 @@ namespace AOPC.Controllers
             string excelName = "Vendor-Rgeistration-Template.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        
+
         public IActionResult Index()
         {
             string token = HttpContext.Session.GetString("Bearer");

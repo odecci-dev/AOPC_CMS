@@ -52,21 +52,22 @@ namespace AOPC.Controllers
             apiUrl = _configuration.GetValue<string>("AppSettings:WebApiURL");
             _appSettings = appSettings.Value;
             Environment = _environment;
-            
+
         }
         [HttpGet]
         public async Task<JsonResult> GetOfferingList()
         {
             var url = DBConn.HttpString + "/api/ApiOffering/CMSOfferingList";
             HttpClient client = new HttpClient();
-           // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
+            // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
 
-           client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<OfferingVM> models = JsonConvert.DeserializeObject<List<OfferingVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
-              public class LoginStats
+        public class LoginStats
         {
             public string Status { get; set; }
 
@@ -82,18 +83,18 @@ namespace AOPC.Controllers
         {
             var url = DBConn.HttpString + "/api/ApiOffering/UserListEmail";
             HttpClient client = new HttpClient();
-           // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
+            // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
 
-           client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<Userlist> models = JsonConvert.DeserializeObject<List<Userlist>>(response);
             return new(models);
         }
-     
+
         [HttpPost]
         public async Task<IActionResult> SaveOffering(OfferingVM data)
         {
-           try
+            try
             {
                 string action = data.Id == 0 ? "Added New" : "Updated";
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
@@ -104,7 +105,7 @@ namespace AOPC.Controllers
                    "2",
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
-                var url =DBConn.HttpString + "/api/ApiOffering/SaveOffering";
+                var url = DBConn.HttpString + "/api/ApiOffering/SaveOffering";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
@@ -159,7 +160,7 @@ namespace AOPC.Controllers
         {
 
             public int Id { get; set; }
-        }   
+        }
         public class UserEmail
         {
 
@@ -184,7 +185,7 @@ namespace AOPC.Controllers
                 using (var response = await client.PostAsync(url, content))
                 {
                     _global.Status = await response.Content.ReadAsStringAsync();
-                      status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
+                    status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
                 }
             }
 
@@ -239,7 +240,7 @@ namespace AOPC.Controllers
                 using (var response = await client.PostAsync(url, content))
                 {
                     _global.Status = await response.Content.ReadAsStringAsync();
-                      status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
+                    status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
                 }
             }
 
@@ -334,7 +335,7 @@ namespace AOPC.Controllers
                 stream.Close();
                 stream.Dispose();
             }
-          
+
             if (Request.Form.Files.Count == 0) { status = "Error"; }
             return Json(new { stats = status });
         }
@@ -347,6 +348,6 @@ namespace AOPC.Controllers
             }
             return View();
         }
-        
+
     }
 }

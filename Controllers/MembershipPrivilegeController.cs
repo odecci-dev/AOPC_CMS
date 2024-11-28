@@ -54,7 +54,7 @@ namespace AOPC.Controllers
         private string status = "";
         public readonly QueryValueService token_;
         private XmlTextReader xmlreader;
-        public MembershipPrivilegeController( GlobalService globalService, IOptions<AppSettings> appSettings, IWebHostEnvironment _environment,
+        public MembershipPrivilegeController(GlobalService globalService, IOptions<AppSettings> appSettings, IWebHostEnvironment _environment,
                   UserManager<ApplicationUser> userManager, QueryValueService _token,
                   IHttpContextAccessor contextAccessor,
                   IConfiguration configuration)
@@ -76,10 +76,11 @@ namespace AOPC.Controllers
             HttpClient client = new HttpClient();
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
 
-             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<PrivilegeVM> models = JsonConvert.DeserializeObject<List<PrivilegeVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         public class LoginStats
         {
@@ -163,7 +164,7 @@ namespace AOPC.Controllers
             string status = "";
             try
             {
-               
+
                 var url = DBConn.HttpString + "/api/ApiCorporatePrivilege/SaveCorporatePrivilegeList";
 
                 using (var client = new HttpClient())
@@ -223,7 +224,7 @@ namespace AOPC.Controllers
 
                 using (var client = new HttpClient())
                 {
-                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
                     StringContent content = new StringContent(JsonConvert.SerializeObject(IdList), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync(url, content))
                     {
@@ -257,7 +258,7 @@ namespace AOPC.Controllers
             public string Id { get; set; }
 
         }
-         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> GetPrivilegeMembershipList(privID data)
         {
 
@@ -266,7 +267,7 @@ namespace AOPC.Controllers
             var url = DBConn.HttpString + "/api/ApiPrivilege/PrivilegeMembershipList";
             _global.Token = _global.GenerateToken("token", _appSettings.Key.ToString());
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
-             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             using (var response = await client.PostAsync(url, content))
             {
@@ -296,7 +297,8 @@ namespace AOPC.Controllers
             public string Id { get; set; }
             public string memid { get; set; }
 
-        }public class VenIDs
+        }
+        public class VenIDs
         {
             public string Id { get; set; }
             public string? vid { get; set; }
@@ -367,7 +369,7 @@ namespace AOPC.Controllers
                     string MyUserDetailsIWantToAdd = "EMP-01" + getextension;
                     string file = Path.Combine(filePath, Request.Form.Files[i].FileName);
 
-                   stream = new FileStream(file, FileMode.Create);
+                    stream = new FileStream(file, FileMode.Create);
                     Request.Form.Files[i].CopyToAsync(stream);
                     //status = "https://www.alfardanoysterprivilegeclub.com/assets/img/" + MyUserDetailsIWantToAdd;
                     foreach (IFormFile postedFile in postedFiles)
@@ -436,7 +438,7 @@ namespace AOPC.Controllers
         public async Task<IActionResult> SaveMembershipTier(MembershipModelVM data)
         {
             var stream = (dynamic)null;
-     
+
             string status = "";
             try
             {
@@ -446,175 +448,175 @@ namespace AOPC.Controllers
                     string randomFileName = "";
                     string fileExtension = "";
                     string uniqueFileName = "";
-                    
+
                     //if (Request.Form.Files[i].Length > 0)
                     //{
-                        try
+                    try
+                    {
+
+                        using var imageStream = new MemoryStream();
+
+                        string uploadsFolder = "";
+                        switch (i)
                         {
+                            case 0:
 
-                            using var imageStream = new MemoryStream();
-                    
-                            string uploadsFolder = "";
-                            switch (i)
-                            {
-                                case 0:
-                                
-                                    item.MembershipName = data.MembershipName;
-                                    break;
-                                case 1:
-                          
-                                    item.DateStarted = data.DateStarted;
-                                    break;
-                                case 2:
-                           
+                                item.MembershipName = data.MembershipName;
+                                break;
+                            case 1:
 
-                                    item.Description = data.Description;
-                                    break;
-                                case 3:
-                               
+                                item.DateStarted = data.DateStarted;
+                                break;
+                            case 2:
 
-                                    item.DateEnded = data.DateEnded;
-                                    break;
-                                case 4:
-                                    item.UserCount = data.UserCount;
-                                    break;
-                                case 5:
-                                    item.VIPCount = data.VIPCount;
-                                    break;
-                                case 6:
-                                    uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\VIPBadge\\";
-                                    randomFileName = Path.GetRandomFileName();
-                                    fileExtension = Path.GetExtension(Request.Form.Files[3].FileName);
-                                    uniqueFileName = Path.ChangeExtension(randomFileName, fileExtension);
 
-                                    if (!Directory.Exists(uploadsFolder))
-                                    {
-                                        Directory.CreateDirectory(uploadsFolder);
-                                    }
+                                item.Description = data.Description;
+                                break;
+                            case 3:
 
-                                    var image = System.Drawing.Image.FromStream(Request.Form.Files[3].OpenReadStream());
-                                    var resized = new Bitmap(image, new System.Drawing.Size(400, 400));
-                                    resized.Save(imageStream, ImageFormat.Jpeg);
-                                    var imageBytes = imageStream;
-                                    string sql = "";
 
-                             
+                                item.DateEnded = data.DateEnded;
+                                break;
+                            case 4:
+                                item.UserCount = data.UserCount;
+                                break;
+                            case 5:
+                                item.VIPCount = data.VIPCount;
+                                break;
+                            case 6:
+                                uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\VIPBadge\\";
+                                randomFileName = Path.GetRandomFileName();
+                                fileExtension = Path.GetExtension(Request.Form.Files[3].FileName);
+                                uniqueFileName = Path.ChangeExtension(randomFileName, fileExtension);
 
-                                    //img += "https://www.alfardanoysterprivilegeclub.com/assets/img/" + Request.Form.Files[i].FileName + ";";
+                                if (!Directory.Exists(uploadsFolder))
+                                {
+                                    Directory.CreateDirectory(uploadsFolder);
+                                }
 
-                                    string file = Path.Combine(uploadsFolder, uniqueFileName);
-                                    FileInfo f1 = new FileInfo(file);
+                                var image = System.Drawing.Image.FromStream(Request.Form.Files[3].OpenReadStream());
+                                var resized = new Bitmap(image, new System.Drawing.Size(400, 400));
+                                resized.Save(imageStream, ImageFormat.Jpeg);
+                                var imageBytes = imageStream;
+                                string sql = "";
 
-                                    stream = new FileStream(file, FileMode.Create);
-                                    await Request.Form.Files[3].CopyToAsync(stream);
 
-                                    item.VIPBadge = uniqueFileName;
 
-                                    stream.Close();
-                                    stream.Dispose();
+                                //img += "https://www.alfardanoysterprivilegeclub.com/assets/img/" + Request.Form.Files[i].FileName + ";";
 
-                                    break;
-                                case 7:
-                                    uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\QRFrame\\";
-                                    randomFileName = Path.GetRandomFileName();
+                                string file = Path.Combine(uploadsFolder, uniqueFileName);
+                                FileInfo f1 = new FileInfo(file);
+
+                                stream = new FileStream(file, FileMode.Create);
+                                await Request.Form.Files[3].CopyToAsync(stream);
+
+                                item.VIPBadge = uniqueFileName;
+
+                                stream.Close();
+                                stream.Dispose();
+
+                                break;
+                            case 7:
+                                uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\QRFrame\\";
+                                randomFileName = Path.GetRandomFileName();
                                 fileExtension = Path.GetExtension(Request.Form.Files[2].FileName);
                                 uniqueFileName = Path.ChangeExtension(randomFileName, fileExtension);
 
-                                    if (!Directory.Exists(uploadsFolder))
-                                    {
-                                        Directory.CreateDirectory(uploadsFolder);
-                                    }
-                                    var image7 = System.Drawing.Image.FromStream(Request.Form.Files[2].OpenReadStream());
-                                    var resized7 = new Bitmap(image7, new System.Drawing.Size(400, 400));
-                                    resized7.Save(imageStream, ImageFormat.Jpeg);
-                                    var imageBytes7= imageStream;
+                                if (!Directory.Exists(uploadsFolder))
+                                {
+                                    Directory.CreateDirectory(uploadsFolder);
+                                }
+                                var image7 = System.Drawing.Image.FromStream(Request.Form.Files[2].OpenReadStream());
+                                var resized7 = new Bitmap(image7, new System.Drawing.Size(400, 400));
+                                resized7.Save(imageStream, ImageFormat.Jpeg);
+                                var imageBytes7 = imageStream;
 
-                                    string file7 = Path.Combine(uploadsFolder, uniqueFileName);
-                             
-
-                                    stream = new FileStream(file7, FileMode.Create);
-                                    await Request.Form.Files[2].CopyToAsync(stream);
-
-                                    item.QRFrame = uniqueFileName;
-
-                                    stream.Close();
-                                    stream.Dispose();
-
-                                    break;
-                                case 8:
-                                    uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\VIPCard\\";
-                                    randomFileName = Path.GetRandomFileName();
-                                    fileExtension = Path.GetExtension(Request.Form.Files[1].FileName);
-                                    uniqueFileName = Path.ChangeExtension(randomFileName, fileExtension);
-
-                                    if (!Directory.Exists(uploadsFolder))
-                                    {
-                                        Directory.CreateDirectory(uploadsFolder);
-                                    }
-                                    var image8 = System.Drawing.Image.FromStream(Request.Form.Files[1].OpenReadStream());
-                                    var resized8 = new Bitmap(image8, new System.Drawing.Size(400, 400));
-                                    resized8.Save(imageStream, ImageFormat.Jpeg);
-                                    var imageBytes8 = imageStream;
-
-                                    string file8 = Path.Combine(uploadsFolder, uniqueFileName);
-                                    FileInfo f8 = new FileInfo(file8);
-
-                                    stream = new FileStream(file8, FileMode.Create);
-                                    await Request.Form.Files[1].CopyToAsync(stream);
-
-                                    item.VIPCard = uniqueFileName;
-
-                                    stream.Close();
-                                    stream.Dispose();
-
-                                    break;
-                                case 9:
-                                    uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\MembershipCard\\";
-                                    randomFileName = Path.GetRandomFileName();
-                                     fileExtension = Path.GetExtension(Request.Form.Files[0].FileName);
-                                     uniqueFileName = Path.ChangeExtension(randomFileName, fileExtension);
+                                string file7 = Path.Combine(uploadsFolder, uniqueFileName);
 
 
-                                    if (!Directory.Exists(uploadsFolder))
-                                    {
-                                        Directory.CreateDirectory(uploadsFolder);
-                                    }
-                                    var image9 = System.Drawing.Image.FromStream(Request.Form.Files[0].OpenReadStream());
-                                    var resized9 = new Bitmap(image9, new System.Drawing.Size(400, 400));
-                                    resized9.Save(imageStream, ImageFormat.Jpeg);
-                                    var imageBytes9 = imageStream;
-                                
+                                stream = new FileStream(file7, FileMode.Create);
+                                await Request.Form.Files[2].CopyToAsync(stream);
+
+                                item.QRFrame = uniqueFileName;
+
+                                stream.Close();
+                                stream.Dispose();
+
+                                break;
+                            case 8:
+                                uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\VIPCard\\";
+                                randomFileName = Path.GetRandomFileName();
+                                fileExtension = Path.GetExtension(Request.Form.Files[1].FileName);
+                                uniqueFileName = Path.ChangeExtension(randomFileName, fileExtension);
+
+                                if (!Directory.Exists(uploadsFolder))
+                                {
+                                    Directory.CreateDirectory(uploadsFolder);
+                                }
+                                var image8 = System.Drawing.Image.FromStream(Request.Form.Files[1].OpenReadStream());
+                                var resized8 = new Bitmap(image8, new System.Drawing.Size(400, 400));
+                                resized8.Save(imageStream, ImageFormat.Jpeg);
+                                var imageBytes8 = imageStream;
+
+                                string file8 = Path.Combine(uploadsFolder, uniqueFileName);
+                                FileInfo f8 = new FileInfo(file8);
+
+                                stream = new FileStream(file8, FileMode.Create);
+                                await Request.Form.Files[1].CopyToAsync(stream);
+
+                                item.VIPCard = uniqueFileName;
+
+                                stream.Close();
+                                stream.Dispose();
+
+                                break;
+                            case 9:
+                                uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\MembershipCard\\";
+                                randomFileName = Path.GetRandomFileName();
+                                fileExtension = Path.GetExtension(Request.Form.Files[0].FileName);
+                                uniqueFileName = Path.ChangeExtension(randomFileName, fileExtension);
 
 
-                                    string file9 = Path.Combine(uploadsFolder, uniqueFileName);
-                                    FileInfo f9 = new FileInfo(file9);
+                                if (!Directory.Exists(uploadsFolder))
+                                {
+                                    Directory.CreateDirectory(uploadsFolder);
+                                }
+                                var image9 = System.Drawing.Image.FromStream(Request.Form.Files[0].OpenReadStream());
+                                var resized9 = new Bitmap(image9, new System.Drawing.Size(400, 400));
+                                resized9.Save(imageStream, ImageFormat.Jpeg);
+                                var imageBytes9 = imageStream;
 
-                                    stream = new FileStream(file9, FileMode.Create);
-                                    await Request.Form.Files[0].CopyToAsync(stream);
-                                    item.MembershipCard = uniqueFileName;
 
-                                    stream.Close();
-                                    stream.Dispose();
 
-                                    break;
+                                string file9 = Path.Combine(uploadsFolder, uniqueFileName);
+                                FileInfo f9 = new FileInfo(file9);
+
+                                stream = new FileStream(file9, FileMode.Create);
+                                await Request.Form.Files[0].CopyToAsync(stream);
+                                item.MembershipCard = uniqueFileName;
+
+                                stream.Close();
+                                stream.Dispose();
+
+                                break;
                             case 10:
-                               
+
                                 item.Id = data.Id;
 
                                 break;
                             default:
-                                    break;
-                            }
+                                break;
+                        }
 
-                            
-                        }
-                        catch (Exception ex)
-                        {
-                            status = "Error! " + ex.GetBaseException().ToString();
-                        }
-                   
-                
-                 
+
+                    }
+                    catch (Exception ex)
+                    {
+                        status = "Error! " + ex.GetBaseException().ToString();
+                    }
+
+
+
                 }
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiMembership/SaveMembershipTier";
@@ -654,7 +656,7 @@ namespace AOPC.Controllers
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiPrivilege/DeletePrivilege";
                 //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
-                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
@@ -677,7 +679,8 @@ namespace AOPC.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> DeleteMemInfo(DeleteMem data)
-        {      string status = "";
+        {
+            string status = "";
             try
             {
                 string action = data.Id == 0 ? "Added New" : "Updated";
@@ -691,19 +694,19 @@ namespace AOPC.Controllers
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiMembership/DeleteMemship";
                 //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
-                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     _global.Status = await response.Content.ReadAsStringAsync();
-                   status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
+                    status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
                 }
             }
 
             catch (Exception ex)
             {
-               status = ex.GetBaseException().ToString();
+                status = ex.GetBaseException().ToString();
             }
             return Json(new { stats = status });
         }
@@ -711,7 +714,7 @@ namespace AOPC.Controllers
         {
 
             int i;
-        
+
             var stream = (dynamic)null;
             string wwwPath = this.Environment.WebRootPath;
             string contentPath = this.Environment.ContentRootPath;
@@ -724,9 +727,10 @@ namespace AOPC.Controllers
                 {
                     try
                     {
-                       
+
                         string uploadsFolder = "";
-                        switch (i) {
+                        switch (i)
+                        {
                             case 0:
                                 uploadsFolder = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\MembershipCard\\";
                                 break;
@@ -788,7 +792,7 @@ namespace AOPC.Controllers
             if (Request.Form.Files.Count == 0) { status = "Error"; }
             return Json(new { stats = status });
         }
-     
+
         public IActionResult Index()
         {
             string token = HttpContext.Session.GetString("Bearer");

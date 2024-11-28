@@ -186,3 +186,226 @@ function deleteNotif(id) {
         alert("There was an Error When Loading Data...");
     });
 }
+
+function displayComposeNotificationModal() {
+    var composeNotification = document.getElementById('compose-notification-modal-holder');
+    $('#compose-notification-btn').click(function () {
+        
+        GetCorporateList();
+        document.getElementById("send-to-all").checked = false;
+        var notificationSubject = document.getElementById('notoficationSubject').value = "";
+        //var notificationBody = document.getElementById('notificationBody').value = "";
+        composeNotification.style.display = "flex";
+
+    });
+    $('#closeComposeNotification').click(function () {
+        composeNotification.style.display = "none";
+    });
+    $('#discardNotificatoin').click(function () {
+        composeNotification.style.display = "none";
+        var notificationBody = document.getElementById('notificationBody').value = "";
+        document.getElementById("discount").checked = false;
+        document.getElementById("foodBeverageAdded").checked = false;
+        document.getElementById("jewelryBrands").checked = false;
+        document.getElementById("foodBeverageAvailable").checked = false;
+        document.getElementById("discount").disabled = false;
+        document.getElementById("foodBeverageAdded").disabled = false;
+        document.getElementById("jewelryBrands").disabled = false;
+        document.getElementById("foodBeverageAvailable").disabled = false;
+    });
+    
+}
+
+function composeNotificationDOM() {
+
+    var corporateModal = document.getElementById('corporateOptionsModal');
+    var arrowSvg = document.getElementById('arrowSvg');
+    var searchCorporateBtn = document.getElementById('compose-notification-search-corporate-btn');
+    $('#discount').change(function () {
+        if (document.getElementById("discount").checked == true) {
+            var discountValue = document.getElementById("discount").value;
+            document.getElementById("notificationBody").value += discountValue;
+
+            document.getElementById("foodBeverageAdded").disabled = true;
+            document.getElementById("jewelryBrands").disabled = true;
+            document.getElementById("foodBeverageAvailable").disabled = true;
+        }
+        if (document.getElementById("discount").checked == false) {
+
+            document.getElementById("notificationBody").value = "";
+
+            document.getElementById("foodBeverageAdded").disabled = false;
+            document.getElementById("jewelryBrands").disabled = false;
+            document.getElementById("foodBeverageAvailable").disabled = false;
+        }
+    });
+    $('#foodBeverageAdded').change(function () {
+        if (document.getElementById("foodBeverageAdded").checked == true) {
+            var foodBeverageAdded = document.getElementById("foodBeverageAdded").value;
+            document.getElementById("notificationBody").value += foodBeverageAdded;
+
+            document.getElementById("discount").disabled = true;
+            document.getElementById("jewelryBrands").disabled = true;
+            document.getElementById("foodBeverageAvailable").disabled = true;
+        }
+        if (document.getElementById("foodBeverageAdded").checked == false) {
+
+            document.getElementById("notificationBody").value = "";
+
+            document.getElementById("discount").disabled = false;
+            document.getElementById("jewelryBrands").disabled = false;
+            document.getElementById("foodBeverageAvailable").disabled = false;
+        }
+        
+    });
+    $('#jewelryBrands').change(function () {
+        if (document.getElementById("jewelryBrands").checked == true) {
+            var jewelryBrands = document.getElementById("jewelryBrands").value;
+            document.getElementById("notificationBody").value += jewelryBrands;
+
+            document.getElementById("discount").disabled = true;
+            document.getElementById("foodBeverageAdded").disabled = true;
+            document.getElementById("foodBeverageAvailable").disabled = true;
+        }
+        if (document.getElementById("jewelryBrands").checked == false) {
+
+            document.getElementById("notificationBody").value = "";
+
+            document.getElementById("discount").disabled = false;
+            document.getElementById("foodBeverageAdded").disabled = false;
+            document.getElementById("foodBeverageAvailable").disabled = false;
+        }
+    });
+    $('#foodBeverageAvailable').change(function () {
+        if (document.getElementById("foodBeverageAvailable").checked == true) {
+            var foodBeverageAvailable = document.getElementById("foodBeverageAvailable").value;
+            document.getElementById("notificationBody").value += foodBeverageAvailable;
+
+            document.getElementById("discount").disabled = true;
+            document.getElementById("foodBeverageAdded").disabled = true;
+            document.getElementById("jewelryBrands").disabled = true;
+        }
+        if (document.getElementById("foodBeverageAvailable").checked == false) {
+
+            document.getElementById("notificationBody").value = "";
+
+            document.getElementById("discount").disabled = false;
+            document.getElementById("foodBeverageAdded").disabled = false;
+            document.getElementById("jewelryBrands").disabled = false;
+        }
+    });
+    $('#send-to-all').change(function () {
+        if (document.getElementById("send-to-all").checked == true) {
+            //$('.corporateOptionSendNotif').attr('checked', true);
+            $('.corporateOptionSendNotif').not(this).prop('checked', this.checked);
+        }
+        else {
+            //$('form div input').attr('checked', false);
+
+            $('.corporateOptionSendNotif').not(this).prop('checked', false);
+        }
+    });
+    
+    $('#compose-notification-search-corporate-btn').click(function () {
+        arrowSvg.style.transform = "scaleY(-1)";
+        corporateModal.style.display = "block";
+        searchCorporateBtn.classList.remove("openmodal");
+    });
+    $('#closeSvg').click(function () {
+        arrowSvg.style.transform = "scaleY(1)";
+        corporateModal.style.display = "none";
+    });
+    $('#arrowSvg').click(function () {
+        arrowSvg.style.transform = "scaleY(1)";
+        corporateModal.style.display = "none";
+    });
+   
+    $(document).keyup(function (e) {
+        if (e.key === "Escape") { // escape key maps to keycode `27`
+            arrowSvg.style.transform = "scaleY(1)";
+            corporateModal.style.display = "none";
+        }
+    });
+    GetCorporateList();
+    
+}
+
+function GetCorporateList() {
+    $.ajax({
+        url: "/Corporate/GetCompanyList",
+        data: {},
+        type: "GET",
+        datatype: "json"
+    }).done(function (data) {
+
+        var form = document.getElementById('corporateOptions');
+        form.innerHTML = "";
+        for (var i = 0; i < data.length; i++) {
+            var div = document.createElement("div");
+            div.className = "formControl";
+            div.innerHTML = `
+                    <input class="corporateOptionSendNotif" type="checkbox" id="corporateName" name="`+ data[i].corporateName + `" value="` + data[i].corporateName + `" />
+                    <label>`+ data[i].corporateName + `</label>`;
+            form.appendChild(div);
+
+        }
+
+
+
+        //$.unblockUI();
+    }).fail(function () {
+        alert("There was an Error When Loading Data...");
+    });
+
+    $('#sendNotificatoin').click(function () {
+        var checkedEmail = document.querySelectorAll('input[id="corporateName"]:checked');
+        var notificationSubject = document.getElementById('notoficationSubject').value;
+        var notificationBody = document.getElementById('notificationBody').value;
+        if (notificationSubject == "") {
+            notificationSubject = "No Subject";
+        }
+        if (notificationBody == "") {
+            notificationBody = "No Body";
+        }
+
+        
+        selectedEmail = Array.from(checkedEmail).map(x => x.value);
+        if (checkedEmail.length == 0) {
+            document.getElementById('selectCorporateError').style.display = "block";
+            setTimeout(function () {
+                document.getElementById('selectCorporateError').style.display = "none";
+            }, 3000);
+        }
+        else {
+            //console.log(selectedEmail);
+            //console.log(notificationSubject);
+            //console.log(notificationBody);
+
+            var data = {};
+
+            data.Subject = notificationSubject;
+            data.Body = notificationBody;
+            data.CorporateList = selectedEmail;
+
+            console.log(data);
+            $.ajax({
+                url: '/Dashboard/EmailCorporate',
+                data: {
+                    data: data,
+                },
+                type: "POST",
+                datatype: "json",
+                success: function (data) {
+                    //console.log(data);
+                    //console.log("Email Sent!");
+
+                }
+
+            });
+
+            document.getElementById('compose-notification-modal-holder').style.display = "none";
+
+        }
+    });
+
+}

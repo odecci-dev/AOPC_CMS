@@ -17,13 +17,14 @@ using _CMS.Manager;
 using ExcelDataReader;
 using AOPC_CMSv2.ViewModel;
 using static AOPC.Controllers.VendorController;
+using System.Collections.Generic;
 
 namespace AOPC.Controllers
 {
     public class CMSController : Controller
     {
-          string status="";
-         private readonly QueryValueService token;
+        string status = "";
+        private readonly QueryValueService token;
         private readonly AppSettings _appSettings;
         private ApiGlobalModel _global = new ApiGlobalModel();
         private GlobalService _globalService;
@@ -32,13 +33,13 @@ namespace AOPC.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private IConfiguration _configuration;
         private string apiUrl = "http://";
-        
-        public CMSController( IOptions<AppSettings> appSettings, GlobalService globalService,
+
+        public CMSController(IOptions<AppSettings> appSettings, GlobalService globalService,
                   UserManager<ApplicationUser> userManager, QueryValueService _token,
                   IHttpContextAccessor contextAccessor,
                   IConfiguration configuration)
         {
-             _userManager = userManager;
+            _userManager = userManager;
             token_ = _token;
             _configuration = configuration;
             apiUrl = _configuration.GetValue<string>("AppSettings:WebApiURL");
@@ -47,10 +48,10 @@ namespace AOPC.Controllers
 
         public async Task<String> GetCorporate()
         {
-          
+
             var url = DBConn.HttpString + "/api/ApiCorporatePrivilege/CorporatePrivilegeLsit";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
 
             return response;
@@ -58,29 +59,29 @@ namespace AOPC.Controllers
         //try
 
 
-         [HttpGet]
-         public async Task<JsonResult> GetCorp()
-         {   
-             string response = await GetCorporate();
-             List<CorporatePrivilegeVM> models = JsonConvert.DeserializeObject<List<CorporatePrivilegeVM>>(response);
-             return new (models);
-         }
-         [HttpGet]
-         public async Task<JsonResult> getTopCorp()
-         {   
-             string response = await GetCorporate();
-             
-             List<TopCorporateVM> models = JsonConvert.DeserializeObject<List<TopCorporateVM>>(response);
-              var result = new List<TopCorporateVM>();
-              for(int x=0;x<models.Count ; x++)
-              {
-                 var item = new TopCorporateVM();
-                 item.Corporatename = models[x].Corporatename;
-                 item.NoOfVisit = models[x].NoOfVisit;
-                 result.Add(item);
-              }
-             return new (result);
-         }
+        [HttpGet]
+        public async Task<JsonResult> GetCorp()
+        {
+            string response = await GetCorporate();
+            List<CorporatePrivilegeVM> models = JsonConvert.DeserializeObject<List<CorporatePrivilegeVM>>(response);
+            return new(models);
+        }
+        [HttpGet]
+        public async Task<JsonResult> getTopCorp()
+        {
+            string response = await GetCorporate();
+
+            List<TopCorporateVM> models = JsonConvert.DeserializeObject<List<TopCorporateVM>>(response);
+            var result = new List<TopCorporateVM>();
+            for (int x = 0; x < models.Count; x++)
+            {
+                var item = new TopCorporateVM();
+                item.Corporatename = models[x].Corporatename;
+                item.NoOfVisit = models[x].NoOfVisit;
+                result.Add(item);
+            }
+            return new(result);
+        }
 
         public class AuditTrailPaginationModel
         {
@@ -130,6 +131,7 @@ namespace AOPC.Controllers
             {
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiPagination/AuditTrailPaginate";
+                //var url = DBConn.HttpString + "/api/ApiAuditTrail/AudittrailList";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
@@ -147,16 +149,18 @@ namespace AOPC.Controllers
             return Json(list);
         }
         [HttpGet]
-         public async Task<JsonResult> GetAuditTrailList()
-         {
-             var url = DBConn.HttpString + "/api/AuditTrail/AudittrailList";
-             HttpClient client = new HttpClient();
-             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
-             string response = await client.GetStringAsync(url);
-             List<Audittrailvm> models = JsonConvert.DeserializeObject<List<Audittrailvm>>(response);
-             return new(models);
-         }
-       
+        public async Task<JsonResult> GetAuditTrailList()
+        {
+            //var url = DBConn.HttpString + "/api/AuditTrail/AudittrailList";
+            var url = DBConn.HttpString + "/api/ApiAuditTrail/AudittrailList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<Audittrailvm> models = JsonConvert.DeserializeObject<List<Audittrailvm>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
+
         public IActionResult Index()
         {
             string token = HttpContext.Session.GetString("Bearer");
@@ -168,16 +172,16 @@ namespace AOPC.Controllers
         }
         public IActionResult AuditTrail()
         {
-            string  token = HttpContext.Session.GetString("Bearer");
+            string token = HttpContext.Session.GetString("Bearer");
             if (token == null)
             {
                 return RedirectToAction("Index", "LogIn");
             }
             return View();
         }
-    
-    #region DataModels
-    
+
+        #region DataModels
+
         public class Audittrailvm
         {
 
@@ -194,6 +198,6 @@ namespace AOPC.Controllers
             public string CorporateName { get; set; }
             public string UserType { get; set; }
         }
-    #endregion
+        #endregion
     }
 }

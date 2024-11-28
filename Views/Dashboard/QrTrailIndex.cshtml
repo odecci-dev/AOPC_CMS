@@ -58,72 +58,130 @@
 @section Scripts{
             <script>
  $(document).ready(function () {
-      qrtable = $('#qr-table').DataTable({
-          "columnDefs": [
-              { "width": "150px", "targets": 0 },
-              { "width": "100px", "targets": 1 },
-              { "width": "100px", "targets": 2 },
-              { "width": "100px", "targets": 3 },
-              { "width": "100px", "targets": 4 },
-              { "width": "100px", "targets": 5 },
-              { "width": "100px", "targets": 6 },
-              { "width": "100px", "targets": 7 },
-              { "width": "100px", "targets": 8 },
-              { "width": "100px", "targets": 9 },
-              { "width": "100px", "targets": 10 },
-          ],
-           "bPaginate": false,
-           "bFilter": false,
-           "stripeClasses": [],
-           "ordering": false,
-           "ordering": false,
-           "info": false,
-           "bInfo": false,
-           "AutoWidth": false,
-           "bLengthChange": false, 
-           "paging": true,
-           "aLengthMenu": [20],
-           "searching": true,
-           "oLanguage": { "sZeroRecords": "", "sEmptyTable": ""
-           }});
+      // qrtable = $('#qr-table').DataTable({
+      //     "columnDefs": [
+      //         { "width": "150px", "targets": 0 },
+      //         { "width": "100px", "targets": 1 },
+      //         { "width": "100px", "targets": 2 },
+      //         { "width": "100px", "targets": 3 },
+      //         { "width": "100px", "targets": 4 },
+      //         { "width": "100px", "targets": 5 },
+      //         { "width": "100px", "targets": 6 },
+      //         { "width": "100px", "targets": 7 },
+      //         { "width": "100px", "targets": 8 },
+      //         { "width": "100px", "targets": 9 },
+      //         { "width": "100px", "targets": 10 },
+      //     ],
+      //      "bPaginate": false,
+      //      "bFilter": false,
+      //      "stripeClasses": [],
+      //      "ordering": false,
+      //      "ordering": false,
+      //      "info": false,
+      //      "bInfo": false,
+      //      "AutoWidth": false,
+      //      "bLengthChange": false, 
+      //      "paging": true,
+      //      "aLengthMenu": [20],
+      //      "searching": true,
+      //      "oLanguage": { "sZeroRecords": "", "sEmptyTable": ""
+      //      }});
            ShowQrList();
     });
 
 
      function ShowQrList() {
-       $.blockUI(reloadLoading);
-       setTimeout(function () {
-       $.ajax({
-         url: '/Dashboard/GetQrTrail',
-       data: {
+//        $.blockUI(reloadLoading);
+//        setTimeout(function () {
+//        $.ajax({
+//          url: '/Dashboard/GetQrTrail',
+//        data: {
 
-       },
-       type: "GET",
-       datatype: "json"
-      }).done(function (data) {
-            //console.log(data);
-          for (var i = 0; i < data.length; i++) {
-          var tbl = "<div>" + "<p>" + data[i].employeeID + "</p>" + "<p>" + data[i].fullname + "</p>";
+//        },
+//        type: "GET",
+//        datatype: "json"
+//       }).done(function (data) {
+//             //console.log(data);
+//           for (var i = 0; i < data.length; i++) {
+//           var tbl = "<div>" + "<p>" + data[i].employeeID + "</p>" + "<p>" + data[i].fullname + "</p>";
 
-              $('#qr-table').dataTable().fnAddData([
-              '<td>'+tbl+'</td>',
-              '<td>' + data[i].country + '</td>',
-              '<td>' + data[i].city + '</td>',
-              '<td>' + data[i].region + '</td>',
-              '<td>' + data[i].areaCode + '</td>',
-              '<td>' + data[i].ipAddres + '</td>',
-              '<td>' + data[i].longtitude + '</td>',
-              '<td>' + data[i].latitude + '</td>',
-              '<td>' + data[i].timeZone + '</td>',
-              '<td>' + data[i].zipCode + '</td>',
-                  '<td>' + data[i].dateCreated + '</td>',
-          ]);
-     }
-     $.unblockUI();
-     }).fail(function () {
-     alert("There was an Error When Loading Data...");
-     });
-}, 100);
+//               $('#qr-table').dataTable().fnAddData([
+//               '<td>'+tbl+'</td>',
+//               '<td>' + data[i].country + '</td>',
+//               '<td>' + data[i].city + '</td>',
+//               '<td>' + data[i].region + '</td>',
+//               '<td>' + data[i].areaCode + '</td>',
+//               '<td>' + data[i].ipAddres + '</td>',
+//               '<td>' + data[i].longtitude + '</td>',
+//               '<td>' + data[i].latitude + '</td>',
+//               '<td>' + data[i].timeZone + '</td>',
+//               '<td>' + data[i].zipCode + '</td>',
+//               '<td>' + data[i].dateCreated + '</td>',
+//           ]);
+//      }
+//      $.unblockUI();
+//      }).fail(function () {
+//      alert("There was an Error When Loading Data...");
+//      });
+// }, 100);
+
+            new DataTable('#qr-table', {
+                ajax: {
+                    url: '/Dashboard/GetQrTrail',
+                    type: "GET",
+                    dataType: "json",
+                    processing: true,
+                    serverSide: true,
+                    complete: function (xhr) {
+                        // console.log(xhr);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                },
+                columns: [
+                    {
+                        data: 'employeeID',
+                        render: function (data, type, row) {
+                            var tbl = "<div>" + "<p>" + data + "</p>" + "<p>" + row.fullname + "</p>";
+
+                            return tbl;
+                        }
+                    },
+                    {
+                        data: 'country'
+                    },
+                    {
+                        data: 'city'
+                    },
+                    {
+                        data: 'region'
+                    },
+                    {
+                        data: 'areaCode'
+                    },
+                    {
+                        data: 'ipAddres'
+                    },
+                    {
+                        data: 'longtitude'
+                    },
+                    {
+                        data: 'latitude'
+                    },
+                    {
+                        data: 'timeZone'
+                    },
+                    {
+                        data: 'zipCode'
+                    },
+                    {
+                        data: 'dateCreated'
+                    }
+                ]
+            });
+
+
 
     }
 

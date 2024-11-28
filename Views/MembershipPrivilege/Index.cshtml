@@ -8,9 +8,29 @@
     }
 }
 <style>
+
 </style>
+@* <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" /> *@
+@* quill richtext editor *@@*
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> *@
 
+@* summer note rich text editor
+ *@
+@* <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script> *@
 
+<link rel="stylesheet" href="/richtexteditor/rte_theme_default.css" />
+<script type="text/javascript" src="/richtexteditor/rte.js"></script>
+<script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
+@* <script type="text/javascript" src='/richtexteditor/plugins/inserttemplate.js'></script> *@
+@*
+<script type="text/javascript" src=''></script> *@
+@* New DataTables Start*@
+<link rel="stylesheet" href="/css/datatable.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+@* New DataTables End*@
 
 <!-- Tab content -->
 @* Card Test *@
@@ -38,24 +58,24 @@
                     <div class="row ">
                         @* <div class="list-head" >
 
-                              <form class="search-form" style="margin-right: 35px;">
-                                <svg
-                                  width="18"
-                                  height="18"
-                                  viewBox="0 0 18 18"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M13.2825 14.4675L10.7325 11.925C11.5552 10.8768 12.0017 9.58249 12 8.25C12 7.06331 11.6481 5.90328 10.9888 4.91658C10.3295 3.92989 9.39246 3.16085 8.2961 2.70673C7.19975 2.2526 5.99335 2.13378 4.82946 2.36529C3.66557 2.5968 2.59648 3.16825 1.75736 4.00736C0.918247 4.84648 0.346802 5.91557 0.115291 7.07946C-0.11622 8.24335 0.00259969 9.44975 0.456725 10.5461C0.910851 11.6425 1.67989 12.5795 2.66658 13.2388C3.65328 13.8981 4.81331 14.25 6 14.25C7.33249 14.2517 8.62684 13.8052 9.675 12.9825L12.2175 15.5325C12.2872 15.6028 12.3702 15.6586 12.4616 15.6967C12.553 15.7347 12.651 15.7544 12.75 15.7544C12.849 15.7544 12.947 15.7347 13.0384 15.6967C13.1298 15.6586 13.2128 15.6028 13.2825 15.5325C13.3528 15.4628 13.4086 15.3798 13.4467 15.2884C13.4847 15.197 13.5044 15.099 13.5044 15C13.5044 14.901 13.4847 14.803 13.4467 14.7116C13.4086 14.6202 13.3528 14.5372 13.2825 14.4675ZM1.5 8.25C1.5 7.35999 1.76392 6.48996 2.25839 5.74994C2.75286 5.00992 3.45566 4.43314 4.27793 4.09254C5.10019 3.75195 6.00499 3.66284 6.87791 3.83647C7.75082 4.0101 8.55265 4.43869 9.18198 5.06802C9.81132 5.69736 10.2399 6.49918 10.4135 7.3721C10.5872 8.24501 10.4981 9.14981 10.1575 9.97208C9.81687 10.7943 9.24009 11.4971 8.50007 11.9916C7.76005 12.4861 6.89002 12.75 6 12.75C4.80653 12.75 3.66194 12.2759 2.81802 11.432C1.97411 10.5881 1.5 9.44348 1.5 8.25Z"
-                                    fill="#231F20"
-                                  />
-                                </svg>
+                        <form class="search-form" style="margin-right: 35px;">
+                        <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                        d="M13.2825 14.4675L10.7325 11.925C11.5552 10.8768 12.0017 9.58249 12 8.25C12 7.06331 11.6481 5.90328 10.9888 4.91658C10.3295 3.92989 9.39246 3.16085 8.2961 2.70673C7.19975 2.2526 5.99335 2.13378 4.82946 2.36529C3.66557 2.5968 2.59648 3.16825 1.75736 4.00736C0.918247 4.84648 0.346802 5.91557 0.115291 7.07946C-0.11622 8.24335 0.00259969 9.44975 0.456725 10.5461C0.910851 11.6425 1.67989 12.5795 2.66658 13.2388C3.65328 13.8981 4.81331 14.25 6 14.25C7.33249 14.2517 8.62684 13.8052 9.675 12.9825L12.2175 15.5325C12.2872 15.6028 12.3702 15.6586 12.4616 15.6967C12.553 15.7347 12.651 15.7544 12.75 15.7544C12.849 15.7544 12.947 15.7347 13.0384 15.6967C13.1298 15.6586 13.2128 15.6028 13.2825 15.5325C13.3528 15.4628 13.4086 15.3798 13.4467 15.2884C13.4847 15.197 13.5044 15.099 13.5044 15C13.5044 14.901 13.4847 14.803 13.4467 14.7116C13.4086 14.6202 13.3528 14.5372 13.2825 14.4675ZM1.5 8.25C1.5 7.35999 1.76392 6.48996 2.25839 5.74994C2.75286 5.00992 3.45566 4.43314 4.27793 4.09254C5.10019 3.75195 6.00499 3.66284 6.87791 3.83647C7.75082 4.0101 8.55265 4.43869 9.18198 5.06802C9.81132 5.69736 10.2399 6.49918 10.4135 7.3721C10.5872 8.24501 10.4981 9.14981 10.1575 9.97208C9.81687 10.7943 9.24009 11.4971 8.50007 11.9916C7.76005 12.4861 6.89002 12.75 6 12.75C4.80653 12.75 3.66194 12.2759 2.81802 11.432C1.97411 10.5881 1.5 9.44348 1.5 8.25Z"
+                        fill="#231F20"
+                        />
+                        </svg>
 
-                                <input type="text" class="input-search" />
-                              </form>
-                            </div> *@
-                            
+                        <input type="text" class="input-search" />
+                        </form>
+                        </div> *@
+
                         <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
                             <table class="myTableLarge" id="privilege-table">
                                 <thead>
@@ -67,8 +87,8 @@
                                 <th>Description</th>
                                 <th>Validity</th>
                                 <th>NoExpiry</th>
-                                @*<th>VendorID</th>*@
-                                @*<th>isVIP</th>*@
+                                        @*<th>VendorID</th>*@
+                                        @*<th>isVIP</th>*@
                                 <th>Business Type Name</th>
                                 <th>Date Created</th>
                                 </thead>
@@ -112,7 +132,7 @@
 
 
 </div>
-@* modal start here *@
+                                        @* modal start here *@
 <div class="modal fade" id="privilegemodal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
      aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
 
@@ -141,40 +161,41 @@
                                    id="img"
                                    class="mod-input img-choose"
                                    name="uploadimg" accept="image/*" />
+                            <input type="hidden" value="" id="imgUrl" />
                         </div>
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
-                            @* Title *@
+                        @* Title *@
                             <label for="employeeID">Title <span class="req">*</span></label>
                             <input type="text" value="" id="title" class="mod-input" required />
                         </div>
-                        @*<div class="input-container-whole">
-                             <label for="lname">No Expiry <span class="req" >*</span></label>
-                              <select id="NoExpiry"  class="mod-input" required>
-                                        <option value="" disabled selected>Select your option</option>
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                              </select>
-                            </div>*@
+                    @*<div class="input-container-whole">
+                        <label for="lname">No Expiry <span class="req" >*</span></label>
+                        <select id="NoExpiry"  class="mod-input" required>
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        </select>
+                        </div>*@
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
-                            @* Description *@
+                        @* Description *@
                             <label for="email">Description </label>
-                            @* <input type="text" value="" id="description" class="mod-input" /> *@
+                        @* <input type="text" value="" id="description" class="mod-input" /> *@
                             <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px; white-space: break-spaces"></textarea>
                         </div>
                     </div>
                     <div class="mod-form-row">
-                        @*<div class="input-container-whole">
-                            <label for="username"> Vendor Name</label>
-                            <select id="vendor-option" class="mod-input">
-                                <option value="" selected>Select your option</option>
-                            </select>
+                    @*<div class="input-container-whole">
+                        <label for="username"> Vendor Name</label>
+                        <select id="vendor-option" class="mod-input">
+                        <option value="" selected>Select your option</option>
+                        </select>
                         </div>*@
                         <div class="input-container-whole">
-                            @* Validity *@
+                        @* Validity *@
                             <label for="fname">Validity </label>
                             <input type="date" id="validity" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" />
                         </div>
@@ -182,28 +203,28 @@
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
-                            @* Business Type Name *@
+                        @* Business Type Name *@
                             <label for="vipStatus">Business Type Name<span class="req">*</span></label>
                             <select id="btype-option" class="mod-input" required>
                                 <option value="" disabled selected>Select your option</option>
                             </select>
                         </div>
-                        @*<div class="input-container-whole">
-                              <label for="position">is VIP <span class="req" >*</span></label>
-                              <select id="isVIP"  class="mod-input" required>
-                                        <option value="" disabled selected>Select your option</option>
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                              </select>
-                            </div>*@
+                    @*<div class="input-container-whole">
+                        <label for="position">is VIP <span class="req" >*</span></label>
+                        <select id="isVIP"  class="mod-input" required>
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        </select>
+                        </div>*@
                     </div>
                     <div class="mod-form-row">
-                        @* Terms and Conditions *@
+                    @* Terms and Conditions *@
                         <div class="input-container-whole">
                             <label for="txtCont1">Terms and Conditions <span class="req">*</span></label>
-                            @* <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px;"></textarea> *@
-                            <textarea id="tmc" class="mod-input" style="white-space: break-spaces; min-height: 300px; "></textarea>
-                        
+                        @* <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px;"></textarea> *@
+                            <div id="tmc" class="mod-input" style="white-space: break-spaces; min-height: 300px; "></div>
+
                             <!--<div class="textContainer">
                                 <div id="txtCont1" class="textCont">
                                     <div id="parentTextContainer" class="parentTextContainer">
@@ -217,7 +238,7 @@
                                                 +
                                             </button>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>-->
 
@@ -226,22 +247,22 @@
                     <div class="mod-form-row">
                         <div class="input-container-whole">
                             <label for="txtConts1">Mechanics <span class="req">*</span></label>
-                            <textarea id="mecha" class="mod-input" style=" white-space: break-spaces; min-height: 300px; "></textarea>
-                            @* <div class="Mechanics">
-                                <div id="txtConts1" class="textConts">
-                                    <div id="parentTextContainers" class="parentTextContainer">
-                                        ●<textarea></textarea>
-                                        <button onclick="addParentText()" type="button" class="btnAddParentText" return false;>+</button>
-                                    </div>
-                                    <div class="childTextContainer2" >
-                                        <div id="childTextContainers1" class="childTextItem">
-                                            ○<textarea></textarea>
-                                            <button type="button" onclick="addChildParentTexts('1')" class="btnAddChildText" return false;>
-                                                +
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div id="mecha" class="mod-input" style=" white-space: break-spaces; min-height: 300px; "></div>
+                        @* <div class="Mechanics">
+                            <div id="txtConts1" class="textConts">
+                            <div id="parentTextContainers" class="parentTextContainer">
+                            ●<textarea></textarea>
+                            <button onclick="addParentText()" type="button" class="btnAddParentText" return false;>+</button>
+                            </div>
+                            <div class="childTextContainer2" >
+                            <div id="childTextContainers1" class="childTextItem">
+                            ○<textarea></textarea>
+                            <button type="button" onclick="addChildParentTexts('1')" class="btnAddChildText" return false;>
+                            +
+                            </button>
+                            </div>
+                            </div>
+                            </div>
 
                             </div>  *@
 
@@ -428,10 +449,10 @@
 
                     <div class="actionss_" style="align-items: center;">
                         @* <div class="actionss">
-                             <button class="register" type="button" style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add Mechanics"><i class="fas fa-id-card"></i>Add Mechanics</button>
-                             @* <input type="button" value="Add Mechanics" id="btn-register"/> <i class="fas fa-cogs"></i>
+                        <button class="register" type="button" style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add Mechanics"><i class="fas fa-id-card"></i>Add Mechanics</button>
+                        @* <input type="button" value="Add Mechanics" id="btn-register"/> <i class="fas fa-cogs"></i>
 
-                            </div> *@
+                        </div> *@
 
                         <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
                         <input type="submit" value="Submit" id="save-mem" />
@@ -496,7 +517,7 @@
 
 @* modal end here *@
 <style>
-    #card-holder{
+    #card-holder {
         z-index: 9999;
         position: absolute;
         top: 0;
@@ -505,450 +526,504 @@
         padding: 100px;
         display: none;
     }
-    #card-holder p{
-        margin-bottom: 50px;
-        white-space: break-spaces;
-    }
+
+        #card-holder p {
+            margin-bottom: 50px;
+            white-space: break-spaces;
+        }
 </style>
-@section Scripts{
-<script>
-    
-    
-        
-    setTimeout(function () {
-        $.ajax(
-            {
-                url: "/MembershipPrivilege/GetPrivilegeList",
-                data: {},
-                type: "GET",
-                datatype: "json"
-            })
-            .done(function (data) {
-                ////console.log(data);
-                privilegetable.clear().draw();
-                   
-                for (var i = 0; i < data.length; i++) {
-                        const para = document.createElement("p");
-                        para.innerHTML = data[i].tmc+"<br>";
-                        document.getElementById("card-holder").appendChild(para);
-                }
-                $.unblockUI();
-            })
-            .fail(function () {
-                alert("There was an Error When Loading Data...");
-            });
-    }, 100);
-  var i_id = "";
-  var img_edit="";
-  var privid="";
-  var memid="";
-  var usercount="";
-    var vipcount = "";
 
-    var  mcard_edit = "";
-    var qrframe_edit = "";
-    var vip_Card_edit = "";
-    var vip_Badge_edit = "";
-    $(document).ready(function () {
-
-        document.querySelector("#usercount").addEventListener("keypress", function (evt) {
-    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+@* <script type="importmap">
     {
-        evt.preventDefault();
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+        }
     }
-});
-        document.querySelector("#vipcount").addEventListener("keypress", function (evt) {
-    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
-    {
-        evt.preventDefault();
-    }
-});
-                 privilegelisttable = $('#privilegelist-table').DataTable({
+</script>
+ <script src="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js"></script>
 
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-
-                      "aLengthMenu": [30],
-                      "searching": true,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
-
-                }});
-                 privilegelistaddtable = $('#privilegelistadd-table').DataTable({
-
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-
-                      "aLengthMenu": [30],
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
-
-                     }
-                 });
-
-        vndrlist = $('#vendorList').DataTable({
-
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-
-                      "aLengthMenu": [30],
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
-
-                }});
-
-                 membershiptable = $('#membership-table').DataTable({
-
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                     "paging": true,
-                      "aLengthMenu": [30],
-                      "searching": true,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
-
-                }});
-                privilegetable = $('#privilege-table').DataTable({
-                       "columnDefs": [
-                        { "width": "100px", "targets": 0 },
-                        { "width": "120px", "targets": 1 },
-                        { "width": "70px", "targets": 2 },
-                        { "width": "70px", "targets": 3 },
-                        { "width": "70px", "targets": 4 },
-                        { "width": "70px", "targets": 5 }
-                      ],
-                  "bPaginate": false,
-                  "bFilter": false,
-                  "stripeClasses": [],
-                  "ordering": false,
-                  "ordering": false,
-                  "info": false,
-                  "bInfo": false,
-                  "bAutoWidth": false,
-                  "bLengthChange": false,
-                  "bLengthChange": false,
-                     "paging": true,
-                      "aLengthMenu": [4],
-                          "searching": true,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
-                });
-        $("input[name=uploadimg]").change(function () {
-
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var img = $('<img>').attr('src', e.target.result);
-                    img.attr('height', '120px');
-                    img.attr('width', '120px');
-                    $('.upload-image-preview').html(img);
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph,
+    } from 'ckeditor5';
+    import { List } from 'ckeditor5';
+    ClassicEditor
+        .create(document.querySelector('#tmc'), {
+            plugins: [Essentials, Bold, Italic, Font, Paragraph, List],
+            toolbar: [
+                // 'undo', 'redo', '|',
+                'bold', 'italic', '|',
+                'fontColor', 'fontBackgroundColor',
+                'numberedList', 'bulletedList'
+            ]
         });
-        $("input[name=qrframe]").change(function () {
+// </script>  *@
+<script>
 
-                    if (this.files && this.files[0]) {
+
+</script>
+@section Scripts {
+    <script>
+
+        // var quill = new Quill('#tmc', {
+        //     modules: { toolbar: [['bold', 'italic', 'underline']] }
+        // });
+        // const quill = new Quill('#tmc', {
+        //     theme: 'snow'
+        //   });
+        // const quill1 = new Quill('#mecha', {
+        //     theme: 'snow'
+        // });
+        @* setTimeout(function () {
+        $.ajax(
+        {
+        url: "/MembershipPrivilege/GetPrivilegeList",
+        data: {},
+        type: "GET",
+        datatype: "json"
+        })
+        .done(function (data) {
+        ////console.log(data);
+        privilegetable.clear().draw();
+
+        for (var i = 0; i < data.length; i++) {
+        const para = document.createElement("p");
+        para.innerHTML = data[i].tmc+"<br>";
+        document.getElementById("card-holder").appendChild(para);
+        }
+        $.unblockUI();
+        })
+        .fail(function () {
+        alert("There was an Error When Loading Data...");
+        });
+        }, 100);*@
+          var i_id = "";
+        var img_edit = "";
+        var privid = "";
+        var memid = "";
+        var usercount = "";
+        var vipcount = "";
+
+        var mcard_edit = "";
+        var qrframe_edit = "";
+        var vip_Card_edit = "";
+        var vip_Badge_edit = "";
+        var tmcEditor;
+        var mechaEditor;
+        $(document).ready(function () {
+            tmcEditor = new RichTextEditor("#tmc");
+            mechaEditor = new RichTextEditor("#mecha");
+
+            $('rte-powerby').attr('style', 'display: none !important');
+            document.querySelector("#usercount").addEventListener("keypress", function (evt) {
+                if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+                    evt.preventDefault();
+                }
+            });
+            document.querySelector("#vipcount").addEventListener("keypress", function (evt) {
+                if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+                    evt.preventDefault();
+                }
+            });
+            privilegelisttable = $('#privilegelist-table').DataTable({
+
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+
+                "aLengthMenu": [30],
+                "searching": true,
+                "oLanguage": {
+                    "sZeroRecords": "", "sEmptyTable": "",
+
+                }
+            });
+            privilegelistaddtable = $('#privilegelistadd-table').DataTable({
+
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+
+                "aLengthMenu": [30],
+                "oLanguage": {
+                    "sZeroRecords": "", "sEmptyTable": "",
+
+                }
+            });
+
+            vndrlist = $('#vendorList').DataTable({
+
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+
+                "aLengthMenu": [30],
+                "oLanguage": {
+                    "sZeroRecords": "", "sEmptyTable": "",
+
+                }
+            });
+
+            //  membershiptable = $('#membership-table').DataTable({
+
+            //     "bPaginate": false,
+            //     "bFilter": false,
+            //     "stripeClasses": [],
+            //     "ordering": false,
+            //     "ordering": false,
+            //     "info": false,
+            //     "bInfo": false,
+            //     "bAutoWidth": false,
+            //     "bLengthChange": false,
+            //      "paging": true,
+            //       "aLengthMenu": [30],
+            //       "searching": true,
+            //     "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
+
+            // }});
+            // privilegetable = $('#privilege-table').DataTable({
+            //        "columnDefs": [
+            //         { "width": "100px", "targets": 0 },
+            //         { "width": "120px", "targets": 1 },
+            //         { "width": "70px", "targets": 2 },
+            //         { "width": "70px", "targets": 3 },
+            //         { "width": "70px", "targets": 4 },
+            //         { "width": "70px", "targets": 5 }
+            //       ],
+            //   "bPaginate": false,
+            //   "bFilter": false,
+            //   "stripeClasses": [],
+            //   "ordering": false,
+            //   "ordering": false,
+            //   "info": false,
+            //   "bInfo": false,
+            //   "bAutoWidth": false,
+            //   "bLengthChange": false,
+            //   "bLengthChange": false,
+            //      "paging": true,
+            //       "aLengthMenu": [4],
+            //           "searching": true,
+            //     "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+            // });
+            $("input[name=uploadimg]").change(function () {
+
+                if (this.files && this.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                    var img = $('<img>').attr('src', e.target.result);
-                    img.attr('height', '120px');
-                    img.attr('width', '120px');
-                        $('.img-container-qr').html(img);};
+                        var img = $('<img>').attr('src', e.target.result);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.upload-image-preview').html(img);
+                    };
                     reader.readAsDataURL(this.files[0]);
-                   }});
+                }
+            });
+            $("input[name=qrframe]").change(function () {
 
-        $("input[name=vipbadge]").change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img>').attr('src', e.target.result);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.img-container-qr').html(img);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
 
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var img = $('<img>').attr('src', e.target.result);
-                    img.attr('height', '120px');
-                    img.attr('width', '120px');
-                    $('.img-container-vipbadge').html(img);
-                };
-                reader.readAsDataURL(this.files[0]);
+            $("input[name=vipbadge]").change(function () {
+
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img>').attr('src', e.target.result);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.img-container-vipbadge').html(img);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            $("input[name=vipCard]").change(function () {
+
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img>').attr('src', e.target.result);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.img-container-vipCard').html(img);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            $("input[name=membershipCard]").change(function () {
+
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img>').attr('src', e.target.result);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.img-container-membershipCard').html(img);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            ShowprivilegeList();
+            ShowMembershipList();
+            ShowOptBtype();
+            ShowVendorOpt();
+
+        });
+        //$('#NoExpiry').change(function () {
+        //   noexpiry();
+        //});
+        $("#checkall").click(function () {
+            $("input:checkbox").not(this).prop("checked", this.checked);
+            if ($(this).prop("checked") == true) {
+                $("#checkers").html("Uncheck All");
+            } else {
+                $("#checkers").html("Check All");
             }
         });
 
-        $("input[name=vipCard]").change(function () {
+        var textContainer = $(".textContainer");
+        var Mechanics = $(".Mechanics");
+        var textContainerCounter = $(".textContainer .textCont").length;
+        var textContainerCounter2 = $(".Mechanics .textConts").length;
+        var textChildContainer = $("childTextContainer");
 
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var img = $('<img>').attr('src', e.target.result);
-                    img.attr('height', '120px');
-                    img.attr('width', '120px');
-                    $('.img-container-vipCard').html(img);
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-        $("input[name=membershipCard]").change(function () {
+        function addTermsParent() {
+            textContainer.append(`<div id="txtCont${textContainerCounter + 1
+                }" class="textCont"><div id="parentTextContainer" class="parentTextContainer">
+                                            ●<textarea ></textarea>  <button type="button"  onclick="removeParentTextContainer(${textContainerCounter + 1
+                })" class="btnRemoveParentText" return false;>-</button>
+                          </div>
+                          <div class="childTextContainer" >
+                            <div id="childTextContainer${textContainerCounter + 1
+                }" class="childTextItem">
+                                            ○<textarea></textarea><button type="button" onclick="addChildParentText('${textContainerCounter + 1
+                }')" class="btnAddChildText" return false;>+</button>
+                            </div></div></div>`);
+            textContainerCounter = textContainerCounter + 1;
+        }
+        function addParentText() {
 
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var img = $('<img>').attr('src', e.target.result);
-                    img.attr('height', '120px');
-                    img.attr('width', '120px');
-                    $('.img-container-membershipCard').html(img);
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-                ShowprivilegeList();
-                ShowMembershipList();
-                ShowOptBtype();
-                ShowVendorOpt();
+            Mechanics.append(`<div id="txtConts${textContainerCounter2 + 1
+                }" class="textConts"><div id="parentTextContainers" class="parentTextContainer">
+                                                        ●<textarea></textarea>  <button   type="button" onclick="removeParentTextContainer2(${textContainerCounter2 + 1
+                })" class="btnRemoveParentText" return false;>-</button>
+                          </div>
+                          <div class="childTextContainer2" >
+                            <div id="childTextContainers${textContainerCounter2 + 1
+                }" class="childTextItem">
+                           ○<textarea></textarea><button  type="button" onclick="addChildParentTexts('${textContainerCounter2 + 1
+                }')" class="btnAddChildText" return false;>+</button>
+                            </div></div></div>`);
+            textContainerCounter2 = textContainerCounter2 + 1;
+        }
+        function addChildParentText(count) {
 
-       });
-                      //$('#NoExpiry').change(function () {
-                      //   noexpiry();
-                      //});
-                      $("#checkall").click(function () {
-  $("input:checkbox").not(this).prop("checked", this.checked);
-  if ($(this).prop("checked") == true) {
-    $("#checkers").html("Uncheck All");
-  } else {
-    $("#checkers").html("Check All");
-  }
-});
-
-            var textContainer = $(".textContainer");
-            var Mechanics = $(".Mechanics");
-            var textContainerCounter = $(".textContainer .textCont").length;
-            var textContainerCounter2 = $(".Mechanics .textConts").length;
-            var textChildContainer = $("childTextContainer");
-
-              function addTermsParent() {
-                textContainer.append(`<div id="txtCont${textContainerCounter + 1
-                    }" class="textCont"><div id="parentTextContainer" class="parentTextContainer">
-                                    ●<textarea ></textarea>  <button type="button"  onclick="removeParentTextContainer(${textContainerCounter + 1
-                    })" class="btnRemoveParentText" return false;>-</button>
-                  </div>
-                  <div class="childTextContainer" >
-                    <div id="childTextContainer${textContainerCounter + 1
+            console.log("#textCont" + count);
+            $("#txtCont" + count)
+                .append(`<div class="childTextContainer"> <div id="childTextContainer${count + 1
                     }" class="childTextItem">
-                                    ○<textarea></textarea><button type="button" onclick="addChildParentText('${textContainerCounter + 1
-                    }')" class="btnAddChildText" return false;>+</button>
-                    </div></div></div>`);
-                textContainerCounter = textContainerCounter + 1;
-            }
-            function addParentText() {
+                                ○<textarea></textarea>
+                                <button  type="button" onclick="removeChildTextContainer('${count + 1
+                    }')" class="btnRemoveChildText" return false;>-</button>
+                          </div></div>`);
+        }
+        function addChildParentTexts(count) {
 
-                Mechanics.append(`<div id="txtConts${textContainerCounter2 + 1
-                    }" class="textConts"><div id="parentTextContainers" class="parentTextContainer">
-                                                ●<textarea></textarea>  <button   type="button" onclick="removeParentTextContainer2(${textContainerCounter2 + 1
-                    })" class="btnRemoveParentText" return false;>-</button>
-                  </div>
-                  <div class="childTextContainer2" >
-                    <div id="childTextContainers${textContainerCounter2 + 1
+            console.log("#textConts" + count);
+            $("#txtConts" + count)
+                .append(`<div class="childTextContainer2"> <div id="childTextContainer${count + 1
                     }" class="childTextItem">
-                   ○<textarea></textarea><button  type="button" onclick="addChildParentTexts('${textContainerCounter2 + 1
-                    }')" class="btnAddChildText" return false;>+</button>
-                    </div></div></div>`);
-                textContainerCounter2 = textContainerCounter2 + 1;
-            }
-            function addChildParentText(count) {
-
-                console.log("#textCont" + count);
-                $("#txtCont" + count)
-                    .append(`<div class="childTextContainer"> <div id="childTextContainer${count + 1
-                        }" class="childTextItem">
-                        ○<textarea></textarea>
-                        <button  type="button" onclick="removeChildTextContainer('${count + 1
-                        }')" class="btnRemoveChildText" return false;>-</button>
-                  </div></div>`);
-            }
-            function addChildParentTexts(count) {
-              
-                console.log("#textConts" + count);
-                $("#txtConts" + count)
-                    .append(`<div class="childTextContainer2"> <div id="childTextContainer${count + 1
-                        }" class="childTextItem">
-                                    ○<textarea></textarea>
-                                    <button  type="button" onclick="removeChildTextContainer('${count + 1
-                        }')" class="btnRemoveChildText" return false;>-</button>
-                              </div></div>`);
-            }
-            function removeParentTextContainer(count) {
-                $("#txtCont" + count).remove();
-            }
-            function removeParentTextContainer2(count) {
-                $("#txtConts" + count).remove();
-            }
-            function removeChildTextContainer(count) {
-                $("#childTextContainer" + count).remove();
-            }
-            function removeChildTextContainers(count) {
-                $("#childTextContainer2" + count).remove();
-            }
-
-            function populate(output) {
-                const textContainer = $(".textContainer");
-                let textCont = "";
-                output.split("^").map((value, parentIndex) => {
-                    //console.log(value);
-                    textCont += `  <div id="txtCont${parentIndex + 1}" class="textCont">
-
-                        ${value
-                            .split("||")
-                            .map((value, childIndex) => {
-                                return childIndex == 0
-                                    ? `<div id="parentTextContainer" class="parentTextContainer">
-                                ●<textarea>${value}</textarea>
-                                <button type="button" onclick="${parentIndex == 0
-                                        ? `addTermsParent()`
-                                        : `removeParentTextContainer(${parentIndex + 1})`
-                                    }" class="${parentIndex == 0
-                                        ? "btnAddParentText"
-                                        : "btnRemoveParentText"
-                                    }" return false;>${parentIndex == 0 ? "+" : "-"}</button>
-                              </div>`
-                                    : `<div class="childTextContainer">
-                                <div id="childTextContainer${parentIndex + 1 + "" + childIndex
-                                    }" class="childTextItem">
-                                  ○<textarea>${value}</textarea
-                                  ><button type="button"  onclick="${childIndex == 1
-                                    ? `addChildParentText(${parentIndex + 1} )`
-                                        : `removeChildTextContainer(${parentIndex + 1 + "" + childIndex
-                                        })`
-                                    }" class="${childIndex == 1
-                                        ? "btnAddChildText"
-                                        : "btnRemoveParentText"
-                                    }" return false;>
-                                  ${childIndex == 1 ? "+" : "-"}
-                                  </button>
-                                </div>
-                              </div>`;
-                            })
-                            .join("")}
-
-                  </div>`;
-                });
-
-                textContainer.html(textCont);
-            }
-             function populate_clear() {
-                const textContainer = $(".textContainer");
-                let textCont = "";
-
-                    //console.log(value);
-                    textCont += `  <div class="textContainer">
-                                <div id="txtCont1" class="textCont">
-                                    <div id="parentTextContainer" class="parentTextContainer">
-                                        ●<textarea></textarea>
-                                        <button onclick="addTermsParent()" type="button" class="btnAddParentText" return false;>+</button>
-                                    </div>
-                                    <div class="childTextContainer" >
-                                        <div id="childTextContainer1" class="childTextItem">
                                             ○<textarea></textarea>
-                                            <button type="button" onclick="addChildParentText('1')" class="btnAddChildText" return false;>
-                                                +
-                                            </button>
+                                            <button  type="button" onclick="removeChildTextContainer('${count + 1
+                    }')" class="btnRemoveChildText" return false;>-</button>
+                                      </div></div>`);
+        }
+        function removeParentTextContainer(count) {
+            $("#txtCont" + count).remove();
+        }
+        function removeParentTextContainer2(count) {
+            $("#txtConts" + count).remove();
+        }
+        function removeChildTextContainer(count) {
+            $("#childTextContainer" + count).remove();
+        }
+        function removeChildTextContainers(count) {
+            $("#childTextContainer2" + count).remove();
+        }
+
+        function populate(output) {
+            const textContainer = $(".textContainer");
+            let textCont = "";
+            output.split("^").map((value, parentIndex) => {
+                //console.log(value);
+                textCont += `  <div id="txtCont${parentIndex + 1}" class="textCont">
+
+                                ${value
+                        .split("||")
+                        .map((value, childIndex) => {
+                            return childIndex == 0
+                                ? `<div id="parentTextContainer" class="parentTextContainer">
+                                        ●<textarea>${value}</textarea>
+                                        <button type="button" onclick="${parentIndex == 0
+                                    ? `addTermsParent()`
+                                    : `removeParentTextContainer(${parentIndex + 1})`
+                                }" class="${parentIndex == 0
+                                    ? "btnAddParentText"
+                                    : "btnRemoveParentText"
+                                }" return false;>${parentIndex == 0 ? "+" : "-"}</button>
+                                      </div>`
+                                : `<div class="childTextContainer">
+                                        <div id="childTextContainer${parentIndex + 1 + "" + childIndex
+                                }" class="childTextItem">
+                                          ○<textarea>${value}</textarea
+                                          ><button type="button"  onclick="${childIndex == 1
+                                    ? `addChildParentText(${parentIndex + 1} )`
+                                    : `removeChildTextContainer(${parentIndex + 1 + "" + childIndex
+                                    })`
+                                }" class="${childIndex == 1
+                                    ? "btnAddChildText"
+                                    : "btnRemoveParentText"
+                                }" return false;>
+                                          ${childIndex == 1 ? "+" : "-"}
+                                          </button>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>`
-                            ;
-               
+                                      </div>`;
+                        })
+                        .join("")}
 
-                textContainer.html(textCont);
-            }
-              function populateMechanicsclear() {
+                          </div>`;
+            });
 
-            const textContainer = $(".Mechanics");
-                  let textCont ="";
-                        textCont += ` <div class="Mechanics">
-                                        <div id="txtConts1" class="textConts">
-                                            <div id="parentTextContainers" class="parentTextContainer">
+            textContainer.html(textCont);
+        }
+        function populate_clear() {
+            const textContainer = $(".textContainer");
+            let textCont = "";
+
+            //console.log(value);
+            textCont += `  <div class="textContainer">
+                                        <div id="txtCont1" class="textCont">
+                                            <div id="parentTextContainer" class="parentTextContainer">
                                                 ●<textarea></textarea>
-                                                <button onclick="addParentText()" type="button" class="btnAddParentText" return false;>+</button>
+                                                <button onclick="addTermsParent()" type="button" class="btnAddParentText" return false;>+</button>
                                             </div>
-                                            <div class="childTextContainer2" >
-                                                <div id="childTextContainers1" class="childTextItem">
+                                            <div class="childTextContainer" >
+                                                <div id="childTextContainer1" class="childTextItem">
                                                     ○<textarea></textarea>
-                                                    <button type="button" onclick="addChildParentTexts('1')" class="btnAddChildText" return false;>
+                                                    <button type="button" onclick="addChildParentText('1')" class="btnAddChildText" return false;>
                                                         +
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>`
+                ;
 
-                                    </div>`;
-                                textContainer.html(textCont);
-              }
-            function populateMechanics(output) {
-                const textContainer = $(".Mechanics");
-                let textCont = "";
-       
-                output.split("^").map((value, parentIndex) => {
-                    //console.log(value);
-                    textCont += `  <div id="txtConts${parentIndex + 1}" class="textConts">
 
-                        ${value
-                            .split("||")
-                            .map((value, childIndex) => {
-                                return childIndex == 0
-                                    ? `<div id="parentTextContainers" class="parentTextContainer">
-                                ●<textarea>${value}</textarea>
-                                <button type="button" onclick="${parentIndex == 0
-                                        ? `addParentText()`
-                                        : `removeParentTextContainer2(${parentIndex + 1})`
-                                    }" class="${parentIndex == 0
-                                        ? "btnAddParentText"
-                                        : "btnRemoveParentText"
-                                    }" return false;>${parentIndex == 0 ? "+" : "-"}</button>
-                              </div>`
-                                    : `<div class="childTextContainer2">
-                                <div id="childTextContainers${parentIndex + 1 + "" + childIndex
-                                    }" class="childTextItem">
-                                  ○<textarea>${value}</textarea
-                                  ><button type="button"  onclick="${childIndex == 1
-                                        ? `addChildParentTexts(${parentIndex+1})`
-                                        : `removeChildTextContainers(${parentIndex + 1 + "" + childIndex
-                                        })`
-                                    }" class="${childIndex == 1
-                                        ? "btnAddChildText"
-                                        : "btnRemoveParentText"
-                                    }" return false;>
-                                  ${childIndex == 1 ? "+" : "-"}
-                                  </button>
-                                </div>
-                              </div>`;
-                            })
-                            .join("")}
+            textContainer.html(textCont);
+        }
+        function populateMechanicsclear() {
 
-                  </div>`;
-                });
+            const textContainer = $(".Mechanics");
+            let textCont = "";
+            textCont += ` <div class="Mechanics">
+                                                <div id="txtConts1" class="textConts">
+                                                    <div id="parentTextContainers" class="parentTextContainer">
+                                                        ●<textarea></textarea>
+                                                        <button onclick="addParentText()" type="button" class="btnAddParentText" return false;>+</button>
+                                                    </div>
+                                                    <div class="childTextContainer2" >
+                                                        <div id="childTextContainers1" class="childTextItem">
+                                                            ○<textarea></textarea>
+                                                            <button type="button" onclick="addChildParentTexts('1')" class="btnAddChildText" return false;>
+                                                                +
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                textContainer.html(textCont);
-            }
+                                            </div>`;
+            textContainer.html(textCont);
+        }
+        function populateMechanics(output) {
+            const textContainer = $(".Mechanics");
+            let textCont = "";
+
+            output.split("^").map((value, parentIndex) => {
+                //console.log(value);
+                textCont += `  <div id="txtConts${parentIndex + 1}" class="textConts">
+
+                                ${value
+                        .split("||")
+                        .map((value, childIndex) => {
+                            return childIndex == 0
+                                ? `<div id="parentTextContainers" class="parentTextContainer">
+                                        ●<textarea>${value}</textarea>
+                                        <button type="button" onclick="${parentIndex == 0
+                                    ? `addParentText()`
+                                    : `removeParentTextContainer2(${parentIndex + 1})`
+                                }" class="${parentIndex == 0
+                                    ? "btnAddParentText"
+                                    : "btnRemoveParentText"
+                                }" return false;>${parentIndex == 0 ? "+" : "-"}</button>
+                                      </div>`
+                                : `<div class="childTextContainer2">
+                                        <div id="childTextContainers${parentIndex + 1 + "" + childIndex
+                                }" class="childTextItem">
+                                          ○<textarea>${value}</textarea
+                                          ><button type="button"  onclick="${childIndex == 1
+                                    ? `addChildParentTexts(${parentIndex + 1})`
+                                    : `removeChildTextContainers(${parentIndex + 1 + "" + childIndex
+                                    })`
+                                }" class="${childIndex == 1
+                                    ? "btnAddChildText"
+                                    : "btnRemoveParentText"
+                                }" return false;>
+                                          ${childIndex == 1 ? "+" : "-"}
+                                          </button>
+                                        </div>
+                                      </div>`;
+                        })
+                        .join("")}
+
+                          </div>`;
+            });
+
+            textContainer.html(textCont);
+        }
         function CheckedRows_vendor() {
             vendorlist = [];
             $('.check-vendor:checked').each(function (id, item) {
@@ -975,119 +1050,268 @@
                 $("#vendor_check").html("Check All");
             }
         });
-$("#checkAll").click(function () {
-  $("input:checkbox").not(this).prop("checked", this.checked);
-});
-$("#checkall2").click(function () {
-  $("input:checkbox").not(this).prop("checked", this.checked);
-  if ($(this).prop("checked") == true) {
-    $("#checkers2").html("Uncheck All");
-  } else {
-    $("#checkers2").html("Check All");
-  }
-});
-$("#checkAll2").click(function () {
-  $("input:checkbox").not(this).prop("checked", this.checked);
-});
+        $("#checkAll").click(function () {
+            $("input:checkbox").not(this).prop("checked", this.checked);
+        });
+        $("#checkall2").click(function () {
+            $("input:checkbox").not(this).prop("checked", this.checked);
+            if ($(this).prop("checked") == true) {
+                $("#checkers2").html("Uncheck All");
+            } else {
+                $("#checkers2").html("Check All");
+            }
+        });
+        $("#checkAll2").click(function () {
+            $("input:checkbox").not(this).prop("checked", this.checked);
+        });
 
-@* Add Privilege *@
-                     $('#add-privilege').click(function () {
-                      i_id = 0;
-                      var img = $('<img>').attr('src', "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png");
-                      img.attr('height', '120px');
-                      img.attr('width', '120px');
-                      $('.upload-image-preview').html(img);
-                      $(".upload-image-preview").attr("src", );
-                      $('input[type="text"]').val("");
-                      $("textarea").val("");
-                      $('input[type="date"]').val("");
-                      //$('#vendor-option').prop('selectedIndex', 0);
-                      //$('#NoExpiry').prop('selectedIndex', 0);
-                      $('#btype-option').prop('selectedIndex', 0);
-                      $('#isVIP').prop('selectedIndex', 0);
-                      populate_clear();
-                       populateMechanicsclear();
-                      $('#privilegemodal').modal('show');
+        @* Add Privilege *@
+            $('#add-privilege').click(function () {
+                i_id = 0;
+                var img = $('<img>').attr('src', "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png");
+                img.attr('height', '120px');
+                img.attr('width', '120px');
+                $('.upload-image-preview').html(img);
+                $(".upload-image-preview").attr("src",);
+                $('input[type="text"]').val("");
+                $("textarea").val("");
+                $('input[type="date"]').val("");
+                //$('#vendor-option').prop('selectedIndex', 0);
+                //$('#NoExpiry').prop('selectedIndex', 0);
+                $('#btype-option').prop('selectedIndex', 0);
+                $('#isVIP').prop('selectedIndex', 0);
+                populate_clear();
+                populateMechanicsclear();
+                $('#privilegemodal').modal('show');
 
-                    });
-                     $('#add-membershipTier').click(function () {
-                      i_id = 0;
-
-
-                        var img = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
-                        img.attr('height', '100px');
-                        img.attr('width', '100px');
-                        var img1 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
-                        img1.attr('height', '100px');
-                        img1.attr('width', '100px');
-                          var img2 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
-                        img2.attr('height', '100px');
-                        img2.attr('width', '100px');
-                          var img3 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
-                        img3.attr('height', '100px');
-                        img3.attr('width', '100px');
-                    
-                        $('.img-container-membershipCard').html(img);
-                   
-                       $(".img-container-vipCard").html(img1);
-                       $(".img-container-qr").html(img2);
-                       $(".img-container-vipbadge").html(img3);
-                    
-                        //var vipbadge = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
-                        // //console.log(vipbadge);
-                        // if (vipbadge == "" || vipbadge == null) {
-                        //     vipbadge = vip_Badge_edit;
-                        // }
-                        // var qrFame = $("#qrFame").val().replace(/.*(\/|\\)/, '');
-                        // //console.log(qrFame);
-                        // if (qrFame == "" || qrFame == null) {
-                        //     qrFame = qrframe_edit;
-                        // }
-                        // var vipCard = $("#vipCard").val().replace(/.*(\/|\\)/, '');
-                      //$('.upload-image-preview').html(img);
-                      //$(".upload-image-preview").attr("src", );
-                      $('input[type="text"]').val("");
-                      $('input[type="number"]').val("");
-                      $('input[type="date"]').val("");
-                      //$('#vendor-option').prop('selectedIndex', 0);
-                      //$('#NoExpiry').prop('selectedIndex', 0);
-                      $('#btype-option').prop('selectedIndex', 0);
-                      $('#isVIP').prop('selectedIndex', 0);
-                      $('#membershipmodal').modal('show');
-
-                    });
-                       $('#add-privilege-item').click(function () {
-
-                 //    var dataTable = $('#privilegelist-table').children('tr');
-                     var dataTable = $('#privilegelist-table').children('tbody').children('tr').children('td').children('label').children('input');
-                     var privilegeAddTable = $('#privilegelistadd-table').children('tbody');
-                     $.each(dataTable,(key,value)=>{
-                        if($(value).is(':checked')){
-
-                         var selectedPrivilege = $(value).parent('label').parent('td').parent('tr').html();
-                         console.log(selectedPrivilege);
-                          privilegeAddTable.append(`<tr>${selectedPrivilege}</tr>`);
-                          $(value).parent('label').parent('td').parent('tr').remove();
-
-                        }
-                     })
-
-                    });
+            });
+        $('#add-membershipTier').click(function () {
+            i_id = 0;
 
 
+            var img = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+            img.attr('height', '100px');
+            img.attr('width', '100px');
+            var img1 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+            img1.attr('height', '100px');
+            img1.attr('width', '100px');
+            var img2 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+            img2.attr('height', '100px');
+            img2.attr('width', '100px');
+            var img3 = $('<img>').attr('src', "https://www.svgrepo.com/download/83325/id-card.svg");
+            img3.attr('height', '100px');
+            img3.attr('width', '100px');
 
-@* Add Privilege End Here*@
-@* Save Privilege *@
+            $('.img-container-membershipCard').html(img);
 
-        $("#vndlist").submit(function (e) {
+            $(".img-container-vipCard").html(img1);
+            $(".img-container-qr").html(img2);
+            $(".img-container-vipbadge").html(img3);
+
+            //var vipbadge = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
+            // //console.log(vipbadge);
+            // if (vipbadge == "" || vipbadge == null) {
+            //     vipbadge = vip_Badge_edit;
+            // }
+            // var qrFame = $("#qrFame").val().replace(/.*(\/|\\)/, '');
+            // //console.log(qrFame);
+            // if (qrFame == "" || qrFame == null) {
+            //     qrFame = qrframe_edit;
+            // }
+            // var vipCard = $("#vipCard").val().replace(/.*(\/|\\)/, '');
+            //$('.upload-image-preview').html(img);
+            //$(".upload-image-preview").attr("src", );
+            $('input[type="text"]').val("");
+            $('input[type="number"]').val("");
+            $('input[type="date"]').val("");
+            //$('#vendor-option').prop('selectedIndex', 0);
+            //$('#NoExpiry').prop('selectedIndex', 0);
+            $('#btype-option').prop('selectedIndex', 0);
+            $('#isVIP').prop('selectedIndex', 0);
+            $('#membershipmodal').modal('show');
+
+        });
+        $('#add-privilege-item').click(function () {
+
+            //    var dataTable = $('#privilegelist-table').children('tr');
+            var dataTable = $('#privilegelist-table').children('tbody').children('tr').children('td').children('label').children('input');
+            var privilegeAddTable = $('#privilegelistadd-table').children('tbody');
+            $.each(dataTable, (key, value) => {
+                if ($(value).is(':checked')) {
+
+                    var selectedPrivilege = $(value).parent('label').parent('td').parent('tr').html();
+                    console.log(selectedPrivilege);
+                    privilegeAddTable.append(`<tr>${selectedPrivilege}</tr>`);
+                    $(value).parent('label').parent('td').parent('tr').remove();
+
+                }
+            })
+
+        });
+
+
+
+        @* Add Privilege End Here*@
+        @* Save Privilege *@
+
+            $("#vndlist").submit(function (e) {
+                e.preventDefault();
+
+                var data = {};
+                data.IdList = CheckedRows_vendor();
+                console.log(data);
+
+                message = 'Are you sure you want to add new item?';
+
+                iziToast.question({
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    id: 'question',
+                    zindex: 999,
+                    title: 'Confirmation',
+                    message: message,
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', function (instance, toast) {
+
+                            $.blockUI(reloadLoading);
+                            $.ajax({
+                                url: '/MembershipPrivilege/SavepVendorPrivlist',
+                                data: {
+                                    IdList: CheckedRows_vendor(),
+                                },
+                                type: "POST",
+                                datatype: "json"
+                            }).done(function (data) {
+                                // console.log(data);
+                                $('#vlistmodal').modal('hide');
+                                $(".alert-warning").hide();
+
+                                $.unblockUI();
+
+                            }).fail(function () {
+                                alert("There was an Error When Loading Data...");
+                            });
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
+
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                        }],
+                    ]
+                });
+            });
+        $('#privmem-submit').submit(function (e) {
             e.preventDefault();
+            var filename = $("#img").val().replace(/.*(\/|\\)/, '');
+            console.log(filename);
+            if (filename == "" || filename == null) {
+                if (i_id != 0) {
+                    var newImg = $("#imgUrl").val();
+                    newImg = newImg.replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "");
+                    newImg = newImg.replace("%20", " ");
+                    filename = newImg;
+                } else {
+                    filename = img_edit;
+                }
+            }
 
+            // console.log(filename);
+            var TMC = "";
+            var Mecha = "";
+            var tnc_counter = 0;
+            $(".textCont #parentTextContainer textarea").map(function (
+                index,
+                value
+            ) {
+                var parentText = $(value).val();
+                TMC += parentText;
+                var tnc_counter_child = 0;
+                var childText = $(
+                    "#txtCont" +
+                    (index + 1) +
+                    " .childTextContainer .childTextItem textarea"
+                ).map(function (childIndex, childValue) {
+                    var choldText = $(childValue).val();
+                    TMC += "||" + choldText;
+                });
+                //TMC += "^";
+                tnc_counter = index + 1;
+                if (tnc_counter != $(".textCont #parentTextContainer textarea").length) {
+                    TMC += "^";
+                }
+            });
+            var mech_counter = 0;
+
+            $(".textConts #parentTextContainers textarea").map(function (
+                index,
+                value
+            ) {
+
+                var parentText = $(value).val();
+                Mecha += parentText;
+                var mech_counter_child = 0;
+                var childText = $(
+                    "#txtConts" +
+                    (index + 1) +
+                    " .childTextContainer2 .childTextItem textarea"
+                ).map(function (childIndex, childValue) {
+                    var choldText = $(childValue).val();
+                    Mecha += "||" + choldText;
+                    mech_counter_child = childIndex + 1;
+                    //if (mech_counter_child !=$("#txtConts" + (index + 1) + " .childTextContainer2 .childTextItem textarea" ).length)
+                    //{
+                    //Mecha += choldText +"||";
+                    //}
+                });
+                mech_counter = index + 1;
+                if (mech_counter != $(".textConts #parentTextContainers textarea").length) {
+                    Mecha += "^";
+                }
+
+
+            });
+            // console.log($(".textConts #parentTextContainers textarea").length);
             var data = {};
-            data.IdList = CheckedRows_vendor();
-            console.log(data);
+            data.id = i_id;
+            data.Title = $('#title').val();
+            data.Description = $('#descrip').val();
+            // data.Mechanics = Mecha;
+            // data.Mechanics = $('#mecha').val();
+            data.Validity = $('#validity').val();
+            data.NoExpiry = "";
 
-            message = 'Are you sure you want to add new item?';
 
+            data.ImgUrl = filename;
+            data.VendorID = "";
+            data.isVIP = $('#isVIP').val();
+            data.BusinessTypeID = $('#btype-option').val();
+            // data.tmc =TMC;
+            //var newTMC = document.getElementById("tmc").innerHTML;
+            var newTMC = tmcEditor.getHTMLCode();
+            var newMecha = mechaEditor.getHTMLCode();
+            newTMC = newTMC.replaceAll(`"`, `'`);
+            data.tmc = newTMC;
+            newMecha = newMecha.replaceAll(`"`, `'`);
+            data.Mechanics = newMecha;
+            data.Active = 5;
+            // document.getElementById("mecha").innerHTML = newTMC;
+            // console.log(data);
+            var fileUpload = $("#img").get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append('file', files[0]);
+            var fileUpload = $("#upload-img").get(0);
+            // console.log(data.ImgUrl);
+            if (i_id != 0) {
+                message = 'Are you sure you want to update this ' + $('#title').val();
+            }
+            else {
+                message = 'Are you sure you want to Add new Privilege';
+            }
             iziToast.question({
                 timeout: 20000,
                 close: false,
@@ -1099,19 +1323,32 @@ $("#checkAll2").click(function () {
                 position: 'center',
                 buttons: [
                     ['<button><b>YES</b></button>', function (instance, toast) {
-
                         $.blockUI(reloadLoading);
                         $.ajax({
-                            url: '/MembershipPrivilege/SavepVendorPrivlist',
+                            url: '/MembershipPrivilege/SavePrivilegeInfo',
                             data: {
-                                IdList: CheckedRows_vendor(),
+                                data: data
                             },
                             type: "POST",
-                            datatype: "json"
-                        }).done(function (data) {
-                            console.log(data);
-                            $('#vlistmodal').modal('hide');
-                            $(".alert-warning").hide();
+                            datatype: "json",
+                        }).done(function (response) {
+                            $.blockUI(reloadLoading);
+                            $.ajax({
+                                url: '/Business/UploadFile',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+
+                                success: function (result) {
+
+                                }
+                            }).fail(function () {
+                                alert("There was an Error When Loading Data...");
+                            });
+                            notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+                            ShowprivilegeList();
+                            $("#h-close").click();
 
                             $.unblockUI();
 
@@ -1128,360 +1365,206 @@ $("#checkAll2").click(function () {
                     }],
                 ]
             });
+
         });
-                     $('#privmem-submit').submit(function(e){
-                    e.preventDefault();
-                      var filename = $("#img").val().replace(/.*(\/|\\)/, '');
-                    console.log(filename);
-                    if(filename =="" || filename == null)
-                    {
-                      filename = img_edit;
-                    }
+        $('#mem-submit').submit(function (e) {
+            e.preventDefault();
+            var vipbadge = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
 
-                     var TMC = "";
-                     var Mecha = "";
-                     var tnc_counter=0;
-                    $(".textCont #parentTextContainer textarea").map(function (
-                          index,
-                          value
-                        ) {
-                          var parentText = $(value).val();
-                          TMC += parentText;
-                           var tnc_counter_child=0;
-                          var childText = $(
-                            "#txtCont" +
-                              (index + 1) +
-                              " .childTextContainer .childTextItem textarea"
-                          ).map(function (childIndex, childValue) {
-                            var choldText = $(childValue).val();
-                            TMC += "||" + choldText;
-                          });
-                          //TMC += "^";
-                           tnc_counter = index +1;
-                        if (tnc_counter != $(".textCont #parentTextContainer textarea").length) {
-                          TMC += "^";
-                          }
-                        });
-                        var mech_counter=0;
-                  
-                        $(".textConts #parentTextContainers textarea").map(function (
-                          index,
-                          value
-                        ) {
-                         
-                          var parentText = $(value).val();
-                          Mecha += parentText;
-                          var mech_counter_child=0;
-                          var childText = $(
-                            "#txtConts" +
-                              (index + 1) +
-                              " .childTextContainer2 .childTextItem textarea"
-                          ).map(function (childIndex, childValue) {
-                            var choldText = $(childValue).val();
-                            Mecha += "||" + choldText;
-                                mech_counter_child = childIndex +1;
-                              //if (mech_counter_child !=$("#txtConts" + (index + 1) + " .childTextContainer2 .childTextItem textarea" ).length) 
-                              //{
-                               //Mecha += choldText +"||";
-                              //}
-                          });
-                          mech_counter = index +1;
-                          if(mech_counter != $(".textConts #parentTextContainers textarea").length)
-                          {
-                           Mecha += "^";
-                          }
+            if (vipbadge == "" || vipbadge == null) {
+                vipbadge = vip_Badge_edit;
+            }
+            var qrFame = $("#qrFame").val().replace(/.*(\/|\\)/, '');
+            //console.log(qrFame);
+            if (qrFame == "" || qrFame == null) {
+                qrFame = qrframe_edit;
+            }
+            var vipCard = $("#vipCard").val().replace(/.*(\/|\\)/, '');
+            //console.log(vipCard);
+            if (vipCard == "" || vipCard == null) {
+                vipCard = vip_Card_edit;
+            }
+            var membershipCard = $("#membershipCard").val().replace(/.*(\/|\\)/, '');
+            //console.log(membershipCard);
+            if (membershipCard == "" || membershipCard == null) {
+                membershipCard = mcard_edit;
+            }
 
-                     
-                        });
-                     console.log($(".textConts #parentTextContainers textarea").length);
-                      var data={};
-                      data.id = i_id;
-                      data.Title =$('#title').val();
-                      data.Description = $('#descrip').val();
-                      // data.Mechanics = Mecha;
-                      data.Mechanics = $('#mecha').val();
-                      data.Validity =$('#validity').val();
-                      data.NoExpiry = "";
-                      data.ImgUrl =filename;
-                      data.VendorID = "";
-                      data.isVIP =$('#isVIP').val();
-                      data.BusinessTypeID =$('#btype-option').val();
-                      // data.tmc =TMC;
-                      data.tmc = $('#tmc').val();
-                      data.Active = 5;
+            var membershipCard = $("#membershipCard").get(0);
+            var vipCard = $("#vipCard").get(0);
+            var qrFame = $("#qrFame").get(0);
+            var VipBadge = $("#VipBadge").get(0);
+            var files = membershipCard.files;
+            var files_1 = vipCard.files;
+            var files_2 = qrFame.files;
+            var files_3 = VipBadge.files;
+            // console.log(membershipCard);
+            //   console.log(vipCard);
+            //     console.log(qrFame);
+            //       console.log(VipBadge);
+            var formData = new FormData();
+            formData.append('file', files[0]);
+            formData.append('vip', files_1[0]);
+            formData.append('qrFame', files_2[0]);
+            formData.append('VipBadge', files_3[0]);
+            formData.append('MembershipName', $('#memname').val());
+            formData.append('DateStarted', $('#dateuse').val());
+            formData.append('Description', $('#desc').val());
+            formData.append('DateEnded', $('#dateended').val());
+            formData.append('UserCount', $('#usercount').val());
+            formData.append('VIPCount', $('#vipcount').val());
+            formData.append('MembershipCard', membershipCard);
+            formData.append('VIPBadge', VipBadge);
+            formData.append('QRFrame', qrFame);
+            formData.append('VIPCard', vipCard);
 
-                      console.log(data);
-                      var fileUpload = $("#img").get(0);
-                      var files = fileUpload.files;
-                      var formData = new FormData();
-                      formData.append('file', files[0]);
-                      var fileUpload = $("#upload-img").get(0);
-                     if (i_id != 0) {
-                            message = 'Are you sure you want to update this '+ $('#title').val() ;
+            formData.append('id', i_id);
+            // var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = mm + '/' + dd + '/' + yyyy;
+            let date1 = new Date($('#dateuse').val());
+            let date2 = new Date($('#dateended').val());
+            let limitDate = new Date(today);
+            var today = new Date();
+
+
+
+
+            if (date1.getTime() >= date2.getTime()) {
+                notifyMsg('Warning!', 'Date Used cannot be greater than Date Used ', 'yellow', 'fas fa-exclamation-triangle');
+                $("#dateuse").focus();
+            }
+            else {
+                if (parseInt($('#usercount').val()) < parseInt($('#vipcount').val())) {
+                    notifyMsg('Warning!', 'VIP Count cannot be Greater than User Count!!', 'yellow', 'fas fa-exclamation-triangle');
+                    $("#vipcount").focus();
+
+                }
+                else {
+
+                    iziToast.question({
+                        timeout: 20000,
+                        close: false,
+                        overlay: true,
+                        id: 'question',
+                        zindex: 999,
+                        title: 'Confirmation',
+                        message: 'Are you sure you want to Add new Membership Tier?',
+                        position: 'center',
+                        buttons: [
+                            ['<button><b>YES</b></button>', function (instance, toast) {
+                                $.blockUI(reloadLoading);
+                                $.ajax({
+                                    url: '/MembershipPrivilege/SaveMembershipTier',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (result) {
+                                        if (result.stats == "Duplicate Entry") {
+                                            notifyMsg('Warning!', result.stats, 'red', 'fas fa-exclamation-triangle');
+                                        }
+                                        else {
+                                            notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
+                                            ShowMembershipList();
+                                            clear();
+                                            $(".cancel").click();
+
+
+                                        }
+                                        $.unblockUI();
+                                    }
+                                });
+                                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                            }, true],
+                            ['<button>NO</button>', function (instance, toast) {
+
+                                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                            }],
+                        ]
+                    });
+                }
+            }
+            //}
+
+
+
+
+        });
+
+        @* Function Clear *@
+            function clear() {
+                $('input[type="text"]').val("");
+                $('#isVIP').prop('selectedIndex', 0);
+                //$('#vendor-option').prop('selectedIndex', 0);
+                //$('#NoExpiry').prop('selectedIndex', 0);
+                $('#btype-option').prop('selectedIndex', 0);
+            }
+        @* Clear End Here*@
+        @* Save Privilege End Here*@
+            function ShowprivilegeListModal(id) {
+                var data = {};
+                data.Id = id;
+                $.blockUI(reloadLoading);
+                setTimeout(function () {
+                    $.ajax({
+                        url: '/MembershipPrivilege/GetPrivilegeMembershipList',
+                        data: {
+                            data: data
+                        },
+                        type: "POST",
+                        datatype: "json"
+                    }).done(function (data) {
+                        privilegelisttable.clear().draw();
+
+                        var stats = "";
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].status == "1") {
+                                stats = "checked";
                             }
                             else {
-                                message = 'Are you sure you want to Add new Privilege';
+                                stats = "unchecked";
                             }
-                            iziToast.question({
-                            timeout: 20000,
-                            close: false,
-                            overlay: true,
-                            id: 'question',
-                            zindex: 999,
-                            title: 'Confirmation',
-                            message: message,
-                            position: 'center',
-                            buttons: [
-                                ['<button><b>YES</b></button>', function (instance, toast) {
-                                    $.blockUI(reloadLoading);
-                                    $.ajax({
-                                        url: '/MembershipPrivilege/SavePrivilegeInfo',
-                                        data: {
-                                            data: data
-                                        },
-                                        type: "POST",
-                                        datatype: "json",
-                                    }).done(function (response) {
-                                        $.blockUI(reloadLoading);
-                                        $.ajax({
-                                            url: '/Business/UploadFile',
-                                            type: 'POST',
-                                            data: formData,
-                                            processData: false,
-                                            contentType: false,
-
-                                            success: function (result) {
-
-                                            }
-                                        }).fail(function () {
-                                            alert("There was an Error When Loading Data...");
-                                        });
-                                      notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                      ShowprivilegeList();
-                                      $("#h-close").click();
-
-                                        $.unblockUI();
-
-                                    }).fail(function () {
-                                        alert("There was an Error When Loading Data...");
-                                    });
-                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                                }, true],
-                                ['<button>NO</button>', function (instance, toast) {
-
-                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                                }],
-                            ]
-                       });
-
-                    });
-                     $('#mem-submit').submit(function(e){
-                    e.preventDefault();
-                         var vipbadge = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
-        
-                         if (vipbadge == "" || vipbadge == null) {
-                             vipbadge = vip_Badge_edit;
-                         }
-                         var qrFame = $("#qrFame").val().replace(/.*(\/|\\)/, '');
-                         //console.log(qrFame);
-                         if (qrFame == "" || qrFame == null) {
-                             qrFame = qrframe_edit;
-                         }
-                         var vipCard = $("#vipCard").val().replace(/.*(\/|\\)/, '');
-                         //console.log(vipCard);
-                         if (vipCard == "" || vipCard == null) {
-                             vipCard = vip_Card_edit;
-                         }
-                         var membershipCard = $("#membershipCard").val().replace(/.*(\/|\\)/, '');
-                         //console.log(membershipCard);
-                         if (membershipCard == "" || membershipCard == null) {
-                             membershipCard = mcard_edit;
-                         }
-                       
-                         var membershipCard = $("#membershipCard").get(0);
-                         var vipCard = $("#vipCard").get(0);
-                         var qrFame = $("#qrFame").get(0);
-                         var VipBadge = $("#VipBadge").get(0);
-                         var files = membershipCard.files;
-                         var files_1 = vipCard.files;
-                         var files_2 = qrFame.files;
-                         var files_3 = VipBadge.files;
-                           // console.log(membershipCard);
-                           //   console.log(vipCard);
-                           //     console.log(qrFame);
-                           //       console.log(VipBadge);
-                         var formData = new FormData();
-                         formData.append('file', files[0]);
-                         formData.append('vip', files_1[0]);
-                         formData.append('qrFame', files_2[0]);
-                         formData.append('VipBadge', files_3[0]);
-                         formData.append('MembershipName', $('#memname').val());
-                         formData.append('DateStarted', $('#dateuse').val());
-                         formData.append('Description', $('#desc').val());
-                         formData.append('DateEnded', $('#dateended').val());
-                         formData.append('UserCount',$('#usercount').val());
-                         formData.append('VIPCount',$('#vipcount').val());
-                         formData.append('MembershipCard',membershipCard);
-                         formData.append('VIPBadge', VipBadge);
-                         formData.append('QRFrame', qrFame);
-                         formData.append('VIPCard', vipCard);
-                     
-                         formData.append('id',i_id);
-                          // var today = new Date();
-                          var dd = String(today.getDate()).padStart(2, '0');
-                          var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                          var yyyy = today.getFullYear();
-                          today = mm + '/' + dd + '/' + yyyy;
-                          let date1 = new Date($('#dateuse').val());
-                          let date2 = new Date($('#dateended').val());
-                          let limitDate = new Date(today);
-                          var today = new Date();
-
-
-
-
-                      if (date1.getTime() >= date2.getTime())
-                     {
-                      notifyMsg('Warning!', 'Date Used cannot be greater than Date Used ', 'yellow', 'fas fa-exclamation-triangle');
-                         $("#dateuse").focus();
-                     }
-                     else
-                     {
-                        if (parseInt($('#usercount').val()) < parseInt($('#vipcount').val()))
-                         {
-                          notifyMsg('Warning!', 'VIP Count cannot be Greater than User Count!!', 'yellow', 'fas fa-exclamation-triangle');
-                          $("#vipcount").focus();
+                            $('#privilegelist-table').dataTable().fnAddData([
+                                '<td>' + '<label for="cb' + data[i].privilegeID + '"><input type="checkbox" id="cb' + data[i].privilegeID + '" class="check-all" data-id="' + data[i].privilegeID +
+                                '" data-title="' + data[i].title + '" data-status="' + data[i].status + '"  data-usercount="' + data[i].userCount + '"  data-vipcount="' + data[i].vipCount +
+                                '"   data-membershipid="' + data[i].membershipID + '" ' + stats + '/>' +
+                                '<div>' +
+                                '<p></p>' +
+                                '<p>' + data[i].title + '</p>' + '</div><label></td>'
+                            ]);
 
                         }
-                        else
-                        {
-
-                          iziToast.question({
-                            timeout: 20000,
-                            close: false,
-                            overlay: true,
-                            id: 'question',
-                            zindex: 999,
-                            title: 'Confirmation',
-                            message: 'Are you sure you want to Add new Membership Tier?',
-                            position: 'center',
-                            buttons: [
-                                ['<button><b>YES</b></button>', function (instance, toast) {
-                                    $.blockUI(reloadLoading);
-                                    $.ajax({
-                                        url: '/MembershipPrivilege/SaveMembershipTier',
-                                        type: 'POST',
-                                        data: formData,
-                                        processData: false,
-                                        contentType: false,
-                                        success: function (result) {
-                                            if (result.stats == "Duplicate Entry") {
-                                                notifyMsg('Warning!', result.stats, 'red', 'fas fa-exclamation-triangle');
-                                            }
-                                            else {
-                                                notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
-                                                ShowMembershipList();
-                                                clear();
-                                                $(".cancel").click();
-
-
-                                            }
-                                        $.unblockUI();
-                                        }
-                                    });
-                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                                }, true],
-                                ['<button>NO</button>', function (instance, toast) {
-
-                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                                }],
-                            ]
-                        });
-                        }
-                        }
-                     //}
-
-
-
-
+                        $.unblockUI();
+                    }).fail(function () {
+                        alert("There was an Error When Loading Data...");
                     });
 
-                    @* Function Clear *@
-                    function clear()
-                    {
-                      $('input[type="text"]').val("");
-                      $('#isVIP').prop('selectedIndex', 0);
-                      //$('#vendor-option').prop('selectedIndex', 0);
-                      //$('#NoExpiry').prop('selectedIndex', 0);
-                      $('#btype-option').prop('selectedIndex', 0);
-                    }
-@* Clear End Here*@
-@* Save Privilege End Here*@
-function ShowprivilegeListModal(id) {
-   var data ={};
-  data.Id= id;
-  $.blockUI(reloadLoading);
-  setTimeout(function () {
-  $.ajax({
-      url: '/MembershipPrivilege/GetPrivilegeMembershipList',
-      data: {
-        data:data
-      },
-      type: "POST",
-      datatype: "json"
-  }).done(function (data) {
-    privilegelisttable.clear().draw();
+                }, 100);
 
-    var stats="";
-      for (var i = 0; i < data.length; i++) {
-          if(data[i].status == "1")
-          {
-              stats="checked";
-          }
-          else
-          {
-            stats="unchecked";
-          }
-                  $('#privilegelist-table').dataTable().fnAddData([
-                            '<td>' + '<label for="cb' + data[i].privilegeID + '"><input type="checkbox" id="cb' + data[i].privilegeID + '" class="check-all" data-id="' + data[i].privilegeID +
-                            '" data-title="' + data[i].title + '" data-status="' + data[i].status + '"  data-usercount="' + data[i].userCount + '"  data-vipcount="' + data[i].vipCount +
-                            '"   data-membershipid="' + data[i].membershipID + '" ' + stats + '/>' +
-                            '<div>' +
-                            '<p></p>' +
-                            '<p>' + data[i].title + '</p>' + '</div><label></td>'
-                  ]);
-
-      }
-      $.unblockUI();
-    }).fail(function () {
-        alert("There was an Error When Loading Data...");
-    });
-
-}, 100);
-
-}
+            }
 
 
 
-$('#membership-table').on('click', '.tbl-view', function () {
+        $('#membership-table').on('click', '.tbl-view', function () {
 
-      memid=$(this).data("id");
-      memname = $(this).data("memname");
-      usercount=$(this).data("ucount");
-      vipcount=$(this).data("vcount");
-      console.log(memname);
-      var data ={};
-      data.Id= $(this).data("id");
-      ShowprivilegeListModal(data.Id);
-      document.getElementById("priv-name").innerHTML = memname;
-      $('#privilegelistmodal').modal('show');
+            memid = $(this).data("id");
+            memname = $(this).data("memname");
+            usercount = $(this).data("ucount");
+            vipcount = $(this).data("vcount");
+            console.log(memname);
+            var data = {};
+            data.Id = $(this).data("id");
+            ShowprivilegeListModal(data.Id);
+            document.getElementById("priv-name").innerHTML = memname;
+            $('#privilegelistmodal').modal('show');
 
-});
-        function ShowVendorPrivlist(id,vid) {
+        });
+        function ShowVendorPrivlist(id, vid) {
             var data = {};
             data.Id = id;
             data.vid = vid;
@@ -1504,7 +1587,7 @@ $('#membership-table').on('click', '.tbl-view', function () {
                         stats = "unchecked";
                     }
                     $('#vendorList').dataTable().fnAddData([
-                        '<td>' + '<label for="cb' + data[i].id + '"><input type="checkbox" id="cb' + data[i].id + '" class="check-vendor" data-vid="'+data[i].vid+'" data-vendorname="' + data[i].vendorName + '" '+stats+'  />' +
+                        '<td>' + '<label for="cb' + data[i].id + '"><input type="checkbox" id="cb' + data[i].id + '" class="check-vendor" data-vid="' + data[i].vid + '" data-vendorname="' + data[i].vendorName + '" ' + stats + '  />' +
                         '<div>' +
                         '<p></p>' +
                         '<p>' + data[i].vendorName + '</p>' + '</div><label></td>'
@@ -1514,365 +1597,373 @@ $('#membership-table').on('click', '.tbl-view', function () {
                 }
             });
         }
-$('#privilege-table').on('click', '.tbl-view', function () {
+        $('#privilege-table').on('click', '.tbl-view', function () {
 
-    //privid = $(this).data("id");
-    i_id = $(this).data("id");
-    vid = $(this).data("vid");
-    var data = {};
-    data.Id = i_id;
-    data.vid = vid;
-    console.log(data);
-   
-    $('#vlistmodal').modal('show');
+            //privid = $(this).data("id");
+            i_id = $(this).data("id");
+            vid = $(this).data("vid");
+            var data = {};
+            data.Id = i_id;
+            data.vid = vid;
+            console.log(data);
 
-    ShowVendorPrivlist(i_id, vid) 
-});
-$('#membership-table').on('click', '.tbl-edit', function () {
-    @* ShowprivilegeListModal(); *@
-    i_id = $(this).data("id");
-    memname = $(this).data("memname");
-    desc  = $(this).data("descrip");
-    dstart = $(this).data("dstart");
-    dend = $(this).data("dend");
-    ucount  = $(this).data("ucount");
-    vcount  = $(this).data("vcount");
-    mcard = $(this).data("mcard");
-    qrframe = $(this).data("qrframe");
-    vip_Card = $(this).data("cards");
-    vip_Badge = $(this).data("badges");
+            $('#vlistmodal').modal('show');
 
-    console.log(vip_Badge);
-    console.log(vip_Card);
-            console.log(mcard);
-    var formattedDate = formatDate(dend);
-    var formattedDate_dstart = formatDate(dstart);
-    //console.log(formattedDate);
-      $('#memname').val(memname);
-      $('#desc').val(desc);
-    $('#dateuse').val(formattedDate_dstart);
-    $('#dateended').val(formattedDate);
-      $('#usercount').val(ucount);
-      $('#vipcount').val(vcount);
-        $('#membershipmodal').modal('show');
+            ShowVendorPrivlist(i_id, vid)
+        });
+        $('#membership-table').on('click', '.tbl-edit', function () {
+        @* ShowprivilegeListModal(); *@
+                i_id = $(this).data("id");
+            memname = $(this).data("memname");
+            desc = $(this).data("descrip");
+            dstart = $(this).data("dstart");
+            dend = $(this).data("dend");
+            ucount = $(this).data("ucount");
+            vcount = $(this).data("vcount");
+            mcard = $(this).data("mcard");
+            qrframe = $(this).data("qrframe");
+            vip_Card = $(this).data("cards");
+            vip_Badge = $(this).data("badges");
+
+            // console.log(vip_Badge);
+            // console.log(vip_Card);
+            //     console.log(mcard);
+            var formattedDate = formatDate(dend);
+            var formattedDate_dstart = formatDate(dstart);
+            //console.log(formattedDate);
+            $('#memname').val(memname);
+            $('#desc').val(desc);
+            $('#dateuse').val(formattedDate_dstart);
+            $('#dateended').val(formattedDate);
+            $('#usercount').val(ucount);
+            $('#vipcount').val(vcount);
+            $('#membershipmodal').modal('show');
 
 
             if (mcard != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
-        var img = $('<img>').attr('src', mcard);
-        img.attr('height', '100%');
-                img.attr('width', '100%');
-        $('.img-container-membershipCard').html(img);
-    }
-    else {
-        var img = $('<img>').attr('src', mcard);
+                var img = $('<img>').attr('src', mcard);
                 img.attr('height', '100%');
                 img.attr('width', '100%');
-        $('.img-container-membershipCard').html(img);
-
-    }
-
-     if (qrframe != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
-        var img = $('<img>').attr('src', qrframe);
-        img.attr('height', '100%');
+                $('.img-container-membershipCard').html(img);
+            }
+            else {
+                var img = $('<img>').attr('src', mcard);
+                img.attr('height', '100%');
                 img.attr('width', '100%');
-        $('.img-container-qr').html(img);
-    }
-    else {
-        var img = $('<img>').attr('src', qrframe);
-        img.attr('height', '100px');
-        img.attr('width', '100px');
-        $('.img-container-qr').html(img);
-    }
+                $('.img-container-membershipCard').html(img);
+
+            }
+
+            if (qrframe != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
+                var img = $('<img>').attr('src', qrframe);
+                img.attr('height', '100%');
+                img.attr('width', '100%');
+                $('.img-container-qr').html(img);
+            }
+            else {
+                var img = $('<img>').attr('src', qrframe);
+                img.attr('height', '100px');
+                img.attr('width', '100px');
+                $('.img-container-qr').html(img);
+            }
 
             if (vip_Card != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
-        var img = $('<img>').attr('src', vip_Card);
-        img.attr('height', '100%');
+                var img = $('<img>').attr('src', vip_Card);
+                img.attr('height', '100%');
                 img.attr('width', '100%');
-        $('.img-container-vipCard').html(img);
-    }
-    else {
-        var img = $('<img>').attr('src', vip_Card);
-        img.attr('height', '100%');
+                $('.img-container-vipCard').html(img);
+            }
+            else {
+                var img = $('<img>').attr('src', vip_Card);
+                img.attr('height', '100%');
                 img.attr('width', '100%');
-        $('.img-container-vipCard').html(img);
-    }
+                $('.img-container-vipCard').html(img);
+            }
 
             if (vip_Badge != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
-        var img = $('<img>').attr('src', vip_Badge);
+                var img = $('<img>').attr('src', vip_Badge);
                 img.attr('height', '100%');
                 img.attr('width', '100%');
-        $('.img-container-vipbadge').html(img);
-    }
-    else {
+                $('.img-container-vipbadge').html(img);
+            }
+            else {
 
-        var img = $('<img>').attr('src', vip_Badge);
+                var img = $('<img>').attr('src', vip_Badge);
                 img.attr('height', '100%');
                 img.attr('width', '100%');
-        $('.img-container-vipbadge').html(img);
-    }
+                $('.img-container-vipbadge').html(img);
+            }
 
-    mcard_edit = mcard.split('/')[6];
-    qrframe_edit = qrframe.split('/')[6];
-    vip_Card_edit = vip_Card.split('/')[6];
-    vip_Badge_edit = vip_Badge.split('/')[6];
+            mcard_edit = mcard.split('/')[6];
+            qrframe_edit = qrframe.split('/')[6];
+            vip_Card_edit = vip_Card.split('/')[6];
+            vip_Badge_edit = vip_Badge.split('/')[6];
             // console.log(mcard_edit);
-});
+        });
 
-$('#membership-table').on('click', '.tbl-delete', function () {
-                      var data = {};
-                      data.id = $(this).data("id");
+        $('#membership-table').on('click', '.tbl-delete', function () {
+            var data = {};
+            data.id = $(this).data("id");
 
-                     iziToast.question({
-                          timeout: 20000,
-                          close: false,
-                          overlay: true,
-                          id: 'question',
-                          zindex: 999,
-                          title: 'Confirmation',
-                          message: 'Are you sure you want to delete?',
-                          position: 'center',
-                          buttons: [
-                              ['<button><b>YES</b></button>', function (instance, toast) {
-                                  $.blockUI(reloadLoading);
-                                  $.ajax({
-                                       url: '/MembershipPrivilege/DeleteMemInfo',
-                                    data: {
-                                           data: data,
-                                      },
-                                      type: "POST",
-                                      datatype: "json"
-                                  }).done(function (data) {
-                                        if (data.stats == "Succesfully deleted") {
-                                    notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
-                                    ShowMembershipList();
-                                    $(".alert-warning").hide();
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                id: 'question',
+                zindex: 999,
+                title: 'Confirmation',
+                message: 'Are you sure you want to delete?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+                        $.blockUI(reloadLoading);
+                        $.ajax({
+                            url: '/MembershipPrivilege/DeleteMemInfo',
+                            data: {
+                                data: data,
+                            },
+                            type: "POST",
+                            datatype: "json"
+                        }).done(function (data) {
+                            if (data.stats == "Succesfully deleted") {
+                                notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                                ShowMembershipList();
+                                $(".alert-warning").hide();
 
-                                      }
-                                      else
-                                      {
-                                         notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');
-                                      }
-
-                                      $.unblockUI();
-
-                                  }).fail(function () {
-                                      alert("There was an Error When Loading Data...");
-                                  });
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                              }, true],
-                              ['<button>NO</button>', function (instance, toast) {
-
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                              }],
-                          ]
-                      });
-
-});
-
-$('#privilege-table').on('click', '.tbl-edit', function () {
-
-    i_id = $(this).data("id");
-    btypeid = $(this).data("btypeid");
-    description  = $(this).data("descrip");
-    isVIP = $(this).data("vip");
-    mechanics = $(this).data("mechanics");
-    //noExpiry  = $(this).data("nexpr");
-    title  = $(this).data("title");
-    tmc  = $(this).data("tmc");
-    validity  = $(this).data("validity");
-    vendorID  = $(this).data("vid");
-    imgUrl  = $(this).data("imgfile");
-                console.log(validity);
-    //var date = new Date(validity);
-    //var formattedDate = validity.replace(/-/g,"/");
-                      formattedDate_dstart = formatDate(validity);
-                      if (imgUrl != null) {
-                      var img = $('<img>').attr('src', imgUrl);
-                      img.attr('height', '120px');
-                      img.attr('width', '120px');
-                      $('.upload-image-preview').html(img);
-                      }
-                      else {
-                          document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
-                      }
-    ShowprivilegeList();
-    $('#title').val(title);
-    $('#descrip').val(description);
-    $('#mechanics').val(mechanics);
-    $('#validity').val(formattedDate_dstart);
-    //$('#NoExpiry').val(noExpiry);
-    //$('#vendor-option').val(vendorID);
-    $('#isVIP').val(isVIP);
-    $('#btype-option').val(btypeid);
-
-    // tmcContent = tmc.replaceAll("?", "•");
-    tmcContent = tmc;
-            // France
-    $('#tmc').val(tmc);
-    $('#mecha').val(mechanics);
-    // France
-    populate(tmc);
-    populateMechanics(mechanics);
-    $('#privilegemodal').modal('show');
-    //noexpiry();
-
-});
-@*  Delete *@
-                   $('#privilege-table').on('click','.tbl-delete', function () {
-                        var data = {};
-                      data.id = $(this).data("id");
-
-                     iziToast.question({
-                          timeout: 20000,
-                          close: false,
-                          overlay: true,
-                          id: 'question',
-                          zindex: 999,
-                          title: 'Confirmation',
-                          message: 'Are you sure you want to delete?',
-                          position: 'center',
-                          buttons: [
-                              ['<button><b>YES</b></button>', function (instance, toast) {
-                                  $.blockUI(reloadLoading);
-                                  $.ajax({
-                                       url: '/MembershipPrivilege/DeletePrivilegeInfo',
-                                    data: {
-                                           data: data,
-                                      },
-                                      type: "POST",
-                                      datatype: "json"
-                                  }).done(function (data) {
-
-                                      if (data.stats == "Succesfully deleted") {
-                                          notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
-                                          $("#h-close").click();
-                                          ShowprivilegeList();
-                                      }
-                                      else
-                                      {
-                                         notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');
-                                      }
-                                      ////console.log(data);
-                                      //notifyMsg('Success!', data, 'green', 'fas fa-check');
-                                      //ShowprivilegeList();
-                                  $(".alert-warning").hide();
-
-                                      $.unblockUI();
-
-                                  }).fail(function () {
-                                      alert("There was an Error When Loading Data...");
-                                  });
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                              }, true],
-                              ['<button>NO</button>', function (instance, toast) {
-
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                              }],
-                          ]
-                      });
-                    });
-@*Delete End Here*@
-//function noexpiry()
-//{
-//   if($('#NoExpiry').val() == 1)
-//              {
-//                $('#validity').prop('disabled', false);
-//              }
-//              else
-//              {
-//                  $('#validity').prop('disabled', true);
-//              }
-//}
-function CheckedRows() {
-  IdList = [];
-  $('.check-all:checked').each(function (id, item) {
-      var id = $(item).data('id');
-      var status = $(item).data('status');
-
-      var stats="";
-
-      IdList.push({
-          privilegeID: id,
-          status: "1",
-          MembershipID:memid,
-          usercount: usercount,
-          vipcount: vipcount,
-          stats:"1"
-
-      });
-  });
-  return IdList;
-}
-      $('#privlist').submit(function(e){
-                    e.preventDefault();
-                      i_id = 0;
-                      @* var data={}; *@
-                      @* data.MembershipID = memid;
-                      data.userCount = usercount;;
-                      data.vipCount = vipcount; *@
-                      var data = {};
-                      data.IdList = CheckedRows();
-                        if (i_id != 0) {
-                        message = 'Are you sure you want to update this membership Tier';
                             }
                             else {
-                                message = 'Are you sure you want to Add new Privilege';
+                                notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');
                             }
-                      iziToast.question({
-                          timeout: 20000,
-                          close: false,
-                          overlay: true,
-                          id: 'question',
-                          zindex: 999,
-                          title: 'Confirmation',
-                          message: message,
-                          position: 'center',
-                          buttons: [
-                              ['<button><b>YES</b></button>', function (instance, toast) {
 
-                                  $.blockUI(reloadLoading);
-                                  $.ajax({
-                                     url: '/MembershipPrivilege/Saveprivlist',
-                                       data: {
-                                       IdList: CheckedRows(),
-                                      },
-                                      type: "POST",
-                                      datatype: "json"
-                                  }).done(function (data) {
-                                //console.log(data);
-                                      if(data.stats == "Duplicate Entry")
-                                      {
+                            $.unblockUI();
+
+                        }).fail(function () {
+                            alert("There was an Error When Loading Data...");
+                        });
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ]
+            });
+
+        });
+
+        $('#privilege-table').on('click', '.tbl-edit', function () {
+
+            i_id = $(this).data("id");
+            btypeid = $(this).data("btypeid");
+            description = $(this).data("descrip");
+            isVIP = $(this).data("vip");
+            mechanics = $(this).data("mechanics");
+            //noExpiry  = $(this).data("nexpr");
+            title = $(this).data("title");
+            tmc = $(this).data("tmc");
+            validity = $(this).data("validity");
+            vendorID = $(this).data("vid");
+            imgUrl = $(this).data("imgfile");
+            //var date = new Date(validity);
+            //var formattedDate = validity.replace(/-/g,"/");
+            formattedDate_dstart = formatDate(validity);
+            if (imgUrl != null) {
+                var img = $('<img>').attr('src', imgUrl);
+                img.attr('height', '120px');
+                img.attr('width', '120px');
+                $('.upload-image-preview').html(img);
+            }
+            else {
+                document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+            }
+            // ShowprivilegeList();
+            $('#title').val(title);
+            $('#descrip').val(description);
+            $('#mechanics').val(mechanics);
+            $('#validity').val(formattedDate_dstart);
+            $('#imgUrl').val(imgUrl);
+
+            //$('#NoExpiry').val(noExpiry);
+            //$('#vendor-option').val(vendorID);
+            $('#isVIP').val(isVIP);
+            $('#btype-option').val(btypeid);
+
+            // tmcContent = tmc.replaceAll("?", "•");
+            tmcContent = tmc;
+            // France TMC-Edit
+            // document.getElementById('tmc').innerHTML = tmc;
+            tmcEditor.setHTMLCode(tmc);
+            mechaEditor.setHTMLCode(mechanics);
+            // $('#tmc').val(tmc);
+
+            // $('#mecha').val(mechanics);
+            // document.getElementById('mecha').getElementsByClassName("ql-editor")[0].innerHTML = mechanics;
+            // France
+            populate(tmc);
+            populateMechanics(mechanics);
+            // var textare = document.getElementsByClassName("editor__main");
+
+            // textare.style = "background-color: red !important";
+
+            $('#privilegemodal').modal('show');
+
+            //noexpiry();
+
+        });
+        @*  Delete *@
+            $('#privilege-table').on('click', '.tbl-delete', function () {
+                var data = {};
+                data.id = $(this).data("id");
+
+                iziToast.question({
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    id: 'question',
+                    zindex: 999,
+                    title: 'Confirmation',
+                    message: 'Are you sure you want to delete?',
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', function (instance, toast) {
+                            $.blockUI(reloadLoading);
+                            $.ajax({
+                                url: '/MembershipPrivilege/DeletePrivilegeInfo',
+                                data: {
+                                    data: data,
+                                },
+                                type: "POST",
+                                datatype: "json"
+                            }).done(function (data) {
+
+                                if (data.stats == "Succesfully deleted") {
+                                    notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                                    $("#h-close").click();
+                                    ShowprivilegeList();
+                                }
+                                else {
                                     notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');
-                                      }
-                                      else
-                                      {
-                                      notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
-                                      ShowprivilegeList();
-                                      }
+                                }
+                                ////console.log(data);
+                                //notifyMsg('Success!', data, 'green', 'fas fa-check');
+                                //ShowprivilegeList();
+                                $(".alert-warning").hide();
 
-                                      $(".alert-warning").hide();
+                                $.unblockUI();
 
-                                      $.unblockUI();
+                            }).fail(function () {
+                                alert("There was an Error When Loading Data...");
+                            });
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                                  }).fail(function () {
-                                      alert("There was an Error When Loading Data...");
-                                  });
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
 
-                              }, true],
-                              ['<button>NO</button>', function (instance, toast) {
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        }],
+                    ]
+                });
+            });
+        @*Delete End Here*@
+            //function noexpiry()
+            //{
+            //   if($('#NoExpiry').val() == 1)
+            //              {
+            //                $('#validity').prop('disabled', false);
+            //              }
+            //              else
+            //              {
+            //                  $('#validity').prop('disabled', true);
+            //              }
+            //}
+            function CheckedRows() {
+                IdList = [];
+                $('.check-all:checked').each(function (id, item) {
+                    var id = $(item).data('id');
+                    var status = $(item).data('status');
 
-                              }],
-                          ]
-                      });
+                    var stats = "";
+
+                    IdList.push({
+                        privilegeID: id,
+                        status: "1",
+                        MembershipID: memid,
+                        usercount: usercount,
+                        vipcount: vipcount,
+                        stats: "1"
 
                     });
+                });
+                return IdList;
+            }
+        $('#privlist').submit(function (e) {
+            e.preventDefault();
+            i_id = 0;
+        @* var data={}; *@
+        @* data.MembershipID = memid;
+            data.userCount = usercount;;
+            data.vipCount = vipcount; *@
+                              var data = {};
+            data.IdList = CheckedRows();
+            if (i_id != 0) {
+                message = 'Are you sure you want to update this membership Tier';
+            }
+            else {
+                message = 'Are you sure you want to Add new Privilege';
+            }
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                id: 'question',
+                zindex: 999,
+                title: 'Confirmation',
+                message: message,
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+
+                        $.blockUI(reloadLoading);
+                        $.ajax({
+                            url: '/MembershipPrivilege/Saveprivlist',
+                            data: {
+                                IdList: CheckedRows(),
+                            },
+                            type: "POST",
+                            datatype: "json"
+                        }).done(function (data) {
+                            //console.log(data);
+                            if (data.stats == "Duplicate Entry") {
+                                notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');
+                            }
+                            else {
+                                notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                                ShowprivilegeList();
+                            }
+
+                            $(".alert-warning").hide();
+
+                            $.unblockUI();
+
+                        }).fail(function () {
+                            alert("There was an Error When Loading Data...");
+                        });
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ]
+            });
+
+        });
+
 
     </script>
 }

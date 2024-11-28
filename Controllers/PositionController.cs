@@ -44,22 +44,22 @@ namespace AOPC.Controllers
             _appSettings = appSettings.Value;
             token_ = _token;
         }
-      [HttpGet]
+        [HttpGet]
         public async Task<JsonResult> GetPosition()
         {
             var url = DBConn.HttpString + "/api/ApiRegister/PositionList";
             HttpClient client = new HttpClient();
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Bearer"));
 
-             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<PositionModel> models = JsonConvert.DeserializeObject<List<PositionModel>>(response);
             return new(models);
         }
         public IActionResult Index()
         {
-            string  token = HttpContext.Session.GetString("Bearer");
-              if (token == "")
+            string token = HttpContext.Session.GetString("Bearer");
+            if (token == "")
             {
                 return RedirectToAction("Index", "LogIn");
             }

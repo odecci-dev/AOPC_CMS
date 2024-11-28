@@ -39,13 +39,13 @@ namespace AOPC.Controllers
         private readonly QueryValueService token_val;
         public LogInController(
              GlobalService globalService, IOptions<AppSettings> appSettings, IWebHostEnvironment _environment,
-                  UserManager<ApplicationUser> userManager,QueryValueService _token,
+                  UserManager<ApplicationUser> userManager, QueryValueService _token,
                   IHttpContextAccessor contextAccessor,
                   IConfiguration configuration)
         {
             _globalService = globalService;
             _userManager = userManager;
-             token_val = _token;
+            token_val = _token;
             UserId = _userManager.GetUserId(contextAccessor.HttpContext.User);
             _configuration = configuration;
             apiUrl = _configuration.GetValue<string>("AppSettings:WebApiURL");
@@ -57,10 +57,10 @@ namespace AOPC.Controllers
         public async Task<IActionResult> LoginUser(UserModel data)
         {
 
-       
+
 
             status = await LogIn(data);
-         
+
             if (status == "Successfully Log In")
             {
                 if (HttpContext.Session.GetString("UserType") == "Corporate")
@@ -74,13 +74,13 @@ namespace AOPC.Controllers
                 else if (HttpContext.Session.GetString("UserType") == "User Level")
                 {
                     status = "Invalid Login";
-                     return Json(new { redirectToUrl = Url.Action("Index", "LogIn") });
-                     
+                    return Json(new { redirectToUrl = Url.Action("Index", "LogIn") });
+
                 }
             }
             else
             {
-                
+
             }
             return Json(new { stats = status });
 
@@ -107,55 +107,56 @@ FROM            UsersModel INNER JOIN
                 DataTable dt = db.SelectDb(sql).Tables[0];
                 if (dt.Rows.Count != 0)
                 {
-                            HttpContext.Session.SetString("Name", dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString());
-                            HttpContext.Session.SetString("Position", dt.Rows[0]["PositionName"].ToString());
-                            HttpContext.Session.SetString("UserType", dt.Rows[0]["UserType"].ToString());
-                            HttpContext.Session.SetString("CorporateName", dt.Rows[0]["CorporateName"].ToString());
-                            HttpContext.Session.SetString("EmployeeID", dt.Rows[0]["EmployeeID"].ToString());
-                            HttpContext.Session.SetString("CorporateID", dt.Rows[0]["CorporateID"].ToString());
-                            HttpContext.Session.SetString("Id", dt.Rows[0]["Id"].ToString());
-                            HttpContext.Session.SetString("MembershipName", dt.Rows[0]["MembershipName"].ToString());
-                            if (dt.Rows[0]["FilePath"].ToString() == null || dt.Rows[0]["FilePath"].ToString() == string.Empty)
-                            {
-                                HttpContext.Session.SetString("ImgUrl", "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png");
-                            }
-                            else
-                            {
-                                HttpContext.Session.SetString("ImgUrl", dt.Rows[0]["FilePath"].ToString());
-                            }
-                            HttpClient client = new HttpClient();
-                            var url = DBConn.HttpString + "/api/ApiLogIn/LogIn";
-                            var token = _global.GenerateToken(data.Username, _appSettings.Key.ToString());
-               
-                            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_val.GetValue()); 
-                            StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-                            using (var response = await client.PostAsync(url, content))
-                            {
+                    HttpContext.Session.SetString("Name", dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString());
+                    HttpContext.Session.SetString("Position", dt.Rows[0]["PositionName"].ToString());
+                    HttpContext.Session.SetString("UserType", dt.Rows[0]["UserType"].ToString());
+                    HttpContext.Session.SetString("CorporateName", dt.Rows[0]["CorporateName"].ToString());
+                    HttpContext.Session.SetString("EmployeeID", dt.Rows[0]["EmployeeID"].ToString());
+                    HttpContext.Session.SetString("CorporateID", dt.Rows[0]["CorporateID"].ToString());
+                    HttpContext.Session.SetString("Id", dt.Rows[0]["Id"].ToString());
+                    HttpContext.Session.SetString("MembershipName", dt.Rows[0]["MembershipName"].ToString());
+                    HttpContext.Session.SetString("Username", data.Username);
+                    if (dt.Rows[0]["FilePath"].ToString() == null || dt.Rows[0]["FilePath"].ToString() == string.Empty)
+                    {
+                        HttpContext.Session.SetString("ImgUrl", "https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png");
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString("ImgUrl", dt.Rows[0]["FilePath"].ToString());
+                    }
+                    HttpClient client = new HttpClient();
+                    var url = DBConn.HttpString + "/api/ApiLogIn/LogIn";
+                    var token = _global.GenerateToken(data.Username, _appSettings.Key.ToString());
 
-                                status = await response.Content.ReadAsStringAsync();
-                                //List<LoginStats> models = JsonConvert.DeserializeObject<List<LoginStats>>(status);
-                                string asdas = JsonConvert.DeserializeObject<LoginStats>(status).Status;
-                                result = asdas;
-                                
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_val.GetValue());
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync(url, content))
+                    {
 
-                            }
-                            if(result == "Successfully Log In")
-                            {
-                            //string action = data.Id == 0 ? "Added New" : "Updated";
-                            dbmet.InsertAuditTrail("User Id: " + dt.Rows[0]["Id"].ToString() +
-                               " Successfully LogIn Name : " + dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString(), DateTime.Now.ToString(),
-                               " CMS-LogIn",
-                               dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString(),
-                                dt.Rows[0]["Id"].ToString(),
-                               "2",
-                               dt.Rows[0]["EmployeeID"].ToString());
-                                HttpContext.Session.SetString("Bearer", token.ToString());
-                                string test = token_val.GetValue();
-                                token_val.GetValue();
+                        status = await response.Content.ReadAsStringAsync();
+                        //List<LoginStats> models = JsonConvert.DeserializeObject<List<LoginStats>>(status);
+                        string asdas = JsonConvert.DeserializeObject<LoginStats>(status).Status;
+                        result = asdas;
 
-                                
-                            }
-              
+
+                    }
+                    if (result == "Successfully Log In")
+                    {
+                        //string action = data.Id == 0 ? "Added New" : "Updated";
+                        dbmet.InsertAuditTrail("User Id: " + dt.Rows[0]["Id"].ToString() +
+                           " Successfully LogIn Name : " + dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString(), DateTime.Now.ToString(),
+                           " CMS-LogIn",
+                           dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString(),
+                            dt.Rows[0]["Id"].ToString(),
+                           "2",
+                           dt.Rows[0]["EmployeeID"].ToString());
+                        HttpContext.Session.SetString("Bearer", token.ToString());
+                        string test = token_val.GetValue();
+                        token_val.GetValue();
+
+
+                    }
+
                 }
                 else
                 {
@@ -170,8 +171,8 @@ FROM            UsersModel INNER JOIN
                        "Unknown");
                     result = "Invalid Log IN";
                 }
-                   
-                    
+
+
             }
 
             catch (Exception ex)
@@ -179,37 +180,37 @@ FROM            UsersModel INNER JOIN
                 status = ex.GetBaseException().ToString();
             }
             return result;
-        
+
 
         }
- 
+
         // Displays the index of the current user.
         public IActionResult Index()
         {
-           string token = HttpContext.Session.GetString("Bearer");
+            string token = HttpContext.Session.GetString("Bearer");
             if (token != "")
             {
-                 if (HttpContext.Session.GetString("UserType") == "Corporate")
+                if (HttpContext.Session.GetString("UserType") == "Corporate")
                 {
-                     return RedirectToAction("CorporateIndex", "Corporate");   
+                    return RedirectToAction("CorporateIndex", "Corporate");
                 }
                 else if (HttpContext.Session.GetString("UserType") == "ADMIN")
                 {
-                    return RedirectToAction("Index", "CMS");   
+                    return RedirectToAction("Index", "CMS");
                 }
-               
-                
+
+
             }
             else
             {
-                        return View();
+                return View();
             }
             return View();
         }
         public IActionResult Logout()
         {
-          HttpContext.Session.SetString("Bearer","");
-          return RedirectToAction("Index", "LogIn");
+            HttpContext.Session.SetString("Bearer", "");
+            return RedirectToAction("Index", "LogIn");
         }
     }
 }

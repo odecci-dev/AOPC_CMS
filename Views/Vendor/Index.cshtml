@@ -7,7 +7,7 @@
         message = ViewData["Message"].ToString();
     }
 }
-<style>
+@* <style>
     .cust-pagination {
         display: flex;
         gap: 10px;
@@ -23,7 +23,7 @@
             cursor: pointer;
             padding:5px;
         }
-   
+
  #prev{
         color: #c89328;
      cursor:pointer;
@@ -31,7 +31,7 @@
         color: #c89328;
      cursor:pointer;
  }
-</style>
+</style> *@
 <div class="register-main-container">
     <div class="business-data">
         <div class="list-title">
@@ -44,14 +44,14 @@
 
                     <div style="width: 100%; display: flex; justify-content: flex-end; margin: 10px 0; padding-right:5px">
 
-                        <div >
-                            <label for="srchbox">Search</label>
-                            <input type="text" value="" id="srchbox" class="mod-input" />
-                        </div>
+                        @*  <div >
+                        <label for="srchbox">Search</label>
+                        <input type="text" value="" id="srchbox" class="mod-input" />
+                        </div> *@
                     </div>
                     <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
 
-                        <table class="myTableLarge" id="vendor-table">
+                        <table class="myTableMedium" id="vendor-table">
                             <thead>
                             <th>
                                 <input type="checkbox" class="check-all" id="checkall" />
@@ -68,11 +68,11 @@
                             <tbody>
                             </tbody>
                         </table>
-                        <div class="cust-pagination">
-                            <span id="prev">Prev</span>
-                            <div id="counter"></div>
-                            <span id="next">Next</span>
-                        </div>
+                        @* <div class="cust-pagination">
+                        <span id="prev">Prev</span>
+                        <div id="counter"></div>
+                        <span id="next">Next</span>
+                        </div> *@
                     </div>
 
                 </div>
@@ -104,7 +104,8 @@
                                     <strong id="blink">Warning! @message.Replace(" Error: ", "")</strong>
                                 </div>
 
-                                <script>window.addEventListener("load", function () {
+                                <script>
+                                    window.addEventListener("load", function () {
                                         var b = document.getElementById('blink');
                                         setInterval(function () {
                                             b.style.display = (b.style.display == 'none' ? '' : 'none');
@@ -118,7 +119,8 @@
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                     <strong id="blink">Success!@message</strong>
                                 </div>
-                                <script>window.addEventListener("load", function () {
+                                <script>
+                                    window.addEventListener("load", function () {
                                         var b = document.getElementById('blink');
                                         setInterval(function () {
                                             b.style.display = (b.style.display == 'none' ? '' : 'none');
@@ -259,7 +261,7 @@
                             </select>
                         </div>
                     </div>
-             
+
 
                     <div class="actionss_">
                         <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
@@ -310,19 +312,21 @@
         </div>
     </div>
 </div>
-@section Scripts{
-    <script>//how to create a pdf file viewer jquery?
+@section Scripts {
+    <script>
+        //how to create a pdf file viewer jquery?
 
         var i_id = "";
         var img_edit = "";
         var img_logo_edit = "";
         var img_multi = "";
-        var prev =0;
-        var next =0;
-        var spanval ="";
-        var currpage ="";
+        var prev = 0;
+        var next = 0;
+        var spanval = "";
+        var currpage = "";
         $(document).ready(function () {
-     
+
+            ShowVendorDetails();
 
             var data = {};
             data.FilterName = "";
@@ -337,19 +341,19 @@
                 success: function (data) {
                     //console.log(data[0].items);
                     for (var i = 0; i < data[0].totalPage; i++) {
-                      var newSpan = $("<span>").attr("id", "spanId" +(i+1) ).text(i+1).attr("class","tbl-pagenumber");
-                  
-                      $("#counter").append(newSpan);
-                }
+                        var newSpan = $("<span>").attr("id", "spanId" + (i + 1)).text(i + 1).attr("class", "tbl-pagenumber");
+
+                        $("#counter").append(newSpan);
+                    }
                 }
             });
 
-            $("#srchbox").on('input', function () {
-                // Check if the key pressed is Enter (key code 13)
-            
-                    search();
-                
-            });
+            // $("#srchbox").on('input', function () {
+            //     // Check if the key pressed is Enter (key code 13)
+
+            //         search();
+
+            // });
             function GetImageGallery() {
                 IdList = [];
                 $('#upload-image-preview_multiple').each(function (id, item) {
@@ -413,32 +417,32 @@
                 }
             });
 
-            vbtable = $('#vendor-table').DataTable({
-                "columnDefs": [
+            // vbtable = $('#vendor-table').DataTable({
+            //     "columnDefs": [
 
-                    { "width": "80px", "targets": 0 },
-                    { "width": "150px", "targets": 1 },
-                    { "width": "150px", "targets": 2 },
-                    { "width": "70px", "targets": 3 },
-                    { "width": "70px", "targets": 4 }
-                    // { "width": "70px", "targets": 9 }
-                ],
-                "deferRender": true,
-                "bPaginate": false,
-                "bFilter": false,
-                "stripeClasses": [],
-                "ordering": false,
-                "ordering": false,
-                "info": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bLengthChange": false,
-                "paging": false,
-                "aLengthMenu": [10],
-                "searching": false
-                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+            //         { "width": "80px", "targets": 0 },
+            //         { "width": "150px", "targets": 1 },
+            //         { "width": "150px", "targets": 2 },
+            //         { "width": "70px", "targets": 3 },
+            //         { "width": "70px", "targets": 4 }
+            //         // { "width": "70px", "targets": 9 }
+            //     ],
+            //     "deferRender": true,
+            //     "bPaginate": false,
+            //     "bFilter": false,
+            //     "stripeClasses": [],
+            //     "ordering": false,
+            //     "ordering": false,
+            //     "info": false,
+            //     "bInfo": false,
+            //     "bAutoWidth": false,
+            //     "bLengthChange": false,
+            //     "paging": false,
+            //     "aLengthMenu": [10],
+            //     "searching": false
+            //     , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-            });
+            // });
             oul_table = $('#oul_call').DataTable({
                 "columnDefs": [
 
@@ -510,18 +514,18 @@
                     }
                 }
             });
-            paginationvendor(spanval);
+            // paginationvendor(spanval);
             //ShowBusinessAddress();
             ShowOptBloctype2();
             ShowOptBtype2();
 
 
-          
-              
+
+
         });
         async function ShowOptBtype2() {
             $.ajax({ url: "/Business/GetBusinessTypeList", data: {}, type: "GET", datatype: "json" }).done(function (data) {
-                // 
+                //
                 $("#btype-option2").empty();
                 $("#btype-option2").append('<option value="0">-Select Business Type-</option>');
                 for (var i = 0; i < data.length; i++) {
@@ -544,204 +548,204 @@
 
             $(this).addClass("active-page");
             paginationvendor(spanval);
-       
+
         });
 
         $('#next').click(function () {
-   //
-          next = parseInt(next)  ;
+            //
+            next = parseInt(next);
             $(".tbl-pagenumber").removeClass("active-page");
             console.log(next);
             $("#spanId" + (next)).addClass("active-page");
-         paginationvendor(next);
+            paginationvendor(next);
 
         });
-           $('#prev').click(function () {
+        $('#prev').click(function () {
 
-          prev = parseInt(prev) ;
-                 $(".tbl-pagenumber").removeClass("active-page");
+            prev = parseInt(prev);
+            $(".tbl-pagenumber").removeClass("active-page");
             console.log(prev);
             $("#spanId" + (prev)).addClass("active-page");
             paginationvendor(prev);
 
-           });
-        function search() {
-            var searchInputValue = $("#srchbox").val();
+        });
+        // function search() {
+        //     var searchInputValue = $("#srchbox").val();
 
-            if (searchInputValue.trim() !== "") {
+        //     if (searchInputValue.trim() !== "") {
 
-                var data = {};
-                data.VendorName = searchInputValue;
-                $.ajax({
-                    url: '/Vendor/GetVendorSearch',
-                    data: {
-                        data: data,
-                    },
-                    type: "POST",
-                    datatype: "json"
-                }).done(function (data) {
-                    vbtable.clear().draw();
-                    for (var i = 0; i < data.length; i++) {
-                        var img = data[i].vendorLogo;
-                        if (img == "") {
-                            img = "https://www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG";
-                        } else {
-                            img = data[i].vendorLogo;
-                        }
-                        var tdbuttons = '<label for="cb"><input type="checkbox" hidden class="cbox" data-id="' + data[i].id + '"></label>' +
-                            ' <div class="data-img">' +
-                            '<img src=' + img + ' alt=' + data[i].vendorName + ' width="100%" />' +
-                            '</div>' +
-                            '<div>' +
-                            '<p>' + data[i].vendorID + '</p>' +
-                            '<p>' + data[i].vendorName + '</p>' +
-                            '<div class="actions"><a class="tbl-edit"data-id="' + data[i].id + '">' +
-                            '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
-                            '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
-                            'stroke="black"' +
-                            'stroke-linecap="round"' +
-                            'stroke-linejoin="round"/>' +
-                            '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
-                            'stroke="black"' +
-                            'stroke-linecap="round"' +
-                            'stroke-linejoin="round"/>' +
-                            '</svg>' +
+        //         var data = {};
+        //         data.VendorName = searchInputValue;
+        //         $.ajax({
+        //             url: '/Vendor/GetVendorSearch',
+        //             data: {
+        //                 data: data,
+        //             },
+        //             type: "POST",
+        //             datatype: "json"
+        //         }).done(function (data) {
+        //             vbtable.clear().draw();
+        //             for (var i = 0; i < data.length; i++) {
+        //                 var img = data[i].vendorLogo;
+        //                 if (img == "") {
+        //                     img = "https:www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG";
+        //                 } else {
+        //                     img = data[i].vendorLogo;
+        //                 }
+        //                 var tdbuttons = '<label for="cb"><input type="checkbox" hidden class="cbox" data-id="' + data[i].id + '"></label>' +
+        //                     ' <div class="data-img">' +
+        //                     '<img src=' + img + ' alt=' + data[i].vendorName + ' width="100%" />' +
+        //                     '</div>' +
+        //                     '<div>' +
+        //                     '<p>' + data[i].vendorID + '</p>' +
+        //                     '<p>' + data[i].vendorName + '</p>' +
+        //                     '<div class="actions"><a class="tbl-edit"data-id="' + data[i].id + '">' +
+        //                     '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http:www.w3.org/2000/svg">' +
+        //                     '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
+        //                     'stroke="black"' +
+        //                     'stroke-linecap="round"' +
+        //                     'stroke-linejoin="round"/>' +
+        //                     '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
+        //                     'stroke="black"' +
+        //                     'stroke-linecap="round"' +
+        //                     'stroke-linejoin="round"/>' +
+        //                     '</svg>' +
 
-                            '<span >Edit</span>' +
-                            ' </a>' +
-                            '<a class="tbl-delete"  data-id="' + data[i].id + '" >' +
-                            '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
-                            '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
-                            'fill="black"/>' +
-                            '</svg>' +
-                            '<span>Delete</span></a>' +
-                            '<a class="tbl-sendemail"  data-id="' + data[i].id + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
-                            "<span>Send Email</span></a>" +
-                            '</div></div>';
-                        $("#vendor-table").dataTable().fnAddData([
-                            "<td>" + tdbuttons + "</td>",
-                            "<td><p>" + data[i].email + "</p></td>",
-                            "<td><p>" + data[i].vendorlocation + "</p></td>",
-                            // "<td></td><img src=" + data[i].featureImg + " alt=" + data[i].vendorName + ' width="100%" style="background-color:#979699" /></div></td>',
-                            "<td><p>" + data[i].status + "</p></td>",
-                            "<td><p>" + data[i].dateCreated + "</p></td>"
-                        ]);
-                    }
-                });
-            }
-            else {
-                paginationvendor(spanval);
+        //                     '<span >Edit</span>' +
+        //                     ' </a>' +
+        //                     '<a class="tbl-delete"  data-id="' + data[i].id + '" >' +
+        //                     '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http:www.w3.org/2000/svg">' +
+        //                     '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
+        //                     'fill="black"/>' +
+        //                     '</svg>' +
+        //                     '<span>Delete</span></a>' +
+        //                     '<a class="tbl-sendemail"  data-id="' + data[i].id + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http:www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
+        //                     "<span>Send Email</span></a>" +
+        //                     '</div></div>';
+        //                 $("#vendor-table").dataTable().fnAddData([
+        //                     "<td>" + tdbuttons + "</td>",
+        //                     "<td><p>" + data[i].email + "</p></td>",
+        //                     "<td><p>" + data[i].vendorlocation + "</p></td>",
+        //                     "<td></td><img src=" + data[i].featureImg + " alt=" + data[i].vendorName + ' width="100%" style="background-color:#979699" /></div></td>',
+        //                     "<td><p>" + data[i].status + "</p></td>",
+        //                     "<td><p>" + data[i].dateCreated + "</p></td>"
+        //                 ]);
+        //             }
+        //         });
+        //     }
+        //     else {
+        //         paginationvendor(spanval);
 
-            }
-            
-        }
-        function paginationvendor(spanval)
-        {
-        var data = {};
-            data.FilterName = "";
-            data.page = spanval;
+        //     }
 
-            $.blockUI(reloadLoading);
-            $.ajax({
-                url: '/Vendor/GetData',
-                data: {
-                    data: data,
-                },
-                type: "POST",
-                datatype: "json"
-            }).done(function (data) {
-                vbtable.clear().draw();
-                console.log(data[0]);
-                prev = data[0].prevPage;
-                next =  data[0].nextPage;
-                currpage = data[0].currentPage;
-                //console.log(prev);
-    
-                if (prev == 0) {
-                    $("#prev").attr("disabled", true);
-                    $("#prev").css("color", "gray").css("pointer-event", "none");
-                }
-                else {
-                    $("#prev").attr("enabled", true);
-                    $("#prev").css("color", "#c89328");
-                }
-                if (next == 0) {
-                    console.log(next);
+        // }
+        // function paginationvendor(spanval)
+        // {
+        // var data = {};
+        //     data.FilterName = "";
+        //     data.page = spanval;
 
-                    $("#next").attr("disabled", true);
-                    $("#next").css("color", "gray").css("pointer-event", "none");
-                }
-                else {
-                    $("#next").attr("enabled", true);
-                    $("#next").css("color", "#c89328");
-                }
-                //console.log(next);
-                for (var i = 0; i < data[0].items.length; i++) {
-                    var img = data[0].items[i].vendorLogo;
-                    if (img == "") {
-                        img = "https://www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG";
-                    } else {
-                        img = data[0].items[i].vendorLogo;
-                    }
-                    var tdbuttons = '<label for="cb"><input type="checkbox" hidden class="cbox" data-id="' + data[0].items[i].id + '"></label>' +
-                        ' <div class="data-img">' +
-                        '<img src=' + img + ' alt=' + data[0].items[i].vendorName + ' width="100%" loading="lazy" />' +
-                        '</div>' +
-                        '<div>' +
-                        '<p style="display:none; height:0" >' + data[0].items[i].vendorID + '</p>' +
-                        '<p style="line-height:2rem">' + data[0].items[i].vendorName + '</p>' +
-                        '<div class="actions"><a class="tbl-edit"data-id="' + data[0].items[i].id + '">' +
-                        //+ '"  data-vendorname="' + data[0].items[i].vendorName
-                        //+ '"   data-descript="' + data[0].items[i].description
-                        //+ '"  data-serv="' + data[0].items[i].services
-                        //+ '" data-weburl="' + data[0].items[i].websiteUrl
-                        ////+ '" data-map="' + data[0].items[i].map
-                        //+ '" data-cno="' + data[0].items[i].cno
-                        //+ '" data-email="' + data[0].items[i].email
-                        //+ '" data-btid="' + data[0].items[i].btypeID
-                        //+ '" data-address="' + data[0].items[i].address
-                        //+ '"  data-bid="' + data[0].items[i].bid
-                        //+ '"  data-image="' + data[0].items[i].featureImg
-                        //+ '"  data-logo="'+ data[0].items[i].vendorLogo + '">' +
-                        '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
-                        '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
-                        'stroke="black"' +
-                        'stroke-linecap="round"' +
-                        'stroke-linejoin="round"/>' +
-                        '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
-                        'stroke="black"' +
-                        'stroke-linecap="round"' +
-                        'stroke-linejoin="round"/>' +
-                        '</svg>' +
+        //     // $.blockUI(reloadLoading);
+        //     $.ajax({
+        //         url: '/Vendor/GetData',
+        //         data: {
+        //             data: data,
+        //         },
+        //         type: "POST",
+        //         datatype: "json"
+        //     }).done(function (data) {
+        //         // vbtable.clear().draw();
+        //         // console.log(data[0]);
+        //         prev = data[0].prevPage;
+        //         next =  data[0].nextPage;
+        //         currpage = data[0].currentPage;
+        //         //console.log(prev);
 
-                        '<span >Edit</span>' +
-                        ' </a>' +
-                        '<a class="tbl-delete"  data-id="' + data[0].items[i].id + '" >' +
-                        '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
-                        '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
-                        'fill="black"/>' +
-                        '</svg>' +
-                        '<span>Delete</span></a>' +
-                        '<a class="tbl-sendemail"  data-id="' + data[0].items[i].id + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
-                        "<span>Send Email</span></a>" +
-                        '</div></div>';
-                    $("#vendor-table").dataTable().fnAddData([
-                        "<td>" + tdbuttons + "</td>",
-                        "<td><p>" + data[0].items[i].email + "</p></td>",
-                        "<td><p>" + data[0].items[i].vendorlocation + "</p></td>",
-                        // "<td></td><img src=" + data[i].featureImg + " alt=" + data[i].vendorName + ' width="100%" style="background-color:#979699" /></div></td>',
-                        "<td><p>" + data[0].items[i].status + "</p></td>",
-                        "<td><p>" + data[0].items[i].dateCreated + "</p></td>"]);
-                }
-                $.unblockUI();
+        //         if (prev == 0) {
+        //             $("#prev").attr("disabled", true);
+        //             $("#prev").css("color", "gray").css("pointer-event", "none");
+        //         }
+        //         else {
+        //             $("#prev").attr("enabled", true);
+        //             $("#prev").css("color", "#c89328");
+        //         }
+        //         if (next == 0) {
+        //             console.log(next);
 
-            }).fail(function () {
-                alert("There was an Error When Loading Data...");
-            });
-        }
+        //             $("#next").attr("disabled", true);
+        //             $("#next").css("color", "gray").css("pointer-event", "none");
+        //         }
+        //         else {
+        //             $("#next").attr("enabled", true);
+        //             $("#next").css("color", "#c89328");
+        //         }
+        //         //console.log(next);
+        //         for (var i = 0; i < data[0].items.length; i++) {
+        //             var img = data[0].items[i].vendorLogo;
+        //             if (img == "") {
+        //                 img = "https://www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG";
+        //             } else {
+        //                 img = data[0].items[i].vendorLogo;
+        //             }
+        //             var tdbuttons = '<label for="cb"><input type="checkbox" hidden class="cbox" data-id="' + data[0].items[i].id + '"></label>' +
+        //                 ' <div class="data-img">' +
+        //                 '<img src=' + img + ' alt=' + data[0].items[i].vendorName + ' width="100%" loading="lazy" />' +
+        //                 '</div>' +
+        //                 '<div>' +
+        //                 '<p style="display:none; height:0" >' + data[0].items[i].vendorID + '</p>' +
+        //                 '<p style="line-height:2rem">' + data[0].items[i].vendorName + '</p>' +
+        //                 '<div class="actions"><a class="tbl-edit"data-id="' + data[0].items[i].id + '">' +
+        //                 //+ '"  data-vendorname="' + data[0].items[i].vendorName
+        //                 //+ '"   data-descript="' + data[0].items[i].description
+        //                 //+ '"  data-serv="' + data[0].items[i].services
+        //                 //+ '" data-weburl="' + data[0].items[i].websiteUrl
+        //                 ////+ '" data-map="' + data[0].items[i].map
+        //                 //+ '" data-cno="' + data[0].items[i].cno
+        //                 //+ '" data-email="' + data[0].items[i].email
+        //                 //+ '" data-btid="' + data[0].items[i].btypeID
+        //                 //+ '" data-address="' + data[0].items[i].address
+        //                 //+ '"  data-bid="' + data[0].items[i].bid
+        //                 //+ '"  data-image="' + data[0].items[i].featureImg
+        //                 //+ '"  data-logo="'+ data[0].items[i].vendorLogo + '">' +
+        //                 '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
+        //                 '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
+        //                 'stroke="black"' +
+        //                 'stroke-linecap="round"' +
+        //                 'stroke-linejoin="round"/>' +
+        //                 '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' +
+        //                 'stroke="black"' +
+        //                 'stroke-linecap="round"' +
+        //                 'stroke-linejoin="round"/>' +
+        //                 '</svg>' +
+
+        //                 '<span >Edit</span>' +
+        //                 ' </a>' +
+        //                 '<a class="tbl-delete"  data-id="' + data[0].items[i].id + '" >' +
+        //                 '<svg width="11" height="10" viewBox="0 0 11 10" fill="none"  xmlns="http://www.w3.org/2000/svg">' +
+        //                 '<path d="M2.56574 1C2.56574 0.734784 2.67387 0.48043 2.86634 0.292893C3.0588 0.105357 3.31985 0 3.59204 0H6.67092C6.94311 0 7.20416 0.105357 7.39663 0.292893C7.58909 0.48043 7.69722 0.734784 7.69722 1V2H9.74981C9.88591 2 10.0164 2.05268 10.1127 2.14645C10.2089 2.24021 10.263 2.36739 10.263 2.5C10.263 2.63261 10.2089 2.75979 10.1127 2.85355C10.0164 2.94732 9.88591 3 9.74981 3H9.20126L8.75636 9.071C8.73793 9.32329 8.62207 9.55941 8.43211 9.73179C8.24215 9.90417 7.99221 10 7.73263 10H2.52982C2.27024 10 2.0203 9.90417 1.83034 9.73179C1.64038 9.55941 1.52452 9.32329 1.50609 9.071L1.06222 3H0.513148C0.377053 3 0.246531 2.94732 0.150298 2.85355C0.0540636 2.75979 0 2.63261 0 2.5C0 2.36739 0.0540636 2.24021 0.150298 2.14645C0.246531 2.05268 0.377053 2 0.513148 2H2.56574V1ZM3.59204 2H6.67092V1H3.59204V2ZM2.09056 3L2.53033 9H7.73314L8.17291 3H2.09056ZM4.10518 4C4.24128 4 4.3718 4.05268 4.46803 4.14645C4.56427 4.24021 4.61833 4.36739 4.61833 4.5V7.5C4.61833 7.63261 4.56427 7.75979 4.46803 7.85355C4.3718 7.94732 4.24128 8 4.10518 8C3.96909 8 3.83857 7.94732 3.74233 7.85355C3.6461 7.75979 3.59204 7.63261 3.59204 7.5V4.5C3.59204 4.36739 3.6461 4.24021 3.74233 4.14645C3.83857 4.05268 3.96909 4 4.10518 4ZM6.15778 4C6.29387 4 6.42439 4.05268 6.52063 4.14645C6.61686 4.24021 6.67092 4.36739 6.67092 4.5V7.5C6.67092 7.63261 6.61686 7.75979 6.52063 7.85355C6.42439 7.94732 6.29387 8 6.15778 8C6.02168 8 5.89116 7.94732 5.79493 7.85355C5.69869 7.75979 5.64463 7.63261 5.64463 7.5V4.5C5.64463 4.36739 5.69869 4.24021 5.79493 4.14645C5.89116 4.05268 6.02168 4 6.15778 4Z"' +
+        //                 'fill="black"/>' +
+        //                 '</svg>' +
+        //                 '<span>Delete</span></a>' +
+        //                 '<a class="tbl-sendemail"  data-id="' + data[0].items[i].id + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
+        //                 "<span>Send Email</span></a>" +
+        //                 '</div></div>';
+        //             $("#vendor-table").dataTable().fnAddData([
+        //                 "<td>" + tdbuttons + "</td>",
+        //                 "<td><p>" + data[0].items[i].email + "</p></td>",
+        //                 "<td><p>" + data[0].items[i].vendorlocation + "</p></td>",
+        //                 // "<td></td><img src=" + data[i].featureImg + " alt=" + data[i].vendorName + ' width="100%" style="background-color:#979699" /></div></td>',
+        //                 "<td><p>" + data[0].items[i].status + "</p></td>",
+        //                 "<td><p>" + data[0].items[i].dateCreated + "</p></td>"]);
+        //         }
+        //         $.unblockUI();
+
+        //     }).fail(function () {
+        //         alert("There was an Error When Loading Data...");
+        //     });
+        // }
         $('#vendor-table').on('click', '.tbl-sendemail', function () {
             offerid = $(this).data("id");
-            console.log(offerid);
+            // console.log(offerid);
             iziToast.question({
                 timeout: 20000,
                 close: false,
@@ -771,7 +775,7 @@
 
 
         });
-      
+
         $('#btn-sendemail').click(function (e) {
 
             iziToast.question({
@@ -859,25 +863,25 @@
                 $('#offeringopt').attr("hidden", true);
             }
         });
-        $("#checkalls").click(function () {
+        // $("#checkalls").click(function () {
 
-            if ($(this).prop("checked") == true) {
-                $("#checkers").html("");
-                $(".cbox1").not(this).prop("checked", this.checked);
-                console.log("checkalls");
-            } else {
-                $(".cbox1").not(this).prop("checked", false);
-                console.log("uncheckall");
-            }
-        });
-        $("#checkAll").click(function () {
-            $(".cbox").not(this).prop("checked", this.checked);
+        //     if ($(this).prop("checked") == true) {
+        //         $("#checkers").html("");
+        //         $(".cbox1").not(this).prop("checked", this.checked);
+        //         // console.log("checkalls");
+        //     } else {
+        //         $(".cbox1").not(this).prop("checked", false);
+        //         // console.log("uncheckall");
+        //     }
+        // });
+        // $("#checkAll").click(function () {
+        //     $(".cbox").not(this).prop("checked", this.checked);
 
-        });
-        $("#checkAlls").click(function () {
-            $(".cbox1").not(this).prop("checked", this.checked);
+        // });
+        // $("#checkAlls").click(function () {
+        //     $(".cbox1").not(this).prop("checked", this.checked);
 
-        });
+        // });
         $('#offeringopt').click(function () {
 
             console.log("Deleteall");
@@ -938,7 +942,7 @@
             i_id = $(this).data("id");
             var data = {};
             data.Id = i_id;
-       
+
             $.ajax({
                 url: '/Vendor/GetVendorListId',
                 data: {
@@ -948,93 +952,93 @@
                 datatype: "json"
             }).done(function (data) {
                 console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        bid = data[i].bid;
-                        fimage = data[i].featureImg;
-                        logo = data[i].vendorLogo;
-                        $("#vendorname").val(data[i].vendorName);
-                        $("#description").val(data[i].description);
-                        $("#services").val(data[i].services);
-                        $("#wURL").val(data[i].websiteUrl);
-                        $("#Cno").val(data[i].cno);
-                        $("#email").val(data[i].email);
-                        $("#btype-option2").val(data[i].btypeID);
-                        $("#address").val(data[i].address);
-                        $("#Map").val(data[i].map);
-                        $("#bloc-option2").val(bid);
-                        if (fimage != null) {
-                            var img = $('<img>').attr('src', fimage);
-                            img.attr('height', '120px');
-                            img.attr('width', '120px');
-                            $('.upload-image-preview').html(img);
-                        }
-                        else {
-                            document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
-                        }
-                        if (logo != null) {
-                            var img = $('<img>').attr('src', logo);
-                            img.attr('height', '120px');
-                            img.attr('width', '120px');
-                            $('.upload-logo-preview').html(img);
-                        }
-                        else {
-                            document.getElementById("upload-logo-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
-                        }
-                        console.log(fimage);
-                        img_edit = fimage.split('/')[5];
-                        img_logo_edit = logo.split('/')[5];
-                     
-                        document.getElementById("btn-vendor").innerHTML = 'Update';
-                        //let gal_img = gallery;
-                        //const myarray = gal_img.split(";");
-                        //for (var i = 0; i < myarray.length; i++) {
-                        //    //console.log(myarray[i].split('/')[5]);
-                        //}
-                        var data = {};
-                        data.id = i_id;
-                        console.log(data);
-                        $.ajax({
-                            url: '/Vendor/GetVendorGallery',
-                            data: {
-                                data: data,
-                            },
-                            type: "POST",
-                            datatype: "json",
-                            success: function (data) {
-                                console.log(data);
-                                var container = $('#upload-image-preview_multiple');
-                                container.empty();
-                                for (var i = 0; i < data.length; i++) {
-                                    //console.log( data[i].gallery)
-                                    var img = $('<img>').attr('src', data[i].gallery);
-                                    var imgs = $('<img>').attr('name', data[i].gallery);
-                                    var span = $('<span>').attr('class', "remove");
-                                    var div = $('<span>').attr('class', "pip");
-                                    img.attr('height', '50px');
-                                    img.attr('width', '50px');
-                                    img.attr('id', data[i].id);
-                                    img.attr('class', "imageThumb");
-                                    span.text("x");
-                                    span.attr("onclick", "removegallerydata()");
-                                    div.append(img);
-                                    div.append(imgs);
-                                    div.append(span);
-                                    container.append(div);
+                for (var i = 0; i < data.length; i++) {
+                    bid = data[i].bid;
+                    fimage = data[i].featureImg;
+                    logo = data[i].vendorLogo;
+                    $("#vendorname").val(data[i].vendorName);
+                    $("#description").val(data[i].description);
+                    $("#services").val(data[i].services);
+                    $("#wURL").val(data[i].websiteUrl);
+                    $("#Cno").val(data[i].cno);
+                    $("#email").val(data[i].email);
+                    $("#btype-option2").val(data[i].btypeID);
+                    $("#address").val(data[i].address);
+                    $("#Map").val(data[i].map);
+                    $("#bloc-option2").val(bid);
+                    if (fimage != null) {
+                        var img = $('<img>').attr('src', fimage);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.upload-image-preview').html(img);
+                    }
+                    else {
+                        document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+                    }
+                    if (logo != null) {
+                        var img = $('<img>').attr('src', logo);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.upload-logo-preview').html(img);
+                    }
+                    else {
+                        document.getElementById("upload-logo-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+                    }
+                    console.log(fimage);
+                    img_edit = fimage.split('/')[5];
+                    img_logo_edit = logo.split('/')[5];
 
-                                    $(".remove").click(function () {
-                                        $(this).parent(".pip").remove();
-                                    });
+                    document.getElementById("btn-vendor").innerHTML = 'Update';
+                    //let gal_img = gallery;
+                    //const myarray = gal_img.split(";");
+                    //for (var i = 0; i < myarray.length; i++) {
+                    //    //console.log(myarray[i].split('/')[5]);
+                    //}
+                    var data = {};
+                    data.id = i_id;
+                    console.log(data);
+                    $.ajax({
+                        url: '/Vendor/GetVendorGallery',
+                        data: {
+                            data: data,
+                        },
+                        type: "POST",
+                        datatype: "json",
+                        success: function (data) {
+                            console.log(data);
+                            var container = $('#upload-image-preview_multiple');
+                            container.empty();
+                            for (var i = 0; i < data.length; i++) {
+                                //console.log( data[i].gallery)
+                                var img = $('<img>').attr('src', data[i].gallery);
+                                var imgs = $('<img>').attr('name', data[i].gallery);
+                                var span = $('<span>').attr('class', "remove");
+                                var div = $('<span>').attr('class', "pip");
+                                img.attr('height', '50px');
+                                img.attr('width', '50px');
+                                img.attr('id', data[i].id);
+                                img.attr('class', "imageThumb");
+                                span.text("x");
+                                span.attr("onclick", "removegallerydata()");
+                                div.append(img);
+                                div.append(imgs);
+                                div.append(span);
+                                container.append(div);
 
-                                }
+                                $(".remove").click(function () {
+                                    $(this).parent(".pip").remove();
+                                });
+
                             }
-                        });
-                   
-                        $('#vendormodal').modal('show');
-                        $(".alert-warning").hide();
+                        }
+                    });
+
+                    $('#vendormodal').modal('show');
+                    $(".alert-warning").hide();
                     //$("#vendor-option").append('<option value="' + data[i].id + '">' + data[i].vendorName + "</option>");
                 }
             });
-      
+
         });
 
         $('#add-newuvendor').click(function () {
@@ -1132,7 +1136,7 @@
             formData.append('Map', $("#Map").val());
             formData.append('WebsiteUrl', $("#wURL").val());
 
-            
+
             iziToast.question({
                 timeout: 20000,
                 close: false,
@@ -1174,12 +1178,12 @@
                                     });
                                     notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
                                     $("#h-close").click();
-                                       paginationvendor(spanval);
+                                    paginationvendor(spanval);
                                 }
                                 else {
                                     notifyMsg('Warning!', result.stats, 'red', 'fas fa-exclamation-triangle');
                                     $("#h-close").click();
-                                      paginationvendor(spanval);
+                                    paginationvendor(spanval);
                                 }
                             }
                         });

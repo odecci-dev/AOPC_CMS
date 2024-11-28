@@ -7,180 +7,192 @@
         message = ViewData["Message"].ToString();
     }
 }
+@* New DataTables Start*@
+<link rel="stylesheet" href="/css/datatable.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+@* New DataTables End*@
 <!-- Tab content -->
-  <div class="register-main-container">
+<div class="register-main-container">
     <div class="btype-data">
         <div class="list-title">
-            <h4 style="font-size: 26px;" class="text-left"><i class="fas fa-gifts"></i> @ViewData["Title"].ToString()</h4>
+            <h4 class="text-left" style="
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 26px;
+                ">
+                @*<svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="var(--light)">
+                <path d="M160-80v-440H80v-240h208q-5-9-6.5-19t-1.5-21q0-50 35-85t85-35q23 0 43 8.5t37 23.5q17-16 37-24t43-8q50 0 85 35t35 85q0 11-2 20.5t-6 19.5h208v240h-80v440H160Zm400-760q-17 0-28.5 11.5T520-800q0 17 11.5 28.5T560-760q17 0 28.5-11.5T600-800q0-17-11.5-28.5T560-840Zm-200 40q0 17 11.5 28.5T400-760q17 0 28.5-11.5T440-800q0-17-11.5-28.5T400-840q-17 0-28.5 11.5T360-800ZM160-680v80h280v-80H160Zm280 520v-360H240v360h200Zm80 0h200v-360H520v360Zm280-440v-80H520v80h280Z" />
+                </svg> *@
+                <i class="fas fa-gifts"></i>
+                @ViewData["Title"].ToString()
+            </h4>
         </div>
-                <div class="card-body ">
-                    <div class="row">
+        <div class="card-body ">
+            <div class="row">
 
-                        <div class="col-lg-12">
+                <div class="col-lg-12">
 
-                            <div class="row ">
-                                <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
-                                    <table id="offering-table" class="myTableLarge">
-                                         <thead>
-                                        <th>
-                                <input type="checkbox" class="check-all" id="checkall" />
-                                <labebl id="checkers" style="text-align:center"></labebl> 
-                                           <button class="register"  style ="margin-bottom: 5px;font-size: 13px;      width: 100px;  padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New Offering" id="add-offering"><i class="fas fa-user-plus"></i>Add New</button>
+                    <div class="row ">
+                        <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
+                            <table id="offering-table" class="myTableLarge">
+                                <thead>
+                                <th>
+                                    <input type="checkbox" class="check-all" id="checkall" />
+                                    <labebl id="checkers" style="text-align:center"></labebl>
+                                    <button class="register" style="margin-bottom: 5px;font-size: 13px;      width: 100px;  padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New Offering" id="add-offering"><i class="fas fa-user-plus"></i>Add New</button>
                                     <button class="register" style="margin-bottom: 5px;font-size: 13px;      width: 100px;  padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Delete Offering" id="offeringopt" hidden><i class="fas fa-trash-alt"></i>Delete All</button>
-    
 
-                                        </th>
-                                        <th>Promo Description</th>
-                                        @* <th>Promo Release Text</th> *@
-                                        <th>Vendor Name</th>
-                                        <th>Business Type Name</th>
-                                        <th>Membership Tier</th>
-                                      
-                                        <th>Date Created</th>
-                                    </thead>
-                                    <tbody>
 
-                                    </tbody>
-                                    </table>
-                               </div>
-                            </div>
+                                </th>
+                                <th>Promo Description</th>
+                                    @* <th>Promo Release Text</th> *@
+                                <th>Vendor Name</th>
+                                <th>Business Type Name</th>
+                                <th>Membership Tier</th>
+
+                                <th>Date Created</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
-
-               
                     </div>
                 </div>
-                </div>
-            </div>
-    @* modal start here *@
-       <div class="modal fade" id="offeringmodal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
-        aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static" >
-
-        <div class="modal-dialog modal-error-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modal-name">Offering Form</h4>
-                    <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
-                </div>
-                <div class="col-lg-12" style="margin:10px">
-
-                    <form action="" class="mod-form" id="submitoffer">
-          <div class="mod-form-row">
-            <div class="input-container-whole">
-
-              <div class="upload-image-preview" id="upload-image-preview" style="background-color: gainsboro;">
-                <img
-                  width="100%"
-                  src="https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div class="input-container-whole upload" >
-              <label for="img"><i class="fas fa-upload"></i>Upload Image</label>
-              <input
-                type="file"
-                value=""
-                id="img"
-                class="mod-input img-choose"
-                name="uploadimg" accept="image/*"
-              />
-            </div>
-          </div>
-          <div class="mod-form-row">
-            <div class="input-container-whole">
-              <label for="employeeID">Offering Name</label>
-              <input type="text" value="" id="offeringname" class="mod-input" required />
-            </div>
-            <div class="input-container-whole">
-              <label for="email">Promo Description</label>
-              <input type="text" value="" id="promodesc" class="mod-input" required/>
-            </div>
-          </div>
-          @* <div class="mod-form-row">
-             <div class="input-container-whole">
-              <label for="email">Promo Release Text</label>
-              <input type="text" value="" id="promoreleasetext" class="mod-input" required/>
-            </div>
-            <div class="input-container-whole">
-              <label for="lname">Privileges</label>
-               <select id="privilege-option"  class="mod-input" required>         
-              </select>
-            </div>
-          </div> *@
-           <div class="mod-form-row">
-           <div class="input-container-whole">
-              <label for="lname">Vendor Name</label>
-               <select id="vendor-option"  class="mod-input" required>         
-              </select>
-            </div>
-            <div class="input-container-whole">
-              <label for="lname">Business Type</label>
-               <select id="btype-option"  class="mod-input" required>         
-              </select>
-            </div>
-          </div>
-          <div class="mod-form-row">
-            <div class="input-container-whole">
-              <label for="lname">Membership Tier</label>
-               <select id="memtier-option"  class="mod-input" required>         
-              </select>
-            </div>
-            <div class="input-container-whole">
-              <label for="email">Offering URL</label>
-              <input type="text" value="" id="offeringurl" class="mod-input" required/>
-            </div>
-           
-          </div>
-          <div class="mod-form-row">
-            <div class="input-container-whole">
-              <label for="fname">Start Date</label>
-               <input type="date" id="startdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input"  />
-            </div>
-            <div class="input-container-whole">
-              <label for="fname">End Date</label>
-               <input type="date" id="endate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input"  />
-            </div>
-          </div>
-           <div class="mod-form-row">
-            <div class="input-container-halfs">
-              <div style="display: flex;
-                  flex-direction: column;
-                  width: 50%;">
-               <label for="fname">From Time</label>
-               <input type="text" id="fromtime" class="mod-input"  />
-              </div>
-                <div style="display: flex;
-                  flex-direction: column;
-                  width: 50%;">
-                 <label for="fname">To Time</label>
-               <input type="text" id="totime"  class="mod-input"  />
-              </div>
-              
-            </div>
-              <div class="input-container-whole">
-              <label for="offerdays">Offer Days</label>
-              <input type="text" value="" id="offerdays" class="mod-input" />
-            </div>
-          </div>
-          
-          <div class="actions" style="align-items: center;">
-            <div class="actionss">
-             @* <button class="register" type="button" style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add Mechanics"><i class="fas fa-id-card"></i>Add Mechanics</button> *@
-             @* <input type="button" value="Add Mechanics" id="btn-register"/> <i class="fas fa-cogs"></i> *@
-
-            </div>
-
-            <a  data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
-            <input type="submit" value="Submit" id="btn-save"/>
-          </div>
-        </form>
 
 
-                </div>
             </div>
         </div>
-
     </div>
+</div>
+@* modal start here *@
+<div class="modal fade" id="offeringmodal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
+     aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
+
+    <div class="modal-dialog modal-error-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-name">Offering Form</h4>
+                <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
+            </div>
+            <div class="col-lg-12" style="margin:10px">
+
+                <form action="" class="mod-form" id="submitoffer">
+                    <div class="mod-form-row">
+                        <div class="input-container-whole">
+
+                            <div class="upload-image-preview" id="upload-image-preview" style="background-color: gainsboro;">
+                                <img width="100%"
+                                     src="https://www.alfardanoysterprivilegeclub.com/assets/img/defaultavatar.png"
+                                     alt="" />
+                            </div>
+                        </div>
+                        <div class="input-container-whole upload">
+                            <label for="img"><i class="fas fa-upload"></i>Upload Image</label>
+                            <input type="file"
+                                   value=""
+                                   id="img"
+                                   class="mod-input img-choose"
+                                   name="uploadimg" accept="image/*" />
+                        </div>
+                    </div>
+                    <div class="mod-form-row">
+                        <div class="input-container-whole">
+                            <label for="employeeID">Offering Name</label>
+                            <input type="text" value="" id="offeringname" class="mod-input" required />
+                        </div>
+                        <div class="input-container-whole">
+                            <label for="email">Promo Description</label>
+                            <input type="text" value="" id="promodesc" class="mod-input" required />
+                        </div>
+                    </div>
+                    @* <div class="mod-form-row">
+                    <div class="input-container-whole">
+                    <label for="email">Promo Release Text</label>
+                    <input type="text" value="" id="promoreleasetext" class="mod-input" required/>
+                    </div>
+                    <div class="input-container-whole">
+                    <label for="lname">Privileges</label>
+                    <select id="privilege-option"  class="mod-input" required>
+                    </select>
+                    </div>
+                    </div> *@
+                    <div class="mod-form-row">
+                        <div class="input-container-whole">
+                            <label for="lname">Vendor Name</label>
+                            <select id="vendor-option" class="mod-input" required>
+                            </select>
+                        </div>
+                        <div class="input-container-whole">
+                            <label for="lname">Business Type</label>
+                            <select id="btype-option" class="mod-input" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mod-form-row">
+                        <div class="input-container-whole">
+                            <label for="lname">Membership Tier</label>
+                            <select id="memtier-option" class="mod-input" required>
+                            </select>
+                        </div>
+                        <div class="input-container-whole">
+                            <label for="email">Offering URL</label>
+                            <input type="text" value="" id="offeringurl" class="mod-input" required />
+                        </div>
+
+                    </div>
+                    <div class="mod-form-row">
+                        <div class="input-container-whole">
+                            <label for="fname">Start Date</label>
+                            <input type="date" id="startdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" />
+                        </div>
+                        <div class="input-container-whole">
+                            <label for="fname">End Date</label>
+                            <input type="date" id="endate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="mod-input" />
+                        </div>
+                    </div>
+                    <div class="mod-form-row">
+                        <div class="input-container-halfs">
+                            <div style="display: flex;
+                  flex-direction: column;
+                  width: 50%;">
+                                <label for="fname">From Time</label>
+                                <input type="text" id="fromtime" class="mod-input" />
+                            </div>
+                            <div style="display: flex;
+                  flex-direction: column;
+                  width: 50%;">
+                                <label for="fname">To Time</label>
+                                <input type="text" id="totime" class="mod-input" />
+                            </div>
+
+                        </div>
+                        <div class="input-container-whole">
+                            <label for="offerdays">Offer Days</label>
+                            <input type="text" value="" id="offerdays" class="mod-input" />
+                        </div>
+                    </div>
+
+                    <div class="actions" style="align-items: center;">
+                        <div class="actionss">
+                            @* <button class="register" type="button" style ="margin-bottom: 5px;font-size: 13px;    padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add Mechanics"><i class="fas fa-id-card"></i>Add Mechanics</button> *@
+                            @* <input type="button" value="Add Mechanics" id="btn-register"/> <i class="fas fa-cogs"></i> *@
+
+                        </div>
+
+                        <a data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel"><u>Cancel</u></a>
+                        <input type="submit" value="Submit" id="btn-save" />
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="modal fade" id="Showuserlist" tabindex="-1" role="dialog" aria-labelledby="modal-title"
      aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-error-dialog" style="max-width: 600px;margin: 1.75rem auto;">
@@ -192,7 +204,7 @@
             <div style="margin:10px">
 
 
-                <table   class="myTableMedium" id="oul_call">
+                <table class="myTableMedium" id="oul_call">
                     <thead>
                         <tr>
                             <th>
@@ -209,37 +221,37 @@
                 </table>
                 <br />
 
-               <div class="actions" style="align-items: center;">
+                <div class="actions" style="align-items: center;">
 
                     <button type="submit" value="Send Email" id="btn-sendemail" style="width:100%" class="register"><i class="fas fa-envelope"></i>Send Email</button>
-          </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-      @* modal end here *@
-@section Scripts{
-<script>
-    var i_id = "";
-    var img_edit=""; 
-    var oferid="";
- $(document).ready(function () {
-                 offeringtable = $('#offering-table').DataTable({
+@* modal end here *@
+@section Scripts {
+    <script>
+        var i_id = "";
+        var img_edit = "";
+        var oferid = "";
+        $(document).ready(function () {
+            //  offeringtable = $('#offering-table').DataTable({
 
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false, 
-                     "paging": true,
-                      "aLengthMenu": [10],
-                      "searching": true,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
-                    
-                }});
+            //     "bPaginate": false,
+            //     "bFilter": false,
+            //     "stripeClasses": [],
+            //     "ordering": false,
+            //     "info": false,
+            //     "bInfo": false,
+            //     "bAutoWidth": false,
+            //     "bLengthChange": false,
+            //      "paging": true,
+            //       "aLengthMenu": [10],
+            //       "searching": true,
+            //     "oLanguage": { "sZeroRecords": "", "sEmptyTable": "",
+
+            // }});
             oul_table = $('#oul_call').DataTable({
                 "columnDefs": [
 
@@ -264,22 +276,24 @@
 
             });
             $("input[name=uploadimg]").change(function () {
-                    if (this.files && this.files[0]) {
+                if (this.files && this.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                    var img = $('<img>').attr('src', e.target.result);
-                    img.attr('height', '120px');
-                    img.attr('width', '120px');
-                    $('.upload-image-preview').html(img);};
+                        var img = $('<img>').attr('src', e.target.result);
+                        img.attr('height', '120px');
+                        img.attr('width', '120px');
+                        $('.upload-image-preview').html(img);
+                    };
                     reader.readAsDataURL(this.files[0]);
-      }});
-         ShowOfferingList();
-        _ShowMembershipOption();
-         ShowOptBtype();
-         ShowVendorOpt();
-         ShowprivOpt();
+                }
+            });
+            ShowOfferingList();
+            _ShowMembershipOption();
+            ShowOptBtype();
+            ShowVendorOpt();
+            ShowprivOpt();
 
-       });
+        });
         function CheckedRows() {
             IdList = [];
             $('.cbox:checked').each(function (id, item) {
@@ -306,9 +320,9 @@
             $("input:checkbox").not(this).prop("checked", this.checked);
             if ($(this).prop("checked") == true) {
                 $("#checkers").html("");
-                 $('#offeringopt').removeAttr('hidden');
+                $('#offeringopt').removeAttr('hidden');
                 $("input:checkbox").removeAttr('hidden');
-               //console.log("checkall");
+                //console.log("checkall");
             } else {
                 $("#checkers").html("");
                 //console.log("uncheckall");
@@ -316,147 +330,146 @@
                 $(".cbox").attr("hidden", true);
                 $('#offeringopt').attr("hidden", true);
             }
-        }); 
+        });
         $("#checkalls").click(function () {
-          
+
             if ($(this).prop("checked") == true) {
                 $("#checkers").html("");
                 $(".cbox1").not(this).prop("checked", this.checked);
-               //console.log("checkalls");
+                //console.log("checkalls");
             } else {
-                $(".cbox1").not(this).prop("checked",false);
+                $(".cbox1").not(this).prop("checked", false);
                 //console.log("uncheckall");
             }
         });
         $("#checkAll").click(function () {
             $(".cbox").not(this).prop("checked", this.checked);
 
-        });  
+        });
         $("#checkAlls").click(function () {
             $(".cbox1").not(this).prop("checked", this.checked);
 
         });
         $('#offering-table').on('click', '.tbl-sendemail', function () {
-                  offerid = $(this).data("id");
-                iziToast.question({
-                    timeout: 20000,
-                    close: false,
-                    overlay: true,
-                    id: 'question',
-                    zindex: 999,
-                    title: 'Confirmation',
-                    message: 'Are you sure you want to Send Email?',
-                    position: 'center',
-                    buttons: [
+            offerid = $(this).data("id");
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                id: 'question',
+                zindex: 999,
+                title: 'Confirmation',
+                message: 'Are you sure you want to Send Email?',
+                position: 'center',
+                buttons: [
 
-                        ['<button><b>YES</b></button>', function (instance, toast) {
-                         
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+
                         instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                  
+
                         $('#Showuserlist').modal('show');
                         ShowUserListModal();
-                        }, true],
-                        ['<button>NO</button>', function (instance, toast) {
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
 
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                        }],
-                    ]
-                });
-            
+                    }],
+                ]
+            });
+
 
 
         });
         $('#offeringopt').click(function () {
-   
-                //console.log("Deleteall");
-                iziToast.question({
-                    timeout: 20000,
-                    close: false,
-                    overlay: true,
-                    id: 'question',
-                    zindex: 999,
-                    title: 'Confirmation',
-                    message: 'Are you sure you want to delete all selected items?',
-                    position: 'center',
-                    buttons: [
-                        ['<button><b>YES</b></button>', function (instance, toast) {
-                            
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+            //console.log("Deleteall");
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                id: 'question',
+                zindex: 999,
+                title: 'Confirmation',
+                message: 'Are you sure you want to delete all selected items?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
                         var data = {};
                         data.IdList = CheckedRows();
                         ////console.log(data);
 
-                         $.blockUI(reloadLoading);
-                                  $.ajax({
+                        $.blockUI(reloadLoading);
+                        $.ajax({
                             url: '/Offering/DeleteOfferingInfolist',
-                                    data: {
-                                     IdList: CheckedRows(),
-                                      },
-                                      type: "POST",
-                                      datatype: "json"
-                                  }).done(function (data) {
-                                      ////console.log(data);
-                                      notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
-                                      $("#h-close").click();
-                                      ShowOfferingList();
-                                     $("input:checkbox").not(this).prop("checked", false);
-                                      $.unblockUI();
+                            data: {
+                                IdList: CheckedRows(),
+                            },
+                            type: "POST",
+                            datatype: "json"
+                        }).done(function (data) {
+                            ////console.log(data);
+                            notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                            $("#h-close").click();
+                            ShowOfferingList();
+                            $("input:checkbox").not(this).prop("checked", false);
+                            $.unblockUI();
 
-                                  }).fail(function () {
-                                      alert("There was an Error When Loading Data...");
-                                  });
+                        }).fail(function () {
+                            alert("There was an Error When Loading Data...");
+                        });
 
-                        }, true],
-                        ['<button>NO</button>', function (instance, toast) {
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
 
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                        }],
-                    ]
-                });
-     
+                    }],
+                ]
+            });
+
 
         });
- $('#add-offering').click(function () {
-                      i_id = 0;
-                      var img = $('<img>').attr('src', "https://www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG");
-                      img.attr('height', '120px');
-                      img.attr('width', '120px');
-                      $('.upload-image-preview').html(img);
-                      $(".upload-image-preview").attr("src", );
-                      $('input[type="text"]').val("");
-                      $('input[type="email"]').val("");
+        $('#add-offering').click(function () {
+            i_id = 0;
+            var img = $('<img>').attr('src', "https://www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG");
+            img.attr('height', '120px');
+            img.attr('width', '120px');
+            $('.upload-image-preview').html(img);
+            $(".upload-image-preview").attr("src",);
+            $('input[type="text"]').val("");
+            $('input[type="email"]').val("");
             $('#memtier-option').prop('selectedIndex', 0);
             $('#btype-option').prop('selectedIndex', 0);
             $('#vendor-option').prop('selectedIndex', 0);
         @*$('#gender').prop('selectedIndex', 0); *@
-                      $('#offeringmodal').modal('show');
+                $('#offeringmodal').modal('show');
 
-                    });
-    $('#submitoffer').submit(function(e){
-     e.preventDefault();
-      filename=$("#img").val().replace(/.*(\/|\\)/, ''); 
-        //console.log(filename);
-        if(filename =="" || filename == null)
-        {
-         filename = img_edit;
-        }
-      var data ={};
-      data.id = i_id;
-      data.OfferingName  =$('#offeringname').val();
-      data.PromoDesc  =$('#promodesc').val();
-      data.PromoReleaseText  ="";
-      data.VendorID  =$('#vendor-option').val();
-      data.MembershipID =$('#memtier-option').val();
-      data.BusinessTypeID  =$('#btype-option').val();
-      data.URL  =$('#offeringurl').val();
-      data.StartDateTime  =$('#startdate').val();
-      data.EndDateTime  =$('#endate').val();
-      data.FromTime  =$('#fromtime').val();
-      data.ToTime  =$('#totime').val();
-      data.Offerdays  =$('#offerdays').val();
-      data.ImgUrl = filename;
+        });
+        $('#submitoffer').submit(function (e) {
+            e.preventDefault();
+            filename = $("#img").val().replace(/.*(\/|\\)/, '');
+            //console.log(filename);
+            if (filename == "" || filename == null) {
+                filename = img_edit;
+            }
+            var data = {};
+            data.id = i_id;
+            data.OfferingName = $('#offeringname').val();
+            data.PromoDesc = $('#promodesc').val();
+            data.PromoReleaseText = "";
+            data.VendorID = $('#vendor-option').val();
+            data.MembershipID = $('#memtier-option').val();
+            data.BusinessTypeID = $('#btype-option').val();
+            data.URL = $('#offeringurl').val();
+            data.StartDateTime = $('#startdate').val();
+            data.EndDateTime = $('#endate').val();
+            data.FromTime = $('#fromtime').val();
+            data.ToTime = $('#totime').val();
+            data.Offerdays = $('#offerdays').val();
+            data.ImgUrl = filename;
 
 
 
@@ -467,93 +480,91 @@
             formData.append('id', i_id);
             var fileUpload = $("#upload-img").get(0);
 
-                            if (i_id != 0) {
+            if (i_id != 0) {
                 message = 'Are you sure you want to update this ' + $('#offeringname').val();
+            }
+            else {
+                message = 'Are you sure you want to Add new Offering';
+            }
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                id: 'question',
+                zindex: 999,
+                title: 'Confirmation',
+                message: message,
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+                        $.blockUI(reloadLoading);
+                        $.ajax({
+                            url: '/Offering/SaveOffering',
+                            data: {
+                                data: data
+                            },
+                            type: "POST",
+                            datatype: "json",
+                        }).done(function (response) {
+                            if (response.stats == "Successfully Added" || response.stats == "Successfully Updated") {
+                                notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+
+                                var data = {};
+                                data.Details = "Has new Offering " + $('#offeringname').val();
+                                data.isRead = "0";
+                                data.Module = "Offering";
+                                data.EmailStatus = 15;
+
+                                //$.ajax({
+                                //    url: '/Offering/PostNotifications',
+                                //    data: {
+                                //        data: data,
+                                //    },
+                                //    type: "POST",
+                                //    datatype: "json",
+                                //    success: function (data) {
+                                //      //console.log(data);
+                                //    }
+                                //});
+                                $.ajax({
+                                    url: '/Offering/UploadFile',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (result) {
+                                    }
+                                });
+                                $("#h-close").click();
+                                ShowOfferingList();
+                                window.location.reload();
                             }
                             else {
-                                message = 'Are you sure you want to Add new Offering';
+                                notifyMsg('Warning!', response.stats, 'red', 'fas fa-exclamation-triangle');
                             }
-              iziToast.question({
-                            timeout: 20000,
-                            close: false,
-                            overlay: true,
-                            id: 'question',
-                            zindex: 999,
-                            title: 'Confirmation',
-                            message: message,
-                            position: 'center',
-                            buttons: [
-                                ['<button><b>YES</b></button>', function (instance, toast) {
-                                    $.blockUI(reloadLoading);
-                                    $.ajax({
-                                        url: '/Offering/SaveOffering',
-                                        data: {
-                                            data: data
-                                        },
-                                        type: "POST",
-                                        datatype: "json",
-                                    }).done(function (response) {
-                                      if(response.stats == "Successfully Added" || response.stats == "Successfully Updated" )
-                                      {
-                                          notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                   
-                                            var data = {};
-                                            data.Details = "Has new Offering " + $('#offeringname').val() ;
-                                            data.isRead = "0";
-                                            data.Module = "Offering";
-                                            data.EmailStatus = 15;
 
-                                            //$.ajax({
-                                            //    url: '/Offering/PostNotifications',
-                                            //    data: {
-                                            //        data: data,
-                                            //    },
-                                            //    type: "POST",
-                                            //    datatype: "json",
-                                            //    success: function (data) {
-                                            //      //console.log(data);
-                                            //    }
-                                            //});
-                                            $.ajax({
-                                    url: '/Business/UploadFile',
-                                            type: 'POST',
-                                            data: formData,
-                                            processData: false,
-                                            contentType: false,
-                                            success: function (result) {
-                                            }
-                                            });
-                                          $("#h-close").click();
-                                          ShowOfferingList();
-                                          window.location.reload(); 
-                                      }
-                                      else
-                                      {
-                                      notifyMsg('Warning!', response.stats, 'red', 'fas fa-exclamation-triangle');
-                                      }
-                         
-                                       
-                                        $.unblockUI();
 
-                                    }).fail(function () {
-                                        alert("There was an Error When Loading Data...");
-                                    });
-                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                            $.unblockUI();
 
-                                }, true],
-                                ['<button>NO</button>', function (instance, toast) {
-
-                                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-
-                                }],
-                            ]
+                        }).fail(function () {
+                            alert("There was an Error When Loading Data...");
                         });
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ]
+            });
 
 
-    });
+        });
 
         $('#btn-sendemail').click(function (e) {
- 
+
             iziToast.question({
                 timeout: 20000,
                 close: false,
@@ -566,7 +577,7 @@
                 buttons: [
                     ['<button><b>YES</b></button>', function (instance, toast) {
                         var data = {};
-               
+
                         data.IdList = CheckedRowsUser();
                         ////console.log(data);
                         $.blockUI(reloadLoading);
@@ -586,7 +597,7 @@
                         }).fail(function () {
                             alert("There was an Error When Loading Data...");
                         });
-                    
+
                         instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
 
@@ -601,101 +612,100 @@
 
 
         });
-    $('#offering-table').on('click', '.tbl-delete', function () {
-                      var data = {};
-                      data.id = $(this).data("id");
-                        
-                      iziToast.question({
-                          timeout: 20000,
-                          close: false,
-                          overlay: true,
-                          id: 'question',
-                          zindex: 999,
-                          title: 'Confirmation',
-                          message: 'Are you sure you want to delete?',
-                          position: 'center',
-                          buttons: [
-                              ['<button><b>YES</b></button>', function (instance, toast) {
-                                  $.blockUI(reloadLoading);
-                                  $.ajax({
+        $('#offering-table').on('click', '.tbl-delete', function () {
+            var data = {};
+            data.id = $(this).data("id");
+
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                id: 'question',
+                zindex: 999,
+                title: 'Confirmation',
+                message: 'Are you sure you want to delete?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+                        $.blockUI(reloadLoading);
+                        $.ajax({
                             url: '/Offering/DeleteOffering',
-                                    data: {
-                                           data: data,
-                                      },
-                                      type: "POST",
-                                      datatype: "json"
-                                  }).done(function (data) {
+                            data: {
+                                data: data,
+                            },
+                            type: "POST",
+                            datatype: "json"
+                        }).done(function (data) {
 
-                                      notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
-                                      $("#h-close").click();
-                                      ShowOfferingList();
-                                      $.unblockUI();
+                            notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                            $("#h-close").click();
+                            ShowOfferingList();
+                            $.unblockUI();
 
-                                  }).fail(function () {
-                                      alert("There was an Error When Loading Data...");
-                                  });
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        }).fail(function () {
+                            alert("There was an Error When Loading Data...");
+                        });
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                              }, true],
-                              ['<button>NO</button>', function (instance, toast) {
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
 
-                                  instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                              }],
-                          ]
-                      });
+                    }],
+                ]
+            });
 
 
-                    });
-                    $('#offering-table').on('click', '.tbl-edit', function () {
-                      i_id = $(this).data("id");
-                      businessTypeID   = $(this).data("btypeid");
-                      endDateTime    = $(this).data("edt");
-                      fromTime    = $(this).data("ft");
-                      imgUrl   = $(this).data("imgurl");
-                      membershipID    = $(this).data("memid");
-                      offerdays   = $(this).data("offd");
-                      offeringName   = $(this).data("ofname");
-                      startDateTime   = $(this).data("sdt");
-                      toTime   = $(this).data("tt");
-                      vendorID   = $(this).data("vid");
-                      url   = $(this).data("url");
-                      var dateSdate = startDateTime.split("-");
-                      var dateEdate = endDateTime.split("-");
-                      var Sdate = dateSdate[2] + "-" + dateSdate[0] + "-" + dateSdate[1]; 
-                      var Edate = dateEdate[2] + "-" + dateEdate[0] + "-" + dateEdate[1]; 
-                        console.log(vendorID);
+        });
+        $('#offering-table').on('click', '.tbl-edit', function () {
+            i_id = $(this).data("id");
+            businessTypeID = $(this).data("btypeid");
+            endDateTime = $(this).data("edt");
+            fromTime = $(this).data("ft");
+            imgUrl = $(this).data("imgurl");
+            membershipID = $(this).data("memid");
+            offerdays = $(this).data("offd");
+            offeringName = $(this).data("ofname");
+            startDateTime = $(this).data("sdt");
+            toTime = $(this).data("tt");
+            vendorID = $(this).data("vid");
+            url = $(this).data("url");
+            var dateSdate = startDateTime.split("-");
+            var dateEdate = endDateTime.split("-");
+            var Sdate = dateSdate[2] + "-" + dateSdate[0] + "-" + dateSdate[1];
+            var Edate = dateEdate[2] + "-" + dateEdate[0] + "-" + dateEdate[1];
+            console.log(vendorID);
 
-                      if (imgUrl != null) 
-                                    {
-                                      var img = $('<img>').attr('src', imgUrl);
-                                      img.attr('height', '120px');
-                                      img.attr('width', '120px');
-                                      $('.upload-image-preview').html(img);
-                                    } 
-                                    else {
-                                      document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
-                                    }
-                                 var dateObject = new Date(Date.parse(endDateTime)); 
-                                 //console.log(dateObject);
-                      $("#btype-option").val(businessTypeID);
-                      $("#endate").val(Edate);
-                      $("#fromtime").val(fromTime);
-                      @* $("#img").val(imgUrl); *@
-                      $("#memtier-option").val(membershipID);
-                      $("#offerdays").val(offerdays);
-                      $("#promodesc").val( $(this).data("promdes"));
-                      $("#startdate").val(Sdate);
-                      $("#totime").val(toTime);
-                      $("#offeringname").val(offeringName);
-                      $("#vendor-option").val(vendorID);
-                      $("#offeringurl").val(url);
-                      img_edit= imgUrl.split('/')[5];
-                      $('#offeringmodal').modal('show');
+            if (imgUrl != null) {
+                var img = $('<img>').attr('src', imgUrl);
+                img.attr('height', '120px');
+                img.attr('width', '120px');
+                $('.upload-image-preview').html(img);
+            }
+            else {
+                document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+            }
+            var dateObject = new Date(Date.parse(endDateTime));
+            //console.log(dateObject);
+            $("#btype-option").val(businessTypeID);
+            $("#endate").val(Edate);
+            $("#fromtime").val(fromTime);
+        @* $("#img").val(imgUrl); *@
+                $("#memtier-option").val(membershipID);
+            $("#offerdays").val(offerdays);
+            $("#promodesc").val($(this).data("promdes"));
+            $("#startdate").val(Sdate);
+            $("#totime").val(toTime);
+            $("#offeringname").val(offeringName);
+            $("#vendor-option").val(vendorID);
+            $("#offeringurl").val(url);
+            img_edit = imgUrl.split('/')[5];
+            $('#offeringmodal').modal('show');
 
-                    });
-                    
-   
+        });
 
-</script>
+
+
+    </script>
 }

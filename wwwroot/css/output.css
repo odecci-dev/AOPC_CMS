@@ -1204,8 +1204,9 @@ table.privTable tbody {
 
 table.myTableMedium tbody tr {
     transition: all 0.5s ease-in-out;
-    height: 50px !important;
 }
+
+
 
 table.privTable tbody tr {
   transition: all 0.5s ease-in-out;
@@ -1226,11 +1227,11 @@ table.myTableMedium td {
   font-size: clamp(0.5rem, 2vw, 0.7rem);
   color: var(--dark);
 }
-    table.myTableMedium td:nth-child(2) {
-        max-width: 100px;
-    }
+table.myTableMedium td:nth-child(2) {
+    max-width: 100px;
+}
 table.myTableMedium td {
-    white-space: nowrap;
+/*    white-space: nowrap;*/
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -1252,6 +1253,7 @@ table.myTableMedium tbody tr td:nth-child(1) {
     gap: 10px;
     text-overflow: ellipsis;
     padding:10px;
+    min-height: 700px;
 }
 table.myTableMedium tbody tr td:nth-child(1) p:nth-child(2) {
     width: 100px;
@@ -1259,11 +1261,11 @@ table.myTableMedium tbody tr td:nth-child(1) p:nth-child(2) {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-    table.myTableMedium tbody tr td:nth-child(1) p:nth-child(1) {
-        width: 100px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+table.myTableMedium tbody tr td:nth-child(1) p:nth-child(1) {
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
         
     }
 table.privTable tbody tr td:nth-child(1) {
@@ -1292,7 +1294,7 @@ table.privTable tbody tr td:nth-child(1) p:nth-child(1) {
 table.myTableMedium tbody tr td:nth-child(1) .actions {
     font-size: clamp(0.3rem, 2vw, 0.5rem);
     opacity: 1;
-    height: 2rem;
+/*    height: 2rem;*/
     transition: all 0.3s ease-in;
     display: flex;
 }
@@ -1318,7 +1320,7 @@ table.myTableMedium tbody tr td:nth-child(1) .actions_ {
 table.privTable tbody tr td:nth-child(1) .actions {
     font-size: clamp(0.3rem, 2vw, 0.5rem);
     opacity: 1;
-    height: 2rem;
+/*    height: 2rem;*/
     transition: all 0.3s ease-in;
     display: flex;
 }
@@ -1347,10 +1349,12 @@ table.myTableMedium tbody tr td:nth-child(4) p {
 table.myTableMedium tbody tr td:nth-child(4) p:nth-child(2) {
   font-size: clamp(0.3rem, 2vw, 0.5rem);
 }
-
+table.myTableMedium tbody tr {
+    height: 80px !important;
+}
 table.myTableMedium tbody tr:hover {
-  background-color: var(--secondary-light);
-  height: 50px;
+    background-color: var(--secondary-light);
+    height: 80px !important;
 }
 
 table.privTable tbody tr:hover {
@@ -1618,7 +1622,7 @@ table.myTableLarge tbody tr:hover td:nth-child(1) p:nth-child(1) {
   display: flex;
   height: 400px;
   width: 100%;
-  flex: 10;
+/*  flex: 10;*/
   padding: 10px;
   gap: 10px;
 }
@@ -2482,8 +2486,8 @@ table.myTableLarge tbody tr:hover td:nth-child(1) p:nth-child(1) {
   .row-group1,
   .row-group2,
   .row-group3 {
-    flex-direction: column;
-    height: auto;
+/*    flex-direction: column;*/
+/*    height: auto;*/
   }
 }
 
@@ -9294,7 +9298,8 @@ table.dataTable {
 
 table.dataTable td,
 table.dataTable th {
-  box-sizing: content-box
+    box-sizing: content-box;
+    padding: 0 20px;
 }
 
 table.dataTable td.dataTables_empty,
@@ -10054,3 +10059,25 @@ input:checked + .slider:before {
     .slider.round:before {
         border-radius: 50%;
     }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+

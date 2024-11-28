@@ -26,15 +26,14 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using String = System.String;
 using System.Collections.Generic;
 using static AOPC.Controllers.CorporateController;
-using MailKit.Security;
 
 namespace AOPC.Controllers
 {
     public class RegisterController : Controller
     {
         DBMethods dbmet = new DBMethods();
-        string status="";
-         private readonly QueryValueService token;
+        string status = "";
+        private readonly QueryValueService token;
         private readonly AppSettings _appSettings;
         private ApiGlobalModel _global = new ApiGlobalModel();
         private GlobalService _globalService;
@@ -49,7 +48,7 @@ namespace AOPC.Controllers
                   IHttpContextAccessor contextAccessor,
                   IConfiguration configuration)
         {
-             token_ = _token;
+            token_ = _token;
             _userManager = userManager;
             _configuration = configuration;
             apiUrl = _configuration.GetValue<string>("AppSettings:WebApiURL");
@@ -62,33 +61,55 @@ namespace AOPC.Controllers
 
             var url = DBConn.HttpString + "/api/ApiRegister/UserAllist";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
 
             return response;
         }
         [HttpGet]
-                public async Task<JsonResult> GetuserList()
+        public async Task<JsonResult> GetuserList()
         {
-             var url = DBConn.HttpString + "/api/ApiRegister/UserAllist";
+            var url = DBConn.HttpString + "/api/ApiRegister/UserAllist";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<UserVM> model = JsonConvert.DeserializeObject<List<UserVM>>(response);
             return new(model);
         }
-       
+
         [HttpGet]
         public async Task<JsonResult> GetPosition()
         {
             var url = DBConn.HttpString + "/api/ApiRegister/PositionList";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<PositionModel> models = JsonConvert.DeserializeObject<List<PositionModel>>(response);
             return new(models);
         }
-          [HttpPost]
+        [HttpGet]
+        public async Task<JsonResult> GetPositionv2()
+        {
+            var url = DBConn.HttpString + "/api/ApiRegister/PositionList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<PositionModel> models = JsonConvert.DeserializeObject<List<PositionModel>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetPositionList()
+        {
+            var url = DBConn.HttpString + "/api/ApiRegister/PositionList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<PositionModel> models = JsonConvert.DeserializeObject<List<PositionModel>>(response);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
+        [HttpPost]
         public async Task<IActionResult> SavePosition(PositionModel data)
         {
             try
@@ -103,13 +124,13 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/SavePosition";
-                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     _global.Status = await response.Content.ReadAsStringAsync();
-             
+
 
                 }
             }
@@ -120,7 +141,7 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = _global.Status });
         }
-         public class DeletePos
+        public class DeletePos
         {
 
             public int Id { get; set; }
@@ -145,7 +166,7 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/DeletePosition";
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -201,8 +222,8 @@ namespace AOPC.Controllers
         {
             var url = DBConn.HttpString + "/api/ApiRegister/Corporatelist";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
-           string response = await client.GetStringAsync(url);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
             List<CorpUserVM> models = JsonConvert.DeserializeObject<List<CorpUserVM>>(response);
             return new(models);
         }
@@ -210,18 +231,19 @@ namespace AOPC.Controllers
         {
             var url = DBConn.HttpString + "/api/ApiRegister/AdminList";
             HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<AdminUserVM> models = JsonConvert.DeserializeObject<List<AdminUserVM>>(response);
-            return new(models);
+            //return new(models);
+            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetUserType()
         {
             var url = DBConn.HttpString + "/api/ApiRegister/UserTypeList";
             HttpClient client = new HttpClient();
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
-           string response = await client.GetStringAsync(url);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
             List<UserTypeModel> models = JsonConvert.DeserializeObject<List<UserTypeModel>>(response);
             return new(models);
         }
@@ -241,7 +263,7 @@ namespace AOPC.Controllers
 
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/UpdateUserInfo";
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
@@ -249,7 +271,7 @@ namespace AOPC.Controllers
                     _global.Status = await response.Content.ReadAsStringAsync();
                     if (data.Id.ToString() == HttpContext.Session.GetString("Id"))
                     {
-                        HttpContext.Session.SetString("ImgUrl", "https://www.alfardanoysterprivilegeclub.com/assets/img/" + data.FilePath);
+                        HttpContext.Session.SetString("ImgUrl", "Uploads/" + data.FilePath);
                     }
 
                 }
@@ -282,7 +304,7 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/FinalUserRegistration2";
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -323,6 +345,7 @@ namespace AOPC.Controllers
 
         public JsonResult UploadFile(List<IFormFile> postedFiles)
         {
+
             int i;
             string wwwPath = this.Environment.WebRootPath;
             string contentPath = this.Environment.ContentRootPath;
@@ -332,8 +355,8 @@ namespace AOPC.Controllers
                 {
                     try
                     {
-                        // var filePath = "C:\\Files\\";
-                        var filePath = "C:\\inetpub\\AOPCAPP\\public\\assets\\img\\";
+                        // var filePath = "C:\\Files\\"; + "/Uploads";
+                        string filePath = wwwPath + "/Uploads";
                         //var filePath = Environment.WebRootPath + "\\uploads\\";
                         if (!Directory.Exists(filePath))
                         {
@@ -349,7 +372,7 @@ namespace AOPC.Controllers
 
                         var stream = new FileStream(file, FileMode.Create);
                         Request.Form.Files[i].CopyToAsync(stream);
-                        //status = "https://www.alfardanoysterprivilegeclub.com/assets/img/" + MyUserDetailsIWantToAdd;
+                        status = "https://www.alfardanoysterprivilegeclub.com/assets/img/" + MyUserDetailsIWantToAdd;
                         foreach (IFormFile postedFile in postedFiles)
                         {
                             string fileName = Path.GetFileName(postedFile.FileName);
@@ -405,20 +428,15 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = result });
         }
-        public class UserID
-        {
-
-            public int Id { get; set; }
-        }
         [HttpPost]
-        public async Task<IActionResult> UpdateUserStatus(UserID model)
+        public async Task<IActionResult> UpdateUserStatus(string id)
         {
             string result = "";
             try
             {
-                string action = model.Id == null ? "Added New" : "Updated";
+                string action = id == "0" ? "Added New" : "Updated";
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                   action + " Status User Id#: " + model.Id, DateTime.Now.ToString(),
+                   action + " Status User Id#: " + id, DateTime.Now.ToString(),
                    "CMS-User",
                    HttpContext.Session.GetString("Name"),
                    HttpContext.Session.GetString("Id"),
@@ -426,8 +444,8 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/UpdateUserStatus";
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
-                StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
@@ -443,7 +461,6 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = result });
         }
-        
         [HttpPost]
         public async Task<IActionResult> VerifyOTP(OTPnumber data)
         {
@@ -452,8 +469,8 @@ namespace AOPC.Controllers
             {
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/VerifyOTP";
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
-               StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     _global.Status = await response.Content.ReadAsStringAsync();
@@ -465,7 +482,7 @@ namespace AOPC.Controllers
 
             catch (Exception ex)
             {
-                    
+
             }
             return Json(new { stats = status });
         }
@@ -528,7 +545,7 @@ namespace AOPC.Controllers
                    HttpContext.Session.GetString("EmployeeID"));
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/DeleteUserInfo";
-                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue()); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
@@ -661,7 +678,7 @@ namespace AOPC.Controllers
                         var status = "";
                         HttpClient client = new HttpClient();
                         var url = DBConn.HttpString + "/api/ApiRegister/Import";
-                            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                         using (var response = await client.PostAsync(url, content))
@@ -734,81 +751,81 @@ namespace AOPC.Controllers
                                 if (reader.GetValue(1) != null)
                                 {
                                     string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + reader.GetValue(7).ToString() + "'";
-                                DataTable dt = db.SelectDb(sql).Tables[0];
-                                var corporateid = "";
-                                if (dt.Rows.Count > 0)
-                                {
-                                    corporateid = dt.Rows[0]["Id"].ToString();
+                                    DataTable dt = db.SelectDb(sql).Tables[0];
+                                    var corporateid = "";
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        corporateid = dt.Rows[0]["Id"].ToString();
+                                    }
+                                    else
+                                    {
+                                        corporateid = "0";
+                                    }
+                                    string pos = $@"select Id from tbl_PositionModel where Name='" + reader.GetValue(4).ToString() + "'  ";
+                                    DataTable dts = db.SelectDb(pos).Tables[0];
+                                    var positionid = "";
+                                    if (dts.Rows.Count > 0)
+                                    {
+                                        positionid = dts.Rows[0]["Id"].ToString();
+                                    }
+                                    else
+                                    {
+                                        positionid = "0";
+                                    }
+                                    string EmployeeID = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
+
+                                    string Fname = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
+
+                                    string Lname = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
+
+                                    string Username = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
+
+                                    string PositionId = reader.GetValue(4) == null ? "0" : positionid.ToString();
+
+                                    string Gender = reader.GetValue(5) == null ? "none" : reader.GetValue(5).ToString();
+                                    string CorporateID = reader.GetValue(6) == null ? "0" : corporateid;
+                                    string Email = reader.GetValue(6) == null ? "none" : reader.GetValue(6).ToString();
+
+
+                                    StringBuilder str_build = new StringBuilder();
+                                    Random random = new Random();
+                                    int length = 8;
+                                    char letter;
+
+                                    for (int x = 0; x < length; x++)
+                                    {
+                                        double flt = random.NextDouble();
+                                        int shift = Convert.ToInt32(Math.Floor(25 * flt));
+                                        letter = Convert.ToChar(shift + 2);
+                                        str_build.Append(letter);
+                                    }
+                                    var token = Cryptography.Encrypt(str_build.ToString());
+                                    string strtokenresult = token;
+                                    string[] charsToRemove = new string[] { "/", ",", ".", ";", "'", "=" };
+                                    foreach (var c in charsToRemove)
+                                    {
+                                        strtokenresult = strtokenresult.Replace(c, string.Empty);
+                                    }
+                                    data.Add(new UserModel
+                                    {
+                                        Username = Username,
+                                        Password = "",
+                                        Fullname = Fname + " " + Lname,
+                                        Fname = Fname,
+                                        Lname = Lname,
+                                        Gender = Gender,
+                                        Email = Email,
+                                        CorporateID = int.Parse(corporateid),
+                                        PositionID = int.Parse(PositionId),
+                                        JWToken = string.Concat(strtokenresult.TakeLast(15)),
+                                        FilePath = "",
+                                        Type = 2,
+                                        Active = 2,
+                                        EmployeeID = EmployeeID,
+                                        Id = 0,
+
+                                    });
                                 }
-                                else
-                                {
-                                    corporateid = "0";
-                                }
-                                string pos = $@"select Id from tbl_PositionModel where Name='" + reader.GetValue(4).ToString() + "'  ";
-                                DataTable dts = db.SelectDb(pos).Tables[0];
-                                var positionid = "";
-                                if (dts.Rows.Count > 0)
-                                {
-                                    positionid = dts.Rows[0]["Id"].ToString();
-                                }
-                                else
-                                {
-                                    positionid = "0";
-                                }
-                                string EmployeeID = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
-
-                                string Fname = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
-
-                                string Lname = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
-
-                                string Username = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
-
-                                string PositionId = reader.GetValue(4) == null ? "0" : positionid.ToString();
-
-                                string Gender = reader.GetValue(5) == null ? "none" : reader.GetValue(5).ToString();
-                                string CorporateID = reader.GetValue(6) == null ? "0" : corporateid;
-                                string Email = reader.GetValue(6) == null ? "none" : reader.GetValue(6).ToString();
-
-
-                                StringBuilder str_build = new StringBuilder();
-                                Random random = new Random();
-                                int length = 8;
-                                char letter;
-
-                                for (int x = 0; x < length; x++)
-                                {
-                                    double flt = random.NextDouble();
-                                    int shift = Convert.ToInt32(Math.Floor(25 * flt));
-                                    letter = Convert.ToChar(shift + 2);
-                                    str_build.Append(letter);
-                                }
-                                var token = Cryptography.Encrypt(str_build.ToString());
-                                string strtokenresult = token;
-                                string[] charsToRemove = new string[] { "/", ",", ".", ";", "'", "=" };
-                                foreach (var c in charsToRemove)
-                                {
-                                    strtokenresult = strtokenresult.Replace(c, string.Empty);
-                                }
-                                data.Add(new UserModel
-                                {
-                                    Username = Username,
-                                    Password = "",
-                                    Fullname = Fname + " " + Lname,
-                                    Fname = Fname,
-                                    Lname = Lname,
-                                    Gender = Gender,
-                                    Email = Email,
-                                    CorporateID = int.Parse(corporateid),
-                                    PositionID = int.Parse(PositionId),
-                                    JWToken = string.Concat(strtokenresult.TakeLast(15)),
-                                    FilePath = "",
-                                    Type = 2,
-                                    Active = 2,
-                                    EmployeeID = EmployeeID,
-                                    Id = 0,
-
-                                });
-                            }
                             }
                         }
                         reader.Close();
@@ -817,7 +834,7 @@ namespace AOPC.Controllers
                         var status = "";
                         HttpClient client = new HttpClient();
                         var url = DBConn.HttpString + "/api/ApiRegister/Import";
-                           client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                         using (var response = await client.PostAsync(url, content))
@@ -890,80 +907,80 @@ namespace AOPC.Controllers
                                 if (reader.GetValue(1) != null)
                                 {
                                     string sql = $@"select Id from tbl_CorporateModel where CorporateName='" + HttpContext.Session.GetString("CorporateName") + "'";
-                                DataTable dt = db.SelectDb(sql).Tables[0];
-                                var corporateid = "";
-                                if (dt.Rows.Count > 0)
-                                {
-                                    corporateid = dt.Rows[0]["Id"].ToString();
+                                    DataTable dt = db.SelectDb(sql).Tables[0];
+                                    var corporateid = "";
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        corporateid = dt.Rows[0]["Id"].ToString();
+                                    }
+                                    else
+                                    {
+                                        corporateid = "0";
+                                    }
+                                    string pos = $@"select Id from tbl_PositionModel where Name='" + reader.GetValue(4).ToString() + "'  ";
+                                    DataTable dts = db.SelectDb(pos).Tables[0];
+                                    var positionid = "";
+                                    if (dts.Rows.Count > 0)
+                                    {
+                                        positionid = dts.Rows[0]["Id"].ToString();
+                                    }
+                                    else
+                                    {
+                                        positionid = "0";
+                                    }
+                                    string EmployeeID = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
+
+                                    string Fname = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
+
+                                    string Lname = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
+
+                                    string Username = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
+
+                                    string PositionId = reader.GetValue(4) == null ? "0" : positionid.ToString();
+
+                                    string Gender = reader.GetValue(5) == null ? "none" : reader.GetValue(5).ToString();
+                                    string Email = reader.GetValue(6) == null ? "none" : reader.GetValue(6).ToString();
+
+
+                                    StringBuilder str_build = new StringBuilder();
+                                    Random random = new Random();
+                                    int length = 8;
+                                    char letter;
+
+                                    for (int x = 0; x < length; x++)
+                                    {
+                                        double flt = random.NextDouble();
+                                        int shift = Convert.ToInt32(Math.Floor(25 * flt));
+                                        letter = Convert.ToChar(shift + 2);
+                                        str_build.Append(letter);
+                                    }
+                                    var token = Cryptography.Encrypt(str_build.ToString());
+                                    string strtokenresult = token;
+                                    string[] charsToRemove = new string[] { "/", ",", ".", ";", "'", "=" };
+                                    foreach (var c in charsToRemove)
+                                    {
+                                        strtokenresult = strtokenresult.Replace(c, string.Empty);
+                                    }
+                                    data.Add(new UserModel
+                                    {
+                                        Username = Username,
+                                        Password = "",
+                                        Fullname = Fname + " " + Lname,
+                                        Fname = Fname,
+                                        Lname = Lname,
+                                        Gender = Gender,
+                                        Email = Email,
+                                        CorporateID = int.Parse(corporateid),
+                                        PositionID = int.Parse(PositionId),
+                                        JWToken = string.Concat(strtokenresult.TakeLast(15)),
+                                        FilePath = "",
+                                        Type = 3,
+                                        Active = 2,
+                                        EmployeeID = EmployeeID,
+                                        Id = 0,
+
+                                    });
                                 }
-                                else
-                                {
-                                    corporateid = "0";
-                                }
-                                string pos = $@"select Id from tbl_PositionModel where Name='" + reader.GetValue(4).ToString() + "'  ";
-                                DataTable dts = db.SelectDb(pos).Tables[0];
-                                var positionid = "";
-                                if (dts.Rows.Count > 0)
-                                {
-                                    positionid = dts.Rows[0]["Id"].ToString();
-                                }
-                                else
-                                {
-                                    positionid = "0";
-                                }
-                                string EmployeeID = reader.GetValue(0) == null ? "none" : reader.GetValue(0).ToString();
-
-                                string Fname = reader.GetValue(1) == null ? "none" : reader.GetValue(1).ToString();
-
-                                string Lname = reader.GetValue(2) == null ? "none" : reader.GetValue(2).ToString();
-
-                                string Username = reader.GetValue(3) == null ? "none" : reader.GetValue(3).ToString();
-
-                                string PositionId = reader.GetValue(4) == null ? "0" : positionid.ToString();
-
-                                string Gender = reader.GetValue(5) == null ? "none" : reader.GetValue(5).ToString();
-                                string Email = reader.GetValue(6) == null ? "none" : reader.GetValue(6).ToString();
-
-
-                                StringBuilder str_build = new StringBuilder();
-                                Random random = new Random();
-                                int length = 8;
-                                char letter;
-
-                                for (int x = 0; x < length; x++)
-                                {
-                                    double flt = random.NextDouble();
-                                    int shift = Convert.ToInt32(Math.Floor(25 * flt));
-                                    letter = Convert.ToChar(shift + 2);
-                                    str_build.Append(letter);
-                                }
-                                var token = Cryptography.Encrypt(str_build.ToString());
-                                string strtokenresult = token;
-                                string[] charsToRemove = new string[] { "/", ",", ".", ";", "'", "=" };
-                                foreach (var c in charsToRemove)
-                                {
-                                    strtokenresult = strtokenresult.Replace(c, string.Empty);
-                                }
-                                data.Add(new UserModel
-                                {
-                                    Username = Username,
-                                    Password = "",
-                                    Fullname = Fname + " " + Lname,
-                                    Fname = Fname,
-                                    Lname = Lname,
-                                    Gender = Gender,
-                                    Email = Email,
-                                    CorporateID = int.Parse(corporateid),
-                                    PositionID = int.Parse(PositionId),
-                                    JWToken = string.Concat(strtokenresult.TakeLast(15)),
-                                    FilePath = "",
-                                    Type = 3,
-                                    Active = 2,
-                                    EmployeeID = EmployeeID,
-                                    Id = 0,
-
-                                });
-                            }
                             }
                         }
                         reader.Close();
@@ -972,7 +989,7 @@ namespace AOPC.Controllers
                         var status = "";
                         HttpClient client = new HttpClient();
                         var url = DBConn.HttpString + "/api/ApiRegister/Import";
-                            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                         using (var response = await client.PostAsync(url, content))
@@ -1011,8 +1028,10 @@ namespace AOPC.Controllers
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
             //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
-            message.To.Add(new MailboxAddress(dt.Rows[0]["Fname"].ToString() + " " + dt.Rows[0]["Lname"].ToString(), dt.Rows[0]["Email"].ToString()));
-            //message.To.Add(new MailboxAddress("Carl Jecson", "carl.jecson.d.galvez@odecci.com"));
+
+            message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, data.Email));
+            //message.To.Add(new MailboxAddress(dt.Rows[0]["Fname"].ToString() + " " + dt.Rows[0]["Lname"].ToString(), dt.Rows[0]["Email"].ToString()));
+            //message.To.Add(new MailboxAddress("France Samaniego", "france.samaniego@odecci.com"));
             //message.To.Add(new MailboxAddress("Agabi", "allan.gabriel@odecci.com"));
             //message.To.Add(new MailboxAddress("Alibaba", "alisandro.villegas@odecci.com"));
             message.Subject = "Email Registration Link";
@@ -1090,9 +1109,6 @@ namespace AOPC.Controllers
             message.Body = bodyBuilder.ToMessageBody();
             using (var client = new SmtpClient())
             {
-                client.ServerCertificateValidationCallback = (s, c, h, e) => true; // Bypass SSL validation
-
-                //client.Connect("smtp.yourserver.com", 465, SecureSocketOptions.SslOnConnect);
                 client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
                 client.Authenticate("app@alfardan.com.qa", "Oyster2023!");
                 client.Send(message);
@@ -1242,7 +1258,7 @@ namespace AOPC.Controllers
         public IActionResult AdminDownloadHeader()
         {
             dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-            "User: " + HttpContext.Session.GetString("Name") +" Download Admin Header", DateTime.Now.ToString(),
+            "User: " + HttpContext.Session.GetString("Name") + " Download Admin Header", DateTime.Now.ToString(),
             "CMS-AdminDownloadHeader",
             HttpContext.Session.GetString("Name"),
             HttpContext.Session.GetString("Id"),
@@ -1308,6 +1324,243 @@ namespace AOPC.Controllers
             stream.Position = 0;
             string excelName = "Corporate-Admin-Registration-Template.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+
+        public class UnregisteredUserFilter
+        {
+            public string name { get; set; }
+        }
+        [HttpPost]
+        public async Task<JsonResult> UnregisteredList(UnregisteredUserFilter data)
+        {
+            string result = "";
+            var list = new List<UnregisteredResult>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiCorporateListing/UnregisteredList";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<UnregisteredResult>>(res);
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+
+
+
+        public class UnregisteredUserEmailRequest
+        {
+            public string Body { get; set; }
+            public string[] Name { get; set; }
+            public string[] Email { get; set; }
+            //public List<UserListModel> UserList { get; set; }
+        }
+        public class UserListModel
+        {
+            public string Body { get; set; }
+            public string Name { get; set; }
+            public string Email { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> EmailUnregisterUsers(UnregisteredUserEmailRequest data)
+        {
+            var list = new List<UnregisteredUserEmailRequest>();
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiCorporateListing/EmailUnregisterUser";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<UnregisteredUserEmailRequest>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+
+
+        public class PaginationCorpUserModel
+        {
+            public string? CurrentPage { get; set; }
+            public string? NextPage { get; set; }
+            public string? PrevPage { get; set; }
+            public string? TotalPage { get; set; }
+            public string? PageSize { get; set; }
+            public string? TotalRecord { get; set; }
+            public string? TotalVIP { get; set; }
+            public List<UserVMv2> items { get; set; }
+
+
+        }
+        public class paginateCorpUserv2
+        {
+            public string? CorpId { get; set; }
+            public string? PosId { get; set; }
+            public string? Gender { get; set; }
+            public string? isVIP { get; set; }
+            public string? Status { get; set; }
+            public string? FilterName { get; set; }
+            public int page { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostDisplayRegistrationList(paginateCorpUserv2 data)
+        {
+            string result = "";
+            var list = new List<UserVMv2>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiPagination/DisplayRegistrationListv2";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<UserVMv2>>(res);
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostDisplayCorporateList(paginateCorpUserv2 data)
+        {
+            string result = "";
+            var list = new List<UserVMv2>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiRegister/Corporatelist";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<UserVMv2>>(res);
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
+        }
+        public class FamilyMemberpagedModel
+        {
+            public string CurrentPage { get; set; }
+            public string NextPage { get; set; }
+            public string PrevPage { get; set; }
+            public string TotalPage { get; set; }
+            public string PageSize { get; set; }
+            public string TotalRecord { get; set; }
+            public List<FamilyMemberModel> data { get; set; }
+        }
+        public class FamMemberRequest
+        {
+            public int FamilyUserId { get; set; }
+            public int page { get; set; }
+            public int pageSize { get; set; }
+        }
+        public class FamilyMemberModel
+        {
+            public int Id { get; set; }
+            public string Fullname { get; set; }
+            public string Relationship { get; set; }
+            public int FamilyUserId { get; set; }
+            public string ApplicationStatus { get; set; }
+            public int Status { get; set; }
+            public DateTime DateCreated { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostDisplayVIPFamilyMember(FamMemberRequest data)
+        {
+            string result = "";
+            var list = new List<FamilyMemberpagedModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiRegister/ListFamilyMember";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<FamilyMemberpagedModel>>(res);
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        public class FamilyMemberStatus
+        {
+
+            public int Id { get; set; }
+            public string Status { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateFamilyMember(FamilyMemberStatus data)
+        {
+            string result = "";
+            var list = new List<FamilyMemberStatus>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiRegister/updateFamilyMemberStatus/";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<FamilyMemberStatus>>(res);
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
         }
         public IActionResult Index()
         {
