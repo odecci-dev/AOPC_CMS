@@ -20,12 +20,12 @@
 <body>
 
 
-@Html.Partial("_TopBarCorporate")
-@Html.Partial("_SideBarCorporate")
+    @Html.Partial("_TopBarCorporate")
+    @Html.Partial("_SideBarCorporate")
     <main>
-@* @Html.Partial("_Main") *@
-@RenderBody()
-</main>
+        @* @Html.Partial("_Main") *@
+        @RenderBody()
+    </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -49,6 +49,6 @@
     <script src="~/js/dataTables.fixedColumns.js"></script>
     <div class="footer"></div>
 
-  @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

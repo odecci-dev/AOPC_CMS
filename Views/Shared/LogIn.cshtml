@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
+<head>
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <style>
         form .pass-cont {
             font-family: "Montserrat-Reg";
@@ -22,26 +22,27 @@
             overflow: hidden;
         }
 
-        form .pass-cont > .cl-pass {
-            height: 30px;
-            background-color: transparent;
-            border: none;
-            padding: 5px 10px;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
-            width: 90%;
-        }
-        form .pass-cont > #view-pass {
-            display: flex;
-            justify-content: center;
-            width: 10%;
-            align-items: center;
-            padding: 5px 10px;
-            box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.595);
-            background-color: #d7d2cb;
-            cursor: pointer;
-        }
+            form .pass-cont > .cl-pass {
+                height: 30px;
+                background-color: transparent;
+                border: none;
+                padding: 5px 10px;
+                font-size: clamp(0.8rem, 2vw, 0.9rem);
+                width: 90%;
+            }
 
-        #text{
+            form .pass-cont > #view-pass {
+                display: flex;
+                justify-content: center;
+                width: 10%;
+                align-items: center;
+                padding: 5px 10px;
+                box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.595);
+                background-color: #d7d2cb;
+                cursor: pointer;
+            }
+
+        #text {
             color: var(--light);
             font-weight: 800;
             display: none;
@@ -49,46 +50,46 @@
     </style>
 
 
-  </head>
-  <body>
+</head>
+<body>
     @RenderBody()
     <div class="hero">
-      <div class="form-container">
-        @* <div class="bg-blur"></div> *@
-        <div class="login-logo-conctainer">
-          <img src="/img/AOPCWHITEPNG.png" alt="AOPC" width="100%" />
-        </div>
-        <h1>Content Management System</h1>
-        <form class="form">
-            <input type="text" placeholder="Username" id="username" required/>
-            @* <input type="password" placeholder="Password" id="password" required /> *@
-            <div class="pass-cont">
-                <input type="password"
-                        placeholder="Password"
-                        class="cl-pass"
-                        id="password"
-                        name="password"
-                        required />
-                <span id="view-pass"><i class="fa fa-eye-slash"></i></span>
+        <div class="form-container">
+            @* <div class="bg-blur"></div> *@
+            <div class="login-logo-conctainer">
+                <img src="/img/AOPCWHITEPNG.png" alt="AOPC" width="100%" />
             </div>
+            <h1>Content Management System</h1>
+            <form class="form">
+                <input type="text" placeholder="Username" id="username" required />
+                @* <input type="password" placeholder="Password" id="password" required /> *@
+                <div class="pass-cont">
+                    <input type="password"
+                           placeholder="Password"
+                           class="cl-pass"
+                           id="password"
+                           name="password"
+                           required />
+                    <span id="view-pass"><i class="fa fa-eye-slash"></i></span>
+                </div>
 
-            <p id="text">Caps Lock is ON</p>
-            <a href="https://www.alfardanoysterprivilegeclub.com/forgot-password">Forgot Password?</a>
-            <button type="button" value="Save" class="btn-save" id="save" onclick="Login()">Submit</button>
+                <p id="text">Caps Lock is ON</p>
+                <a href="https://www.alfardanoysterprivilegeclub.com/forgot-password">Forgot Password?</a>
+                <button type="button" value="Save" class="btn-save" id="save" onclick="Login()">Submit</button>
 
-        </form>
-      </div>
+            </form>
+        </div>
     </div>
 
-   <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <script src="~/js/jquery-ui-1.12.1.min.js"></script>
 
     <footer class="border-top footer text-muted">
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  @RenderSection("Scripts", required: false)
-    <script src="" async defer></script>
-  </body>
+        @RenderSection("Scripts", required: false)
+        <script src="" async defer></script>
+</body>
 </html>
 <script>
 
@@ -112,58 +113,55 @@
             text.style.display = "none"
         }
     });
-var input = document.getElementById("password");
-var u_input = document.getElementById("username");
-input.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("save").click();
-  }
-});
-u_input.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("save").click();
-  }
-});
+    var input = document.getElementById("password");
+    var u_input = document.getElementById("username");
+    input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("save").click();
+        }
+    });
+    u_input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("save").click();
+        }
+    });
 
 
-function Login() {
-                      if ( $('#username').val() == '' || $('#password').val() == ''  ) 
-                    {
-                        notifyMsg('Warning!', 'Please fill up all required fields.', 'red', 'fas fa-exclamation-triangle');
-                            $("#username").focus();
+    function Login() {
+        if ($('#username').val() == '' || $('#password').val() == '') {
+            notifyMsg('Warning!', 'Please fill up all required fields.', 'red', 'fas fa-exclamation-triangle');
+            $("#username").focus();
+        }
+        else {
+            var data = {};
+
+            data.Username = $('#username').val();
+            data.password = $('#password').val();
+
+
+            $.ajax({
+                url: '/LogIn/LoginUser',
+                data: {
+                    data: data,
+                },
+                type: "POST",
+                datatype: "json",
+                success: function (response) {
+                    console.log(response);
+                    if (response.stats != null) {
+
+                        notifyMsg('Error!', response.stats, 'red', 'fas fa-ban');
                     }
-                    else
-                    {
-                          var data = {};
-                  
-                          data.Username = $('#username').val();
-                          data.password = $('#password').val();
-                           
-                          
-                          $.ajax({
-                              url: '/LogIn/LoginUser',
-                              data: {
-                                  data: data,
-                              },
-                              type: "POST",
-                              datatype: "json",
-                            success: function (response) {
-                              console.log(response);
-                              if(response.stats != null) {
-                      
-                              notifyMsg('Error!', response.stats, 'red', 'fas fa-ban');
-                              }
-                            else
-                            {
-                                window.location.href = response.redirectToUrl;
-                            } 
-                        
-                        
-                          }
-                          });
+                    else {
+                        window.location.href = response.redirectToUrl;
                     }
-   
-}
+
+
+                }
+            });
+        }
+
+    }
 </script>

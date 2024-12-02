@@ -14,13 +14,13 @@
 
     <div class="row-group1">
         <div class="chart-class">
-         <h4 style="color:#c89328">Total User</h4>
-                <div class="top-corp-user">
-   
-                    <canvas id="myChart" style="width:1000px"></canvas>
-                </div>
+            <h4 style="color:#c89328">Total User</h4>
+            <div class="top-corp-user">
+
+                <canvas id="myChart" style="width:1000px"></canvas>
+            </div>
         </div>
-       
+
         <div class="inner-group">
             <div class="new-users">
                 <div class="controls">
@@ -30,7 +30,7 @@
                         <option value="15">Last 15 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="1">Last 12 Months</option>
-                        
+
                     </select>
                 </div>
                 <div class="user-counter">
@@ -46,7 +46,7 @@
                         <path d="M71.0607 13.0607C71.6464 12.4749 71.6464 11.5251 71.0607 10.9393L61.5147 1.3934C60.9289 0.807611 59.9792 0.807611 59.3934 1.3934C58.8076 1.97919 58.8076 2.92893 59.3934 3.51472L67.8787 12L59.3934 20.4853C58.8076 21.0711 58.8076 22.0208 59.3934 22.6066C59.9792 23.1924 60.9289 23.1924 61.5147 22.6066L71.0607 13.0607ZM0 13.5H70V10.5H0V13.5Z"
                               fill="#C89328" />
                     </svg*>
-                    <div >
+                    <div>
                         <p class="count" id="all-user"></p>
                         <p class="total-user-container">Total Active User</p>
                     </div>
@@ -97,7 +97,7 @@
                     <div class="data">
                         <span class="data-label"
                               style="background-color: var(--secondary-light)"></span>
-                        <span class="data-name" style="color: var(--secondary-light)" id="mcr_top4"">Business3</span>
+                        <span class="data-name" style="color: var(--secondary-light)" id="mcr_top4" ">Business3</span>
                         <span class="data-value"
                               style="color: var(--secondary-light)" id="mcr_perc4">
                             10%
@@ -154,13 +154,13 @@
                 </div>
             </div>
             <div class="controls">
-              <select id="mch" class="option-filters">
-                        <option value="7">Last 7 Days</option>
-                        <option value="15">Last 15 Days</option>
-                        <option value="30">Last 30 Days</option>
-                        <option value="1">Last 12 Months</option>
-                        
-                    </select>
+                <select id="mch" class="option-filters">
+                    <option value="7">Last 7 Days</option>
+                    <option value="15">Last 15 Days</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="1">Last 12 Months</option>
+
+                </select>
                 <a class="btn-view-more" id="mch_vm">View Details</a>
             </div>
         </div>
@@ -191,8 +191,8 @@
                     </div>
                     <div class="data">
                         <span class="data-label"
-                              style="background-color: var(--secondary-light)" ></span>
-                        <span class="data-name" style="color: var(--secondary-light)" id="mcs_top4" >Alfred Doe</span>
+                              style="background-color: var(--secondary-light)"></span>
+                        <span class="data-name" style="color: var(--secondary-light)" id="mcs_top4">Alfred Doe</span>
                         <span class="data-value"
                               style="color: var(--secondary-light)" id="mcs_perc4">
                             10%
@@ -235,7 +235,7 @@
                         <option value="15">Last 15 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="1">Last 12 Months</option>
-                        
+
                     </select>
                 </div>
             </div>
@@ -243,7 +243,7 @@
             <table id="cAction_table">
                 <thead>
                     <tr>
-                        <th >Name</th>
+                        <th>Name</th>
                         <th>Categories</th>
                         <th>Call</th>
                         <th>Email</th>
@@ -251,10 +251,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
                 </tbody>
             </table>
-           
+
             <a class="btn-view-more" id="vm_action">View More</a>
         </div>
         <div class="news-feed">
@@ -266,13 +265,12 @@
                         <option value="15">Last 15 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="1">Last 12 Months</option>
-                        
+
                     </select>
                 </div>
             </div>
             <table id="tbl_cnt">
                 <tbody>
-                    
                 </tbody>
             </table>
             <a class="btn-view-more" id="vm_feedclicks">View More</a>
@@ -280,20 +278,20 @@
     </div>
 </div>
 <div class="modal fade" id="clickModal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
-        aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static" >
-   <div class="modal-dialog modal-error-dialog" style="max-width: 600px;margin: 1.75rem auto;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" >News Feed Clicks List</h4>
-                    <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
-                </div>
-                <div style="margin:10px">
+     aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-error-dialog" style="max-width: 600px;margin: 1.75rem auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">News Feed Clicks List</h4>
+                <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
+            </div>
+            <div style="margin:10px">
 
                 <button type="button" class="btn btn-warning btn-nfc" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%"><i class="fas fa-file-excel"></i>Export excel file</button>
 
                 <table class="myTableMedium" id="n_clicktbl">
                     <thead>
-                  
+
                     <th>Module</th>
                     <th>No. of Clicks</th>
                     <tbody>
@@ -302,9 +300,9 @@
 
 
 
-                </div>
             </div>
         </div>
+    </div>
 </div>
 <div class="modal fade" id="CallModal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
      aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
@@ -317,7 +315,7 @@
             <div style="margin:10px">
                 <button type="button" class="btn btn-warning btn-print" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%"><i class="fas fa-file-excel"></i>Export excel file</button>
 
-                <table class="myTableMedium" id="n_call" >
+                <table class="myTableMedium" id="n_call">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -409,7 +407,7 @@
             </div>
             <div style="margin:10px">
 
-                  <button type="button" class="btn btn-warning btn-mcr" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%"><i class="fas fa-file-excel"></i>Export excel file</button>
+                <button type="button" class="btn btn-warning btn-mcr" data-toggle="tooltip" data-placement="bottom" title="Print Entire Data" style="width:100%"><i class="fas fa-file-excel"></i>Export excel file</button>
 
                 <table class="myTableMedium" id="mcr_call">
                     <thead>
@@ -437,30 +435,30 @@
     "></script>
 
 
-@section Scripts{
+                            @section Scripts {
     <script>
         let myChart = new Chart();
         $(document).ready(function () {
             nbtable = $('#n_clicktbl').DataTable({
-                         
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                    "searching": false,
+
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+                "searching": false,
                 "paging": true,
                 "aLengthMenu": [10],
                 "searching": false
                 , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-              }); 
-              nctable = $('#n_call').DataTable({
-                   "columnDefs": [
+            });
+            nctable = $('#n_call').DataTable({
+                "columnDefs": [
 
                     { "width": "150px", "targets": 0 },
                     { "width": "100px", "targets": 1 },
@@ -468,51 +466,51 @@
                     { "width": "100px", "targets": 3 },
                     // { "width": "70px", "targets": 9 }
                 ],
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                 "paging": true,
-                      "aLengthMenu": [10],
-                      "searching": true,
-                 "paging": true,
-                                      "aLengthMenu": [10],
-                                      "searching": true
-                                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+                "paging": true,
+                "aLengthMenu": [10],
+                "searching": true,
+                "paging": true,
+                "aLengthMenu": [10],
+                "searching": true
+                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-              });      
-              mcstable = $('#mcs_call ').DataTable({
-                            "columnDefs": [
+            });
+            mcstable = $('#mcs_call ').DataTable({
+                "columnDefs": [
 
                     { "width": "150px", "targets": 0 },
                     { "width": "100px", "targets": 1 },
                     { "width": "100px", "targets": 2 },
                     // { "width": "70px", "targets": 9 }
                 ],
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                    "searching": false,
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+                "searching": false,
                 "paging": true,
                 "aLengthMenu": [10],
-                          "searching": true,
-                 "paging": true,
-                                      "aLengthMenu": [10],
-                                      "searching": true
-                                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+                "searching": true,
+                "paging": true,
+                "aLengthMenu": [10],
+                "searching": true
+                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-              });
+            });
             mchtable = $('#mch_call').DataTable({
                 "columnDefs": [
 
@@ -522,24 +520,24 @@
                     // { "width": "70px", "targets": 9 }
                 ],
                 "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                            "paging": true,
-                      "aLengthMenu": [10],
-                             "searching": true,
-                 "paging": true,
-                                      "aLengthMenu": [10],
-                                      "searching": true
-                                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+                "paging": true,
+                "aLengthMenu": [10],
+                "searching": true,
+                "paging": true,
+                "aLengthMenu": [10],
+                "searching": true
+                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-              });   
-              tbl_cnttable = $('#tbl_cnt').DataTable({
+            });
+            tbl_cnttable = $('#tbl_cnt').DataTable({
                 "columnDefs": [
 
                     { "width": "200px", "targets": 0 },
@@ -547,18 +545,18 @@
                     // { "width": "70px", "targets": 9 }
                 ],
                 "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                    "searching": false,
-                    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+                "searching": false,
+                "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-              });
+            });
 
             mcrtable = $('#mcr_call').DataTable({
                 "columnDefs": [
@@ -581,10 +579,10 @@
                 "paging": true,
                 "aLengthMenu": [10],
                 "searching": true,
-                 "paging": true,
-                                      "aLengthMenu": [10],
-                                      "searching": true
-                                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+                "paging": true,
+                "aLengthMenu": [10],
+                "searching": true
+                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
             });
             cAbtable = $('#cAction_table').DataTable({
@@ -597,21 +595,21 @@
                     { "width": "70px", "targets": 4 },
                     // { "width": "70px", "targets": 9 }
                 ],
-                    "bPaginate": false,
-                    "bFilter": false,
-                    "stripeClasses": [],
-                    "ordering": false,
-                    "ordering": false,
-                    "info": false,
-                    "bInfo": false,
-                    "bAutoWidth": false,
-                    "bLengthChange": false,
-                 "aLengthMenu": [5],
-                 "paging": true,
-                                      "searching": true
-                                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+                "bPaginate": false,
+                "bFilter": false,
+                "stripeClasses": [],
+                "ordering": false,
+                "ordering": false,
+                "info": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bLengthChange": false,
+                "aLengthMenu": [5],
+                "paging": true,
+                "searching": true
+                , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-              });
+            });
             ShowGetLineGraphCountList();
             ShowPiegraphMostClickStore();
             ShowPiegraphMostClickHospitality();
@@ -624,25 +622,25 @@
             ShowMostClickStoreList();
             ShowGetMostClickedHospitalityList();
             ShowGetMostClickRestaurant();
-      
+
         });
 
         $('.btn-print').click(function () {
             location.replace("/Dashboard/DownloadCalltoActionExcel");
 
-        });  
+        });
         $('.btn-msc').click(function () {
             location.replace("/Dashboard/DownloadMCS");
 
-        });  
+        });
         $('.btn-mch').click(function () {
             location.replace("/Dashboard/DownloadMCH");
 
-        });  
+        });
         $('.btn-mcr').click(function () {
             location.replace("/Dashboard/DownloadMCR");
 
-        });    
+        });
         $('.btn-nfc').click(function () {
             location.replace("/Dashboard/DownloadMSC");
 
@@ -656,113 +654,111 @@
             $('#CallModal').modal('show');
         });
         $('#mcs_vm').click(function () {
-         
-              $.blockUI(reloadLoading);
-                setTimeout(function () {
-                    $.ajax(
-                        {
-                            url: "/Dashboard/GetMostClickStore",
-                            data: {
 
-                            },
-                            type: "GET",
-                            datatype: "json"
-                        }).done(function (data) {
-                        
-                            mcstable.clear().draw();
-                            for (var i = 0; i < data.length; i++) {
-                                $("#mcs_call").dataTable().fnAddData([
-                                    "<td><p></p><p>" + data[i].business + "</p></td>",
-                                    "<td><p>" + data[i].count + "</p></td>",
-                                "<td><p>" + data[i].total +" %"+ "</p></td>",
+            $.blockUI(reloadLoading);
+            setTimeout(function () {
+                $.ajax(
+                    {
+                        url: "/Dashboard/GetMostClickStore",
+                        data: {
 
-                                ]);
-                            }
-                            $.unblockUI();
-                        }).fail(function () {
-                            alert("There was an Error When Loading Data...");
-                        });
-                }, 100);
+                        },
+                        type: "GET",
+                        datatype: "json"
+                    }).done(function (data) {
+
+                        mcstable.clear().draw();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#mcs_call").dataTable().fnAddData([
+                                "<td><p></p><p>" + data[i].business + "</p></td>",
+                                "<td><p>" + data[i].count + "</p></td>",
+                                "<td><p>" + data[i].total + " %" + "</p></td>",
+
+                            ]);
+                        }
+                        $.unblockUI();
+                    }).fail(function () {
+                        alert("There was an Error When Loading Data...");
+                    });
+            }, 100);
             $('#MostClickStoreModal').modal('show');
         });
         $('#mch_vm').click(function () {
-         
+
             $.blockUI(reloadLoading);
-                setTimeout(function () {
-                    $.ajax(
-                        {
-                            url: "/Dashboard/GetMostClickedHospitalityAll",
-                            data: {
+            setTimeout(function () {
+                $.ajax(
+                    {
+                        url: "/Dashboard/GetMostClickedHospitalityAll",
+                        data: {
 
-                            },
-                            type: "GET",
-                            datatype: "json"
-                        }).done(function (data) {
-                 
-                          mchtable.clear().draw();
-                            for (var i = 0; i < data.length; i++) {
-                                $("#mch_call").dataTable().fnAddData([
-                                    "<td><p></p><p>" + data[i].business + "</p></td>",
-                                    "<td><p>" + data[i].count + "</p></td>",
-                                    "<td><p>" + data[i].total + " %"+ "</p></td>",
+                        },
+                        type: "GET",
+                        datatype: "json"
+                    }).done(function (data) {
 
-                                ]);
-                            }
-                            $.unblockUI();
-                        }).fail(function () {
-                            alert("There was an Error When Loading Data...");
-                        });
-                }, 100);
+                        mchtable.clear().draw();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#mch_call").dataTable().fnAddData([
+                                "<td><p></p><p>" + data[i].business + "</p></td>",
+                                "<td><p>" + data[i].count + "</p></td>",
+                                "<td><p>" + data[i].total + " %" + "</p></td>",
+
+                            ]);
+                        }
+                        $.unblockUI();
+                    }).fail(function () {
+                        alert("There was an Error When Loading Data...");
+                    });
+            }, 100);
             $('#ShowGetMostClickModal').modal('show');
         });
         $('#mcr_vm').click(function () {
-    
-             $.blockUI(reloadLoading);
-                setTimeout(function () {
-                    $.ajax(
-                        {
-                            url: "/Dashboard/GetMostClickRestaurantAll",
-                            data: {
 
-                            },
-                            type: "GET",
-                            datatype: "json"
-                        }).done(function (data) {
-                 
-                          
-                              mcrtable.clear().draw();
-                            for (var i = 0; i < data.length; i++) {
-                                $("#mcr_call").dataTable().fnAddData([
-                                    "<td><p></p><p>" + data[i].business + "</p></td>",
-                                    "<td><p>" + data[i].count + "</p></td>",
-                                    "<td><p>" + data[i].total + " %"+ "</p></td>",
+            $.blockUI(reloadLoading);
+            setTimeout(function () {
+                $.ajax(
+                    {
+                        url: "/Dashboard/GetMostClickRestaurantAll",
+                        data: {
 
-                                ]);
-                            }
-                            $.unblockUI();
-                        }).fail(function () {
-                            alert("There was an Error When Loading Data...");
-                        });
-                }, 100);
+                        },
+                        type: "GET",
+                        datatype: "json"
+                    }).done(function (data) {
+
+
+                        mcrtable.clear().draw();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#mcr_call").dataTable().fnAddData([
+                                "<td><p></p><p>" + data[i].business + "</p></td>",
+                                "<td><p>" + data[i].count + "</p></td>",
+                                "<td><p>" + data[i].total + " %" + "</p></td>",
+
+                            ]);
+                        }
+                        $.unblockUI();
+                    }).fail(function () {
+                        alert("There was an Error When Loading Data...");
+                    });
+            }, 100);
             $('#ShowMostClickRestoModal').modal('show');
         });
         $('#cta-opt').change(function () {
             var data = {};
             var cat = "";
             var day = "";
-            if ($(this).val() === '0' && $('#cta-day').val() === '0')  
-            {
-               cat = "0";
+            if ($(this).val() === '0' && $('#cta-day').val() === '0') {
+                cat = "0";
                 day = "0";
             }
-            else
-            {
+            else {
                 cat = $('#cta-opt').val();
                 day = $('#cta-day').val();
             }
-           
+
             data.day = day;
-            data.category=cat;
+            data.category = cat;
             //console.log(data);
             $.ajax({
                 url: '/Dashboard/PostCallToActions',
@@ -788,7 +784,7 @@
                 }
             });
         });
-   
+
         $('#cta-day').change(function () {
             var data = {};
             var cat = "";
@@ -802,9 +798,9 @@
                 day = $('#cta-day').val();
             }
 
-            
+
             data.day = day
-            data.category=cat;
+            data.category = cat;
             //console.log(data);
             $.ajax({
                 url: '/Dashboard/PostCallToActions',
@@ -817,23 +813,23 @@
                     //console.log(data);
                     cAbtable.clear().draw();
                     for (var i = 0; i < data.length; i++) {
-                    $("#cAction_table").dataTable().fnAddData([
-                        "<td><p></p><p>" + data[i].business + "</p></td>",
-                        "<td><p>" + data[i].category + "</p></td>",
-                        "<td><p>" + data[i].callCount + "</p></td>",
-                        "<td><p>" + data[i].emailCount + "</p></td>",
-                        "<td><p>" + data[i].bookCount + "</p></td>",
+                        $("#cAction_table").dataTable().fnAddData([
+                            "<td><p></p><p>" + data[i].business + "</p></td>",
+                            "<td><p>" + data[i].category + "</p></td>",
+                            "<td><p>" + data[i].callCount + "</p></td>",
+                            "<td><p>" + data[i].emailCount + "</p></td>",
+                            "<td><p>" + data[i].bookCount + "</p></td>",
 
-                    ]);
-                }
-                    
+                        ]);
+                    }
+
                 }
             });
 
         });
-   
+
         $('#nur').change(function () {
-  
+
             const ctx = document.getElementById("myChart").getContext("2d");
             const arrdate = new Array();
             const arrval = new Array();
@@ -849,14 +845,14 @@
                 type: "POST",
                 datatype: "json",
                 success: function (response) {
-                     //console.log(response);
-              
-                      for (var i = 0; i < response.length; i++) {
+                    //console.log(response);
+
+                    for (var i = 0; i < response.length; i++) {
                         arrdate.push(response[i].date);
                         arrval.push(response[i].graph_count);
                         document.getElementById("new_user").innerHTML = response[0].count;
                         document.getElementById("percent-registered").innerHTML = response[0].percentage.toFixed(2) + " %";
-                      }
+                    }
                     //console.log(arrval);
                     var chartData = {
                         labels: arrdate, // conditions to made
@@ -884,32 +880,32 @@
                                 },
                             ],
                         },
-                              plugins: {
-                                 legend: {
-                                    display: false
-                                 }
-                              }
-                            
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+
                     };
 
-                      myChart.destroy();
-                       myChart = new Chart(ctx, {
-                            type: "line",
-                            data: chartData,
+                    myChart.destroy();
+                    myChart = new Chart(ctx, {
+                        type: "line",
+                        data: chartData,
                         options: chartOptions
-                        });
-                      
-                
-                   
+                    });
+
+
+
                     // Update the chart data
                     setInterval(function () {
 
                         myChart.update();
                     }, 5000);
-           
+
                 }
             });
-         
+
 
         });
         $('#cnt-opt').change(function () {
@@ -925,18 +921,18 @@
                 type: "POST",
                 datatype: "json",
                 success: function (data) {
-                ////console.log(data);
-                tbl_cnttable.clear().draw();
-               for (var i = 0; i < data.length; i++) {
+                    ////console.log(data);
+                    tbl_cnttable.clear().draw();
+                    for (var i = 0; i < data.length; i++) {
 
-                    $("#tbl_cnt tbody").append([
-                        "<tr>" +
-                        "<td>" + data[i].module + "</td>" +
-                        "<td>" + data[i].count + "</td>", + "</tr>"
-                    ]);
+                        $("#tbl_cnt tbody").append([
+                            "<tr>" +
+                            "<td>" + data[i].module + "</td>" +
+                            "<td>" + data[i].count + "</td>", + "</tr>"
+                        ]);
 
+                    }
                 }
-            }
             });
 
         });
@@ -954,45 +950,45 @@
                 datatype: "json",
                 success: function (data) {
                     ////console.log(data);
-                 var sum = 0;
-                for (var x = 3; x < data.length; x++) {
-                    sum += data[x].total;
-                   
-                } 
-                //console.log(sum);
-                for (var i = 0; i < data.length; i++) {
-                    document.getElementById("mcs_top1").innerHTML = "Others";
-                    document.getElementById("mcs_perc1").innerHTML = sum.toFixed(2) + " %";
+                    var sum = 0;
+                    for (var x = 3; x < data.length; x++) {
+                        sum += data[x].total;
 
-                    document.getElementById("mcs_top2").innerHTML = data[0].business;
-                    document.getElementById("mcs_perc2").innerHTML = data[0].total + " %";
+                    }
+                    //console.log(sum);
+                    for (var i = 0; i < data.length; i++) {
+                        document.getElementById("mcs_top1").innerHTML = "Others";
+                        document.getElementById("mcs_perc1").innerHTML = sum.toFixed(2) + " %";
 
-                    document.getElementById("mcs_top3").innerHTML = data[1].business;
-                    document.getElementById("mcs_perc3").innerHTML = data[1].total + " %";
+                        document.getElementById("mcs_top2").innerHTML = data[0].business;
+                        document.getElementById("mcs_perc2").innerHTML = data[0].total + " %";
 
-                    document.getElementById("mcs_top4").innerHTML = data[2].business;
-                    document.getElementById("mcs_perc4").innerHTML = data[2].total + " %";
+                        document.getElementById("mcs_top3").innerHTML = data[1].business;
+                        document.getElementById("mcs_perc3").innerHTML = data[1].total + " %";
 
-                     topBusinesOutlet = [
-                        {
-                            name: "Others",
-                            totalVisit: sum, //percentage
-                        },
-                        {
-                            name: data[0].business,
-                            totalVisit: data[0].total, //percentage
-                        },
-                        {
-                            name: data[1].business,
-                            totalVisit: data[1].total,  //percentage
-                        },
-                        {
-                            name: data[2].business,
+                        document.getElementById("mcs_top4").innerHTML = data[2].business;
+                        document.getElementById("mcs_perc4").innerHTML = data[2].total + " %";
+
+                        topBusinesOutlet = [
+                            {
+                                name: "Others",
+                                totalVisit: sum, //percentage
+                            },
+                            {
+                                name: data[0].business,
+                                totalVisit: data[0].total, //percentage
+                            },
+                            {
+                                name: data[1].business,
+                                totalVisit: data[1].total,  //percentage
+                            },
+                            {
+                                name: data[2].business,
                                 totalVisit: data[2].total,  //percentage
-                        },
-                    ];
-                }
-         
+                            },
+                        ];
+                    }
+
                     const pieGraphMovement = (elementContainer, data) => {
                         let oldValue = 0;
                         let styleString = "";
@@ -1064,43 +1060,43 @@
                 success: function (response) {
                     //console.log(response);
                     var sum = 0;
-                for (var x = 3; x < response.length; x++) {
-                    sum += response[x].total;
-                    
-                } 
-                //console.log(sum);
+                    for (var x = 3; x < response.length; x++) {
+                        sum += response[x].total;
+
+                    }
+                    //console.log(sum);
                     for (var i = 0; i < response.length; i++) {
-                    document.getElementById("mch_top1").innerHTML = "Others";
+                        document.getElementById("mch_top1").innerHTML = "Others";
                         document.getElementById("mch_perc1").innerHTML = sum.toFixed(2) + " %";
 
-                    document.getElementById("mch_top2").innerHTML = response[0].business;
-                    document.getElementById("mch_perc2").innerHTML = response[0].total + " %";
+                        document.getElementById("mch_top2").innerHTML = response[0].business;
+                        document.getElementById("mch_perc2").innerHTML = response[0].total + " %";
 
-                    document.getElementById("mch_top3").innerHTML = response[1].business;
-                    document.getElementById("mch_perc3").innerHTML = response[1].total + " %";
+                        document.getElementById("mch_top3").innerHTML = response[1].business;
+                        document.getElementById("mch_perc3").innerHTML = response[1].total + " %";
 
-                    document.getElementById("mch_top4").innerHTML = response[2].business;
-                   document.getElementById("mch_perc4").innerHTML = response[2].total + " %";
+                        document.getElementById("mch_top4").innerHTML = response[2].business;
+                        document.getElementById("mch_perc4").innerHTML = response[2].total + " %";
 
-                      topBusinesOutlet = [
-                        {
-                            name: "Others",
-                            totalVisit: sum, //percentage
-                        },
-                        {
-                            name: response[0].business,
-                            totalVisit: response[0].total, //percentage
-                        },
-                        {
-                            name: response[1].business,
-                            totalVisit: response[1].total,  //percentage
-                        },
-                        {
-                            name: response[2].business,
+                        topBusinesOutlet = [
+                            {
+                                name: "Others",
+                                totalVisit: sum, //percentage
+                            },
+                            {
+                                name: response[0].business,
+                                totalVisit: response[0].total, //percentage
+                            },
+                            {
+                                name: response[1].business,
+                                totalVisit: response[1].total,  //percentage
+                            },
+                            {
+                                name: response[2].business,
                                 totalVisit: response[2].total,  //percentage
-                        },
-                    ];
-                }
+                            },
+                        ];
+                    }
                     const pieGraphMovement = (elementContainer, data) => {
                         let oldValue = 0;
                         let styleString = "";
@@ -1153,7 +1149,7 @@
                     };
 
                     pieGraphMovement("#th-pie-graph", topBusinesOutlet);
-                   
+
                 }
             });
 
@@ -1272,5 +1268,5 @@
         });
 
     </script>
-}
+                            }
 

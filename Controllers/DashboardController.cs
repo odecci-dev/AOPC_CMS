@@ -243,7 +243,7 @@ namespace AOPC.Controllers
         [HttpGet]
         public async Task<JsonResult> GetSuppoprtCount()
         {
-            var url = DBConn.HttpString + "/api/ApiSupport/GetSupportCountList";
+            var url = DBConn.HttpString + "/api/ApiSupport/GetSupportCountList ";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);

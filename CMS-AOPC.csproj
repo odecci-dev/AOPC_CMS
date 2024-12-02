@@ -1,207 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>AOPC_CMSv2</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>AOPC_CMSv2</RootNamespace>
+	</PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
-  <ItemGroup>
-    <Content Remove="Views\Business\_Index.cshtml" />
-  </ItemGroup>
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+	<ItemGroup>
+		<Content Remove="Views\Business\_Index.cshtml" />
+		<Content Remove="wwwroot\js\d3w0qyvn.rjn~" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Controllers\BusinessController.cs~RF3993a79.TMP" />
-    <None Remove="Controllers\j4ceuz2q.4y4~" />
-    <None Remove="Manager\2m4lmc0j.ffk~" />
-    <None Remove="Manager\DBConn.cs~RF850d86f.TMP" />
-    <None Remove="Views\Corporate\umrvfngk.03w~" />
-    <None Remove="Views\Offering\mjp4ilcg.0ya~" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Controllers\BusinessController.cs~RF3993a79.TMP" />
+		<None Remove="Controllers\j4ceuz2q.4y4~" />
+		<None Remove="Manager\2m4lmc0j.ffk~" />
+		<None Remove="Manager\DBConn.cs~RF850d86f.TMP" />
+		<None Remove="Views\Corporate\umrvfngk.03w~" />
+		<None Remove="Views\Offering\mjp4ilcg.0ya~" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EPPlus.Core" Version="1.5.4" />
+		<PackageReference Include="ExcelDataReader" Version="3.6.0" />
+		<PackageReference Include="excellupload" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.12" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12" />
+		<PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="NPOI.Excel" Version="2.1.1" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+		<PackageReference Include="ExcelDataReader" Version="3.6.0" />
+		<PackageReference Include="Libgdiplus.rntime.osx_arm64" Version="6.1.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Update="Views\Dashboard\Index.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Update="wwwroot\css\datatable.css">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Update="wwwroot\css\notification.css">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Update="wwwroot\js\business.js">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Update="wwwroot\js\register.js">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\NewFolder\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\excel\Advanced Construction Technologies-Registration-Template.xlsx" />
-    <None Include="wwwroot\excel\ALFARDAN-Registration-Template %285%29.xlsx" />
-    <None Include="wwwroot\js\app.js" />
-    <None Include="wwwroot\js\app_corporate.js" />
-    <None Include="wwwroot\js\bootbox.min.js" />
-    <None Include="wwwroot\js\business.js" />
-    <None Include="wwwroot\js\corporateDashboard.js" />
-    <None Include="wwwroot\js\dashboard.js" />
-    <None Include="wwwroot\js\dataTables.fixedColumns.js" />
-    <None Include="wwwroot\js\dataTables.responsive.min.js" />
-    <None Include="wwwroot\js\dataTables.rowReorder.min.js" />
-    <None Include="wwwroot\js\flipclock.js" />
-    <None Include="wwwroot\js\iziToast.min.js" />
-    <None Include="wwwroot\js\jquery-autocomplete.js" />
-    <None Include="wwwroot\js\jquery-ui-1.12.1.min.js" />
-    <None Include="wwwroot\js\jquery.blockUI.js" />
-    <None Include="wwwroot\js\jquery.dataTables.min.js" />
-    <None Include="wwwroot\js\main.js" />
-    <None Include="wwwroot\js\moment.js" />
-    <None Include="wwwroot\js\notification.js" />
-    <None Include="wwwroot\js\notify.min.js" />
-    <None Include="wwwroot\js\register.js" />
-    <None Include="wwwroot\js\responsive.bootstrap4.min.js" />
-    <None Include="wwwroot\js\site.js" />
-    <None Include="wwwroot\js\tailwind.config.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
-    <None Include="wwwroot\lib\bootstrap\LICENSE" />
-    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
-    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
-    <None Include="wwwroot\lib\signalr\dist\browser\signalr.js" />
-    <None Include="wwwroot\lib\signalr\dist\browser\signalr.js.map" />
-    <None Include="wwwroot\lib\signalr\dist\browser\signalr.min.js" />
-    <None Include="wwwroot\lib\signalr\dist\browser\signalr.min.js.map" />
-    <None Include="wwwroot\lib\signalr\dist\esm\IConnection.js.map" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-af.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ar.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-bg.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-bn.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-bs.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ca.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-cs.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-cy.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-da.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-de.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-el.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-en.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-es.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-et.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-fa.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-fi.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-fil.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-fj.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-fr.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ga.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-gu.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-he.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-hi.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-hr.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ht.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-hu.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-id.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-is.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-it.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ja.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-kn.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ko.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-lt.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-lv.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-mg.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-mi.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ml.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-mr.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ms.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-mt.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-mww.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-nb.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-nl.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-otq.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-pa.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-pl.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-pt-pt.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-pt.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ro.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ru.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-sk.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-sl.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-sm.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-sr-Cyrl.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-sr-Latn.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-sv.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-sw.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ta.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-te.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-th.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-tlh-Latn.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-tlh-Piqd.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-to.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-tr.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ty.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-uk.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-ur.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-vi.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-yua.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-zh-Hans.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang-zh-Hant.js" />
-    <None Include="wwwroot\richtexteditor\lang\rte-lang.js" />
-    <None Include="wwwroot\richtexteditor\plugins\all_plugins.js" />
-    <None Include="wwwroot\richtexteditor\plugins\html2pdf.js" />
-    <None Include="wwwroot\richtexteditor\plugins\imageeditor.js" />
-    <None Include="wwwroot\richtexteditor\plugins\insertcode.js" />
-    <None Include="wwwroot\richtexteditor\plugins\insertemoji.js" />
-    <None Include="wwwroot\richtexteditor\plugins\insertgallery.js" />
-    <None Include="wwwroot\richtexteditor\plugins\inserttemplate.js" />
-    <None Include="wwwroot\richtexteditor\plugins\samples\insertcode_v1.js" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\fabric.min.js" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\svg\icon-a.svg" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\svg\icon-b.svg" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\svg\icon-c.svg" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\svg\icon-d.svg" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\tui-code-snippet.min.js" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\tui-color-picker.min.js" />
-    <None Include="wwwroot\richtexteditor\plugins\tui.image-editor\tui-image-editor.min.js" />
-    <None Include="wwwroot\richtexteditor\rte.js" />
-    <None Include="wwwroot\richtexteditor\runtime\images\cpie_Color.cur" />
-    <None Include="wwwroot\richtexteditor\runtime\images\cpns_Color.cur" />
-    <None Include="wwwroot\richtexteditor\runtime\richtexteditor_preview.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
-    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
-    <PackageReference Include="excellupload" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.12" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12" />
-    <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="NPOI.Excel" Version="2.1.1" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
-    <PackageReference Include="Libgdiplus.rntime.osx_arm64" Version="6.1.2" />
-  </ItemGroup>
- 
 
 </Project>

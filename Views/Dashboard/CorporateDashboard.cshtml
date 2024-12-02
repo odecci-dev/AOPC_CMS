@@ -4,22 +4,22 @@
     Layout = "~/Views/Shared/_LayoutCorporate.cshtml";
     string message = "";
     if (ViewData["Message"] != null)
-    {  
+    {
         message = ViewData["Message"].ToString();
     }
 
-} 
+}
 @* New DataTables Start*@
 <link rel="stylesheet" href="/css/datatable.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 @* New DataTables End*@
-<div class="main-container-corp">    
-    <!-- Employee Count  --> 
-    <div class="row-group corp-dash"> 
+<div class="main-container-corp">
+    <!-- Employee Count  -->
+    <div class="row-group corp-dash">
         <div class="employee-count">
             <div class="inner-group">
-                <div class="box-count"> 
+                <div class="box-count">
                     <div class="controls">
                         <h4>Registered Employee</h4>
                     </div>
@@ -34,7 +34,7 @@
                 <div class="box-count">
                     <div class="controls">
                         <h4>Unregistered Employee</h4>
-                    </div> 
+                    </div>
                     <div class="user-counter">
                         <div id="unregistered">
                             <p class="count" id="unregistered_employee">0</p>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="inner-group"> 
+            <div class="inner-group">
                 <div class="box-count">
                     <div class="controls">
                         <h4>Remaining VIP Slots:</h4>
@@ -379,13 +379,13 @@
         <button class="next" onclick="move(1)">&#10095;</button>
     </div>
 
-</div> 
-  @* Top 3 Modal *@
+</div>
+@* Top 3 Modal *@
 <div class="modal fade" id="ShowMostClickModal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
      aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-error-dialog" style="max-width: 600px;margin: 1.75rem auto;">
         <div class="modal-content">
-            <div class="modal-header"> 
+            <div class="modal-header">
                 <h4 class="modal-title">Most Click <span id="modalTitle"></span> List</h4>
                 <button type="button" id="h-close" class="close" data-dismiss="modal" aria-hidden="false">x</button>
             </div>
@@ -435,7 +435,7 @@
         </form>
     </div>
 </div>
-<div class="footer"></div> 
+<div class="footer"></div>
 
 <script src="/js/app.js" async defer></script>
 <script src="/js/corporateDashboard.js" async defer></script>
@@ -443,7 +443,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 
 
-@section Scripts{
+@section Scripts {
     <script>
         //Filter Variables
         var corporateFilter = null;
@@ -458,7 +458,7 @@
         $(document).ready(function () {
 
 
-            
+
             corporateUserCount();
             dateFilter();
             // Carousel
@@ -535,32 +535,32 @@
             , "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
         });
-          
-        
-        
+
+
+
         $('.btn-msc').click(function () {
             location.replace("/Dashboard/DownloadMCS");
 
-        });  
+        });
         $('.btn-mch').click(function () {
             location.replace("/Dashboard/DownloadMCH");
 
-        });  
+        });
         $('.btn-mcr').click(function () {
             location.replace("/Dashboard/DownloadMCR");
 
-        });  
+        });
         $('.btn-mcw').click(function () {
             location.replace("/Dashboard/DownloadMCW");
 
-        });  
+        });
         $('.btn-mco').click(function () {
             location.replace("/Dashboard/DownloadMCO");
 
-        });  
+        });
 
-        
-       
+
+
 
         let currentIndex = 0;
         function move(direction) {
