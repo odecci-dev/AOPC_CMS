@@ -329,17 +329,17 @@ tr th {
 
 #family-member-table,
 #corporate-family-member-table {
-    border: 1px solid var(--dark);
+/*    border: 1px solid var(--dark);
     border-radius: 15px;
-    padding-top: 0px;
+    padding-top: 0px;*/
 }
 .family-member thead {
-    background-color: #ECECEC;
-    border-radius: 15px;
-    z-index: -1;
+/*    background-color: var(--accent);*/
+    /*border-radius: 15px;
+    z-index: -1;*/
 }
 .family-member thead tr th {
-    padding: 20px;
+/*    padding: 20px;*/
 }
 .action__{
     justify-content: flex-end !important;
@@ -348,21 +348,21 @@ tr th {
     gap: 10px;
 }
 #family-member-table tr td {
-    padding: 20px;
-    border-radius: 15px;
+/*    padding: 20px;
+    border-radius: 15px;*/
 }
 .approve-btn{
     display: flex;
     gap: 10px;
 }
-#declineBtn {
+#declineBtn, #corpdeclineBtn {
     background-color: #bb2124;
     padding: 5px 10px;
     color: white;
     border-radius: 5px;
     cursor: pointer;
 }
-#approveBtn {
+#approveBtn,#corpapproveBtn {
     background-color: var(--accent);
     padding: 5px 10px;
     color: white;

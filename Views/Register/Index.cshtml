@@ -38,11 +38,11 @@
 </style>
 @* <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> *@
-@* @* New DataTables Start
+@*  New DataTables Start*@
 <link rel="stylesheet" href="/css/datatable.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
- New DataTables End *@
+@*New DataTables End *@
 <div class="register-main-container">
     <ul class="nav nav-tabs justify-content-lg-start">
         <li class="nav-items">
@@ -470,6 +470,7 @@ End here *@
                             </div>
                         </div>
                         <div class="family-member" id="family-member">
+                            <h4 class="modal-title" id="modal-name">Family Member </h4>
                             <table id="family-member-table">
                                 <thead>
                                     <tr>
@@ -612,6 +613,7 @@ End here *@
             </div>
         </div>
                     <div class="family-member" id="corporate-family-member">
+                        <h4 class="modal-title" id="modal-name">Family Member </h4>
                         <table id="corporate-family-member-table">
                             <thead>
                                 <tr>
@@ -1709,16 +1711,18 @@ End here *@
                       positionID = $(this).data("corporateposition");
                       corpid = $(this).data("corporateid");
                       displayimg = $(this).data("corpdisplayimg");
-                      isVIP = $(this).data("vipstats"); 
+                      isVIP = $(this).data("vipstats");
+                      membershipID = $(this).data("membershipid");
                       $("#corp-user").val(uname);
                       $("#corp-empid").val(empid);
                       $("#corp-fname").val(fname);
                       $("#corp-lname").val(lname);
-                    $("#corp-vip-option").val(isVIP);
+                        $("#corp-vip-option").val(isVIP);
                       $("#corp-email").val(email);
                       $("#corp-gender").val(gender);
                       $("#corp-position").val(positionID);
                       $("#corp-corporate-option").val(corpid);
+                      $('#corp-mem-option').val(membershipID);
                       if (displayimg != null) {
                       var img = $('<img>').attr('src', displayimg);
                       img.attr('height', '120px');

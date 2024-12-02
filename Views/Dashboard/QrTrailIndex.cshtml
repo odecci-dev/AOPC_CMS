@@ -89,7 +89,7 @@
            ShowQrList();
     });
 
-
+     var qrTable;
      function ShowQrList() {
 //        $.blockUI(reloadLoading);
 //        setTimeout(function () {
@@ -124,8 +124,11 @@
 //      alert("There was an Error When Loading Data...");
 //      });
 // }, 100);
+            if (DataTable.isDataTable('#-table')) {
+                qrTable.destroy();
+            }
 
-            new DataTable('#qr-table', {
+            qrTable = new DataTable('#qr-table', {
                 ajax: {
                     url: '/Dashboard/GetQrTrail',
                     type: "GET",

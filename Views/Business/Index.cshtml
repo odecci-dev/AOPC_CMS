@@ -820,6 +820,7 @@
                                     {
                                         notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
                                         $("#h-close").click();
+                                        businessLocTable.destroy();
                                         ShowBusinesslocDetails();
                                     }
                                     else
@@ -1041,6 +1042,7 @@
                                           
                                         notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
                                         $("#h-close").click();
+                                        businessLocTable.destroy();
                                         ShowBusinesslocDetails();
                                     }
                                     else

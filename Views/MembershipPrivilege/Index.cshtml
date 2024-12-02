@@ -27,9 +27,7 @@
 @* 
 <script type="text/javascript" src=''></script> *@
 @* New DataTables Start*@
-<link rel="stylesheet" href="/css/datatable.css" />
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
 @* New DataTables End*@
 
 <!-- Tab content -->
@@ -356,6 +354,7 @@
                                        value=""
                                        id="membershipCard" name="membershipCard"
                                        class="mod-input img-choose" />
+                                <input type="hidden" id="membershipCardEdit"/>
                             </label>
                         </div>
                         <div class="mod-form-col">
@@ -370,6 +369,7 @@
                                        value=""
                                        id="vipCard" name="vipCard"
                                        class="mod-input img-choose" />
+                                <input type="hidden" id="vipCardEdit" />
                             </label>
                         </div>
                         <div class="mod-form-col">
@@ -384,6 +384,7 @@
                                        value=""
                                        id="qrFame" name="qrframe"
                                        class="mod-input img-choose" />
+                                <input type="hidden" id="qrFameEdit" />
                             </label>
                         </div>
 
@@ -399,6 +400,7 @@
                                        value=""
                                        id="VipBadge" name="vipbadge"
                                        class="mod-input img-choose" />
+                                <input type="hidden" id="VipBadgeEdit" />
                             </label>
                         </div>
                         @*<div class="mod-form-col">
@@ -415,6 +417,21 @@
                         class="mod-input img-choose" />
                         </label>
                         </div>*@
+                    </div>
+                    <div class="mod-form-row">
+                        <div class="input-container-whole"
+                             style="
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                gap: 15px;
+                            ">
+                            <label for="employeeID"
+                                style="
+                                margin-bottom: 0;
+                            ">Text Card Color:</label>
+                            <input type="color" value="#000000" id="textcardcolor" class="mod-input" required />
+                        </div>
                     </div>
                     <div class="mod-form-row">
                         <div class="input-container-whole">
@@ -1198,7 +1215,7 @@ $("#checkAll2").click(function () {
                 ]
             });
         });
-                     $('#privmem-submit').submit(function(e){
+                $('#privmem-submit').submit(function(e){
                     e.preventDefault();
                       var filename = $("#img").val().replace(/.*(\/|\\)/, '');
                     console.log(filename);
@@ -1289,11 +1306,13 @@ $("#checkAll2").click(function () {
                         //var newTMC = document.getElementById("tmc").innerHTML;
                       var newTMC = tmcEditor.getHTMLCode();
                       var newMecha = mechaEditor.getHTMLCode();
-                      newTMC = newTMC.replaceAll(`"`, `'`);
+                      newTMC = newTMC.replaceAll(`"`, `'`).replace(/(\r\n|\n|\r)/gm,"");
                       data.tmc = newTMC;
-                      newMecha = newMecha.replaceAll(`"`, `'`);
+                      newMecha = newMecha.replaceAll(`"`, `'`).replace(/(\r\n|\n|\r)/gm, "");
                       data.Mechanics = newMecha;
                       data.Active = 5;
+
+                       console.log(newTMC);
                       // document.getElementById("mecha").innerHTML = newTMC;
                       // console.log(data);
                       var fileUpload = $("#img").get(0);
@@ -1343,6 +1362,7 @@ $("#checkAll2").click(function () {
                                             alert("There was an Error When Loading Data...");
                                         });
                                       notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+                                        privilegeTable.destroy();
                                       ShowprivilegeList();
                                       $("#h-close").click();
 
@@ -1363,67 +1383,136 @@ $("#checkAll2").click(function () {
                        });
 
                     });
-                     $('#mem-submit').submit(function(e){
-                    e.preventDefault();
-                         var vipbadge = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
-        
-                         if (vipbadge == "" || vipbadge == null) {
-                             vipbadge = vip_Badge_edit;
-                         }
-                         var qrFame = $("#qrFame").val().replace(/.*(\/|\\)/, '');
-                         //console.log(qrFame);
-                         if (qrFame == "" || qrFame == null) {
-                             qrFame = qrframe_edit;
-                         }
-                         var vipCard = $("#vipCard").val().replace(/.*(\/|\\)/, '');
-                         //console.log(vipCard);
-                         if (vipCard == "" || vipCard == null) {
-                             vipCard = vip_Card_edit;
-                         }
-                         var membershipCard = $("#membershipCard").val().replace(/.*(\/|\\)/, '');
-                         //console.log(membershipCard);
-                         if (membershipCard == "" || membershipCard == null) {
-                             membershipCard = mcard_edit;
-                         }
-                       
-                         var membershipCard = $("#membershipCard").get(0);
-                         var vipCard = $("#vipCard").get(0);
-                         var qrFame = $("#qrFame").get(0);
-                         var VipBadge = $("#VipBadge").get(0);
-                         var files = membershipCard.files;
-                         var files_1 = vipCard.files;
-                         var files_2 = qrFame.files;
-                         var files_3 = VipBadge.files;
-                           // console.log(membershipCard);
-                           //   console.log(vipCard);
-                           //     console.log(qrFame);
-                           //       console.log(VipBadge);
-                         var formData = new FormData();
-                         formData.append('file', files[0]);
-                         formData.append('vip', files_1[0]);
-                         formData.append('qrFame', files_2[0]);
-                         formData.append('VipBadge', files_3[0]);
-                         formData.append('MembershipName', $('#memname').val());
-                         formData.append('DateStarted', $('#dateuse').val());
-                         formData.append('Description', $('#desc').val());
-                         formData.append('DateEnded', $('#dateended').val());
-                         formData.append('UserCount',$('#usercount').val());
-                         formData.append('VIPCount',$('#vipcount').val());
-                         formData.append('MembershipCard',membershipCard);
-                         formData.append('VIPBadge', VipBadge);
-                         formData.append('QRFrame', qrFame);
-                         formData.append('VIPCard', vipCard);
-                     
-                         formData.append('id',i_id);
-                          // var today = new Date();
-                          var dd = String(today.getDate()).padStart(2, '0');
-                          var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                          var yyyy = today.getFullYear();
-                          today = mm + '/' + dd + '/' + yyyy;
-                          let date1 = new Date($('#dateuse').val());
-                          let date2 = new Date($('#dateended').val());
-                          let limitDate = new Date(today);
-                          var today = new Date();
+                    $('#mem-submit').submit(function(e){
+                        e.preventDefault();
+                        // console.log(i_id);
+
+                        var formData = new FormData();
+                        var membershipCard = $("#membershipCard").get(0);
+                        var vipCard = $("#vipCard").get(0);
+                        var qrFame = $("#qrFame").get(0);
+                        var VipBadge = $("#VipBadge").get(0);
+                        var files = membershipCard.files;
+                        var files_1 = vipCard.files;
+                        var files_2 = qrFame.files;
+                        var files_3 = VipBadge.files;
+                        var membershipCardedit;
+                        var vipCardedit;
+                        var qrFameedit;
+                        var vipbadgeedit;
+                        var cardTextColor = $("#textcardcolor").val();
+                        // console.log(cardTextColor);
+                        if(i_id != 0){
+                            vipbadgeedit = $("#VipBadgeEdit").val().replace(/.*(\/|\\)/, '');
+                            vipbadgeedit = vipbadgeedit.replace("https://www.alfardanoysterprivilegeclub.com/assets/img/VIPBadge/", "");
+                            vipbadgeedit = vipbadgeedit.replace("%20", " ");
+
+                            // console.log(vipbadgeedit);
+                            if (vipbadgeedit == "" || vipbadgeedit == null) {
+                                vipbadgeedit = vip_Badge_edit;
+                            }
+                            qrFameedit = $("#qrFameEdit").val().replace(/.*(\/|\\)/, '');
+                            qrFameedit = qrFameedit.replace("https://www.alfardanoysterprivilegeclub.com/assets/img/QRFrame/", "");
+                            qrFameedit = qrFameedit.replace("%20", " ");
+                            // console.log(qrFameedit);
+                            if (qrFameedit == "" || qrFameedit == null) {
+                                qrFameedit = qrframe_edit;
+                            }
+                            vipCardedit = $("#vipCardEdit").val().replace(/.*(\/|\\)/, '');
+                            vipCardedit = vipCardedit.replace("https://www.alfardanoysterprivilegeclub.com/assets/img/VIPCard/", "");
+                            vipCardedit = vipCardedit.replace("%20", " ");
+                            // console.log(vipCardedit);
+                            if (vipCardedit == "" || vipCardedit == null) {
+                                vipCardedit = vip_Card_edit;
+                            }
+                            membershipCardedit = $("#membershipCardEdit").val().replace(/.*(\/|\\)/, '');
+
+                            membershipCardedit = membershipCardedit.replace("https://www.alfardanoysterprivilegeclub.com/assets/img/MembershipCard/", "");
+                            membershipCardedit = membershipCardedit.replace("%20", " ");
+                            // console.log(membershipCardedit);
+                            if (membershipCardedit == "" || membershipCardedit == null) {
+                                membershipCardedit = mcard_edit;
+                            }
+                        }
+                        else{
+                            vipbadgeedit = $("#VipBadge").val().replace(/.*(\/|\\)/, '');
+                            // console.log(vipbadge);
+                            if (vipbadgeedit == "" || vipbadgeedit == null) {
+                                vipbadgeedit = vip_Badge_edit;
+                            }
+                            qrFameedit = $("#qrFame").val().replace(/.*(\/|\\)/, '');
+                            //console.log(qrFame);
+                            if (qrFameedit == "" || qrFameedit == null) {
+                                qrFameedit = qrframe_edit;
+                            }
+                            vipCardedit = $("#vipCard").val().replace(/.*(\/|\\)/, '');
+                            //console.log(vipCard);
+                            if (vipCardedit == "" || vipCardedit == null) {
+                                vipCardedit = vip_Card_edit;
+                            }
+                            membershipCardedit = $("#membershipCard").val().replace(/.*(\/|\\)/, '');
+                            //console.log(membershipCard);
+                            if (membershipCardedit == "" || membershipCardedit == null) {
+                                membershipCardedit = mcard_edit;
+                            }
+                            
+                        }
+                        //console.log(membershipCardedit);
+                        // console.log(vipCardedit);
+                        // console.log(qrFameedit);
+                        //console.log(vipbadgeedit);
+                        // console.log(files[0]);
+                        // console.log(files_1[0]);
+                        // console.log(files_2[0]);
+                        // console.log(files_3[0]);
+
+                        // console.log(membershipCard);
+                        //   console.log(vipCard);
+                        //     console.log(qrFame);
+                        //       console.log(VipBadge);
+                        formData.append('file', files[0]);
+                        formData.append('vip', files_1[0]);
+                        formData.append('qrFame', files_2[0]);
+                        // formData.append('VipBadge', files_3[0]);
+                        formData.append('MembershipName', $('#memname').val());
+                        formData.append('DateStarted', $('#dateuse').val());
+                        formData.append('Description', $('#desc').val());
+                        formData.append('DateEnded', $('#dateended').val());
+                        formData.append('UserCount',$('#usercount').val());
+                        formData.append('VIPCount',$('#vipcount').val());
+                        formData.append('MembershipCard', membershipCardedit);
+                        formData.append('VIPBadge', vipbadgeedit);
+                        formData.append('QRFrame', qrFameedit);
+                        formData.append('VIPCard', vipCardedit);
+                        formData.append('id',i_id);
+                        formData.append('textCardColor',cardTextColor);
+                        // formData.MembershipName = $('#memname').val();
+                        // formData.DateStarted = $('#dateuse').val();
+                        // formData.Description = $('#desc').val();
+                        // formData.DateEnded = $('#dateended').val();
+                        // formData.UserCount = $('#usercount').val();
+                        // formData.VIPCount = $('#vipcount').val();
+                        // formData.MembershipCard = membershipCardedit;
+                        // formData.VIPBadge = vipbadgeedit;
+                        // formData.QRFrame = qrFameedit;
+                        // formData.VIPCard = vipCardedit;
+
+                        // formData.id = i_id;
+                        // console.log( formData);
+                        // Display the key/value pairs
+                        for (var pair of formData.entries()) {
+                            // console.log(pair[0] + ', ' + pair[1]);
+                        }
+                        var today = new Date();
+                        var dd = String(today.getDate()).padStart(2, '0');
+                        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                        var yyyy = today.getFullYear();
+                        today = mm + '/' + dd + '/' + yyyy;
+                        // console.log(today);
+                        let date1 = new Date($('#dateuse').val());
+                        let date2 = new Date($('#dateended').val());
+                        let limitDate = new Date(today);
+                        // var today = new Date();
 
 
 
@@ -1468,6 +1557,8 @@ $("#checkAll2").click(function () {
                                             }
                                             else {
                                                 notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
+                                                //Destroy ShowMembershipList
+                                                membershipTable.destroy();
                                                 ShowMembershipList();
                                                 clear();
                                                 $(".cancel").click();
@@ -1627,40 +1718,48 @@ $('#membership-table').on('click', '.tbl-edit', function () {
     qrframe = $(this).data("qrframe");
     vip_Card = $(this).data("cards");
     vip_Badge = $(this).data("badges");
-
+    text_color = $(this).data("textcolor");
+    // console.log(mcard);
+    // console.log(qrframe);
+    // console.log(vip_Card);
+    // console.log(vip_Badge);
     // console.log(vip_Badge);
     // console.log(vip_Card);
     //     console.log(mcard);
     var formattedDate = formatDate(dend);
     var formattedDate_dstart = formatDate(dstart);
     //console.log(formattedDate);
-      $('#memname').val(memname);
-      $('#desc').val(desc);
+    $('#memname').val(memname);
+    $('#desc').val(desc);
     $('#dateuse').val(formattedDate_dstart);
     $('#dateended').val(formattedDate);
-      $('#usercount').val(ucount);
-      $('#vipcount').val(vcount);
-        $('#membershipmodal').modal('show');
+    $('#usercount').val(ucount);
+    $('#vipcount').val(vcount);
+    $('#membershipmodal').modal('show');
+    $('#membershipCardEdit').val(mcard);
+    $('#vipCardEdit').val(vip_Card);
+    $('#qrFameEdit').val(qrframe);
+    $('#VipBadgeEdit').val(vip_Badge);
+    $('#textcardcolor').val(text_color);
 
-
-            if (mcard != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
+    if (mcard != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', mcard);
         img.attr('height', '100%');
-                img.attr('width', '100%');
+        img.attr('width', '100%');
         $('.img-container-membershipCard').html(img);
     }
     else {
         var img = $('<img>').attr('src', mcard);
-                img.attr('height', '100%');
-                img.attr('width', '100%');
+        img.attr('height', '100%');
+        img.attr('width', '100%');
         $('.img-container-membershipCard').html(img);
 
     }
 
-     if (qrframe != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
+    if (qrframe != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', qrframe);
         img.attr('height', '100%');
-                img.attr('width', '100%');
+        img.attr('width', '100%');
         $('.img-container-qr').html(img);
     }
     else {
@@ -1670,7 +1769,7 @@ $('#membership-table').on('click', '.tbl-edit', function () {
         $('.img-container-qr').html(img);
     }
 
-            if (vip_Card != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
+    if (vip_Card != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', vip_Card);
         img.attr('height', '100%');
                 img.attr('width', '100%');
@@ -1679,21 +1778,21 @@ $('#membership-table').on('click', '.tbl-edit', function () {
     else {
         var img = $('<img>').attr('src', vip_Card);
         img.attr('height', '100%');
-                img.attr('width', '100%');
+        img.attr('width', '100%');
         $('.img-container-vipCard').html(img);
     }
 
-            if (vip_Badge != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
+    if (vip_Badge != "https://alfardanoysterprivilegeclub.com/assets/img/MembershipCard/id-card.jpg") {
         var img = $('<img>').attr('src', vip_Badge);
-                img.attr('height', '100%');
-                img.attr('width', '100%');
+        img.attr('height', '100%');
+        img.attr('width', '100%');
         $('.img-container-vipbadge').html(img);
     }
     else {
 
         var img = $('<img>').attr('src', vip_Badge);
-                img.attr('height', '100%');
-                img.attr('width', '100%');
+        img.attr('height', '100%');
+        img.attr('width', '100%');
         $('.img-container-vipbadge').html(img);
     }
 
@@ -1730,6 +1829,7 @@ $('#membership-table').on('click', '.tbl-delete', function () {
                                   }).done(function (data) {
                                         if (data.stats == "Succesfully deleted") {
                                     notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
+                                    membershipTable.destroy();
                                     ShowMembershipList();
                                     $(".alert-warning").hide();
 
@@ -1807,6 +1907,8 @@ $('#privilege-table').on('click', '.tbl-edit', function () {
     // France
     populate(tmc);
     populateMechanics(mechanics);
+
+            console.log(tmc);
     // var textare = document.getElementsByClassName("editor__main");
 
     // textare.style = "background-color: red !important";
@@ -1845,6 +1947,7 @@ $('#privilege-table').on('click', '.tbl-edit', function () {
                                       if (data.stats == "Succesfully deleted") {
                                           notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
                                           $("#h-close").click();
+                                    privilegeTable.destroy();
                                           ShowprivilegeList();
                                       }
                                       else

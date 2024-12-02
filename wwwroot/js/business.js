@@ -3,6 +3,9 @@ var blocationtable;
 var btypetable;
 var btable;
 async function ShowBusinessListv2() {
+    if (DataTable.isDataTable('#b-table')) {
+        btable.destroy();
+    }
     //$.blockUI(reloadLoading);
     btable = new DataTable('#b-table', {
         ajax: {

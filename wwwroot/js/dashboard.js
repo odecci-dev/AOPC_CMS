@@ -1692,10 +1692,12 @@ async function dateFilter() {
         else {
             ctastartdate = startdate;
             ctaendtdate = enddate;
+            ctaTable.destroy();
             PostCallToAction();
         }
     });
     $('#cta-opt').change(function () {
+        ctaTable.destroy();
         PostCallToAction();
     });
     $('#nur').change(function () {

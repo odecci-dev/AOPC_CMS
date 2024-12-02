@@ -78,56 +78,56 @@ async function userRegistrationListTableLayout() {
 
     //});
     
-    var corpfamilyMemberTable = $('#corporate-family-member-table').DataTable({
-        "columnDefs": [
+    //corpfamilyMemberTable = $('#corporate-family-member-table').DataTable({
+    //    "columnDefs": [
 
-            { "width": "150px", "targets": 0 },
-            { "width": "150px", "targets": 1 },
-            { "width": "150px", "targets": 2 },
-            { "width": "200px", "targets": 3 },
-            { "width": "200px", "targets": 4 }
-        ],
-        "deferRender": true,
-        "bPaginate": false,
-        "bFilter": false,
-        "stripeClasses": [],
-        "ordering": false,
-        "ordering": false,
-        "info": false,
-        "bInfo": false,
-        "bAutoWidth": false,
-        "bLengthChange": false,
-        "aLengthMenu": [10],
-        "paging": true,
-        "searching": false,
-        "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+    //        { "width": "150px", "targets": 0 },
+    //        { "width": "150px", "targets": 1 },
+    //        { "width": "150px", "targets": 2 },
+    //        { "width": "200px", "targets": 3 },
+    //        { "width": "200px", "targets": 4 }
+    //    ],
+    //    "deferRender": true,
+    //    "bPaginate": false,
+    //    "bFilter": false,
+    //    "stripeClasses": [],
+    //    "ordering": false,
+    //    "ordering": false,
+    //    "info": false,
+    //    "bInfo": false,
+    //    "bAutoWidth": false,
+    //    "bLengthChange": false,
+    //    "aLengthMenu": [10],
+    //    "paging": true,
+    //    "searching": false,
+    //    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-    });
-    familyMemberTable = $('#family-member-table').DataTable({
-        "columnDefs": [
+    //});
+    //familyMemberTable = $('#family-member-table').DataTable({
+    //    "columnDefs": [
 
-            { "width": "150px", "targets": 0 },
-            { "width": "150px", "targets": 1 },
-            { "width": "150px", "targets": 2 },
-            { "width": "200px", "targets": 3 },
-            { "width": "200px", "targets": 4 }
-        ],
-        "deferRender": true,
-        "bPaginate": false,
-        "bFilter": false,
-        "stripeClasses": [],
-        "ordering": false,
-        "ordering": false,
-        "info": false,
-        "bInfo": false,
-        "bAutoWidth": false,
-        "bLengthChange": false,
-        "aLengthMenu": [10],
-        "paging": true,
-        "searching": false,
-        "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
+    //        { "width": "150px", "targets": 0 },
+    //        { "width": "150px", "targets": 1 },
+    //        { "width": "150px", "targets": 2 },
+    //        { "width": "200px", "targets": 3 },
+    //        { "width": "200px", "targets": 4 }
+    //    ],
+    //    "deferRender": true,
+    //    "bPaginate": false,
+    //    "bFilter": false,
+    //    "stripeClasses": [],
+    //    "ordering": false,
+    //    "ordering": false,
+    //    "info": false,
+    //    "bInfo": false,
+    //    "bAutoWidth": false,
+    //    "bLengthChange": false,
+    //    "aLengthMenu": [10],
+    //    "paging": true,
+    //    "searching": false,
+    //    "oLanguage": { "sZeroRecords": "", "sEmptyTable": "" }
 
-    });
+    //});
 }
 
 
@@ -503,7 +503,7 @@ async function getUserRegistration() {
     //            } else {
     //                img = data[0].items[i].filePath;
     //            }
-          
+
                 //var tdbuttons = '<div class="data-img">' +
                 //    "<img src=" + img +
                 //    " alt=" + data[0].items[i].fname +
@@ -518,7 +518,7 @@ async function getUserRegistration() {
                 //    '<div class="actions"><a class="tbl-edit"  data-id="' + data[0].items[i].id +
                 //    '" data-username="' + data[0].items[i].username +
                 //    '" data-employeeid="' + data[0].items[i].employeeID +
-                //    '" data-fname="' + data[0].items[i].fname + 
+                //    '" data-fname="' + data[0].items[i].fname +
                 //    '" data-lname="' + data[0].items[i].lname +
                 //    '" data-email="' + data[0].items[i].email +
                 //    '" data-pos="' + data[0].items[i].positionID +
@@ -563,7 +563,7 @@ async function getUserRegistration() {
                 //    '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' +
                 //    "</svg>" + "<span>Send Email</span></a>" +
                 //    "</div></div>";
-     
+
     //            $('#register-table').dataTable().fnAddData([
 
     //                '<td>' + tdbuttons + '</td>',
@@ -583,6 +583,9 @@ async function getUserRegistration() {
     //    }
 
     //});
+    if (DataTable.isDataTable('#register-table')) {
+        userRegistrationListTable.destroy();
+    }
     userRegistrationListTable = new DataTable('#register-table', {
         ajax: {
             url: "/Register/PostDisplayRegistrationList",
@@ -721,137 +724,66 @@ async function getUserRegistration() {
         ]
     });
 }
+var familyMemTable;
+var corpfamilyMemTable;
 async function displayFamilyMember() {
     
     var data = {};
     data.FamilyUserId = FamilyUserId;
-    data.page = spanval;
-    data.pageSize = spanval;
+    //data.page = spanval;
+    //data.pageSize = spanval;
 
-    $.ajax({
-        url: '/Register/PostDisplayVIPFamilyMember',
-        //async: false,
-        data: {
-            data: data,
-        },
-        type: "POST",
-        datatype: "json",
-        success: function (data) {
-            //console.log(data);
-            familyMemberTable.clear().draw();
-
-            for (var i = 0; i < data[0].data.length; i++) {
-                if (data[0].data.length == 0) {
-                    familyMemberTables.style.display = "none";
-                }
-                else {
-                    familyMemberTables.style.display = "block";
-                }
-                var tdbuttons =
-                    '<div class="approve-btn">' +
-                    //"<input type='button' value='Approve' id='approveBtn' />" +
-
-                    '<a id="approveBtn"' +
-                    '  data-id="' + data[0].data[i].id +
-                    '" data-fullname="' + data[0].data[i].fullname +
-                    '" data-relationship="' + data[0].data[i].relationship +
-                    '" data-familyuserid="' + data[0].data[i].familyUserId +
-                    '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-                    '" data-status="' + data[0].data[i].status +
-                    '" data-datecreated="' + data[0].data[i].dateCreated +
-                    '">' +
-                    "<span >Approve</span>" + " </a>" +
-
-                    '<a id="declineBtn"' +
-                    '  data-id="' + data[0].data[i].id +
-                    '" data-fullname="' + data[0].data[i].fullname +
-                    '" data-relationship="' + data[0].data[i].relationship +
-                    '" data-familyuserid="' + data[0].data[i].familyUserId +
-                    '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-                    '" data-status="' + data[0].data[i].status +
-                    '" data-datecreated="' + data[0].data[i].dateCreated +
-                    '">' +
-                    "<span >Decline</span>" + " </a>" +
-                    "</div > ";
-                if (data[0].data[i].applicationStatus == "Approved") {
-                    tdbuttons =
-                        '<div class="approve-btn">' +
-                        '<a id="declineBtn"' +
-                        '  data-id="' + data[0].data[i].id +
-                        '" data-fullname="' + data[0].data[i].fullname +
-                        '" data-relationship="' + data[0].data[i].relationship +
-                        '" data-familyuserid="' + data[0].data[i].familyUserId +
-                        '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-                        '" data-status="' + data[0].data[i].status +
-                        '" data-datecreated="' + data[0].data[i].dateCreated +
-                        '">' +
-                        "<span >Decline</span>" + " </a>" +
-                        "</div > ";
-                }
-                $('#family-member-table').dataTable().fnAddData([
-                    '<td><p>' + data[0].data[i].fullname + '</p></td>',
-                    '<td><p>' + data[0].data[i].relationship + '</p></td>',
-                    '<td><p>' + data[0].data[i].applicationStatus + '</p></td>',
-                    '<td><p>' + data[0].data[i].dateCreated + '</p></td>',
-                    //'<td><p>' + data[0].data[i].status + '</p></td>',
-                    '<td><p>' + tdbuttons + '</p></td>'
-                ]);
-                $('#corporate-family-member-table').dataTable().fnAddData([
-                    '<td><p>' + data[0].data[i].fullname + '</p></td>',
-                    '<td><p>' + data[0].data[i].relationship + '</p></td>',
-                    '<td><p>' + data[0].data[i].applicationStatus + '</p></td>',
-                    '<td><p>' + data[0].data[i].dateCreated + '</p></td>',
-                    //'<td><p>' + data[0].data[i].status + '</p></td>',
-                    '<td><p>' + tdbuttons + '</p></td>'
-                ]);
-
-            }
-
-        }
-
-    });
-
-    //new DataTable('#family-member-table', {
-    //    ajax: {
-    //        url: "/Register/PostDisplayVIPFamilyMember",
-    //        data: {
-    //            data: data,
-    //        },
-    //        type: "POST",
-    //        dataType: "json",
-    //        processing: true,
-    //        serverSide: true,
-    //        complete: function (xhr) {
-    //            //console.log(xhr);
-    //        },
-    //        error: function (err) {
-    //            //alert(err.responseText);
-    //            alert("There was an Error When Loading Data...");
-    //        }
+    //$.ajax({
+    //    url: '/Register/PostDisplayVIPFamilyMember',
+    //    //async: false,
+    //    data: {
+    //        data: data,
     //    },
-    //    columnDefs: [
-    //        { "width": "150px", "targets": 2 },
-    //        { "width": "150px", "targets": 4 }
-    //    ],
-    //    columns: [
-    //        {
-    //            data: 'fname',
-    //            render: function (data, type, row) {
-    //                var tdbuttons =
+    //    type: "POST",
+    //    datatype: "json",
+    //    success: function (data) {
+    //        //console.log(data);
+    //        familyMemberTable.clear().draw();
+    //        corpfamilyMemberTable.clear().draw();
+    //        for (var i = 0; i < data[0].data.length; i++) {
+    //            //if (data[0].data.length == 0) {
+    //            //    familyMemberTables.style.display = "none";
+    //            //    corpfamilyMemberTables.style.display = "none";
+    //            //}
+    //            //else {
+    //            //    familyMemberTables.style.display = "block";
+    //            //    corpfamilyMemberTables.style.display = "block";
+
+    //            //}
+    //            var tdbuttons =
+    //                '<div class="approve-btn">' +
+    //                //"<input type='button' value='Approve' id='approveBtn' />" +
+
+    //                '<a id="approveBtn"' +
+    //                '  data-id="' + data[0].data[i].id +
+    //                '" data-fullname="' + data[0].data[i].fullname +
+    //                '" data-relationship="' + data[0].data[i].relationship +
+    //                '" data-familyuserid="' + data[0].data[i].familyUserId +
+    //                '" data-applicationstatus="' + data[0].data[i].applicationStatus +
+    //                '" data-status="' + data[0].data[i].status +
+    //                '" data-datecreated="' + data[0].data[i].dateCreated +
+    //                '">' +
+    //                "<span >Approve</span>" + " </a>" +
+
+    //                '<a id="declineBtn"' +
+    //                '  data-id="' + data[0].data[i].id +
+    //                '" data-fullname="' + data[0].data[i].fullname +
+    //                '" data-relationship="' + data[0].data[i].relationship +
+    //                '" data-familyuserid="' + data[0].data[i].familyUserId +
+    //                '" data-applicationstatus="' + data[0].data[i].applicationStatus +
+    //                '" data-status="' + data[0].data[i].status +
+    //                '" data-datecreated="' + data[0].data[i].dateCreated +
+    //                '">' +
+    //                "<span >Decline</span>" + " </a>" +
+    //                "</div > ";
+    //            if (data[0].data[i].applicationStatus == "Approved") {
+    //                tdbuttons =
     //                    '<div class="approve-btn">' +
-    //                    //"<input type='button' value='Approve' id='approveBtn' />" +
-
-    //                    '<a id="approveBtn"' +
-    //                    '  data-id="' + data[0].data[i].id +
-    //                    '" data-fullname="' + data[0].data[i].fullname +
-    //                    '" data-relationship="' + data[0].data[i].relationship +
-    //                    '" data-familyuserid="' + data[0].data[i].familyUserId +
-    //                    '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-    //                    '" data-status="' + data[0].data[i].status +
-    //                    '" data-datecreated="' + data[0].data[i].dateCreated +
-    //                    '">' +
-    //                    "<span >Approve</span>" + " </a>" +
-
     //                    '<a id="declineBtn"' +
     //                    '  data-id="' + data[0].data[i].id +
     //                    '" data-fullname="' + data[0].data[i].fullname +
@@ -863,48 +795,216 @@ async function displayFamilyMember() {
     //                    '">' +
     //                    "<span >Decline</span>" + " </a>" +
     //                    "</div > ";
-    //                if (data[0].data[i].applicationStatus == "Approved") {
-    //                    tdbuttons =
-    //                        '<div class="approve-btn">' +
-    //                        '<a id="declineBtn"' +
-    //                        '  data-id="' + data[0].data[i].id +
-    //                        '" data-fullname="' + data[0].data[i].fullname +
-    //                        '" data-relationship="' + data[0].data[i].relationship +
-    //                        '" data-familyuserid="' + data[0].data[i].familyUserId +
-    //                        '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-    //                        '" data-status="' + data[0].data[i].status +
-    //                        '" data-datecreated="' + data[0].data[i].dateCreated +
-    //                        '">' +
-    //                        "<span >Decline</span>" + " </a>" +
-    //                        "</div > ";
-    //                }
-
-    //                return tdbuttons;
     //            }
-    //        },
-    //        {
-    //            data: 'username'
-    //        },
-    //        {
-    //            data: 'email'
-    //        },
-    //        {
-    //            data: 'gender'
-    //        },
-    //        {
-    //            data: 'corporatename'
-    //        },
-    //        {
-    //            data: 'position'
-    //        },
-    //        {
-    //            data: 'status'
-    //        },
-    //        {
-    //            data: 'dateCreated'
+    //            $('#family-member-table').dataTable().fnAddData([
+    //                '<td><p>' + data[0].data[i].fullname + '</p></td>',
+    //                '<td><p>' + data[0].data[i].relationship + '</p></td>',
+    //                '<td><p>' + data[0].data[i].applicationStatus + '</p></td>',
+    //                '<td><p>' + data[0].data[i].dateCreated + '</p></td>',
+    //                //'<td><p>' + data[0].data[i].status + '</p></td>',
+    //                '<td><p>' + tdbuttons + '</p></td>'
+    //            ]);
+    //            $('#corporate-family-member-table').dataTable().fnAddData([
+    //                '<td><p>' + data[0].data[i].fullname + '</p></td>',
+    //                '<td><p>' + data[0].data[i].relationship + '</p></td>',
+    //                '<td><p>' + data[0].data[i].applicationStatus + '</p></td>',
+    //                '<td><p>' + data[0].data[i].dateCreated + '</p></td>',
+    //                //'<td><p>' + data[0].data[i].status + '</p></td>',
+    //                '<td><p>' + tdbuttons + '</p></td>'
+    //            ]);
+
     //        }
-    //    ]
+
+    //    }
+
     //});
+    if (DataTable.isDataTable('#family-member-table')) {
+        familyMemTable.destroy();
+    }
+    if (DataTable.isDataTable('#corporate-family-member-table')) {
+        corpfamilyMemTable.destroy();
+    }
+    familyMemTable = new DataTable('#family-member-table', {
+        ajax: {
+            url: "/Register/PostDisplayVIPFamilyMember",
+            data: {
+                data: data,
+            },
+            type: "POST",
+            dataType: "json",
+            processing: true,
+            serverSide: true,
+            complete: function (xhr) {
+                //console.log(xhr);
+            },
+            error: function (err) {
+                //alert(err.responseText);
+                alert("There was an Error When Loading Data...");
+            }
+        },
+        columnDefs: [
+            { "width": "150px", "targets": 2 },
+            { "width": "150px", "targets": 4 }
+        ],
+        columns: [
+            
+            {
+                data: 'fullname'
+            },
+            {
+                data: 'relationship'
+            },
+            {
+                data: 'applicationStatus'
+            },
+            {
+                data: 'dateCreated',
+                render: function (data, type, row) {
+                    return type;
+                }
+            },
+            {
+                data: 'id',
+                render: function (data, type, row) {
+                    var tdbuttons =
+                        '<div class="approve-btn">' +
+                        //"<input type='button' value='Approve' id='approveBtn' />" +
+
+                        '<a id="approveBtn"' +
+                        '  data-id="' + data +
+                        '" data-fullname="' + row.fullname +
+                        '" data-relationship="' + row.relationship +
+                        '" data-familyuserid="' + row.familyUserId +
+                        '" data-applicationstatus="' + row.applicationStatus +
+                        '" data-status="' + row.status +
+                        '" data-datecreated="' + row.dateCreated +
+                        '">' +
+                        "<span >Approve</span>" + " </a>" +
+
+                        '<a id="declineBtn"' +
+                        '  data-id="' + data +
+                        '" data-fullname="' + row.fullname +
+                        '" data-relationship="' + row.relationship +
+                        '" data-familyuserid="' + row.familyUserId +
+                        '" data-applicationstatus="' + row.applicationStatus +
+                        '" data-status="' + row.status +
+                        '" data-datecreated="' + row.dateCreated +
+                        '">' +
+                        "<span >Decline</span>" + " </a>" +
+                        "</div > ";
+                    if (row.applicationStatus == "Approved") {
+                        tdbuttons =
+                            '<div class="approve-btn">' +
+                            '<a id="declineBtn"' +
+                            '  data-id="' + data +
+                            '" data-fullname="' + row.fullname +
+                            '" data-relationship="' + row.relationship +
+                            '" data-familyuserid="' + row.familyUserId +
+                            '" data-applicationstatus="' + row.applicationStatus +
+                            '" data-status="' + row.status +
+                            '" data-datecreated="' + row.dateCreated +
+                            '">' +
+                            "<span >Decline</span>" + " </a>" +
+                            "</div > ";
+                    }
+
+                    return tdbuttons;
+                }
+            },
+        ]
+    });
+    corpfamilyMemTable = new DataTable('#corporate-family-member-table', {
+        ajax: {
+            url: "/Register/PostDisplayVIPFamilyMember",
+            data: {
+                data: data,
+            },
+            type: "POST",
+            dataType: "json",
+            processing: true,
+            serverSide: true,
+            complete: function (xhr) {
+                //console.log(xhr);
+            },
+            error: function (err) {
+                //alert(err.responseText);
+                alert("There was an Error When Loading Data...");
+            }
+        },
+        columnDefs: [
+            {
+                "className": "dt-left",
+                "targets": "_all"
+            }
+        ],
+        columns: [
+
+            {
+                data: 'fullname'
+            },
+            {
+                data: 'relationship'
+            },
+            {
+                data: 'applicationStatus'
+            },
+            {
+                data: 'dateCreated',
+                render: function (data, type, row) {
+                    return data.substring(0, 10);
+                }
+            },
+            {
+                data: 'id',
+                render: function (data, type, row) {
+                    var tdbuttons =
+                        '<div class="approve-btn">' +
+                        //"<input type='button' value='Approve' id='approveBtn' />" +
+
+                        '<a id="corpapproveBtn"' +
+                        '  data-id="' + data +
+                        '" data-fullname="' + row.fullname +
+                        '" data-relationship="' + row.relationship +
+                        '" data-familyuserid="' + row.familyUserId +
+                        '" data-applicationstatus="' + row.applicationStatus +
+                        '" data-status="' + row.status +
+                        '" data-datecreated="' + row.dateCreated +
+                        '">' +
+                        "<span >Approve</span>" + " </a>" +
+
+                        '<a id="corpdeclineBtn"' +
+                        '  data-id="' + data +
+                        '" data-fullname="' + row.fullname +
+                        '" data-relationship="' + row.relationship +
+                        '" data-familyuserid="' + row.familyUserId +
+                        '" data-applicationstatus="' + row.applicationStatus +
+                        '" data-status="' + row.status +
+                        '" data-datecreated="' + row.dateCreated +
+                        '">' +
+                        "<span >Decline</span>" + " </a>" +
+                        "</div > ";
+                    if (row.applicationStatus == "APPROVED") {
+                        tdbuttons =
+                            '<div class="approve-btn">' +
+                            '<a id="corpdeclineBtn"' +
+                            '  data-id="' + data +
+                            '" data-fullname="' + row.fullname +
+                            '" data-relationship="' + row.relationship +
+                            '" data-familyuserid="' + row.familyUserId +
+                            '" data-applicationstatus="' + row.applicationStatus +
+                            '" data-status="' + row.status +
+                            '" data-datecreated="' + row.dateCreated +
+                            '">' +
+                            "<span >Decline</span>" + " </a>" +
+                            "</div > ";
+                    }
+
+                    return tdbuttons;
+                }
+            },
+        ],
+            processing: true,
+    });
 
 
 }
@@ -945,50 +1045,81 @@ async function editUserRegistration() {
         }
     });
 }
+var id;
+var familyMemberStatus;
 async function changeFamilyMemberStatus() {
     $('#family-member-table').on('click', '#approveBtn', function () {
-        var data = {};
-        var id = $(this).data("id");
-        var applicationStatus = "Approved";
-        data.id = id;
-        data.status = applicationStatus;
-        $.ajax({
-            url: '/Register/UpdateFamilyMember',
-            //async: false,
-            data: {
-                data: data,
-            },
-            type: "POST",
-            datatype: "json",
-            success: function () {
-                displayFamilyMember();
+        message = 'Are you sure you want to Approve?';
+        id = $(this).data("id");
+        familyMemberStatus = "APPROVED";
 
-            }
-
-        });
-        
+        updateFamilyMemberStatus();
     });
     $('#family-member-table').on('click', '#declineBtn', function () {
-        var data = {};
-        var id = $(this).data("id");
-        var applicationStatus = "Decline";
-        data.id = id;
-        data.status = applicationStatus;
-        $.ajax({
-            url: '/Register/UpdateFamilyMember',
-            //async: false,
-            data: {
-                data: data,
-            },
-            type: "POST",
-            datatype: "json",
-            success: function () {
-                displayFamilyMember();
-
-            }
-
-        });
+        message = 'Are you sure you want to Decline?';
+        id = $(this).data("id");
+        familyMemberStatus = "PENDING";
+        updateFamilyMemberStatus();
         
+    });
+    $('#corporate-family-member-table').on('click', '#corpapproveBtn', function () {
+        message = 'Are you sure you want to Approve?';
+        id = $(this).data("id");
+        familyMemberStatus = "APPROVED";
+        
+        updateFamilyMemberStatus();
+
+    });
+    $('#corporate-family-member-table').on('click', '#corpdeclineBtn', function () {
+        message = 'Are you sure you want to Decline?';
+        id = $(this).data("id");
+        familyMemberStatus = "PENDING";
+
+        updateFamilyMemberStatus();
+
+    });
+}
+async function updateFamilyMemberStatus() {
+
+    iziToast.question({
+        timeout: 20000,
+        close: false,
+        overlay: true,
+        id: 'question',
+        zindex: 999,
+        title: 'Confirmation',
+        message: message,
+        position: 'center',
+
+        buttons: [
+            ['<button><b>YES</b></button>', function (instance, toast) {
+                var data = {};
+                data.id = id;
+                data.status = familyMemberStatus;
+               
+                $.ajax({
+                    url: '/Register/UpdateFamilyMember',
+                    //async: false,
+                    data: {
+                        data: data,
+                    },
+                    type: "POST",
+                    datatype: "json",
+                    success: function () {
+                        displayFamilyMember();
+
+                    }
+
+                });
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+            }, true],
+            ['<button>NO</button>', function (instance, toast) {
+
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+            }],
+        ]
     });
 }
 async function getCorporateRegistration() {
@@ -1115,7 +1246,9 @@ async function getCorporateRegistration() {
     //
         //});
     }
-
+    if (DataTable.isDataTable('#corporate-user-table')) {
+        corporateAdminListTable.destroy();
+    }
     corporateAdminListTable = new DataTable('#corporate-user-table', {
         ajax: {
             url: "/Register/PostDisplayCorporateList",
@@ -1167,7 +1300,8 @@ async function getCorporateRegistration() {
                         'data-corporategender="' + row.gender + '"' +
                         'data-utype="' + row.userType + '"' +
                         'data-corporateid="' + row.corporateID + '"' +
-                        'data-displayimg="' + row.filePath + '"' +
+                        'data-corpdisplayimg="' + row.filePath + '"' +
+                        'data-membershipid="' + row.membershipID + '"' +
                         'data-vipstats="' + row.isVIP + '"> ' +
                         '<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">' +
                         '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>' +
@@ -1255,6 +1389,9 @@ async function getCorporateRegistration() {
 }
 
 async function getOysterAdmin() {
+    if (DataTable.isDataTable('#adminuser-table')) {
+        oysterAdminListTable.destroy();
+    }
     oysterAdminListTable = new DataTable('#adminuser-table', {
         ajax: {
             url: "/Register/GetAdminUserList",

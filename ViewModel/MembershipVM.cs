@@ -23,8 +23,7 @@ namespace AOPC_CMSv2.ViewModel
         public string? MembershipID { get; set; }
         public string? UserCount { get; set; }
         public string? VIPCount { get; set; }
-
-
+        public string? textCardColor { get; set; }
         public string? DateEnded { get; set; }
 
         public string? Status { get; set; }

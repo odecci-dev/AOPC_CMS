@@ -202,6 +202,7 @@
 
             $('#supmodal').modal('show');
         });
+            var supporListTable;
          function ShowSupportList() {
            // $.blockUI(reloadLoading);
            //  setTimeout(function () {
@@ -246,7 +247,10 @@
            //                  });
 
            //              }, 100);
-            new DataTable('#support-table', {
+            if (DataTable.isDataTable('#support-table')) {
+                supporListTable.destroy();
+            }
+            supporListTable = new DataTable('#support-table', {
                 ajax: {
                     url: '/Dashboard/GetSupportDetails',
                     type: "GET",

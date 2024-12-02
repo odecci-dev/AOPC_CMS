@@ -1508,7 +1508,7 @@ namespace AOPC.Controllers
         public async Task<IActionResult> PostDisplayVIPFamilyMember(FamMemberRequest data)
         {
             string result = "";
-            var list = new List<FamilyMemberpagedModel>();
+            var list = new List<FamilyMemberModel>();
             try
             {
                 HttpClient client = new HttpClient();
@@ -1518,7 +1518,7 @@ namespace AOPC.Controllers
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
-                    list = JsonConvert.DeserializeObject<List<FamilyMemberpagedModel>>(res);
+                    list = JsonConvert.DeserializeObject<List<FamilyMemberModel>>(res);
 
                 }
 
@@ -1528,7 +1528,8 @@ namespace AOPC.Controllers
             {
                 string status = ex.GetBaseException().ToString();
             }
-            return Json(list);
+            //return Json(list);
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
         }
         public class FamilyMemberStatus
         {

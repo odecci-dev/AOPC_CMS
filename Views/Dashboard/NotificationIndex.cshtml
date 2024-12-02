@@ -258,6 +258,7 @@
                 paginationnotification(prev);
 
             });
+            var nofifListTable;
              function ShowNotificationList() {
              //   $.blockUI(reloadLoading);
              //            setTimeout(function () {
@@ -292,7 +293,10 @@
              //                });
 
              //            }, 100);
-                new DataTable('#notif-table', {
+                if (DataTable.isDataTable('#notif-table')) {
+                    nofifListTable.destroy();
+                }
+                nofifListTable = new DataTable('#notif-table', {
                     ajax: {
                         url: '/Dashboard/GetNotification',
                         type: "GET",

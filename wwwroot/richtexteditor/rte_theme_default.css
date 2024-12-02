@@ -1769,7 +1769,7 @@ rte-content::-webkit-scrollbar-thumb {
 .rte_command_paste,
 .rte_command_delete,
 .rte_command_find,
-.rte_command_insertlink,
+/*.rte_command_insertlink,*/
 .rte_command_insertchars,
 .rte_command_inserttable,
 .rte_command_insertimage,
@@ -1789,4 +1789,10 @@ rte-line-spliter,
 rte-resizecorner,
 rte-powerby {
     display: none !important;
+}
+.rte_command_insertlink{
+/*    background-color: red;*/
+    position: absolute;
+    top: -41px;
+    left: 565px
 }

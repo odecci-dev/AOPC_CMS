@@ -79,6 +79,16 @@ namespace AOPC.Controllers
             //return new(models);
             return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
+        public async Task<JsonResult> GetBusinessTypeListOption()
+        {
+            var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<BusinessTypeVM> models = JsonConvert.DeserializeObject<List<BusinessTypeVM>>(response);
+            return new(models);
+            //return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
         public class BusinessArray
         {
            

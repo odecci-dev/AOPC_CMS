@@ -1,4 +1,5 @@
-﻿
+﻿var membershipTable;
+var privilegeTable;
 var reloadLoading = {
   message: '<div class="loadingio-spinner-eclipse-xtl7ibbvv9p " style="margin:auto !important;left:0"><div class= "ldio-f9web4uhsr" style="margin:auto !important;left:0"><div style="margin:auto !important;left:0"></div></div></div>',
   blockMsgClass: "loading",
@@ -49,7 +50,7 @@ async function ShowprivilegeList() {
   //        } else {
   //          isVIP = "NO";
   //          }
-          
+
   //        var noExpiry = "";
   //        if (data[i].noExpiry == 1) {
   //          noExpiry = "YES";
@@ -89,8 +90,11 @@ async function ShowprivilegeList() {
   //    .fail(function () {
   //      alert("There was an Error When Loading Data...");
   //    });
-  //}, 100);
-    var privilegeTable = new DataTable('#privilege-table', {
+    //}, 100);
+    if (DataTable.isDataTable('#privilege-table')) {
+        privilegeTable.destroy();
+    }
+    privilegeTable = new DataTable('#privilege-table', {
         ajax: {
             url: '/MembershipPrivilege/GetPrivilegeList',
             type: "GET",
@@ -221,7 +225,7 @@ async function ShowMembershipList() {
   //      alert("There was an Error When Loading Data...");
   //    });
   //}, 100);
-    var membershipTable = new DataTable('#membership-table', {
+     membershipTable = new DataTable('#membership-table', {
         ajax: {
             url: '/Corporate/GetMembershipList',
             type: "GET",
@@ -251,6 +255,7 @@ async function ShowMembershipList() {
                         '" data-dstart="' + row.dateStarted +
                         '" data-dend="' + row.dateEnded +
                         '" data-ucount="' + row.userCount +
+                        '" data-textColor="' + row.textCardColor +
                         '" data-vcount="' + row.vipCount + '" >' +
                         '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' +
                         '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' +
@@ -315,6 +320,7 @@ async function ShowMembershipList() {
 //     });
 //     return IdList;
 // }
+var vendorListTable;
 async function ShowVendorDetails() {
   //$.blockUI(reloadLoading);
   //setTimeout(function () {
@@ -327,7 +333,7 @@ async function ShowVendorDetails() {
   //        deferRender:true
   //    })
   //    .done(function (data) {
-  //      // 
+  //      //
   //      vbtable.clear().draw();
   //      for (var i = 0; i < data.length; i++) {
   //        var img = data[i].vendorLogo;
@@ -375,7 +381,7 @@ async function ShowVendorDetails() {
   //        '</svg>' +
   //              '<span>Delete</span></a>' +
   //              '<a class="tbl-sendemail"  data-id="' + data[i].id + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
-  //              "<span>Send Email</span></a>" + 
+  //              "<span>Send Email</span></a>" +
   //        '</div></div>';
   //        $("#vendor-table").dataTable().fnAddData([
   //          "<td>" + tdbuttons + "</td>",
@@ -390,9 +396,12 @@ async function ShowVendorDetails() {
   //    .fail(function () {
   //      alert("There was an Error When Loading Data...");
   //    });
-  //}, 100);
+    //}, 100);
+    if (DataTable.isDataTable('#vendor-table')) {
+        vendorListTable.destroy();
+    }
 
-    new DataTable('#vendor-table', {
+    vendorListTable = new DataTable('#vendor-table', {
         ajax: {
             url: '/Vendor/GetVendorList',
             type: "GET",
@@ -476,6 +485,8 @@ async function ShowVendorDetails() {
         ]
     });
 }
+
+var offeringListTable; 
 async function ShowOfferingList() {
   //$.blockUI(reloadLoading);
   //setTimeout(function () {
@@ -489,7 +500,7 @@ async function ShowOfferingList() {
   //  }).done(function (data) {
   //      console.log(data);
   //    offeringtable.clear().draw();
-    
+
   //    for (var i = 0; i < data.length; i++) {
 
   //        var tdbuttons = '<label for="cb"><input type="checkbox" hidden class="cbox" data-id="' + data[i].id+ '"></label>' +
@@ -527,7 +538,7 @@ async function ShowOfferingList() {
   //        '</svg>' +
   //         '<span>Delete</span></a>' +
   //            '<a class="tbl-sendemail" hidden data-id="' + data[i].id + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
-  //            "<span>Send Email</span></a>" + 
+  //            "<span>Send Email</span></a>" +
   //        '</div></div>';
   //      $('#offering-table').dataTable().fnAddData([
 
@@ -548,8 +559,11 @@ async function ShowOfferingList() {
   //    alert("There was an Error When Loading Data...");
   //  });
 
-  //}, 100);
-    new DataTable('#offering-table', {
+    //}, 100);
+    if (DataTable.isDataTable('#offering-table')) {
+        offeringListTable.destroy();
+    }
+    offeringListTable =new DataTable('#offering-table', {
         ajax: {
             url: '/Offering/GetOfferingList',
             type: "GET",
@@ -627,6 +641,7 @@ async function ShowOfferingList() {
     });
 
 }
+var positionListTable;
 async function ShowPositionList() {
   //$.blockUI(reloadLoading);
   //setTimeout(function () {
@@ -654,8 +669,11 @@ async function ShowPositionList() {
   //    .fail(function () {
   //      alert("There was an Error When Loading Data...");
   //    });
-  //}, 100);
-    new DataTable('#pos-table', {
+    //}, 100);
+    if (DataTable.isDataTable('#pos-table')) {
+        positionListTable.destroy();
+    }
+    positionListTable = new DataTable('#pos-table', {
         ajax: {
             url: '/Register/GetPositionList',
             type: "GET",
@@ -690,6 +708,7 @@ async function ShowPositionList() {
         ]
     });
 }
+var businessTypesTable;
 async function ShowBusinessTypeList() {
   //$.blockUI(reloadLoading);
   //setTimeout(function () {
@@ -758,8 +777,11 @@ async function ShowBusinessTypeList() {
   //    alert("There was an Error When Loading Data...");
   //  });
 
-  //}, 100);
-    new DataTable('#btype-table', {
+    //}, 100);
+    if (DataTable.isDataTable('#btype-table')) {
+        businessTypesTable.destroy();
+    }
+    businessTypesTable = new DataTable('#btype-table', {
         ajax: {
             url: '/Business/GetBusinessTypeList',
             type: "GET",
@@ -901,7 +923,7 @@ async function ShowBusinessList() {
 
 
 }
-
+var businessLocTable;
 async function ShowBusinesslocDetails() {
   //$.blockUI(reloadLoading);
   //setTimeout(function () {
@@ -913,7 +935,7 @@ async function ShowBusinesslocDetails() {
   //    type: "GET",
   //    datatype: "json"
   //  }).done(function (data) {
-  //    //// 
+  //    ////
   //    dbtable.clear().draw();
   //    for (var i = 0; i < data.length; i++) {
 
@@ -934,8 +956,12 @@ async function ShowBusinesslocDetails() {
   //    alert("There was an Error When Loading Data...");
   //  });
 
-  //}, 100);
-    new DataTable('#businessloc-table', {
+    //}, 100);
+    
+    if (DataTable.isDataTable('#businessloc-table')) {
+        businessLocTable.destroy();
+    }
+    businessLocTable = new DataTable('#businessloc-table', {
         ajax: {
             url: '/Business/GetBusLoc',
             type: "GET",

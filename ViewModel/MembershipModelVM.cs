@@ -20,7 +20,7 @@ namespace AOPC_CMSv2.ViewModel
         public string? VIPBadge { get; set; }
         public int? UserCount { get; set; }
         public int? VIPCount { get; set; }
-
+        public string? textCardColor { get; set; }
 
         public string? DateEnded { get; set; }
 

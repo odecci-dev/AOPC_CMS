@@ -442,6 +442,12 @@ namespace AOPC.Controllers
             try
             {
                 var item = new MembershipModelVM();
+
+                item.MembershipCard = data.MembershipCard;
+                item.VIPBadge = data.VIPBadge;
+                item.QRFrame = data.QRFrame;
+                item.VIPCard = data.VIPCard;
+                item.textCardColor = data.textCardColor;
                 for (int i = 0; i < Request.Form.Count; i++)
                 {
                     string randomFileName = "";
@@ -459,7 +465,6 @@ namespace AOPC.Controllers
                             switch (i)
                             {
                                 case 0:
-                                
                                     item.MembershipName = data.MembershipName;
                                     break;
                                 case 1:
@@ -472,8 +477,6 @@ namespace AOPC.Controllers
                                     item.Description = data.Description;
                                     break;
                                 case 3:
-                               
-
                                     item.DateEnded = data.DateEnded;
                                     break;
                                 case 4:
@@ -598,12 +601,12 @@ namespace AOPC.Controllers
                                     stream.Dispose();
 
                                     break;
-                            case 10:
+                                case 10:
                                
-                                item.Id = data.Id;
+                                    item.Id = data.Id;
 
-                                break;
-                            default:
+                                    break;
+                                default:
                                     break;
                             }
 
@@ -617,6 +620,11 @@ namespace AOPC.Controllers
                 
                  
                 }
+                //Console.Write("Switch Case: "+Request.Form.Count + "\n");
+                //Console.Write("/n Membership: " + item.MembershipCard + "\n");
+                //Console.Write("/n VIPCard: " + item.VIPCard + "\n");
+                //Console.Write("/n QRFrame: " + item.QRFrame + "\n");
+                //Console.Write("/n VIPBadge: " + item.VIPBadge + "\n");
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiMembership/SaveMembershipTier";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
