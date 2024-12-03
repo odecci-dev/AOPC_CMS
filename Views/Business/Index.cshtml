@@ -1070,7 +1070,7 @@
         });
 
         $('#submitbtype').submit(function(e){
-                e.preventDefault();
+            e.preventDefault();
             filename=$("#img").val().replace(/.*(\/|\\)/, ''); 
             console.log(filename);
             if(filename =="" || filename == null)
@@ -1086,6 +1086,7 @@
             data.PromoText = $('#promoT').val();
             data.ImgURL=filename;
             let message="";
+            console.log(data);
             if(i_id != 0)
             {
                 message ='Are you sure you want to update business type?';

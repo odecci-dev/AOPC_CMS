@@ -1522,7 +1522,7 @@ namespace AOPC.Controllers
             {
 
                 HttpClient client = new HttpClient();
-                var url = DBConn.HttpString + "/api/ApiNotifcation/EmailCorporate";
+                var url = DBConn.HttpString + "/api/ApiNotifcation/SendNotificationPerCorporate";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 

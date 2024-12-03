@@ -188,6 +188,38 @@ async function ShowFilter() {
         statusFilter = null;
         spanval = 0;
     });
+    $('#corpcancelFilterbtn').click(function () {
+        //filtermodal.style.display = "none";
+
+
+        //Gender
+        document.getElementById("femaleRadioFilter").checked = false;
+        document.getElementById("maleRadioFilter").checked = false;
+        document.getElementById("allGenderFilter").checked = false;
+
+        //Position
+        document.getElementById("positionFilter").value = "";
+        document.getElementById("allPositionFilter").checked = false;
+
+        //Is Vip
+        document.getElementById("isVipYesFilter").checked = false;
+        document.getElementById("isVipNoFilter").checked = false;
+        document.getElementById("isVipAllFilter").checked = false;
+
+        //Status
+
+        document.getElementById("registeredFilter").checked = false;
+        document.getElementById("unregisteredFilter").checked = false;
+        document.getElementById("statusAllFilter").checked = false;
+
+        corporateFilter = null;
+        companyNameFilter = null;
+        genderFilter = null;
+        positionFilter = null;
+        isVipFilter = null;
+        statusFilter = null;
+        spanval = 0;
+    });
 
     
 
@@ -287,7 +319,13 @@ async function ShowFilter() {
         getCorporateRegistration();
         document.getElementById("filtermodal").style.display = "none";
     });
+    $('#corp-apply-filter-user').click(function () {
+        spanval = "";
+        corpuserRegistrationListTable.destroy();
+        getCorpUserRegistration();
 
+        document.getElementById("filtermodal").style.display = "none";
+    });
 
     //search user
     $('#user-registration-search').change(function () {
@@ -302,7 +340,7 @@ async function ShowFilter() {
 }
 
 async function getUnregisteredList() {
-    var searchUnregisteredUser = document.getElementById('UserNameFltrSearch').value;
+    var searchUnregisteredUser = document.getElementById('bulkEmailcorporateFilter').value;
     var data = {};
     if (searchUnregisteredUser == "") {
         searchUnregisteredUser = null;
@@ -319,7 +357,7 @@ async function getUnregisteredList() {
         type: "POST",
         datatype: "json",
         success: function (data) {
-            //console.log(data);
+            console.log(data);
             //console.log(data.length);
 
             
@@ -332,9 +370,9 @@ async function getUnregisteredList() {
                     <input class="unregisteredOptions" type="checkbox" id="unregistered" name="`+ data[i].name +`" value="`+ data[i].email +`" />
                     <label>`+data[i].name +`</label>`;
                 form.appendChild(div); 
-
-                
             }
+            document.getElementById('bulkEmailUserCount').innerHTML = data.length;
+            
         }
 
     });
@@ -417,7 +455,7 @@ async function registerShowBulkEmailModal() {
         getUnregisteredList();
     }); 
     
-    $('#UserNameFltrSearch').change(function () {
+    $('#bulkEmailcorporateFilter').change(function () {
         getUnregisteredList();
     });
     
@@ -453,6 +491,11 @@ async function UserShowSelectFilter() {
         $("#corporateFilter").append('<option value="">-Select Corporate-</option>');
         for (var i = 0; i < data.length; i++) {
             $("#corporateFilter").append('<option value="' + data[i].id + '">' + data[i].corporateName + "</option>");
+        }
+        $("#bulkEmailcorporateFilter").empty();
+        $("#bulkEmailcorporateFilter").append('<option value="">-Select Corporate-</option>');
+        for (var i = 0; i < data.length; i++) {
+            $("#bulkEmailcorporateFilter").append('<option value="' + data[i].id + '">' + data[i].corporateName + "</option>");
         }
         //$.unblockUI();
     }).fail(function () {

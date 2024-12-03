@@ -294,12 +294,20 @@
     align-items: start;
     gap: 5px;
 }
-.bulkEmailModal .footer-control{
+.bulkEmailModal .footer-control {
     width: 700px;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 20px;
 }
-.bulkEmailModal .footer-control button{
+.sendBulkEmailBtn{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.sendBulkEmailBtn label{
+    margin:0;
+}
+.bulkEmailModal .footer-control button {
     padding: 8px 20px;
 }
 #unregisteredEmails{

@@ -500,7 +500,7 @@ End here *@
                                 ">
                                     <a  data-dismiss="modal" aria-hidden="false" style="cursor:pointer;margin: 8px;" class="cancel"><u>Cancel</u></a>
                                     <input type="button" value="Submit" id="btn-register"/>
-                                    <input type="button" value="Export" id=""/>
+                                    @* <input type="button" value="Export" id=""/> *@
                                 </div>
 
                         </div>
@@ -873,7 +873,9 @@ End here *@
                     <path d="M20.8333 21.3335L17.7083 18.2085" stroke="white" stroke-width="2" stroke-linecap="round" />
                 </g>
             </svg>
-            <input type="text" class="companyNameFltrSearch" id="UserNameFltrSearch" placeholder="Search...">
+            @* <input type="text" class="companyNameFltrSearch" id="UserNameFltrSearch" placeholder="Search..."> *@
+            <select id="bulkEmailcorporateFilter" class="companyNameFltrSearch">
+            </select>
         </div>
     </div>
     <div class="alert alert-danger" role="alert" style="display: none;" id="bulkEmailFormError">
@@ -886,11 +888,14 @@ End here *@
     </div>
     <div class="filter-modal-footer">
         <div class="footer-control">
-            <div class="formControl">
-                <input type="checkbox" name="name" id="send-to-all" value="" />
-                <label>Send to all</label>
+            <h4 class="modal-title">User Count: <span id="bulkEmailUserCount"></span></h4>
+            <div class="sendBulkEmailBtn">
+                <div class="formControl">
+                    <input type="checkbox" name="name" id="send-to-all" value="" />
+                    <label>Send to all</label>
+                </div>
+                <button class="send-bulkEmail" id="sendEmail">Send</button>
             </div>
-            <button class="send-bulkEmail" id="sendEmail">Send</button>
         </div>
     </div>
 </div>
@@ -2083,7 +2088,7 @@ End here *@
                         //console.log("umcheck");
                         allownotif = 0;
                         }
-                
+                        console.log(filename);
                         data.id = i_id;
                         data.EmployeeID = $('#empid').val();
                         data.Fname = $('#fname').val();

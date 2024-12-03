@@ -7,5 +7,7 @@ namespace AOPC_CMSv2.ViewModel
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        public int Count { get; set; }
+
     }
 }

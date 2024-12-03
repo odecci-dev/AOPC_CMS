@@ -355,9 +355,10 @@ namespace AOPC.Controllers
                 {
                     try
                     {
-                        // var filePath = "C:\\Files\\"; + "/Uploads";
-                        string filePath = wwwPath+"/Uploads";
+                        //var filePath = "C:\\Files\\"; + "/Uploads";
+                        //string filePath = wwwPath+"/Uploads";
                         //var filePath = Environment.WebRootPath + "\\uploads\\";
+                        var filePath = "C:\\Users\\franc\\Documents\\C# Project\\Odecci\\AOPC\\AOPC_CMS\\wwwroot\\Uploads";
                         if (!Directory.Exists(filePath))
                         {
                             Directory.CreateDirectory(filePath);
