@@ -401,7 +401,7 @@
                     
                         var img = $('<img>').attr('src', e.target.result);
                  
-                        console.log(f);
+                        // console.log(f);
               
       
                         img.attr('height', '50px');
@@ -425,7 +425,7 @@
           for(var x=0; x<files.length;x++)
           {          var imgs = $('<img>').attr('name',"https://www.alfardanoysterprivilegeclub.com/assets/img/"+files[x].name);
             div.append(imgs);
-              console.log(files[x].name);
+              // console.log(files[x].name);
           }
 
         });
@@ -649,7 +649,7 @@
                   
                   var data = {};
               data.id = i_id;
-              console.log(data);
+              // console.log(data);
                   $.ajax({
                       url: '/Business/GetBusinessFilter',
                             data: {
@@ -708,7 +708,7 @@
                                                 }
                                               var data = {};
                                               data.id = i_id;
-                                              console.log(data);
+                                              // console.log(data);
                                                 $.ajax({
                                                     url: '/Business/GetBusinessGalArray',
                                                     data: {
@@ -768,7 +768,7 @@
                 isVIP = $(this).data("vip");
                 promoText = $(this).data("promo");
                 imgurl = $(this).data("imgurl");
-                console.log(promoText);
+                // console.log(promoText);
                 $('#promoT').val(promoText);
                 //$('#vip-option').val(isVIP);
                 $('#btypename').val(btypename);
@@ -871,7 +871,7 @@
                                     datatype: "json"
                                 }).done(function (data) {
                                     
-                                    console.log(data.stats);
+                                    // console.log(data.stats);
                                     if(data.stats=="Successfully Deleted" )
                                     {
                                         notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
@@ -926,12 +926,12 @@
                                     datatype: "json"
                                 }).done(function (data) {
                                     
-                                    console.log(data.stats);
+                                    // console.log(data.stats);
                                     if(data.stats=="Successfully Deleted" )
                                     {
                                         notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
                                
-                                        // ShowBusinessList();
+                                        ShowBusinessListv2();
 
 
 
@@ -1036,7 +1036,7 @@
                                     type: "POST",
                                     datatype: "json",
                                 }).done(function (response) {
-                                    console.log(response.stats);
+                                    // console.log(response.stats);
                                     if(response.stats=="Inserted Successfully" || response.stats=="Updated Successfully")
                                     {
                                           
@@ -1072,7 +1072,7 @@
         $('#submitbtype').submit(function(e){
             e.preventDefault();
             filename=$("#img").val().replace(/.*(\/|\\)/, ''); 
-            console.log(filename);
+            // console.log(filename);
             if(filename =="" || filename == null)
             {
             filename = img_edit;
@@ -1086,7 +1086,7 @@
             data.PromoText = $('#promoT').val();
             data.ImgURL=filename;
             let message="";
-            console.log(data);
+            // console.log(data);
             if(i_id != 0)
             {
                 message ='Are you sure you want to update business type?';
@@ -1102,7 +1102,7 @@
                         id: 'question',
                         zindex: 999,
                         title: 'Confirmation',
-            message: message,
+                    message: message,
                         position: 'center',
                         buttons: [
                             ['<button><b>YES</b></button>', function (instance, toast) {
@@ -1115,7 +1115,7 @@
                                     type: "POST",
                                     datatype: "json",
                                 }).done(function (response) {
-                                    console.log(response.stats);
+                                    // console.log(response.stats);
                                     if(response.stats=="Inserted Successfully" || response.stats=="Updated Successfully")
                                     {
                                           
@@ -1149,7 +1149,7 @@
         $('#submitbusiness').submit(function(e){
               e.preventDefault();
               filename=$("#img").val().replace(/.*(\/|\\)/, ''); 
-              console.log(filename);
+              // console.log(filename);
               if(filename =="" || filename == null)
               {
               filename = img_edit;
@@ -1159,7 +1159,7 @@
                  image += this.name +";";
                });
        
-            console.log(image);
+            // console.log(image);
                 var input = document.getElementById('fileUpload');
               var data = {};
               data.id = i_id;
@@ -1211,7 +1211,7 @@
                                         type: "POST",
                                         datatype: "json",
                                     }).done(function (response) {
-                                      console.log(response.stats);
+                                      // console.log(response.stats);
                                       if(response.stats=="Inserted Successfully" || response.stats=="Updated Successfully")
                                       {       $.blockUI(reloadLoading);
                                           $.ajax({
@@ -1231,7 +1231,7 @@
                                           notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
                             
                                           $("#bh-close").click();
-                                           // ShowBusinessList();
+                                            ShowBusinessListv2();
                                
                                       }
                                       else

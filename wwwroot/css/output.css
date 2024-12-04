@@ -10080,3 +10080,12 @@ input:checked + .slider:before {
         background: #555;
     }
 
+#checkall {
+    position: absolute !important;
+    top: 105px;
+    left: 5px;
+    z-index: 99;
+}
+.checkalloffering {
+    top: 80px !important;
+}

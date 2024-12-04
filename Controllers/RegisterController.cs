@@ -1039,74 +1039,170 @@ namespace AOPC.Controllers
             var bodyBuilder = new BodyBuilder();
             string img = "https://www.alfardanoysterprivilegeclub.com/assets/img/AOPC%20Logo%20-%20White.png";
             string bg = "https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg";
-            bodyBuilder.HtmlBody = @"<style>" +
-   " @font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}" +
-    "@font-face {" +
-      "font-family: 'Montserrat-Bold';" +
-      "src: url('/fonts/Montserrat/Montserrat-Bold.ttf');" +
-    "}" +
-    "@font-face {" +
-      "font-family: 'Montserrat-SemiBold';" +
-      "src: url('/fonts/Montserrat/Montserrat-SemiBold.ttf');" +
-    "}" +
-    "body {margin: 0;box-sizing: border-box;}" +
-    ".login-container {background-image: url(" + bg + ");height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
-    ".gradient-border {height: 600px;width: 700px; display: flex;justify-content: center;background-color: transparent;border-width: 3px;box-sizing: content-box;border-style: solid;border-image-slice: 1;" +
-    "gap: 20px;border-image-source: linear-gradient(" +
-        "180deg," +
-        "#b07b29 17.26%," +
-        "#ebcc77 31.95%," +
-        "#b98732 53.29%," +
-        "#ecce79 74.41%," +
-        "#c69840 99.86%" +
-      ");" +
-      "flex-direction: column;}" +
-    ".login-container img {" +
-      "margin: 20px auto;" +
-      "width: 300px;" +
-      "height: 110px;" +
-    "}" +
-     "h1 {" +
-      " text-align: center;" +
-      " color: #d7d2cb;" +
-      " font-family: 'Montserrat-SemiBold';" +
-      " font-size: 2rem;" +
-     " font-style: italic;" +
-    " }" +
-     "h3 {" +
-      " text-align: center;" +
-      " color: #d7d2cb;" +
-       "font-family: 'Montserrat-Reg';" +
-       "font-size: 1.5rem;" +
-      " font-style: italic;" +
-     "}" +
-    " a {" +
-     "  text-decoration: none;" +
-     "}" +
-     "h4 {" +
-       "text-align: center;" +
-      " color: #d7d2cb;" +
-      " font-family: 'Montserrat-Reg';" +
-      " font-size: 1.2rem;" +
-      " font-style: italic;" +
-    "}" +
-  " </style>" +
-  " <body>" +
-    " <div class='login-container'>" +
-      " <div class='login-logo-conctainer'>" +
-        " <div class='gradient-border'>" +
-           "<img src='" + img + "' alt='AOPC' width='100%'' />" +
 
-          " <h1>" +
-            " WELCOME TO<br />ALFARDAN OYSTER <br />" +
-            " PRIVILEGE CLUB" +
-           "</h1>" +
-          " <h3>REGISTRATION FORM</h3>" +
-           "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'><h4> Click Here to Register in<br />Alfardan Oyster Privilege Club</h4></a>" +
-        " </div>" +
-     "  </div>" +
-    " </div>" +
-  " </body>";
+            bodyBuilder.HtmlBody = @"<style>
+        @font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}
+        @font-face {
+        font-family: 'Montserrat-Bold';
+        src: url('/fonts/Montserrat/Montserrat-Bold.ttf');
+        }
+        @font-face {
+        font-family: 'Montserrat-SemiBold';
+        src: url('/fonts/Montserrat/Montserrat-SemiBold.ttf');
+        }
+        
+        body {
+            margin: 0;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .login-container {
+            background-image: url(https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg);
+            height: 100vh; 
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+            background-size: cover;}
+        .gradient-border {
+            height: 600px;
+            width: 700px; 
+            display: flex;
+            justify-content: center;
+            background-color: transparent;
+            border-width: 3px;
+            box-sizing: content-box;
+            border-style: solid;
+            border-image-slice: 1;
+            gap: 20px;
+            border-image-source: 
+                linear-gradient(
+                    180deg,
+                    #b07b29 17.26%,
+                    #ebcc77 31.95%,
+                    #b98732 53.29%,
+                    #ecce79 74.41%,
+                    #c69840 99.86%
+                );
+        flex-direction: column;
+        }
+        .login-container img {
+        margin: 20px auto;
+        width: 300px;
+        height: 110px;
+        }
+        h1 {
+            text-align: center;
+            color: #d7d2cb;
+            font-family: 'Montserrat-SemiBold';
+            font-size: 2rem;
+            font-style: italic;
+        }
+        h3 {
+            text-align: center;
+            color: #d7d2cb;
+            font-family: 'Montserrat-Reg';
+            font-size: 1.5rem;
+            font-style: italic;
+        }
+        a {
+            text-decoration: none;
+        }
+        h4 {
+            text-align: center;
+            color: #d7d2cb;
+            font-family: 'Montserrat-Reg';
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+    </style>
+    <body>
+        <div class='login-container'>
+        <div class='login-logo-conctainer'>
+            <div class='gradient-border'>
+            <img src='https://www.alfardanoysterprivilegeclub.com/assets/img/AOPC%20Logo%20-%20White.png' alt='AOPC' width='100%'' />
+
+            <h1>
+                WELCOME TO<br />ALFARDAN OYSTER <br />
+                PRIVILEGE CLUB
+            </h1>
+            <h3>REGISTRATION FORM</h3>
+            <a href='https://www.alfardanoysterprivilegeclub.com/user-registration'><h4> Click Here to Register in<br />Alfardan Oyster Privilege Club</h4></a>
+            </div>
+        </div>
+        </div>
+    </body>";
+            //bodyBuilder.HtmlBody = @"<style>" +
+            //                       "@font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}" +
+            //                        "@font-face {" +
+            //                          "font-family: 'Montserrat-Bold';" +
+            //                          "src: url('/fonts/Montserrat/Montserrat-Bold.ttf');" +
+            //                        "}" +
+            //                        "@font-face {" +
+            //                          "font-family: 'Montserrat-SemiBold';" +
+            //                          "src: url('/fonts/Montserrat/Montserrat-SemiBold.ttf');" +
+            //                        "}" +
+            //                        "body {margin: 0;box-sizing: border-box;}" +
+            //                        ".login-container {background-image: url(https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg);height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
+            //                        ".gradient-border {height: 600px;width: 700px; display: flex;justify-content: center;background-color: transparent;border-width: 3px;box-sizing: content-box;border-style: solid;border-image-slice: 1;" +
+            //                        "gap: 20px;border-image-source: linear-gradient(" +
+            //                            "180deg," +
+            //                            "#b07b29 17.26%," +
+            //                            "#ebcc77 31.95%," +
+            //                            "#b98732 53.29%," +
+            //                            "#ecce79 74.41%," +
+            //                            "#c69840 99.86%" +
+            //                          ");" +
+            //                          "flex-direction: column;}" +
+            //                        ".login-container img {" +
+            //                          "margin: 20px auto;" +
+            //                          "width: 300px;" +
+            //                          "height: 110px;" +
+            //                        "}" +
+            //                         "h1 {" +
+            //                          " text-align: center;" +
+            //                          " color: #d7d2cb;" +
+            //                          " font-family: 'Montserrat-SemiBold';" +
+            //                          " font-size: 2rem;" +
+            //                         " font-style: italic;" +
+            //                        " }" +
+            //                         "h3 {" +
+            //                          " text-align: center;" +
+            //                          " color: #d7d2cb;" +
+            //                           "font-family: 'Montserrat-Reg';" +
+            //                           "font-size: 1.5rem;" +
+            //                          " font-style: italic;" +
+            //                         "}" +
+            //                        " a {" +
+            //                         "  text-decoration: none;" +
+            //                         "}" +
+            //                         "h4 {" +
+            //                           "text-align: center;" +
+            //                          " color: #d7d2cb;" +
+            //                          " font-family: 'Montserrat-Reg';" +
+            //                          " font-size: 1.2rem;" +
+            //                          " font-style: italic;" +
+            //                        "}" +
+            //                      " </style>" +
+            //                      " <body>" +
+            //                        " <div class='login-container'>" +
+            //                          " <div class='login-logo-conctainer'>" +
+            //                            " <div class='gradient-border'>" +
+            //                               "<img src='https://www.alfardanoysterprivilegeclub.com/assets/img/AOPC%20Logo%20-%20White.png' alt='AOPC' width='100%'' />" +
+
+            //                              " <h1>" +
+            //                                " WELCOME TO<br />ALFARDAN OYSTER <br />" +
+            //                                " PRIVILEGE CLUB" +
+            //                               "</h1>" +
+            //                              " <h3>REGISTRATION FORM</h3>" +
+            //                               "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'><h4> Click Here to Register in<br />Alfardan Oyster Privilege Club</h4></a>" +
+            //                            " </div>" +
+            //                         "  </div>" +
+            //                        " </div>" +
+            //                      " </body>";
             message.Body = bodyBuilder.ToMessageBody();
             using (var client = new SmtpClient())
             {
@@ -1127,7 +1223,7 @@ namespace AOPC.Controllers
             DataTable dt = db.SelectDb(sql).Tables[0];
 
             dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-               "Send Email: " + dt.Rows[0]["Email"].ToString(), DateTime.Now.ToString(),
+               "Send Email: " + data.Email, DateTime.Now.ToString(),
                "CMS-SendEmail",
                HttpContext.Session.GetString("Name"),
                HttpContext.Session.GetString("Id"),
@@ -1136,7 +1232,7 @@ namespace AOPC.Controllers
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("AOPC Registration", "app@alfardan.com.qa"));
             //message.To.Add(new MailboxAddress("Ace Caspe", "ace.caspe@odecci.com"));
-            message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, dt.Rows[0]["Email"].ToString()));
+            message.To.Add(new MailboxAddress(data.Fname + " " + data.Lname, data.Email));
             //message.To.Add(new MailboxAddress("Carl Jecson", "carl.jecson.d.galvez@odecci.com"));
             //message.To.Add(new MailboxAddress("Agabi", "allan.gabriel@odecci.com"));
             //message.To.Add(new MailboxAddress("Alibaba", "alisandro.villegas@odecci.com"));

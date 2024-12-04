@@ -52,9 +52,10 @@
                     <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
 
                         <table class="myTableMedium" id="vendor-table">
+                            <input type="checkbox" class="check-all" id="checkall" />
                             <thead>
                             <th>
-                                <input type="checkbox" class="check-all" id="checkall" />
+                                
                                 <labebl id="checkers" style="text-align:center"></labebl>
                                 <button class="register" style="margin-bottom: 5px;font-size: 13px; width: 100px;   padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add-newuvendor"><i class="fas fa-user-plus"></i>Add New</button>
                                 <button class="register" style="margin-bottom: 5px;font-size: 13px;      width: 100px;  padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Delete Vendor" id="offeringopt" hidden><i class="fas fa-trash-alt"></i>Delete All</button>
@@ -68,6 +69,7 @@
                             <tbody>
                             </tbody>
                         </table>
+                            
                         @* <div class="cust-pagination">
                             <span id="prev">Prev</span>
                             <div id="counter"></div>
@@ -544,7 +546,7 @@
             $(".tbl-pagenumber").removeClass("active-page");
 
             $(this).addClass("active-page");
-            paginationvendor(spanval);
+            // paginationvendor(spanval);
        
         });
 
@@ -552,18 +554,18 @@
    //
           next = parseInt(next)  ;
             $(".tbl-pagenumber").removeClass("active-page");
-            console.log(next);
+            // console.log(next);
             $("#spanId" + (next)).addClass("active-page");
-         paginationvendor(next);
+         // paginationvendor(next);
 
         });
            $('#prev').click(function () {
 
           prev = parseInt(prev) ;
                  $(".tbl-pagenumber").removeClass("active-page");
-            console.log(prev);
+            // console.log(prev);
             $("#spanId" + (prev)).addClass("active-page");
-            paginationvendor(prev);
+            // paginationvendor(prev);
 
            });
         // function search() {
@@ -789,7 +791,7 @@
                         var data = {};
 
                         data.IdList = CheckedRowsUser();
-                        //console.log(data);
+                        // console.log(data);
                         $.blockUI(reloadLoading);
                         $.ajax({
                             url: '/Vendor/UserSendEmail',
@@ -851,10 +853,10 @@
                 $("#checkers").html("");
                 $('#offeringopt').removeAttr('hidden');
                 $("input:checkbox").removeAttr('hidden');
-                console.log("checkall");
+                // console.log("checkall");
             } else {
                 $("#checkers").html("");
-                console.log("uncheckall");
+                // console.log("uncheckall");
                 $("#checkall").attr("hidden", false);
                 $(".cbox").attr("hidden", true);
                 $('#offeringopt').attr("hidden", true);
@@ -881,7 +883,7 @@
         // });
         $('#offeringopt').click(function () {
 
-            console.log("Deleteall");
+            // console.log("Deleteall");
             iziToast.question({
                 timeout: 20000,
                 close: false,
@@ -948,7 +950,7 @@
                 type: "POST",
                 datatype: "json"
             }).done(function (data) {
-                console.log(data);
+                // console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         bid = data[i].bid;
                         fimage = data[i].featureImg;
@@ -981,7 +983,7 @@
                         else {
                             document.getElementById("upload-logo-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
                         }
-                        console.log(fimage);
+                        // console.log(fimage);
                         img_edit = fimage.split('/')[5];
                         img_logo_edit = logo.split('/')[5];
                      
@@ -993,7 +995,7 @@
                         //}
                         var data = {};
                         data.id = i_id;
-                        console.log(data);
+                        // console.log(data);
                         $.ajax({
                             url: '/Vendor/GetVendorGallery',
                             data: {
@@ -1002,7 +1004,7 @@
                             type: "POST",
                             datatype: "json",
                             success: function (data) {
-                                console.log(data);
+                                // console.log(data);
                                 var container = $('#upload-image-preview_multiple');
                                 container.empty();
                                 for (var i = 0; i < data.length; i++) {
@@ -1075,7 +1077,7 @@
             e.preventDefault();
 
             filename = $("#img").val().replace(/.*(\/|\\)/, '');
-            console.log(filename);
+            // console.log(filename);
             if (filename == "" || filename == null) {
                 filename = img_edit;
             }
@@ -1085,7 +1087,7 @@
             });
 
             logofilename = $("#logo-img").val().replace(/.*(\/|\\)/, '');
-            console.log(logofilename);
+            // console.log(logofilename);
             if (logofilename == "" || logofilename == null) {
                 logofilename = img_logo_edit;
             }
@@ -1111,7 +1113,7 @@
             var file_1 = featuredupload.files;
             var file_2 = logoUpload.files;
             var file_3 = gallery.files;
-            console.log(data);
+            // console.log(data);
             var formData = new FormData();
             formData.append('featuredupload', file_1[0]);
             formData.append('logoUpload', file_2[0]);
@@ -1146,7 +1148,7 @@
                 buttons: [
                     ['<button><b>YES</b></button>', function (instance, toast) {
 
-                        $.blockUI(reloadLoading);
+                        // $.blockUI(reloadLoading);
                         $.ajax({
                             url: '/Vendor/SaveVendorInfo',
                             type: 'POST',
@@ -1171,16 +1173,17 @@
                                         datatype: "json",
                                         success: function (data) {
                                             //console.log(data);
+                                            ShowVendorDetails();
                                         }
                                     });
                                     notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
                                     $("#h-close").click();
-                                       paginationvendor(spanval);
+                                       // paginationvendor(spanval);
                                 }
                                 else {
                                     notifyMsg('Warning!', result.stats, 'red', 'fas fa-exclamation-triangle');
                                     $("#h-close").click();
-                                      paginationvendor(spanval);
+                                      // paginationvendor(spanval);
                                 }
                             }
                         });

@@ -776,7 +776,7 @@ async function ShowUserAdminList() {
                 type: "GET",
                 datatype: "json"
             }).done(function (data) {
-                adminusertable.clear().draw();
+                //adminusertable.clear().draw();
                 // 
                 for (var i = 0; i < data.length; i++) {
                     //if (img == "") {

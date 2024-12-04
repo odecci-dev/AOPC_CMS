@@ -1181,7 +1181,7 @@ End here *@
             }).done(function (data) {
 
                 // console.log(data);
-                regtable.clear().draw();
+                // regtable.clear().draw();
                 prev = data[0].prevPage;
                 next = data[0].nextPage;
                 currpage = data[0].currentPage;
@@ -1396,7 +1396,7 @@ End here *@
                     $('#user-corporate-option').change(function () {
                         var data = {};
                         data.Id = $('#user-corporate-option').val();
-                        console.log(data);
+                        // console.log(data);
                         @*   *@
                         
                         $.ajax({
@@ -1420,12 +1420,12 @@ End here *@
                         var data = {};
                         data.fname = $(this).data("fname");
                         data.lname = $(this).data("lname");
-                        data.email = $(this).data("sentemail");
+                        data.email = $(this).data("email");
                         data.id = $(this).data("id");
                                      
                        var id=  $(this).data("id");
            
-                       //console.log(id);
+                       console.log(data);
                        if($(this).data("emailstatus") =="REGISTERED")
                        {
                           notifyMsg('Warning!', 'User Already Verified.', 'yellow', 'fas fa-exclamation-triangle');
@@ -1471,7 +1471,7 @@ End here *@
                                    
                                    notifyMsg('Success!', 'Email Successfully Sent!','green', 'fas fa-check');
 
-                                   cms_paginationCorpUser(spanval, filtername, posId, corpid);
+                                   // cms_paginationCorpUser(spanval, filtername, posId, corpid);
                                   $(".alert-warning").hide();
 
                                       $.unblockUI();
@@ -1500,7 +1500,7 @@ End here *@
                         var data = {};
                         data.fname = $(this).data("fname");
                         data.lname = $(this).data("lname");
-                        data.email = $(this).data("corpemail");
+                        data.email = $(this).data("email");
                         data.id = $(this).data("corporateid");
                         var id=  $(this).data("corporateid");
                         // console.log(data);
@@ -1581,6 +1581,7 @@ End here *@
                         var data = {};
                         data.Id = i_id;
                         data.CorpId = $(this).data("usercorpid");
+                        console.log(data);
                         $.ajax({
                             url: '/Corporate/GetCorpUserListId',
                             data: {
@@ -1706,38 +1707,51 @@ End here *@
 
                       document.getElementById("btn-register-corporate").innerHTML = 'Update';
                       $('#corporatemodal').modal('show');
-                      i_id = $(this).data("id");
-                      uname = $(this).data("username");
-                      empid = $(this).data("employeeid");
-                      fname = $(this).data("fname");
-                      lname = $(this).data("lname");
-                      email = $(this).data("email");
-                      gender = $(this).data("corporategender");
-                      positionID = $(this).data("corporateposition");
-                      corpid = $(this).data("corporateid");
-                      displayimg = $(this).data("corpdisplayimg");
-                      isVIP = $(this).data("vipstats");
-                      membershipID = $(this).data("membershipid");
-                      $("#corp-user").val(uname);
-                      $("#corp-empid").val(empid);
-                      $("#corp-fname").val(fname);
-                      $("#corp-lname").val(lname);
-                        $("#corp-vip-option").val(isVIP);
-                      $("#corp-email").val(email);
-                      $("#corp-gender").val(gender);
-                      $("#corp-position").val(positionID);
-                      $("#corp-corporate-option").val(corpid);
-                      $('#corp-mem-option').val(membershipID);
-                      if (displayimg != null) {
-                      var img = $('<img>').attr('src', displayimg);
-                      img.attr('height', '120px');
-                      img.attr('width', '120px');
-                      $('.upload-image-preview').html(img);
-                      } 
-                      else {
-                          document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
                       
-                      } 
+
+                        i_id = $(this).data("id");
+                        corpid = $(this).data("corporateid");
+                        
+                        // console.log($(this).data("usercorpid"));
+                        var data = {};
+                        data.Id = i_id;
+                        data.CorpId = corpid;
+                        
+                        console.log(data);
+                        $.ajax({
+                            url: '/Corporate/GetCorpUserListIdv2',
+                            data: {
+                                data: data,
+                            },
+                            type: "POST",
+                            datatype: "json"
+                        }).done(function (data) {
+                                 console.log(data);
+                                  $("#corp-user").val(data[0].username);
+                                  $("#corp-empid").val(data[0].employeeID);
+                                  $("#corp-fname").val(data[0].fname);
+                                  $("#corp-lname").val(data[0].lname);
+                                  $("#corp-vip-option").val(data[0].isVIP);
+                                  $("#corp-email").val(data[0].email);
+                                  $("#corp-gender").val(data[0].gender);
+                                  $("#corp-position").val(data[0].positionID);
+                                  $("#corp-corporate-option").val(data[0].corporateID);
+                                  $('#corp-mem-option').val(data[0].membershipID);
+                        });
+                        displayimg = $(this).data("corpdisplayimg");
+
+                        if (displayimg != null) {
+                            var img = $('<img>').attr('src', displayimg);
+                            img.attr('height', '120px');
+                            img.attr('width', '120px');
+                            $('.upload-image-preview').html(img);
+                        } 
+                        else {
+                            document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+                      
+                        } 
+
+                      
                      // img_edit= displayimg.split('/')[5];
                      // console.log(img_edit);
                      //console.log(displayimg);
@@ -1823,8 +1837,8 @@ End here *@
                                       //      cms_paginationCorpUser(spanval, filtername, posId, corpid);
                                       if (data.stats == "Successfully Deleted") {
                                         notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
-                                        
-                                         cms_paginationCorpUser("", "", "", $("#cms-corporation").val());
+                                          getUserRegistration();
+                                         // cms_paginationCorpUser("", "", "", $("#cms-corporation").val());
                                         $(".alert-warning").hide();
                                     
 
@@ -1940,8 +1954,8 @@ End here *@
                                   }).done(function (data) {
 
                                       notifyMsg('Success!', 'Successfully Deleted!', 'green', 'fas fa-check');
-                                      
-                                      ShowUserAdminList();
+                                      getOysterAdmin();
+                                      // ShowUserAdminList();
                                 
                                       $.unblockUI();
 
@@ -2064,6 +2078,7 @@ End here *@
 
 @* User Register Add Function *@
                     $('#btn-register').click(function () {
+                        console.log("asd")
                         let allownotif=0;
                         const uuid = crypto.randomUUID();
                         // alert(uuid);
@@ -2088,7 +2103,7 @@ End here *@
                         //console.log("umcheck");
                         allownotif = 0;
                         }
-                        console.log(filename);
+                        // console.log(filename);
                         data.id = i_id;
                         data.EmployeeID = $('#empid').val();
                         data.Fname = $('#fname').val();
@@ -2141,6 +2156,7 @@ End here *@
                         {
                             message = 'Are you sure you want to add new user?';
                         }
+                        console.log(data);
                         iziToast.question({
                             timeout: 20000, 
                             close: false,
@@ -2180,7 +2196,8 @@ End here *@
                                        
                                                 clear();
                                                 $("#h-close").click();
-                                                cms_paginationCorpUser(spanval, filtername, posId, corpid);
+                                                getUserRegistration();
+                                                // cms_paginationCorpUser(spanval, filtername, posId, corpid);
                                        
                                             } 
                                      
@@ -2273,7 +2290,8 @@ End here *@
                                                 else
                                                 {
                                                     notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                                    ShowUserAdminList();
+                                        getOysterAdmin();
+                                                    // ShowUserAdminList();
                                                     clear();
                                                     $("#admin-h-close").click();
                                        

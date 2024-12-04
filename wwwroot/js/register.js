@@ -290,18 +290,22 @@ async function ShowFilter() {
         document.getElementById("statusAllFilter").checked = false;
 
         statusFilter = document.getElementById("registeredFilter").value;
+        //console.log(statusFilter);
     });
     $('#unregisteredFilter').change(function () {
         document.getElementById("registeredFilter").checked = false;
         document.getElementById("statusAllFilter").checked = false;
 
-        statusFilter = document.getElementById("registeredFilter").value;
+        statusFilter = document.getElementById("unregisteredFilter").value;
+        //console.log(statusFilter);
     });
     $('#statusAllFilter').change(function () {
         document.getElementById("unregisteredFilter").checked = false;
         document.getElementById("registeredFilter").checked = false;
 
         statusFilter = null;
+        //console.log(statusFilter);
+
     });
 
     //Apply Filter
@@ -357,7 +361,7 @@ async function getUnregisteredList() {
         type: "POST",
         datatype: "json",
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             //console.log(data.length);
 
             
@@ -513,6 +517,7 @@ async function getUserRegistration() {
     data.isVIP = isVipFilter;
     data.status = statusFilter;
     data.page = spanval;
+    //console.log(data.status);
     //console.log(data);
 
     //$.ajax({

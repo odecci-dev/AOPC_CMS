@@ -669,6 +669,7 @@ div.dt-container div.dt-layout-full {
     div.dt-container div.dt-layout-full > *:only-child {
         margin-left: auto;
         margin-right: auto;
+        padding-left: 20px;
     }
 
 div.dt-container div.dt-layout-table > div {

@@ -1537,6 +1537,9 @@ async function PostCallToAction() {
     //        }
     //    }
     //});
+    if (DataTable.isDataTable('#cAction_table')) {
+        ctaTable.destroy();
+    }
     ctaTable = new DataTable('#cAction_table', {
         ajax: {
             url: "/Dashboard/PostCallToActions",
@@ -1629,8 +1632,6 @@ async function dateFilter() {
     $('#selectDateForCTA').click(function () {
 
         dateFilterDefault();
-
-
         type = 7;
     });
     $('#selectDateForNFC').click(function () {
@@ -1690,6 +1691,7 @@ async function dateFilter() {
             PostClickCountTop2();
         }
         else {
+            day = 0;
             ctastartdate = startdate;
             ctaendtdate = enddate;
             ctaTable.destroy();
@@ -1697,7 +1699,6 @@ async function dateFilter() {
         }
     });
     $('#cta-opt').change(function () {
-        ctaTable.destroy();
         PostCallToAction();
     });
     $('#nur').change(function () {
@@ -1716,8 +1717,8 @@ async function dateFilter() {
     });
     $('#mcr').change(function () {
         restoday = document.getElementById('mcr').value;
-        startdate = null;
-        enddate = null;
+        ctastartdate = null;
+        ctaenddate = null;
         runTopRestoChart();
     });
     $('#mch').change(function () {
@@ -1751,7 +1752,12 @@ async function dateFilter() {
 
      });
 
-    
+    $('#cta-day').change(function () {
+        day = document.getElementById('cta-day').value;
+        startdate = null;
+        enddate = null;
+        PostCallToAction();
+    });
      
     
 }

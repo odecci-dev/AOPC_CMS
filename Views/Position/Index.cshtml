@@ -178,7 +178,7 @@ $('#submitpos').submit(function(e){
                                         type: "POST",
                                         datatype: "json",
                                     }).done(function (response) {
-                                      console.log(response.stats);
+                                      // console.log(response.stats);
                                       if(response.stats=="Inserted Successfully" || response.stats=="Updated Successfully")
                                       {
                                           
@@ -234,7 +234,7 @@ $('#submitpos').submit(function(e){
                                       datatype: "json"
                                   }).done(function (data) {
                                     
-                                      console.log(data.stats);
+                                      // console.log(data.stats);
                                       if(data.stats=="Succesfully deleted" )
                                       {
                                           notifyMsg('Success!', data.stats, 'green', 'fas fa-check');

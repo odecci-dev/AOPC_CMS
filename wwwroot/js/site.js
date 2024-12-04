@@ -227,7 +227,7 @@ async function ShowMembershipList() {
   //}, 100);
      membershipTable = new DataTable('#membership-table', {
         ajax: {
-            url: '/Corporate/GetMembershipList',
+            url: '/Corporate/GetMembershipListv2',
             type: "GET",
             dataType: "json",
             processing: true,
@@ -403,7 +403,7 @@ async function ShowVendorDetails() {
 
     vendorListTable = new DataTable('#vendor-table', {
         ajax: {
-            url: '/Vendor/GetVendorList',
+            url: '/Vendor/GetVendorListv2',
             type: "GET",
             dataType: "json",
             processing: true,
@@ -463,8 +463,8 @@ async function ShowVendorDetails() {
                         'fill="black"/>' +
                         '</svg>' +
                         '<span>Delete</span></a>' +
-                        '<a class="tbl-sendemail"  data-id="' + data + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
-                        "<span>Send Email</span></a>" +
+                        //'<a class="tbl-sendemail"  data-id="' + data + '" >' + '<svg width="11" height="10" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<path d="M0 12.3047V1.19576C0 1.1829 0.0192864 1.06075 0.0578592 0.829315L6.59595 6.42237L0.0771456 12.6905C0.0257152 12.5104 0 12.3819 0 12.3047V12.3047ZM0.867888 0.0578592C0.957891 0.0192864 1.06718 0 1.19576 0H18.8042C18.92 0 19.0357 0.0192864 19.1514 0.0578592L12.594 5.6702L11.7261 6.36451L10.0096 7.77242L8.29315 6.36451L7.42526 5.6702L0.867888 0.0578592ZM0.887174 13.4426L7.46384 7.13597L10.0096 9.19961L12.5554 7.13597L19.1321 13.4426C19.0293 13.4812 18.92 13.5005 18.8042 13.5005H1.19576C1.0929 13.5005 0.990035 13.4812 0.887174 13.4426V13.4426ZM13.4233 6.42237L19.9421 0.829315C19.9807 0.945034 20 1.06718 20 1.19576V12.3047C20 12.4204 19.9807 12.549 19.9421 12.6905L13.4233 6.42237Z" fill="black"/>' + "</svg>" +
+                        //"<span>Send Email</span></a>" +
                         '</div></div>';
 
                     return tdbuttons;
@@ -681,7 +681,7 @@ async function ShowPositionList() {
             //processing: true,
             //serverSide: true,
             complete: function (xhr) {
-                console.log(xhr);
+                //console.log(xhr);
             },
             error: function (err) {
                 alert(err.responseText);
@@ -783,7 +783,7 @@ async function ShowBusinessTypeList() {
     }
     businessTypesTable = new DataTable('#btype-table', {
         ajax: {
-            url: '/Business/GetBusinessTypeList',
+            url: '/Business/GetBusinessTypeListv2',
             type: "GET",
             dataType: "json",
             processing: true,
@@ -797,7 +797,7 @@ async function ShowBusinessTypeList() {
         },
         columns: [
             {
-                data: 'businessLocID',
+                data: 'businessTypeID',
                 render: function (data, type, row) {
                     var tdbuttons = ' <div class="data-img">' +
                         '<img src=' + row.imgURL + ' alt=' + row.businessTypeName + ' width="100%" />' +
@@ -963,7 +963,7 @@ async function ShowBusinesslocDetails() {
     }
     businessLocTable = new DataTable('#businessloc-table', {
         ajax: {
-            url: '/Business/GetBusLoc',
+            url: '/Business/GetBusLocv2',
             type: "GET",
             dataType: "json",
             processing: true,

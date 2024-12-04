@@ -242,6 +242,29 @@ namespace AOPC.Controllers
             return Json(list);
         }
         [HttpPost]
+        public async Task<IActionResult> GetCorpUserListIdv2(CorporateModelId data)
+        {
+            string result = "";
+            var list = new List<UserVM>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiRegister/CorporateAdminUserFilterById";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<UserVM>>(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
+        [HttpPost]
         public async Task<IActionResult> GetCorporateAdminUserList(CorporateID data)
         {
 
@@ -265,6 +288,17 @@ namespace AOPC.Controllers
             var url = DBConn.HttpString + "/api/ApiMembership/MembershipList";
             HttpClient client = new HttpClient();
                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
+            string response = await client.GetStringAsync(url);
+            List<MembershipVM> model = JsonConvert.DeserializeObject<List<MembershipVM>>(response);
+            return new(model);
+            //return Json(new { draw = 1, data = model, recordFiltered = model?.Count, recordsTotal = model?.Count });
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetMembershipListv2()
+        {
+            var url = DBConn.HttpString + "/api/ApiMembership/MembershipList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<MembershipVM> model = JsonConvert.DeserializeObject<List<MembershipVM>>(response);
             //return new(model);

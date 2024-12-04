@@ -753,7 +753,7 @@
             spanval = $(this).text();
             $(".tbl-pagenumber").removeClass("active-page");
             $(this).addClass("active-page");
-            paginationCorpUser(spanval, filtername, posId)
+            // paginationCorpUser(spanval, filtername, posId)
 
         });
         $('#next').click(function () {
@@ -762,7 +762,7 @@
             $(".tbl-pagenumber").removeClass("active-page");
             // console.log(next);
             $("#spanId" + (next)).addClass("active-page");
-            paginationCorpUser(next, filtername, posId)
+            // paginationCorpUser(next, filtername, posId)
 
         });
         $('#prev').click(function () {
@@ -771,9 +771,10 @@
             $(".tbl-pagenumber").removeClass("active-page");
             // console.log(prev);
             $("#spanId" + (prev)).addClass("active-page");
-            paginationCorpUser(prev, filtername, posId)
+            // paginationCorpUser(prev, filtername, posId)
 
         });
+        var positionTable;
    function CorpShowPositionList() {
     // $.blockUI(reloadLoading);
     //         $.ajax({
@@ -799,42 +800,44 @@
     //                 }).fail(function () {
     //                     alert("There was an Error When Loading Data...");
     //                 });
-
-
-    new DataTable('#pos-table', {
-        ajax: {
-            url: '/Register/GetPositionv2',
-            type: "GET",
-            dataType: "json",
-            processing: true,
-            serverSide: true,
-            complete: function (xhr) {
-                //console.log(xhr);
-            },
-            error: function (err) {
-                alert(err.responseText);
+            if (DataTable.isDataTable('#pos-table')) {
+                positionTable.destroy();
             }
-        },
-        columns: [
-            {
-                data: 'positionID',
-                render: function (data, type, row) {
+
+            positionTable = new DataTable('#pos-table', {
+                ajax: {
+                    url: '/Register/GetPositionv2',
+                    type: "GET",
+                    dataType: "json",
+                    processing: true,
+                    serverSide: true,
+                    complete: function (xhr) {
+                        //console.log(xhr);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                },
+                columns: [
+                    {
+                        data: 'positionID',
+                        render: function (data, type, row) {
                     
-                    var tdbuttons = "<div>" + "<p>" + data + "</p>" + "<p>" + row.positionName + "</p>" +
-                        '<div class="actions"><a class="tbl-edit" data-id="' + row.id + '" data-posname="' + row.positionName + '"  data-description="' + row.description + '"   >' + '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' + '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + "</svg>" + "<span >Edit</span>" + " </a>";
+                            var tdbuttons = "<div>" + "<p>" + data + "</p>" + "<p>" + row.positionName + "</p>" +
+                                '<div class="actions"><a class="tbl-edit" data-id="' + row.id + '" data-posname="' + row.positionName + '"  data-description="' + row.description + '"   >' + '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' + '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + "</svg>" + "<span >Edit</span>" + " </a>";
                     
 
-                    return tdbuttons;
-                }
-            },
-            {
-                data: 'description'
-            },
-            {
-                data: 'dateCreated'
-            }
-        ]
-    });
+                            return tdbuttons;
+                        }
+                    },
+                    {
+                        data: 'description'
+                    },
+                    {
+                        data: 'dateCreated'
+                    }
+                ]
+            });
     }
    $('#user-corporate-option').change(function () {
                         var data = {};
@@ -1074,9 +1077,12 @@
 
 
 @* User Register Send Email *@
-                    $('#corpuserregister-table').on('click', '.tbl-sendemail', function () {
+            $('#corp-register-table').on('click', '.tbl-sendemail', function () {
                     
                         var data = {};
+                data.fname = $(this).data("fname");
+                data.lname = $(this).data("lname");
+                data.email = $(this).data("email");
                         data.Id = $(this).data("id");
                         var id = $(this).data("id");
                         console.log(data);
@@ -1086,6 +1092,7 @@
                        }
                        else
                        {
+                           
                           iziToast.question({
                           timeout: 20000,
                           close: false,
@@ -1124,7 +1131,7 @@
                                     });
                                       notifyMsg('Success!', 'Email Successfully Sent!', 'green', 'fas fa-check');
 
-                                    paginationCorpUser(spanval, filtername, posId);
+                                    // paginationCorpUser(spanval, filtername, posId);
                                   $(".alert-warning").hide();
 
                                       $.unblockUI();
@@ -1149,7 +1156,7 @@
 @* User Register Send Email End Here *@
 
 @* User register edit *@
-                    $('#corpuserregister-table').on('click', '.tbl-edit', function () {
+            $('#corp-register-table').on('click', '.tbl-edit', function () {
                       i_id = $(this).data("id");
                       // uname = $(this).data("username");
                       // empid = $(this).data("employeeid");
@@ -1231,7 +1238,7 @@
 
 
 @* User Register Delete *@
-                    $('#corpuserregister-table').on('click', '.tbl-delete', function () {
+            $('#corp-register-table').on('click', '.tbl-delete', function () {
                       var data = {};
                       data.id = $(this).data("id");
                       data.CorporateID = @Accessor.HttpContext.Session.GetString("CorporateID");
@@ -1261,7 +1268,8 @@
 
                                       notifyMsg('Success!', 'Successfully Deleted!', 'green', 'fas fa-check');
                                             var type = "Tax";
-                                      paginationCorpUser(spanval, filtername, posId);
+                                getCorpUserRegistration();
+                                      // paginationCorpUser(spanval, filtername, posId);
 
                                       $.unblockUI();
 
@@ -1409,7 +1417,8 @@
                                             }
                                             });
                                             notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                            paginationCorpUser(spanval, filtername, posId);
+                                            getCorpUserRegistration();
+                                            // paginationCorpUser(spanval, filtername, posId);
                                             clear();
                                             $("#h-close").click();
                                             $('#registermodal').modal('hide');
@@ -1481,7 +1490,7 @@
 
                                         notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
                                         $("#h-close").click();
-                                        ShowPositionList();
+                                CorpShowPositionList();
                                     }
                                     else {
                                         notifyMsg('Warning!', response.stats, 'red', 'fas fa-exclamation-triangle');
@@ -1534,7 +1543,7 @@
                                     if (data.stats == "Succesfully deleted") {
                                         notifyMsg('Success!', data.stats, 'green', 'fas fa-check');
                                         $("#h-close").click();
-                                        ShowPositionList();
+                                        CorpShowPositionList();
                                     }
                                     else {
                                         notifyMsg('Warning!', data.stats, 'red', 'fas fa-exclamation-triangle');

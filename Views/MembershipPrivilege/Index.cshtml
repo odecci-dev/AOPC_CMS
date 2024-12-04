@@ -862,7 +862,7 @@
             }
             function addChildParentText(count) {
 
-                console.log("#textCont" + count);
+                // console.log("#textCont" + count);
                 $("#txtCont" + count)
                     .append(`<div class="childTextContainer"> <div id="childTextContainer${count + 1
                         }" class="childTextItem">
@@ -873,7 +873,7 @@
             }
             function addChildParentTexts(count) {
               
-                console.log("#textConts" + count);
+                // console.log("#textConts" + count);
                 $("#txtConts" + count)
                     .append(`<div class="childTextContainer2"> <div id="childTextContainer${count + 1
                         }" class="childTextItem">
@@ -1151,7 +1151,7 @@ $("#checkAll2").click(function () {
                         if($(value).is(':checked')){
 
                          var selectedPrivilege = $(value).parent('label').parent('td').parent('tr').html();
-                         console.log(selectedPrivilege);
+                         // console.log(selectedPrivilege);
                           privilegeAddTable.append(`<tr>${selectedPrivilege}</tr>`);
                           $(value).parent('label').parent('td').parent('tr').remove();
 
@@ -1170,7 +1170,7 @@ $("#checkAll2").click(function () {
 
             var data = {};
             data.IdList = CheckedRows_vendor();
-            console.log(data);
+            // console.log(data);
 
             message = 'Are you sure you want to add new item?';
 
@@ -1186,9 +1186,11 @@ $("#checkAll2").click(function () {
                 buttons: [
                     ['<button><b>YES</b></button>', function (instance, toast) {
 
-                        $.blockUI(reloadLoading);
+                        // $.blockUI(reloadLoading);
+
+                        // console.log(CheckedRows_vendor());
                         $.ajax({
-                            url: '/MembershipPrivilege/SavepVendorPrivlist',
+                                url: '/MembershipPrivilege/SavepVendorPrivlist',
                             data: {
                                 IdList: CheckedRows_vendor(),
                             },
@@ -1218,7 +1220,7 @@ $("#checkAll2").click(function () {
                 $('#privmem-submit').submit(function(e){
                     e.preventDefault();
                       var filename = $("#img").val().replace(/.*(\/|\\)/, '');
-                    console.log(filename);
+                    // console.log(filename);
                     if(filename =="" || filename == null)
                     {
                         if (i_id != 0) {
@@ -1312,7 +1314,7 @@ $("#checkAll2").click(function () {
                       data.Mechanics = newMecha;
                       data.Active = 5;
 
-                       console.log(newTMC);
+                       // console.log(newTMC);
                       // document.getElementById("mecha").innerHTML = newTMC;
                       // console.log(data);
                       var fileUpload = $("#img").get(0);
@@ -1650,7 +1652,7 @@ $('#membership-table').on('click', '.tbl-view', function () {
       memname = $(this).data("memname");
       usercount=$(this).data("ucount");
       vipcount=$(this).data("vcount");
-      console.log(memname);
+      // console.log(memname);
       var data ={};
       data.Id= $(this).data("id");
       ShowprivilegeListModal(data.Id);
@@ -1670,7 +1672,7 @@ $('#membership-table').on('click', '.tbl-view', function () {
                 type: "POST",
                 datatype: "json"
             }).done(function (data) {
-                console.log(data);
+                // console.log(data);
                 vndrlist.clear().draw();
                 var stats = "";
                 for (var i = 0; i < data.length; i++) {
@@ -1699,7 +1701,7 @@ $('#privilege-table').on('click', '.tbl-view', function () {
     var data = {};
     data.Id = i_id;
     data.vid = vid;
-    console.log(data);
+    // console.log(data);
    
     $('#vlistmodal').modal('show');
 
@@ -1908,7 +1910,7 @@ $('#privilege-table').on('click', '.tbl-edit', function () {
     populate(tmc);
     populateMechanics(mechanics);
 
-            console.log(tmc);
+            // console.log(tmc);
     // var textare = document.getElementsByClassName("editor__main");
 
     // textare.style = "background-color: red !important";
@@ -2016,6 +2018,7 @@ function CheckedRows() {
                       data.vipCount = vipcount; *@
                       var data = {};
                       data.IdList = CheckedRows();
+                      // console.log(data);
                         if (i_id != 0) {
                         message = 'Are you sure you want to update this membership Tier';
                             }

@@ -69,6 +69,17 @@ namespace AOPC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<VendorVM> models = JsonConvert.DeserializeObject<List<VendorVM>>(response);
+            return new(models);
+            //return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetVendorListv2()
+        {
+            var url = DBConn.HttpString + "/api/ApiVendor/VendorList";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<VendorVM> models = JsonConvert.DeserializeObject<List<VendorVM>>(response);
             //return new(models);
             return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
@@ -431,7 +442,7 @@ namespace AOPC.Controllers
             {
               
                 HttpClient client = new HttpClient();
-                var url = DBConn.HttpString + "/api/ApiOffering/SendEmailVendor";
+                var url = DBConn.HttpString + "/api/ApiOffering/SendEmail";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(IdList), Encoding.UTF8, "application/json");
@@ -439,6 +450,7 @@ namespace AOPC.Controllers
                 {
                     _global.Status = await response.Content.ReadAsStringAsync();
                     status = JsonConvert.DeserializeObject<LoginStats>(_global.Status).Status;
+                    
                 }
             }
 

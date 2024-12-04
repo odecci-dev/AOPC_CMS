@@ -353,7 +353,7 @@
                     type: "POST",
                     datatype: "json",
                     success: function (response) {
-                        console.log(response);
+                        // console.log(response);
                        $('#desc').val(response[0].description);
                        $('#usercount').val(response[0].userCount);
                        $('#vipcount').val(response[0].vipCount);
@@ -376,7 +376,7 @@
                     type: "POST",
                     datatype: "json"
                 }).done(function (data) {
-                    console.log(data);
+                    // console.log(data);
                     privilegelisttable.clear().draw();
 
                     var stats = "";
@@ -572,7 +572,7 @@
                 description = $(this).data("description");
                 email = $(this).data("eadd");
                 tier = $(this).data("tier");
-                console.log(tier);
+                // console.log(tier);
                 memid = $(this).data("memid");
                 usercount = $(this).data("ucount");
                 vipcount = $(this).data("vcount");
@@ -604,7 +604,7 @@
                     formattedDate_dstart = formatDate(dstart);
                    
 
-                console.log(formattedDate_dstart);
+                // console.log(formattedDate_dstart);
                       $("#cname").val(corporatename);
                       $("#address").val(address);
                       $("#desc").val(description);
@@ -695,7 +695,7 @@
                     data.VipCount =  $('#vipcount').val();
                         data.DateEnded =$('#dateended').val();
                         data.DateUsed =$('#dateuse').val();
-            console.log(corpid);
+            // console.log(corpid);
             
                     if ($('#cname').val() == '' || $('#desc').val() == '' ||  $('#cno').val() == '' || $('#address').val() == '' ||  $('#email').val() == '' || $('#corp-mem-option').prop('selectedIndex') == 0 ) 
                     {
