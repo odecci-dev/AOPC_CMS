@@ -46,13 +46,39 @@
 <div class="register-main-container">
     <ul class="nav nav-tabs justify-content-lg-start">
         <li class="nav-items">
-            <a class="nav-link" href="#User" data-toggle="tab" aria-expanded="true"><i class="fas fa-users"></i>User Registration</a>
+            <a class="nav-link" href="#User" data-toggle="tab" aria-expanded="true"
+                style="
+                    display:flex;
+                    gap: 5px;
+                    align-items: center">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--accent)"><path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Z" /></svg>
+                @* <i class="fas fa-users"></i> *@
+                User Registration
+            </a>
         </li>
         <li class="nav-items">
-            <a class="nav-link" href="#Admin" data-toggle="tab" aria-expanded="false"><i class="fas fa-users"></i>Oyster Admin Registration</a>
+            <a class="nav-link" href="#Admin" data-toggle="tab" aria-expanded="false"
+                style="
+                    display:flex;
+                    gap: 5px;
+                    align-items: center">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--accent)"><path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Z" /></svg>
+                @* <i class="fas fa-users"></i> *@
+                Oyster Admin Registration
+            </a>
         </li>
         <li class="nav-items">
-            <a class="nav-link" href="#Corporate" data-toggle="tab" aria-expanded="false"><i class="fas fa-building"></i>Corporate Admin Registration</a>
+            <a class="nav-link" href="#Corporate" data-toggle="tab" aria-expanded="false" 
+                style="
+                    display:flex;
+                    gap: 5px;
+                    align-items: center">
+                @* <i class="fas fa-building"></i> *@
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--accent)">
+                    <path d="M80-120v-720h400v160h400v560H80Zm80-80h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 480h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 480h320v-400H480v80h80v80h-80v80h80v80h-80v80Zm160-240v-80h80v80h-80Zm0 160v-80h80v80h-80Z" />
+                </svg>
+                Corporate Admin Registration
+            </a>
         </li>
 
     </ul>
@@ -110,7 +136,15 @@
                                     <table id="register-table" class="myTableMedium">
                                             <thead>
                                         <th>
-                                            <button class="register"   title="Add New" id="add-newuser"><i class="fas fa-user-plus"></i>Add New</button>
+                                            <button class="register"   title="Add New" id="add-newuser"
+                                                    style="
+                                                        display:flex;
+                                                        gap: 5px;
+                                                        align-items: center">
+                                                @* <i class="fas fa-user-plus"></i> *@
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" /></svg>
+                                                Add New
+                                            </button>
                                         </th>
                                         <th>Username</th>
                                         <th>Email</th>
@@ -143,12 +177,27 @@
                                 {
                                     <label class="nur-note">Import Excel File:</label>
                                     <input id="upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
-                                    <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i> Upload</button>
+                                    <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"
+                                            style="
+                                                display:flex;
+                                                gap: 5px;
+                                                align-items: center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                        @* <i class="fas fa-upload"></i>  *@
+                                        Upload</button>
                                 }
                             </div>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-info btn-block" id="btn-download-user" data-toggle="tooltip" title="Download Template"><i class="fas fa-download"></i> Download Template</button>
+                            <button type="button" class="btn btn-info btn-block" id="btn-download-user" data-toggle="tooltip" title="Download Template"
+                                    style="
+                                        display:flex;
+                                        gap: 5px;
+                                        align-items: center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                @* <i class="fas fa-download"></i> *@ 
+                                Download Template
+                            </button>
                         </div>
                         <div style="font-size:12px !important;margin-left:10px">
                             @if (message != "")
@@ -204,7 +253,15 @@
                                     <table id="adminuser-table" class="myTableMedium">
                                          <thead>
                                             <th>
-                                               <button class="register"  title="Add New"  id="btn-add-admin"><i class="fas fa-user-plus"></i>Add New</button>
+                                               <button class="register"  title="Add New"  id="btn-add-admin"
+                                                        style="
+                                                            display:flex;
+                                                            gap: 5px;
+                                                            align-items: center">
+                                                   @* <i class="fas fa-user-plus"></i> *@
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" /></svg>
+                                                    Add New
+                                                </button>
                                             </th>
                                             <th>Username</th>
                                             <th>Email</th>
@@ -233,13 +290,28 @@
                                          
                                            <label class="nur-note">Import Excel File:</label>
                                           <input id="admin-upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
-                                            <button type="submit" class="btn btn-success btn-block mb-1" id="admin-btnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i>Upload</button>
+                                            <button type="submit" class="btn btn-success btn-block mb-1" id="admin-btnimport" data-toggle="tooltip" title="Import Excel"
+                                                    style="
+                                                        display:flex;
+                                                        gap: 5px;
+                                                        align-items: center">
+                                                @* <i class="fas fa-upload"></i> *@
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                                Upload
+                                            </button>
                                  
                                  }
                                 </div>
                                 </div>
                                 <div class="col">
-                                    <button type="button" class="btn btn-info btn-block" id="admin-btndownload" data-toggle="tooltip" title="Download Template"><i class="fas fa-download"></i> Download Header</button>
+                                    <button type="button" class="btn btn-info btn-block" id="admin-btndownload" data-toggle="tooltip" title="Download Template"
+                                            style="
+                                                display:flex;
+                                                gap: 5px;
+                                                align-items: center">
+                                        @* <i class="fas fa-download"></i>  *@
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                        Download Header</button>
                                 </div>
                                 <div class="col-lg-12 col-md-6 mt-2" style="font-size:12px !important">
                                 @if (message != "")
@@ -303,7 +375,17 @@
                                     <table id="corporate-user-table" class="myTableMedium">
                                         <thead>
                                             <th>
-                                                <button class="register"   title="Add New" id="add-corporate-user"><i class="fas fa-user-plus"></i>Add New</button>
+                                                <button class="register"   title="Add New" id="add-corporate-user"
+                                                       style="
+                                                            display:flex;
+                                                            gap: 5px;
+                                                            align-items: center"
+                                                >
+                                                    @* <i class="fas fa-user-plus"></i> *@
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" /></svg>
+
+                                                    Add New
+                                                </button>
                                             </th>
                                             <th>Username</th>
                                             <th>Email</th>
@@ -332,12 +414,26 @@
                                           <label class="nur-note">Import Excel File:</label>
 
                                             <input id="corpupload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
-                                            <button type="submit" class="btn btn-success btn-block mb-1" id="corpbtnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i> Upload</button>
+                                            <button type="submit" class="btn btn-success btn-block mb-1" id="corpbtnimport" data-toggle="tooltip" title="Import Excel"
+                                                    style="
+                                                        display:flex;
+                                                        gap: 5px;
+                                                        align-items: center">
+                                                @* <i class="fas fa-upload"></i>  *@
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                                Upload
+                                            </button>
                                     }
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <button type="button" class="btn btn-info btn-block" id="corp-btndownload" data-toggle="tooltip" title="Download Header"><i class="fas fa-download"></i> Download Header</button>
+                                    <button type="button" class="btn btn-info btn-block" id="corp-btndownload" data-toggle="tooltip" title="Download Header"
+                                    style="
+                                                        display:flex;
+                                                        gap: 5px;
+                                                        align-items: center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                        Download Header</button>
                                 </div>
                                 <div class="col-lg-12 col-md-6 mt-2" style="font-size:12px !important">
                                 @if (message != "")
@@ -946,7 +1042,7 @@ End here *@
 
         editUserRegistration();
         changeFamilyMemberStatus();
-        
+        sendToAll();
         ShowFilter();
         // $('#srchbox').keypress(function (event) {
         //     // Check if the key pressed is Enter (key code 13)
@@ -1425,7 +1521,7 @@ End here *@
                                      
                        var id=  $(this).data("id");
            
-                       console.log(data);
+                       // console.log(data);
                        if($(this).data("emailstatus") =="REGISTERED")
                        {
                           notifyMsg('Warning!', 'User Already Verified.', 'yellow', 'fas fa-exclamation-triangle');
@@ -1581,7 +1677,7 @@ End here *@
                         var data = {};
                         data.Id = i_id;
                         data.CorpId = $(this).data("usercorpid");
-                        console.log(data);
+                        // console.log(data);
                         $.ajax({
                             url: '/Corporate/GetCorpUserListId',
                             data: {
@@ -1717,7 +1813,7 @@ End here *@
                         data.Id = i_id;
                         data.CorpId = corpid;
                         
-                        console.log(data);
+                        // console.log(data);
                         $.ajax({
                             url: '/Corporate/GetCorpUserListIdv2',
                             data: {
@@ -1726,7 +1822,7 @@ End here *@
                             type: "POST",
                             datatype: "json"
                         }).done(function (data) {
-                                 console.log(data);
+                                 // console.log(data);
                                   $("#corp-user").val(data[0].username);
                                   $("#corp-empid").val(data[0].employeeID);
                                   $("#corp-fname").val(data[0].fname);
@@ -2078,7 +2174,6 @@ End here *@
 
 @* User Register Add Function *@
                     $('#btn-register').click(function () {
-                        console.log("asd")
                         let allownotif=0;
                         const uuid = crypto.randomUUID();
                         // alert(uuid);
@@ -2156,7 +2251,7 @@ End here *@
                         {
                             message = 'Are you sure you want to add new user?';
                         }
-                        console.log(data);
+                        // console.log(data);
                         iziToast.question({
                             timeout: 20000, 
                             close: false,

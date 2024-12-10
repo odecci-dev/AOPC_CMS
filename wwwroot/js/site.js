@@ -434,6 +434,10 @@ async function ShowVendorDetails() {
                         '<p>' + row.vendorName + '</p>' +
                         '<div class="actions"><a class="tbl-edit"data-id="' + data
                         + '"  data-vendorname="' + row.vendorName
+                        + '"  data-vendorid="' + row.vendorID
+                        + '"  data-videourl="' + row.videoUrl
+                        + '"  data-vrurl="' + row.vrUrl
+                        + '"  data-fileurl="' + row.fileUrl
                         + '"   data-descript="' + row.description
                         + '"  data-serv="' + row.services
                         + '" data-weburl="' + row.websiteUrl

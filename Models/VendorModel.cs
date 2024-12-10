@@ -6,7 +6,7 @@ namespace AuthSystem.Models
 {
     public class VendorModel
     {
-       [Key]
+       
         public int Id { get; set; }
 
         public string VendorName { get; set; }

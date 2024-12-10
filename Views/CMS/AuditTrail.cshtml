@@ -56,7 +56,15 @@
     <div class="card-header">
         <div class="row">
             <div class="list-title" style="border-radius:10px 10px 0px 0px">
-                <h4 style="font-size: 26px;" class="text-left"><i class="fas fa-list"></i> @ViewData["Title"].ToString()</h4>
+                <h4 style="font-size: 26px;
+                            display:flex;
+                            gap: 5px;
+                            align-items: center" 
+                    class="text-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="var(--light)"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z" /></svg>
+                    @* <i class="fas fa-list"></i>  *@
+                    @ViewData["Title"].ToString()
+                </h4>
             </div>
         </div>
   

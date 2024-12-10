@@ -35,10 +35,10 @@
                     align-items: center;
                     gap: 10px;
                 ">
-                @* <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--light)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--light)">
                     <path d="M80-120v-720h400v160h400v560H80Zm80-80h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 480h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 480h320v-400H480v80h80v80h-80v80h80v80h-80v80Zm160-240v-80h80v80h-80Zm0 160v-80h80v80h-80Z" />
-                </svg> *@
-                <i class="fas fa-building"></i>
+                </svg>
+                @* <i class="fas fa-building"></i> *@
                 @ViewData["Title"].ToString()
                 </h3>
           </div>
@@ -53,7 +53,21 @@
                             <table id="_corporate-table" class="myTableMedium">
                                 <thead>
                                 <th>
-                                    <button class="register" style="margin-bottom: 5px;font-size: 13px; height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem); width:100px" title="Add New" id="add-newcorporate"><i class="fas fa-user-plus"></i>Add New</button>
+                                    <button class="register" 
+                                        style="margin-bottom: 5px;
+                                                font-size: 13px; 
+                                                height: 25px;
+                                                font-size: clamp(0.5rem, 2vw, 0.7rem); 
+                                                width:100px;
+                                                display:flex;
+                                                gap: 5px;
+                                                align-items: center"
+                                            title="Add New" id="add-newcorporate">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)">
+                                            <path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" />
+                                        </svg>
+                                        Add New
+                                    </button>
                                 </th>
 
                                 <th>Address</th>
@@ -81,12 +95,32 @@
                                     {
                                     <label class="nur-note">Import Excel File:</label>
                                     <input id="upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
-                                                                <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i> Upload</button>
+                                    <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"
+                                            style="
+                                                display:flex;
+                                                gap: 5px;
+                                                align-items: center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+                                            <path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                                        </svg>
+                                        @* <i class="fas fa-upload"></i>  *@
+                                        Upload
+                                    </button>
                                     }
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <button type="button" class="btn btn-info btn-block" id="btn-download-corporate" data-toggle="tooltip" title="Download Header"><i class="fas fa-download"></i> Download Template</button>
+                                    <button type="button" class="btn btn-info btn-block" id="btn-download-corporate" data-toggle="tooltip" title="Download Header"
+                                            style="
+                                                display:flex;
+                                                gap: 5px;
+                                                align-items: center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+                                                    <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                                                </svg>
+                                            @* <i class="fas fa-download"></i>  *@
+                                            Download Template
+                                    </button>
                                 </div>
                                 <div  class="col-sm-12" style="font-size:12px !important;margin-left:10px">
                                 @if (message != "")
@@ -409,7 +443,7 @@
                             '"   data-membershipid="' + data[i].membershipID + '" ' + vipstats + '/>' +
                             '<div>' +
                             '<p></p>' +
-                            '<p>isVIP</p>' + '</div><label></td>'
+                            '<p>VIP Only</p>' + '</div><label></td>'
                         ]);
 
                     }

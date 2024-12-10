@@ -380,11 +380,7 @@ async function getUnregisteredList() {
         }
 
     });
-    sendToAll();
-}
-
-async function sendToAll() {
-    var options = document.getElementsByName('unregistered');
+    //sendToAll();
     $('#send-to-all').change(function () {
         if (document.getElementById("send-to-all").checked == true) {
             //$('.corporateOptionSendNotif').attr('checked', true);
@@ -396,6 +392,11 @@ async function sendToAll() {
             $('.unregisteredOptions').not(this).prop('checked', false);
         }
     });
+}
+
+async function sendToAll() {
+    var options = document.getElementsByName('unregistered');
+   
     //$('#send-to-all').change(function () {
     //    if (document.getElementById("send-to-all").checked == true) {
     //        $('div input').attr('checked', true); 
@@ -405,8 +406,14 @@ async function sendToAll() {
     //    }
     //});
     $('#sendEmail').click(function () {
+        //while (selectedEmail.length > 0) {
+        //    selectedEmail.pop();
+        //}
+        //while (selectedName.length > 0) {
+        //    selectedName.pop();
+        //}
         var checkedEmail = document.querySelectorAll('input[id="unregistered"]:checked');
-       
+        
         selectedEmail = Array.from(checkedEmail).map(x => x.value);
         selectedName = Array.from(checkedEmail).map(x => x.name);
         
@@ -436,7 +443,6 @@ async function sendToAll() {
                 success: function (data) {
                     //console.log(data);
                     //console.log("Email Sent!");
-                  
                 }
 
             });
@@ -651,7 +657,8 @@ async function getUserRegistration() {
                 //alert(err.responseText);
                 alert("There was an Error When Loading Data...");
             }
-        },
+        }, 
+        //order: [[0, 'asc']],
         columnDefs: [
             { "width": "150px", "targets": 2 },
             { "width": "150px", "targets": 4 }
@@ -1031,7 +1038,7 @@ async function displayFamilyMember() {
                         '">' +
                         "<span >Decline</span>" + " </a>" +
                         "</div > ";
-                    if (row.applicationStatus == "APPROVED") {
+                    if (row.applicationStatus.match("APPROVED")) {
                         tdbuttons =
                             '<div class="approve-btn">' +
                             '<a id="corpdeclineBtn"' +

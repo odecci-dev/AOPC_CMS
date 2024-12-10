@@ -155,6 +155,7 @@ async function getComponyInformation() {
     //}
 
     //data.corporatename = ciSearch;
+    //var data = {};
     //data.page = spanval;
     ////console.log(data);
     ////data.page = 0;
@@ -747,6 +748,15 @@ async function viewRestaurantDetails() {
         viewRestoDetails();
         $('#ShowMostClickModal').modal('show');
     });
+    $('.btn-mcr').click(function () {
+        var data = {};
+        var day = restoday;
+        var startdate = restostartdate;
+        var enddate = restoenddate;
+        location.replace("/Dashboard/DownloadMCR?day=" + day + "&startdate=" + startdate +"&enddate="+enddate);
+        
+
+    });
 }
 async function viewRestoDetails() {
     var data = {};
@@ -783,6 +793,8 @@ async function viewRestoDetails() {
             }
         ]
     });
+
+    
 }
 async function runTopHotelChart() {
 
@@ -952,6 +964,15 @@ async function viewHotelDetails() {
         });
         $('#ShowMostClickModal').modal('show');
     });
+
+
+    $('.btn-mch').click(function () {
+        var day = hotelday;
+        var startdate = hotelstartdate;
+        var enddate = hotelenddate;
+        location.replace("/Dashboard/DownloadMCH?day=" + day + "&startdate=" + startdate + "&enddate=" + enddate);
+
+    });
 }
 async function runTopStoreChart() {
 
@@ -1115,6 +1136,13 @@ async function viewStoreDetails() {
         });
         $('#ShowMostClickModal').modal('show');
     });
+    $('.btn-msc').click(function () {
+        var day = storeday;
+        var startdate = storestartdate;
+        var enddate = storeenddate;
+        location.replace("/Dashboard/DownloadMCS?day=" + day + "&startdate=" + startdate + "&enddate=" + enddate);
+
+    });
 }
 async function runTopWellnessChart() {
 
@@ -1277,6 +1305,14 @@ async function viewWellnessDetails() {
             ]
         });
         $('#ShowMostClickModal').modal('show');
+
+        $('.btn-mcw').click(function () {
+            var day = wellnessday;
+            var startdate = wellnessstartdate;
+            var enddate = wellnessenddate;
+            location.replace("/Dashboard/DownloadMCW?day=" + day + "&startdate=" + startdate + "&enddate=" + enddate);
+
+        }); 
     });
 }
 async function runTopOfferChart() {
@@ -1440,6 +1476,13 @@ async function viewOfferDetails() {
             ]
         });
         $('#ShowMostClickModal').modal('show');
+        $('.btn-mco').click(function () {
+            var day = offerday;
+            var startdate = offerstartdate;
+            var enddate = offerenddate;
+            location.replace("/Dashboard/DownloadMCO?day=" + day + "&startdate=" + startdate + "&enddate=" + enddate);
+
+        }); 
     });
 }
 async function PostClickCountTop2() {

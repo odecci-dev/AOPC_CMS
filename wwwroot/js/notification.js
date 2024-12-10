@@ -387,7 +387,7 @@ function GetCorporateList() {
             data.Body = notificationBody;
             data.CorporateList = selectedEmail;
 
-            console.log(data);
+            //console.log(data);
             $.ajax({
                 url: '/Dashboard/EmailCorporate',
                 data: {

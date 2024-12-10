@@ -13,7 +13,15 @@
     <div class="card-header">
         <div class="row">
             <div class="list-title" style="border-radius:10px 10px 0px 0px">
-                <h4 style="font-size: 26px;" class="text-left"><i class="fas fa-qrcode"></i> @ViewData["Title"].ToString()</h4>
+                <h4 style="font-size: 26px;
+                            display:flex;
+                            gap: 5px;
+                            align-items: center" 
+                    class="text-left">
+                    @* <i class="fas fa-qrcode"></i>  *@
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-520v-320h320v320H120Zm80-80h160v-160H200v160Zm-80 480v-320h320v320H120Zm80-80h160v-160H200v160Zm320-320v-320h320v320H520Zm80-80h160v-160H600v160Zm160 480v-80h80v80h-80ZM520-360v-80h80v80h-80Zm80 80v-80h80v80h-80Zm-80 80v-80h80v80h-80Zm80 80v-80h80v80h-80Zm80-80v-80h80v80h-80Zm0-160v-80h80v80h-80Zm80 80v-80h80v80h-80Z" /></svg>
+                    @ViewData["Title"].ToString()
+                    </h4>
             </div>
         </div>
 

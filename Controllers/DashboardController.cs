@@ -27,6 +27,10 @@ using static AOPC.Controllers.VendorController;
 using OfficeOpenXml.DataValidation;
 using static NPOI.HSSF.Util.HSSFColor;
 using static AOPC.Controllers.CMSController;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 
 namespace AOPC.Controllers
 {
@@ -342,16 +346,41 @@ namespace AOPC.Controllers
             //return new(models);
             return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
-        [HttpGet]
-        public async Task<JsonResult> GetSupportDetails()
+        public class SupportDetailModelRequest
         {
-            var url = DBConn.HttpString + "/api/ApiSupport/GetSupportDetailsList";
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
-            string response = await client.GetStringAsync(url);
-            List<SupportDetailModel> models = JsonConvert.DeserializeObject<List<SupportDetailModel>>(response);
+            public string? status { get; set; }
+
+        }
+        [HttpPost]
+        public async Task<JsonResult> GetSupportDetails(SupportDetailModelRequest data)
+        {
+            //var url = DBConn.HttpString + "/api/ApiSupport/GetSupportDetailsList";
+            //HttpClient client = new HttpClient();
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            //string response = await client.GetStringAsync(url);
+            //List<SupportDetailModel> models = JsonConvert.DeserializeObject<List<SupportDetailModel>>(response);
+            var list = new List<SupportDetailModel>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/GetSupportDetailsList ";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<SupportDetailModel>>(res);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            //return Json(list);
             //return new(models);
-            return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
+            return Json(new { draw = 1, data = list, recordFiltered = list?.Count, recordsTotal = list?.Count });
         }
         [HttpGet]
         public async Task<JsonResult> GetNotification()
@@ -361,6 +390,7 @@ namespace AOPC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
             string response = await client.GetStringAsync(url);
             List<NotificationVM> models = JsonConvert.DeserializeObject<List<NotificationVM>>(response);
+
             //return new(models);
             return Json(new { draw = 1, data = models, recordFiltered = models?.Count, recordsTotal = models?.Count });
         }
@@ -445,13 +475,41 @@ namespace AOPC.Controllers
             try
             {
                 HttpClient client = new HttpClient();
-                var url = DBConn.HttpString + "/api/ApiSupport/UpdateSupportStatus";
+                var url = DBConn.HttpString + "/api/ApiSupport/updateSupportStatus";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     _global.Status = await response.Content.ReadAsStringAsync();
                     status = JsonConvert.DeserializeObject<Registerstats>(_global.Status).Status;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(new { stats = status });
+        }
+        public class SupportUpdateEmailRequest
+        {
+            public string Status { get; set; }
+            public string Name { get; set; }
+            public string Email { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> EmailSupportUpdate(SupportUpdateEmailRequest data)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/EmailSupportUpdate";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    _global.Status = await response.Content.ReadAsStringAsync();
+                    //status = JsonConvert.DeserializeObject<SupportUpdateEmailRequest>(_global.Status).Status;
                 }
             }
 
@@ -675,7 +733,8 @@ namespace AOPC.Controllers
             string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Store Reports.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        public IActionResult DownloadMCS()
+        [HttpGet]
+        public IActionResult DownloadMCS([FromQuery] string day, [FromQuery] string startdate, [FromQuery] string enddate)
         {
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
@@ -706,9 +765,27 @@ namespace AOPC.Controllers
                     ws.Cells[1, col].Style.Font.Bold = true;
                 }
 
-                string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
-                         FROM         tbl_audittrailModel  WHERE Actions LIKE '%View%' and module ='Shops & Services'
-                         GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                //string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
+                //         FROM         tbl_audittrailModel  WHERE Actions LIKE '%View%' and module ='Shops & Services'
+                //         GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                int daysLeft = (DateTime.Now - DateTime.Now.AddYears(-1)).Days;
+                int paramDay = Convert.ToInt32(day);
+                int filterday = paramDay == 1 ? daysLeft : paramDay;
+                string sql = "";
+                if (filterday != 0)
+                {
+                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Shops & Services' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
+                                    "GROUP BY    Business,Actions,Module order by count desc";
+                }
+                else
+                {
+                    sql = $@"SELECT     Count(*)as count, Actions,Business,Module
+                         FROM         tbl_audittrailModel  WHERE Actions LIKE '%View%' and module ='Shops & Services' and  tbl_audittrailModel.DateCreated between '" + startdate + "' and '" + enddate +
+                             "' GROUP BY    Business,Actions,Module order by count desc";
+                }
+
+
                 DataTable dt = db.SelectDb(sql).Tables[0];
                 int ctr = 7;
                 int total = 0;
@@ -736,7 +813,8 @@ namespace AOPC.Controllers
             string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Store Reports.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        public IActionResult DownloadMCH()
+        [HttpGet]
+        public IActionResult DownloadMCH([FromQuery] string day, [FromQuery] string startdate, [FromQuery] string enddate)
         {
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
@@ -767,9 +845,25 @@ namespace AOPC.Controllers
                     ws.Cells[1, col].Style.Font.Bold = true;
                 }
 
-                string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
-                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Rooms & Suites' 
-                        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                //string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
+                //        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Rooms & Suites' 
+                //        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                int daysLeft = (DateTime.Now - DateTime.Now.AddYears(-1)).Days;
+                int paramDay = Convert.ToInt32(day);
+                int filterday = paramDay == 1 ? daysLeft : paramDay;
+                string sql = "";
+                if (filterday != 0)
+                {
+                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Rooms & Suites' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
+                                "GROUP BY    Business,Actions,Module order by count desc";
+                }
+                else
+                {
+                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Rooms & Suites' and  tbl_audittrailModel.DateCreated between '" + startdate + "' and '" + enddate +
+                            "' GROUP BY    Business,Actions,Module order by count desc";
+                }
                 DataTable dt = db.SelectDb(sql).Tables[0];
                 int ctr = 7;
                 int total = 0;
@@ -797,9 +891,16 @@ namespace AOPC.Controllers
             string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Hospitality Reports.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        public IActionResult DownloadMCR()
+
+        [HttpGet]
+        public IActionResult DownloadMCR([FromQuery] string day, [FromQuery] string startdate, [FromQuery] string enddate)
         {
+            
+            //Console.Write(startdate);
+            //Console.Write(enddate);
             var stream = new MemoryStream();
+            int daysLeft = (DateTime.Now - DateTime.Now.AddYears(-1)).Days;
+            
             using (var pck = new ExcelPackage(stream))
             {
                 ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet 1");
@@ -820,18 +921,43 @@ namespace AOPC.Controllers
                 ws.Cells["A4"].Value = "Date Printed:     " + DateTime.Now.ToString("yyyy-MM-dd"); ;
                 //ws.Cells["B4"].Value =
 
-                ws.Cells["A6"].Value = "Hospitality";
+                ws.Cells["A6"].Value = "Restaurant";
                 ws.Cells["B6"].Value = "Click Count";
                 ws.Cells["C6"].Value = "Total Percentage";
                 for (var col = 1; col <= 10; col++)
                 {
                     ws.Cells[1, col].Style.Font.Bold = true;
                 }
+                int paramDay = Convert.ToInt32(day);
+                int filterday = paramDay == 1 ? daysLeft : paramDay;
+                //Console.Write(filterday);
+                string sql = "";
+                //string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
+                //        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Food & Beverage' 
+                //        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                //string sql = "";  
+                if (filterday != 0)
+                {
+                     sql = $@"SELECT     
+                                Count(*)as count,Business,Actions,Module
+                            FROM tbl_audittrailModel  
+                            WHERE 
+                                    Actions LIKE '%Viewed%' 
+                                    and module ='Food & Beverage' 
+                                    and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
+                            "GROUP BY    Business,Actions,Module order by count desc";
+                }
+                else
+                {
+                     sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Food & Beverage' AND tbl_audittrailModel.DateCreated between '" + startdate + "' AND '" + enddate +
+                            "' GROUP BY    Business,Actions,Module order by count desc";
+                }
 
-                string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
-                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Food & Beverage' 
-                        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                
                 DataTable dt = db.SelectDb(sql).Tables[0];
+                //Console.Write(dt.Rows.Count);
+                //Console.Write(dt.Rows);
                 int ctr = 7;
                 int total = 0;
                 foreach (DataRow dr in dt.Rows)
@@ -858,7 +984,8 @@ namespace AOPC.Controllers
             string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Restaurant Reports.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        public IActionResult DownloadMCW()
+        [HttpGet]
+        public IActionResult DownloadMCW([FromQuery] string day, [FromQuery] string startdate, [FromQuery] string enddate)
         {
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
@@ -889,9 +1016,25 @@ namespace AOPC.Controllers
                     ws.Cells[1, col].Style.Font.Bold = true;
                 }
 
-                string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
-                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Wellness' 
-                        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                //string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
+                //        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Wellness' 
+                //        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                int daysLeft = (DateTime.Now - DateTime.Now.AddYears(-1)).Days;
+                int paramDay = Convert.ToInt32(day);
+                int filterday = paramDay == 1 ? daysLeft : paramDay;
+                string sql = "";
+                if (filterday != 0)
+                {
+                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Wellness' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
+                                    "GROUP BY    Business,Actions,Module order by count desc";
+                }
+                else
+                {
+                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Wellness' and  tbl_audittrailModel.DateCreated between '" + startdate + "' and '" + enddate +
+                           "' GROUP BY    Business,Actions,Module order by count desc";
+                }
                 DataTable dt = db.SelectDb(sql).Tables[0];
                 int ctr = 7;
                 int total = 0;
@@ -919,7 +1062,8 @@ namespace AOPC.Controllers
             string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Most Click Wellness Reports.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        public IActionResult DownloadMCO()
+        [HttpGet]
+        public IActionResult DownloadMCO([FromQuery] string day, [FromQuery] string startdate, [FromQuery] string enddate)
         {
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
@@ -950,9 +1094,25 @@ namespace AOPC.Controllers
                     ws.Cells[1, col].Style.Font.Bold = true;
                 }
 
-                string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
-                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Health' 
-                        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                //string sql = $@"SELECT     Count(*)as count, Actions,Business,Module,tbl_audittrailModel.DateCreated
+                //        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Health' 
+                //        GROUP BY    Actions,Business,Module,tbl_audittrailModel.DateCreated order by count desc";
+                int daysLeft = (DateTime.Now - DateTime.Now.AddYears(-1)).Days;
+                int paramDay = Convert.ToInt32(day);
+                int filterday = paramDay == 1 ? daysLeft : paramDay;
+                string sql = "";
+                if (filterday != 0)
+                {
+                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Health' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
+                                    "GROUP BY    Business,Actions,Module order by count desc";
+                }
+                else
+                {
+                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Health' and  tbl_audittrailModel.DateCreated between '" + startdate + "' and '" + enddate +
+                           "' GROUP BY    Business,Actions,Module order by count desc";
+                }
                 DataTable dt = db.SelectDb(sql).Tables[0];
                 int ctr = 7;
                 int total = 0;
@@ -1541,7 +1701,52 @@ namespace AOPC.Controllers
             return Json(list);
         }
 
+        public class SupportCountModel
+        {
+            public int Supportcount { get; set; }
+            public int TotalCount { get; set; }
 
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetSupportCount()
+        {
+            var url = DBConn.HttpString + "/api/ApiSupport/GetSupportCount";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token_.GetValue());
+            string response = await client.GetStringAsync(url);
+            List<SupportCountModel> models = JsonConvert.DeserializeObject<List<SupportCountModel>>(response);
+            return new(models);
+        }
+        public class SupportCountRequest
+        {
+            public int TotalCount { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateSupportCount(SupportCountRequest data)
+        {
+            string result = "";
+            var list = new List<SupportCountRequest>();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiSupport/updateSupportCount/";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<SupportCountRequest>>(res);
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(list);
+        }
 
         #endregion
 
@@ -1653,6 +1858,7 @@ namespace AOPC.Controllers
             public string Message { get; set; }
             public string EmployeeID { get; set; }
             public string Fullname { get; set; }
+            public string Email { get; set; }
             public string Status { get; set; }
             public string StatusID { get; set; }
             public string DateCreated { get; set; }

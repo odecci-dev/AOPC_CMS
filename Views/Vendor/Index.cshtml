@@ -52,13 +52,46 @@
                     <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%;overflow-x:auto;">
 
                         <table class="myTableMedium" id="vendor-table">
-                            <input type="checkbox" class="check-all" id="checkall" />
+                            
+                             <labebl id="" style="text-align:center">
+                                <input type="checkbox" class="check-all" id="checkall" /> Check All
+                            </labebl> 
                             <thead>
                             <th>
                                 
                                 <labebl id="checkers" style="text-align:center"></labebl>
-                                <button class="register" style="margin-bottom: 5px;font-size: 13px; width: 100px;   padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Add New" id="add-newuvendor"><i class="fas fa-user-plus"></i>Add New</button>
-                                <button class="register" style="margin-bottom: 5px;font-size: 13px;      width: 100px;  padding: 5px 15px 5px 5px;height: 25px;font-size: clamp(0.5rem, 2vw, 0.7rem);" title="Delete Vendor" id="offeringopt" hidden><i class="fas fa-trash-alt"></i>Delete All</button>
+                                <button class="register" 
+                                        style="
+                                            margin-bottom: 5px;
+                                            font-size: 13px;
+                                            width: 100px;
+                                            padding: 5px 15px 5px 5px;
+                                            height: 25px;
+                                            font-size: clamp(0.5rem, 2vw, 0.7rem);
+                                            display:flex;
+                                            gap: 5px;
+                                            align-items: center
+                                            " title="Add New" id="add-newuvendor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" /></svg>
+                                    @* <i class="fas fa-user-plus"></i> *@
+                                    Add New
+                                </button>
+                                <button class="register" 
+                                        style="
+                                            margin-bottom: 5px;
+                                            font-size: 13px;
+                                            width: 100px; 
+                                            padding: 5px 15px 5px 5px;
+                                            height: 25px;
+                                            font-size: clamp(0.5rem, 2vw, 0.7rem);
+                                            display:flex;
+                                            gap: 5px;
+                                            align-items: center" 
+                                    title="Delete Vendor" id="offeringopt" hidden>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" /></svg>
+                                    @* <i class="fas fa-trash-alt"></i> *@
+                                    Delete All
+                                </button>
 
                             </th>
                             <th>Email</th>
@@ -88,12 +121,20 @@
                             {
                                 <label class="nur-note">Import Excel File:</label>
                                 <input id="upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
-                                <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"><i class="fas fa-upload"></i> Upload</button>
+                                <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel">
+                                    @* <i class="fas fa-upload"></i>  *@
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                    Upload
+                                </button>
                             }
                         </div>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-info btn-block" id="btn-download" data-toggle="tooltip" title="Download Template"><i class="fas fa-download"></i> Download Template</button>
+                        <button type="button" class="btn btn-info btn-block" id="btn-download" data-toggle="tooltip" title="Download Template">
+                            @* <i class="fas fa-download"></i> *@ 
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                            Download Template
+                        </button>
                     </div>
                     <div style="font-size:12px !important;margin-left:10px">
                         @if (message != "")
@@ -164,6 +205,7 @@
                                    id="img"
                                    class="mod-input img-choose"
                                    name="uploadimg" accept="image/*" />
+                            
                         </div>
                         <div class="input-container-halfs ">
 
@@ -180,6 +222,7 @@
                                    id="logo-img"
                                    class="mod-input img-choose"
                                    name="uploadlogo" accept="image/*" />
+                            
                         </div>
                     </div>
                     <div class="mod-form-row">
@@ -195,11 +238,17 @@
                                            id="fileUpload"
                                            accept="image/*"
                                            name="fileUpload" multiple />
+                                           
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="mod-form-row">
+                        @* France *@
+                        <input type="hidden" id="vendorId" />
+                        <input type="hidden" id="videoUrl" />
+                        <input type="hidden" id="vrUrl" />
+                        <input type="hidden" id="fileUrl" />
                         <div class="input-container-whole">
                             <label for="employeeID">Vendor Name <span class="req">*</span></label>
                             <input type="text" value="" id="vendorname" class="mod-input" required />
@@ -214,7 +263,7 @@
                         <div class="input-container-whole">
                             <label for="description">Description <span class="req">*</span></label>
                             @*<input type="text" value="" id="description" class="mod-input" required/>*@
-                            <textarea id="description" name="Description" rows="4" cols="50" class="mod-input" style="height: 60px;"></textarea>
+                            <textarea id="description" name="Description" rows="4" cols="50" class="mod-input" style="height: 60px;resize: vertical; min-height: 100px"></textarea>
                         </div>
                     </div>
                     <div class="mod-form-row">
@@ -955,6 +1004,14 @@
                         bid = data[i].bid;
                         fimage = data[i].featureImg;
                         logo = data[i].vendorLogo;
+                        //france
+                        $("#vendorId").val(data[i].vendorID);
+                        $("#videoUrl").val(data[i].videoUrl);
+                        $("#vrUrl").val(data[i].vrUrl);
+                        $("#fileUrl").val(data[i].fileUrl);
+                        $("#check-featured").val(data[i].featureImg);
+                        $("#check-logo").val(data[i].vendorLogo);
+                        $("#vendorname").val(data[i].vendorName);
                         $("#vendorname").val(data[i].vendorName);
                         $("#description").val(data[i].description);
                         $("#services").val(data[i].services);
@@ -1077,9 +1134,12 @@
             e.preventDefault();
 
             filename = $("#img").val().replace(/.*(\/|\\)/, '');
-            // console.log(filename);
+            console.log(filename);
             if (filename == "" || filename == null) {
                 filename = img_edit;
+            }
+            else{
+
             }
             var image = "";
             $('#upload-image-preview_multiple').find('img').each(function (index, value) {
@@ -1106,6 +1166,10 @@
             data.FeatureImg = filename;
             data.VendorLogo = logofilename;
             data.Map = $("#Map").val();
+            data.vendorID = $("#vendorID").val();
+            data.videoUrl = $("#videoUrl").val();
+            data.vrUrl = $("#vrUrl").val();
+            data.fileUrl = $("#fileUrl").val();
 
             var featuredupload = $("#img").get(0); //featured img
             var gallery = $("#fileUpload").get(0); //gallery img
@@ -1134,8 +1198,18 @@
             formData.append('VendorLogo', logofilename);
             formData.append('Map', $("#Map").val());
             formData.append('WebsiteUrl', $("#wURL").val());
+            formData.append('Status', '5');
+            //france
+            formData.append('vendorID', $("#vendorId").val());
+            formData.append('videoUrl', $("#videoUrl").val());
+            formData.append('vrUrl', $("#vrUrl").val());
+            formData.append('fileUrl', $("#fileUrl").val());
 
-            
+
+            // console.log(data);
+            // for (var pair of formData.entries()) {
+            //     console.log(pair[0]+ ', ' + pair[1]); 
+            // }
             iziToast.question({
                 timeout: 20000,
                 close: false,

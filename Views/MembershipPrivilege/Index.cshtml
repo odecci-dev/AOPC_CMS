@@ -78,7 +78,17 @@
                             <table class="myTableLarge" id="privilege-table">
                                 <thead>
                                 <th>
-                                    <button class="register" " title="Add New" id="add-privilege"><i class="fas fa-hand-sparkles"></i>Add New</button>
+                                    <button class="register" " title="Add New" id="add-privilege"
+                                            style="
+                                            display:flex;
+                                            gap: 5px;
+                                            align-items: center">
+                                        @* <i class="fas fa-hand-sparkles"></i> *@
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)">
+                                            <path d="M512-40q-82 0-154-37.5T240-182L48-464l19-19q20-21 49.5-24t53.5 14l110 76v-383q0-17 11.5-28.5T320-840q17 0 28.5 11.5T360-800v320h80v-400q0-17 11.5-28.5T480-920q17 0 28.5 11.5T520-880v400h80v-360q0-17 11.5-28.5T640-880q17 0 28.5 11.5T680-840v360h80v-280q0-17 11.5-28.5T800-800q17 0 28.5 11.5T840-760v392q0 137-95.5 232.5T512-40Z" />
+                                            </svg>
+                                        Add New
+                                    </button>
 
                                 </th>
 
@@ -111,7 +121,15 @@
         <table id="membership-table" class="myTableLarge">
             <thead>
             <th>
-                <button class="register" title="Add New" id="add-membershipTier"><i class="fas fa-id-card"></i>Add New</button>
+                <button class="register" title="Add New" id="add-membershipTier"
+                        style="
+                            display:flex;
+                            gap: 5px;
+                            align-items: center">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M560-440h200v-80H560v80Zm0-120h200v-80H560v80ZM200-320h320v-22q0-45-44-71.5T360-440q-72 0-116 26.5T200-342v22Zm160-160q33 0 56.5-23.5T440-560q0-33-23.5-56.5T360-640q-33 0-56.5 23.5T280-560q0 33 23.5 56.5T360-480ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Z" /></svg>
+                    @* <i class="fas fa-id-card"></i> *@
+                    Add New
+                </button>
             </th>
             <th>Desciptions</th>
             <th>Date Started</th>
@@ -182,7 +200,8 @@
                             @* Description *@
                             <label for="email">Description </label>
                             @* <input type="text" value="" id="description" class="mod-input" /> *@
-                            <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px; white-space: break-spaces"></textarea>
+                            @* <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="height: 40px; white-space: break-spaces"></textarea> *@
+                            <textarea id="descrip" name="Description" rows="4" cols="50" class="mod-input" style="resize: vertical; min-height: 100px; white-space: break-spaces"></textarea>
                         </div>
                     </div>
                     <div class="mod-form-row">
@@ -1040,9 +1059,7 @@
             $('.check-vendor:checked').each(function (id, item) {
                 var id = $(item).data('vid');
                 var status = $(item).data('status');
-
                 var stats = "";
-
                 vendorlist.push({
                     privilegeID: i_id,
                     status: "1",
@@ -1051,7 +1068,19 @@
 
                 });
             });
-            return vendorlist;
+            if(vendorlist.length == 0){
+                vendorlist.push({
+                    privilegeID: i_id,
+                    status: "1",
+                    vid: null,
+                    stats: "1"
+
+                });
+                return vendorlist;
+            }
+            else{
+                return vendorlist;
+            }
         }
         $("#checkall_vendor").click(function () {
             $(".check-vendor").not(this).prop("checked", this.checked);
@@ -1169,6 +1198,23 @@ $("#checkAll2").click(function () {
             e.preventDefault();
 
             var data = {};
+
+            // data.IdList = CheckedRows_vendor();
+            
+            // console.log(CheckedRows_vendor().length);
+
+            // if(CheckedRows_vendor().length == 0){
+            //     IdLists = {
+            //         privilegeID: i_id,
+            //         status: "1",
+            //         vid: null,
+            //         stats: "1"
+            //     };
+            //     data.IdList = IdLists;
+            // }
+            // else{
+                
+            // }
             data.IdList = CheckedRows_vendor();
             // console.log(data);
 
@@ -1683,7 +1729,10 @@ $('#membership-table').on('click', '.tbl-view', function () {
                         stats = "unchecked";
                     }
                     $('#vendorList').dataTable().fnAddData([
-                        '<td>' + '<label for="cb' + data[i].id + '"><input type="checkbox" id="cb' + data[i].id + '" class="check-vendor" data-vid="'+data[i].vid+'" data-vendorname="' + data[i].vendorName + '" '+stats+'  />' +
+                        '<td>' + '<label for="cb' + data[i].id + 
+                        '"><input type="checkbox" id="cb' + data[i].id + 
+                        '" class="check-vendor" data-vid="'+data[i].vid+
+                        '" data-vendorname="' + data[i].vendorName + '" '+stats+'  />' +
                         '<div>' +
                         '<p></p>' +
                         '<p>' + data[i].vendorName + '</p>' + '</div><label></td>'

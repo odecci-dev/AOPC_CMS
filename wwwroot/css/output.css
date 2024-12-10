@@ -3063,17 +3063,18 @@ body {
 }
 
 label {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .mod-input {
   /* font-size: 1rem; */
-  height: 25px;
-  /* padding: 5px 10px; */
+  height: 50px;
+  padding: 5px 10px; 
   outline: none;
   border: 1px solid #e7e6e6;
   box-shadow: inset 1px 2px 1px 1px rgba(116, 113, 113, 0.5);
   border-radius: 5px;
+  font-size: 0.9rem;
 }
 .mod-input:hover,
 .mod-input:active,
@@ -3241,8 +3242,11 @@ a:hover {
 }
 
 .upload {
-  height: 50px;
-  margin: auto 0;
+    height: 50px;
+    margin: auto 0;
+    display: flex;
+    gap: 20px;
+    align-items: center
 }
 
 label[for="img"] {
@@ -10079,13 +10083,14 @@ input:checked + .slider:before {
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
-
-#checkall {
-    position: absolute !important;
-    top: 105px;
-    left: 5px;
-    z-index: 99;
-}
-.checkalloffering {
-    top: 80px !important;
+#pendingCount {
+    background-color: red;
+    color: white;
+    font-weight: 700;
+    position: absolute;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 100%;
+    left: 25px;
+    display: none;
 }

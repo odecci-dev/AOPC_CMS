@@ -38,8 +38,8 @@ namespace AuthSystem.Manager
         public void ConnectioStr()
         {
 
-            //cnnstr = "Data Source=EC2AMAZ-2PRMHQI;Database=AOPCDB;User ID=test;Password=1234";//aopc
-            cnnstr = "Data Source=EC2AMAZ-V52FJK1;Database=AOPCDB;User ID=test;Password=1234"; //odecci server
+            cnnstr = "Data Source=EC2AMAZ-2PRMHQI;Database=AOPCDB;User ID=test;Password=1234";//aopc
+            //cnnstr = "Data Source=EC2AMAZ-V52FJK1;Database=AOPCDB;User ID=test;Password=1234"; //odecci server
             //cnnstr = "Data Source=EC2AMAZ-AN808JE\\MSSQLSERVER01;Initial Catalog=AOPCDB;User ID=test;Password=1234";
             //cnnstr = "Data Source=localhost;Initial Catalog=AOPCDB;User ID=sa;Password=reallyStrongPwd123";
             //cnnstr = "Data Source=EC2AMAZ-2PRMHQI;Initial Catalog=AOPCDB_DEV;User ID=test;Password=1234"; 
