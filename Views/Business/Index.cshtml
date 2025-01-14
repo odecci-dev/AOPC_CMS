@@ -267,7 +267,7 @@
                                 <label for="img">Upload Profile</label>
                                 <input type="file"
                                        value=""
-                                       id="admin-img"
+                                       id="img"
                                        class="mod-input img-choose"
                                        name="uploadimg" accept="image/*" />
                             </div>
@@ -1111,9 +1111,23 @@
             data.Description = $('#description').val();
             data.isVIP = "";
             data.PromoText = $('#promoT').val();
-            data.ImgURL=filename;
+            data.ImgURL=filename; 
             let message="";
-            // console.log(data);
+            var input = document.getElementById('fileUpload');
+            let formData = new FormData();
+            var fileUpload = $("#img").get(0);
+            var files = fileUpload.files;
+            var m_files = input.files;
+            for (var i = 0; i != m_files.length; i++) {
+                formData.append("file", m_files[i]); //loop through all files and append
+            }
+
+            formData.append('file', files[0]);
+            var fileUpload = $("#upload-img").get(0);
+            // Display the key/value pairs
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
             if(i_id != 0)
             {
                 message ='Are you sure you want to update business type?';
@@ -1143,12 +1157,25 @@
                                     datatype: "json",
                                 }).done(function (response) {
                                     // console.log(response.stats);
-                                    if(response.stats=="Inserted Successfully" || response.stats=="Updated Successfully")
-                                    {
+                                    if(response.stats=="Inserted Successfully" || response.stats=="Updated Successfully") {
+                                        $.ajax({
+                                            url: '/Business/UploadFile',
+                                            type: 'POST',
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+
+                                            success: function (result) {
+
+                                            }
+                                        }).fail(function () {
+                                            alert("There was an Error When Loading Data...");
+                                        });
                                           
                                         notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
                                         $("#btype-close").click();
                                         ShowBusinessTypeList();
+
                                     }
                                     else
                                     {
@@ -1187,7 +1214,7 @@
                });
        
             // console.log(image);
-                var input = document.getElementById('fileUpload');
+            
               var data = {};
               data.id = i_id;
               data.businessName  = $("#hotelname").val();
@@ -1202,13 +1229,16 @@
               data.Services   = $('#Services').val();
               data.map   = $("#Map").val();
               data.featureImg=filename;
-                let formData = new FormData();
+
+            var input = document.getElementById('fileUpload');
+            let formData = new FormData();
             var fileUpload = $("#img").get(0);
             var files = fileUpload.files;
             var m_files = input.files;
             for (var i = 0; i != m_files.length; i++) {
                 formData.append("file", m_files[i]); //loop through all files and append
             }
+
             formData.append('file', files[0]);
             var fileUpload = $("#upload-img").get(0);
             let message = "";

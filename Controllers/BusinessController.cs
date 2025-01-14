@@ -389,6 +389,7 @@ namespace AOPC.Controllers
                     try
                     {
                         var uploadsFolder = DBConn.Path;
+                        //var uploadsFolder = "C:\\Users\\franc\\Documents\\C# Project\\Odecci\\AOPC\\AOPC_CMS\\wwwroot\\img";
                         if (!Directory.Exists(uploadsFolder))
                         {
                             Directory.CreateDirectory(uploadsFolder);

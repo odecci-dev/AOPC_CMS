@@ -499,6 +499,7 @@ End here *@
                             class="mod-input img-choose"
                             name="uploadimg" accept="image/*"
                             />
+                            <input type="hidden" id="img-check" />
                         </div>
                         </div>
                         <div class="mod-form-row">
@@ -641,6 +642,7 @@ End here *@
             class="mod-input img-choose"
             name="uploadimg" accept="image/*"
             />
+            <input type="hidden" id="corp-img-check" />
         </div>
         </div>
         <div class="mod-form-row">
@@ -771,6 +773,7 @@ End here *@
             class="mod-input img-choose"
             name="uploadimg" accept="image/*"
             />
+            <input type="hidden" id="admin-img-check" />
         </div>
         </div>
         <div class="mod-form-row">
@@ -1698,6 +1701,7 @@ End here *@
                                 $('#vip-option').val(data[0].isVIP);
                                 $("#user-position").val(data[0].positionID);
                                 $("#user-corporate-option").val(data[0].corporateID);
+                                $("#img-check").val(data[0].filePath);
                                 if (data[0].filePath != null) {
                                 var img = $('<img>').attr('src', data[0].filePath);
                                     img.attr('height', '120px');
@@ -1834,7 +1838,10 @@ End here *@
                                   $("#corp-corporate-option").val(data[0].corporateID);
                                   $('#corp-mem-option').val(data[0].membershipID);
                         });
+
+                
                         displayimg = $(this).data("corpdisplayimg");
+                        $('#corp-img-check').val(displayimg);
 
                         if (displayimg != null) {
                             var img = $('<img>').attr('src', displayimg);
@@ -1877,6 +1884,7 @@ End here *@
                       $("#admin-email").val(email);
                       $("#admin-gender").val(gender);
                       $(".alert-warning").hide();
+                      $("#admin-img-check").val(displayimg);
                        if (displayimg != null) {
                       var img = $('<img>').attr('src', displayimg);
                       img.attr('height', '120px');
@@ -2175,20 +2183,32 @@ End here *@
 @* User Register Add Function *@
                     $('#btn-register').click(function () {
                         let allownotif=0;
-                        const uuid = crypto.randomUUID();
-                        // alert(uuid);
+                        let random = (Math.random()+1).toString(36).substring(4);
+                        const uuid = random;
                         var filename = $("#img").val().replace(/.*(\/|\\)/, '');
-                        // alert(filename);
-
+                        var imgCheck = $("#img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
                         var data = {};
-                         //console.log(filename);
-                        
-                        if(filename =="" || filename == null)
-                        {
-                          filename = img_edit;
+                        var fileUpload = $("#img").get(0);
+                        console.log(imgCheck);
+                        var files = fileUpload.files;
+                        const formData = new FormData();
+                        if (files[0]) {
+                            let newFileName = uuid + "." + files[0].name.split('.').pop();
+                            const newFile = new File([files[0]], newFileName, { type: files[0].type });
+                            formData.append('file', newFile);
+                            filename = newFileName;
                         }
-                        else{
-                            filename = "/Uploads/" + filename;
+                        else {
+                            formData.append('file', files[0]);
+
+
+                            if (imgCheck == "" || imgCheck == null) {
+                                filename = img_edit;
+                            }
+                            else {
+                                // filename = "/Uploads/" + imgCheck;
+                                filename = imgCheck;
+                            }
                         }
                         if ($("#checkp").is(':checked')) {
                         //console.log("check");
@@ -2215,116 +2235,141 @@ End here *@
                         data.isVIP = $('#vip-option').val();
                         let valid = true;
 
-               
-                      var fileUpload = $("#img").get(0);
-                      var files = fileUpload.files;
-                      var formData = new FormData();
-                      formData.append('file', files[0]);
-                      var fileUpload = $("#upload-img").get(0);
+                        
+                        var fileUpload = $("#upload-img").get(0);
                         
 
          
-                      //console.log(formData);
-                    if ($('#empid').val() == '' || $('#fname').val() == '' ||  $('#lname').val() == '' || $('#email').val() == '' ||  $('#gender').prop('selectedIndex') == 0  ||   $('#user-position').prop('selectedIndex') == 0
-                    ||   $('#user-corporate-option').prop('selectedIndex') == 0 ||   $('#vip-option').prop('selectedIndex') == 0  ) 
-                    {
-                        notifyMsg('Warning!', 'Please fill up all required fields.', 'yellow', 'fas fa-exclamation-triangle');
-                            $("#vip-option").focus();
-                    }
-                    else
-
-                    {
-                         if (files.length > 0) 
-                         {
-                                  if (files[0].size > 500000) {
-                                      notifyMsg('Warning!', 'Uploaded image reached the maximum file size. Image size should be maximum of 500 KB.', 'yellow', 'fas fa-exclamation-triangle');
-                                      return false;
-                                  }
-                        }
-
-                        let message="";
-                        if(i_id != 0)
+                          //console.log(formData);
+                        if ($('#empid').val() == '' || $('#fname').val() == '' ||  $('#lname').val() == '' || $('#email').val() == '' ||  $('#gender').prop('selectedIndex') == 0  ||   $('#user-position').prop('selectedIndex') == 0
+                        ||   $('#user-corporate-option').prop('selectedIndex') == 0 ||   $('#vip-option').prop('selectedIndex') == 0  ) 
                         {
-                            message = 'Are you sure you want to update '  +$('#fname').val();
+                            notifyMsg('Warning!', 'Please fill up all required fields.', 'yellow', 'fas fa-exclamation-triangle');
+                                $("#vip-option").focus();
                         }
                         else
+
                         {
-                            message = 'Are you sure you want to add new user?';
-                        }
-                        // console.log(data);
-                        iziToast.question({
-                            timeout: 20000, 
-                            close: false,
-                            overlay: true,
-                            id: 'question',
-                            zindex: 999,
-                            title: 'Confirmation',
-                            message: message,
-                            position: 'center',
-                            buttons: [
-                                ['<button><b>YES</b></button>', function (instance, toast) {
-                                    $.blockUI(reloadLoading);
-                                    $.ajax({
-                                        url: '/Register/SaveUserInfo',
-                                        data: {
-                                            data: data
-                                        },
-                                        type: "POST",
-                                        datatype: "json",
-                                        }).done(function (response) {
-                                            if (response.stats == "Error in Registration" || response.stats == "User Information Already Used!") {
-                                              notifyMsg('Warning!', response.stats, 'yellow', 'fas fa-exclamation-triangle');
-                                              $("#empid").focus();
-                                            }
-                                            else
-                                            {
-                                               $.ajax({
-                                                url: '/Register/UploadFile',
-                                                type: 'POST',
-                                                data: formData,
-                                                processData: false,
-                                                contentType: false,
-                                                success: function (result) {
+                             if (files.length > 0) 
+                             {
+                                      if (files[0].size > 500000) {
+                                          notifyMsg('Warning!', 'Uploaded image reached the maximum file size. Image size should be maximum of 500 KB.', 'yellow', 'fas fa-exclamation-triangle');
+                                          return false;
+                                      }
+                            }
+
+                            let message="";
+                            if(i_id != 0)
+                            {
+                                message = 'Are you sure you want to update '  +$('#fname').val();
+                            }
+                            else
+                            {
+                                message = 'Are you sure you want to add new user?';
+                            }
+                            // console.log(data);
+                            iziToast.question({
+                                timeout: 20000, 
+                                close: false,
+                                overlay: true,
+                                id: 'question',
+                                zindex: 999,
+                                title: 'Confirmation',
+                                message: message,
+                                position: 'center',
+                                buttons: [
+                                    ['<button><b>YES</b></button>', function (instance, toast) {
+                                        $.blockUI(reloadLoading);
+                                        $.ajax({
+                                            url: '/Register/SaveUserInfo',
+                                            data: {
+                                                data: data
+                                            },
+                                            type: "POST",
+                                            datatype: "json",
+                                            }).done(function (response) {
+                                                if (response.stats == "Error in Registration" || response.stats == "User Information Already Used!") {
+                                                  notifyMsg('Warning!', response.stats, 'yellow', 'fas fa-exclamation-triangle');
+                                                  $("#empid").focus();
                                                 }
-                                                });
-                                                notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+                                                else
+                                                {
+                                                   $.ajax({
+                                                    url: '/Register/UploadFile',
+                                                    type: 'POST',
+                                                    data: formData,
+                                                    processData: false,
+                                                    contentType: false,
+                                                    success: function (result) {
+                                                    }
+                                                    });
+                                                    notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
                                        
-                                                clear();
-                                                $("#h-close").click();
-                                                getUserRegistration();
-                                                // cms_paginationCorpUser(spanval, filtername, posId, corpid);
+                                                    clear();
+                                                    $("#h-close").click();
+                                                    getUserRegistration();
+                                                    // cms_paginationCorpUser(spanval, filtername, posId, corpid);
                                        
-                                            } 
+                                                } 
                                      
-                                            $.unblockUI();
-                                            getUserRegistration();
+                                                $.unblockUI();
+                                                getUserRegistration();
 
-                                        }).fail(function () {
-                                            alert("There was an Error When Loading Data...");
-                                        });
-                                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                                            }).fail(function () {
+                                                alert("There was an Error When Loading Data...");
+                                            });
+                                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                                    }, true],
-                                    ['<button>NO</button>', function (instance, toast) {
+                                        }, true],
+                                        ['<button>NO</button>', function (instance, toast) {
 
-                                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 
-                                    }],
-                                ]
-                            });
-                        }   
+                                        }],
+                                    ]
+                                });
+                            }   
                         });
 @* User Register Add Function End Here*@
 
 @* Admin Add new Register Function *@
                 $('#btn-register-admin').click(function () {
 
-                    var filename = $("#img").val().replace(/.*(\/|\\)/, '');
+                    // var filename = $("#img").val().replace(/.*(\/|\\)/, '');
                     //console.log(filename);
-                    if(filename =="" || filename == null)
-                    {
-                      filename = img_edit;
+
+
+
+                let random = (Math.random()+1).toString(36).substring(4);
+                const uuid = random;
+                var filename = $("#admin-img").val().replace(/.*(\/|\\)/, '');
+                var imgCheck = $("#admin-img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
+                var data = {};
+                var fileUpload = $("#img").get(0);
+                console.log(imgCheck);
+                var files = fileUpload.files;
+                const formData = new FormData();
+                if (files[0]) {
+                    let newFileName = uuid + "." + files[0].name.split('.').pop();
+                    const newFile = new File([files[0]], newFileName, { type: files[0].type });
+                    formData.append('file', newFile);
+                    filename = newFileName;
+                }
+                else {
+                    formData.append('file', files[0]);
+
+
+                    if (imgCheck == "" || imgCheck == null) {
+                        filename = img_edit;
                     }
+                    else {
+                        // filename = "/Uploads/" + imgCheck;
+                        filename = imgCheck;
+                    }
+                }
+
+
+
                     var data = {};
                     data.id = i_id;
                     data.EmployeeID = $('#admin-empid').val();
@@ -2384,8 +2429,17 @@ End here *@
                                                 }
                                                 else
                                                 {
+                                                    $.ajax({
+                                                        url: '/Register/UploadFile',
+                                                        type: 'POST',
+                                                        data: formData,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        success: function (result) {
+                                                        }
+                                                    });
                                                     notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                        getOysterAdmin();
+                                                    getOysterAdmin();
                                                     // ShowUserAdminList();
                                                     clear();
                                                     $("#admin-h-close").click();
@@ -2413,12 +2467,33 @@ End here *@
   $('#corp_adminform').submit(function(e){
         e.preventDefault();
 
-                   filename=$("#img").val().replace(/.*(\/|\\)/, ''); 
-                    //console.log(filename);
-                    if(filename =="" || filename == null)
-                    {
-                      filename = img_edit;
+                let random = (Math.random()+1).toString(36).substring(4);
+                const uuid = random;
+                var filename = $("#img").val().replace(/.*(\/|\\)/, '');
+                var imgCheck = $("#img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
+                var data = {};
+                var fileUpload = $("#img").get(0);
+                console.log(imgCheck);
+                var files = fileUpload.files;
+                const formData = new FormData();
+                if (files[0]) {
+                    let newFileName = uuid + "." + files[0].name.split('.').pop();
+                    const newFile = new File([files[0]], newFileName, { type: files[0].type });
+                    formData.append('file', newFile);
+                    filename = newFileName;
+                }
+                else {
+                    formData.append('file', files[0]);
+
+
+                    if (imgCheck == "" || imgCheck == null) {
+                        filename = img_edit;
                     }
+                    else {
+                        // filename = "/Uploads/" + imgCheck;
+                        filename = imgCheck;
+                    }
+                }
                     var data = {};
                     data.id =i_id;
                     data.EmployeeID = $('#corp-empid').val();
@@ -2475,8 +2550,16 @@ End here *@
                                           notifyMsg('Warning!', response.stats, 'yellow', 'fas fa-exclamation-triangle');
                                           $("#admin-empid").focus();
                                         }
-                                        else
-                                        {
+                                        else {
+                                            $.ajax({
+                                                url: '/Register/UploadFile',
+                                                type: 'POST',
+                                                data: formData,
+                                                processData: false,
+                                                contentType: false,
+                                                success: function (result) {
+                                                }
+                                            });
                                           notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
                                           // ShowUserCorporateList();
                                         getCorporateRegistration();

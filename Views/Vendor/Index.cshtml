@@ -1299,11 +1299,17 @@
                             type: "POST",
                             datatype: "json"
                         }).done(function (data) {
-
-                            notifyMsg('Success!', 'Successfully Deleted!', 'green', 'fas fa-check');
-                            $("#h-close").click();
-                            ShowVendorDetails();
-                            $.unblockUI();
+                            // console.log(data.stats);
+                            if (data.stats == "Successfully Deleted") {
+                                notifyMsg('Success!', 'Successfully Deleted!', 'green', 'fas fa-check');
+                                $("#h-close").click();
+                                ShowVendorDetails();
+                                $.unblockUI();
+                            }
+                            else{
+                                notifyMsg('Warning!', 'Vendor is being used and cannot be deleted!', 'red', 'fas fa-exclamation-triangle');
+                                $.unblockUI();
+                            }
 
                         }).fail(function () {
                             alert("There was an Error When Loading Data...");

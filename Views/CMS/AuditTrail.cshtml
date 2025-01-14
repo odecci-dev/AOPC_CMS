@@ -146,7 +146,11 @@
                 },
                 columns: [
                     {
-                        data: 'employeeID'
+                        // data: 'employeeID'
+                        data: 'id',
+                        render: function (data, type, row) {
+                            return row.employeeID;
+                        }
                     },
                     {
                         data: 'fullName'
@@ -169,7 +173,9 @@
                     {
                         data: 'dateCreated'
                     }
-                ]
+                ],
+                "columnDefs": [ { type: 'date', "targets": [7] } ],
+                order: [[7, 'desc']]
             });
         }
 </script>

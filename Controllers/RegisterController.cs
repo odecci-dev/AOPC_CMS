@@ -342,8 +342,12 @@ namespace AOPC.Controllers
 
             public string status { get; set; }
         }
+        public class NewFileName
+        {
+            public string newFileName { get; set; }
+        }
 
-        public JsonResult UploadFile(List<IFormFile> postedFiles)
+        public JsonResult UploadFile(List<IFormFile> postedFiles, NewFileName data)
         {
             
             int i;
@@ -355,10 +359,9 @@ namespace AOPC.Controllers
                 {
                     try
                     {
-                        //var filePath = "C:\\Files\\"; + "/Uploads";
-                        //string filePath = wwwPath+"/Uploads";
-                        //var filePath = Environment.WebRootPath + "\\uploads\\";
-                        var filePath = "C:\\Users\\franc\\Documents\\C# Project\\Odecci\\AOPC\\AOPC_CMS\\wwwroot\\Uploads";
+                        
+                         var filePath = DBConn.Path;
+                        //var filePath = "C:\\Users\\franc\\Documents\\C# Project\\Odecci\\AOPC\\AOPC_CMS\\wwwroot\\img";
                         if (!Directory.Exists(filePath))
                         {
                             Directory.CreateDirectory(filePath);
