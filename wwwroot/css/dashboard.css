@@ -319,6 +319,15 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--dark) !important;
+}
+.tw-pie-graph-info .data span,
+.tr-pie-graph-info .data span,
+.th-pie-graph-info .data span,
+.ts-pie-graph-info .data span,
+.tof-pie-graph-info .data span,
+.dt-type-numeric {
+    color: var(--dark) !important;
 }
 
 .tr-pie-graph-info .data span:nth-child(3) {
@@ -460,6 +469,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: var(--dark) !important;
         }
 
         .th-pie-graph-info .data span:nth-child(3) {
@@ -604,6 +614,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: var(--dark) !important;
         }
 
         .ts-pie-graph-info .data span:nth-child(3) {
@@ -1179,7 +1190,7 @@ input[type=text] {
     gap: 5px;
     align-items: center;
     justify-content: center;
-    color: var(--light);
+    color: #fff;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;

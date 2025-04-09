@@ -112,6 +112,8 @@ async function ShowprivilegeList() {
             {
                 data: 'imgUrl',
                 render: function (data, type, row) {
+                    var mechanics = row.mechanics.replaceAll(`"`, `'`);
+                    var tmc = row.tmc.replaceAll(`"`, `'`);
                     var tdbuttons = ' <div class="data-img">' +
                         "<img src=" + data + " alt=" +
                         row.title + ' width="100%" />' + "</div>" + "<div>" + "<p>" +
@@ -121,10 +123,10 @@ async function ShowprivilegeList() {
                         row.description + '" data-btypeid="' +
                         row.businessTypeID + '" data-imgfile="' +
                         row.imgUrl + '" data-mechanics="' +
-                        row.mechanics + '" data-nexpr="' +
+                        mechanics + '" data-nexpr="' +
                         row.noExpiry + '" data-title="' +
                         row.title + '"  data-tmc="' +
-                        row.tmc + '" data-validity="' +
+                        tmc + '" data-validity="' +
                         row.validity + '"   data-vid="' +
                         row.vendorID + '"  >' + '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"xmlns="http://www.w3.org/2000/svg">' + '<path d="M5.02558 1.92456H1.89457C1.65732 1.92456 1.42978 2.0164 1.26201 2.17986C1.09425 2.34333 1 2.56504 1 2.79621V8.89779C1 9.12896 1.09425 9.35067 1.26201 9.51414C1.42978 9.6776 1.65732 9.76944 1.89457 9.76944H8.15659C8.39385 9.76944 8.62139 9.6776 8.78915 9.51414C8.95692 9.35067 9.05117 9.12896 9.05117 8.89779V5.847"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + '<path d="M8.38023 1.27079C8.55817 1.09741 8.79951 1 9.05116 1C9.30281 1 9.54415 1.09741 9.72209 1.27079C9.90003 1.44417 10 1.67933 10 1.92453C10 2.16973 9.90003 2.40488 9.72209 2.57827L5.47286 6.71862L3.68372 7.15445L4.131 5.41114L8.38023 1.27079Z"' + 'stroke="black"' + 'stroke-linecap="round"' + 'stroke-linejoin="round"/>' + "</svg>" + "<span >Edit</span>" +
                         " </a>" + '<a class="tbl-delete"  data-id="' + row.id + '" data- >' +

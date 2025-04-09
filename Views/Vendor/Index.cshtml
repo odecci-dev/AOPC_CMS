@@ -1299,8 +1299,9 @@
                             type: "POST",
                             datatype: "json"
                         }).done(function (data) {
-                            // console.log(data.stats);
-                            if (data.stats == "Successfully Deleted") {
+                            console.log(data);
+                           // alert(data.stats[0].status);
+                                if (data.stats.includes("Succesfully deleted")) {
                                 notifyMsg('Success!', 'Successfully Deleted!', 'green', 'fas fa-check');
                                 $("#h-close").click();
                                 ShowVendorDetails();

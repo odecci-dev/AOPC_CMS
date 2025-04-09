@@ -7,6 +7,7 @@
         message = ViewData["Message"].ToString();
     }
 }
+@inject IHttpContextAccessor Accessor;
 <style>
     .cust-pagination {
         display: flex;
@@ -44,6 +45,8 @@
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 @*New DataTables End *@
 <div class="register-main-container">
+    <input type="hidden" value="@Accessor.HttpContext.Session.GetString("Name")" id="adminname" />
+    <input type="hidden" value="@Accessor.HttpContext.Session.GetString("Email")" id="adminemail" />
     <ul class="nav nav-tabs justify-content-lg-start">
         <li class="nav-items">
             <a class="nav-link" href="#User" data-toggle="tab" aria-expanded="true"
@@ -1600,7 +1603,7 @@ End here *@
                         data.fname = $(this).data("fname");
                         data.lname = $(this).data("lname");
                         data.email = $(this).data("email");
-                        data.id = $(this).data("corporateid");
+                        data.id = $(this).data("id");
                         var id=  $(this).data("corporateid");
                         // console.log(data);
                        if($(this).data("corpstatus") =="REGISTERED")
@@ -2219,8 +2222,11 @@ End here *@
                         allownotif = 0;
                         }
                         // console.log(filename);
+                        // france
                         data.id = i_id;
                         data.EmployeeID = $('#empid').val();
+                        data.Fullname = $('#adminname').val();
+                        data.AdminEmail = $('#adminemail').val();
                         data.Fname = $('#fname').val();
                         data.Lname = $('#lname').val();
                         data.Username = $('#user').val();
@@ -2234,13 +2240,14 @@ End here *@
                         data.FilePath=filename;
                         data.isVIP = $('#vip-option').val();
                         let valid = true;
-
+                        var isVip = $('#vip-option').val();
                         
                         var fileUpload = $("#upload-img").get(0);
                         
 
-         
-                          //console.log(formData);
+                        var corpdata = {};
+                            corpdata.CorporateID = $('#user-corporate-option').val();
+                            console.log(corpdata);
                         if ($('#empid').val() == '' || $('#fname').val() == '' ||  $('#lname').val() == '' || $('#email').val() == '' ||  $('#gender').prop('selectedIndex') == 0  ||   $('#user-position').prop('selectedIndex') == 0
                         ||   $('#user-corporate-option').prop('selectedIndex') == 0 ||   $('#vip-option').prop('selectedIndex') == 0  ) 
                         {
@@ -2279,46 +2286,35 @@ End here *@
                                 position: 'center',
                                 buttons: [
                                     ['<button><b>YES</b></button>', function (instance, toast) {
-                                        $.blockUI(reloadLoading);
-                                        $.ajax({
-                                            url: '/Register/SaveUserInfo',
-                                            data: {
-                                                data: data
-                                            },
-                                            type: "POST",
-                                            datatype: "json",
-                                            }).done(function (response) {
-                                                if (response.stats == "Error in Registration" || response.stats == "User Information Already Used!") {
-                                                  notifyMsg('Warning!', response.stats, 'yellow', 'fas fa-exclamation-triangle');
-                                                  $("#empid").focus();
-                                                }
-                                                else
-                                                {
-                                                   $.ajax({
-                                                    url: '/Register/UploadFile',
-                                                    type: 'POST',
-                                                    data: formData,
-                                                    processData: false,
-                                                    contentType: false,
-                                                    success: function (result) {
-                                                    }
-                                                    });
-                                                    notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                       
-                                                    clear();
-                                                    $("#h-close").click();
-                                                    getUserRegistration();
-                                                    // cms_paginationCorpUser(spanval, filtername, posId, corpid);
-                                       
-                                                } 
-                                     
-                                                $.unblockUI();
-                                                getUserRegistration();
 
-                                            }).fail(function () {
-                                                alert("There was an Error When Loading Data...");
+                                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                                        $.blockUI(reloadLoading);
+                                        if (isVip == 1) { 
+                                            $.ajax({
+                                                url: '/Register/CheckRemainingVIP',
+                                                data: {
+                                                    data: data
+                                                },
+                                                type: "POST",
+                                                datatype: "json",
+                                                }).done(function (response) {
+                                                    console.log(response.stats);
+                                                    if(response.stats == 'error'){
+                                                        notifyMsg('Warning!', 'Remaining VIP is 0.', 'yellow', 'fas fa-exclamation-triangle');
+                                                    }
+                                                    else{
+                                                        createUser();
+                                                        notifyMsg('Success!', 'Saved.', 'green', 'fas fa-exclamation-triangle');
+                                                    }
+
+                                                }).fail(function () {
+                                                    alert("There was an Error When Loading Data...");
                                             });
+                                        }
+                                        else{
+                                            createUser();
                                             instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                                        }
 
                                         }, true],
                                         ['<button>NO</button>', function (instance, toast) {
@@ -2473,7 +2469,7 @@ End here *@
                 var imgCheck = $("#img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
                 var data = {};
                 var fileUpload = $("#img").get(0);
-                console.log(imgCheck);
+                // console.log(imgCheck);
                 var files = fileUpload.files;
                 const formData = new FormData();
                 if (files[0]) {
@@ -2546,28 +2542,28 @@ End here *@
                                         type: "POST",
                                         datatype: "json",
                                     }).done(function (response) {
-                                    if (response.stats == "Error in Registration" || response.stats == "User Information Already Used!") {
+                                    if (response.stats == "Error in Registration" || response.stats == "User Information Already Used!" || response.stats == "User registration limit reached, no additional users can be registered at this time!") {
                                           notifyMsg('Warning!', response.stats, 'yellow', 'fas fa-exclamation-triangle');
                                           $("#admin-empid").focus();
-                                        }
-                                        else {
-                                            $.ajax({
-                                                url: '/Register/UploadFile',
-                                                type: 'POST',
-                                                data: formData,
-                                                processData: false,
-                                                contentType: false,
-                                                success: function (result) {
-                                                }
-                                            });
-                                          notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
-                                          // ShowUserCorporateList();
-                                        getCorporateRegistration();
-                                          clear();
-                                          $("#corp-close").click();
+                                    }
+                                    else {
+                                        $.ajax({
+                                            url: '/Register/UploadFile',
+                                            type: 'POST',
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (result) {
+                                            }
+                                        });
+                                        notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+                                        // ShowUserCorporateList();
+                                    getCorporateRegistration();
+                                        clear();
+                                        $("#corp-close").click();
                                        
-                                        } 
-                                        $.unblockUI();
+                                    } 
+                                    $.unblockUI();
 
                                     }).fail(function () {
                                         alert("There was an Error When Loading Data...");

@@ -95,10 +95,11 @@ namespace AOPC.Controllers
             string result = "";
             try
             {
-                //var pass3 = Cryptography.Decrypt("8UFD7eD4sGtZ9r7Y1QXOc5qaxX7LBbkxTOEXLSlAZj0=");
-                string sql = $@"SELECT        UsersModel.Id, UsersModel.Username, UsersModel.Password, UsersModel.Fname, UsersModel.Lname, UsersModel.Active, tbl_UserTypeModel.UserType, tbl_CorporateModel.CorporateName, 
+                //var pass3 = Cryptography.Decrypt("MZ//G7yFwjvFIK6mt4ISSckzxFV1wLwz/CZP8Dxxopo=");
+                //Console.WriteLine(pass3);
+                string sql = $@"SELECT        UsersModel.Id, UsersModel.Username,UsersModel.Email, UsersModel.Password, UsersModel.Fname, UsersModel.Lname, UsersModel.Active, tbl_UserTypeModel.UserType, tbl_CorporateModel.CorporateName, 
                          tbl_PositionModel.Name AS PositionName,UsersModel.EmployeeID, UsersModel.JWToken, UsersModel.FilePath, UsersModel.CorporateID, tbl_MembershipModel.Name as MembershipName
-FROM            UsersModel INNER JOIN
+                        FROM            UsersModel INNER JOIN
                          tbl_UserTypeModel ON UsersModel.Type = tbl_UserTypeModel.Id INNER JOIN
                          tbl_CorporateModel ON UsersModel.CorporateID = tbl_CorporateModel.Id INNER JOIN
                          tbl_PositionModel ON UsersModel.PositionID = tbl_PositionModel.Id INNER JOIN
@@ -108,6 +109,7 @@ FROM            UsersModel INNER JOIN
                 if (dt.Rows.Count != 0)
                 {
                             HttpContext.Session.SetString("Name", dt.Rows[0]["Fname"].ToString() + dt.Rows[0]["Lname"].ToString());
+                            HttpContext.Session.SetString("Email", dt.Rows[0]["Email"].ToString());
                             HttpContext.Session.SetString("Position", dt.Rows[0]["PositionName"].ToString());
                             HttpContext.Session.SetString("UserType", dt.Rows[0]["UserType"].ToString());
                             HttpContext.Session.SetString("CorporateName", dt.Rows[0]["CorporateName"].ToString());

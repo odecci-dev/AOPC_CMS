@@ -437,7 +437,7 @@ async function _ShowMembershipOption() {
       // 
       $("#memtier-option").empty();
       $("#memtier-option").append('<option value="0" disabled>-Select Tier-</option>');
-       $("#memtier-option").append('<option value="ALL">-ALL TIERS-</option>');
+       $("#memtier-option").append('<option value="10">-ALL TIERS-</option>');
       for (var i = 0; i < data.length; i++) {
         $("#memtier-option").append('<option value="' + data[i].id + '">' + data[i].membershipName + "</option>");
       }

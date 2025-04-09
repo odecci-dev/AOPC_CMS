@@ -397,7 +397,7 @@ namespace AOPC.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(IFormFile file, [FromServices] IWebHostEnvironment hostingEnvironment)
         {
-            System.Text.Encoding.RegisterProvider(
+           System.Text.Encoding.RegisterProvider(
           System.Text.CodePagesEncodingProvider.Instance);
 
             if (file == null)
@@ -518,6 +518,7 @@ namespace AOPC.Controllers
             using (var pck = new ExcelPackage(stream))
             {
                 ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet 1");
+              
                 ws.Cells["A1"].Value = "Company Name";
                 ws.Cells["B1"].Value = "Address";
                 ws.Cells["C1"].Value = "Contact Number";

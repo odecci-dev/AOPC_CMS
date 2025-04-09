@@ -785,94 +785,7 @@ async function displayFamilyMember() {
     
     var data = {};
     data.FamilyUserId = FamilyUserId;
-    //data.page = spanval;
-    //data.pageSize = spanval;
-
-    //$.ajax({
-    //    url: '/Register/PostDisplayVIPFamilyMember',
-    //    //async: false,
-    //    data: {
-    //        data: data,
-    //    },
-    //    type: "POST",
-    //    datatype: "json",
-    //    success: function (data) {
-    //        //console.log(data);
-    //        familyMemberTable.clear().draw();
-    //        corpfamilyMemberTable.clear().draw();
-    //        for (var i = 0; i < data[0].data.length; i++) {
-    //            //if (data[0].data.length == 0) {
-    //            //    familyMemberTables.style.display = "none";
-    //            //    corpfamilyMemberTables.style.display = "none";
-    //            //}
-    //            //else {
-    //            //    familyMemberTables.style.display = "block";
-    //            //    corpfamilyMemberTables.style.display = "block";
-
-    //            //}
-    //            var tdbuttons =
-    //                '<div class="approve-btn">' +
-    //                //"<input type='button' value='Approve' id='approveBtn' />" +
-
-    //                '<a id="approveBtn"' +
-    //                '  data-id="' + data[0].data[i].id +
-    //                '" data-fullname="' + data[0].data[i].fullname +
-    //                '" data-relationship="' + data[0].data[i].relationship +
-    //                '" data-familyuserid="' + data[0].data[i].familyUserId +
-    //                '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-    //                '" data-status="' + data[0].data[i].status +
-    //                '" data-datecreated="' + data[0].data[i].dateCreated +
-    //                '">' +
-    //                "<span >Approve</span>" + " </a>" +
-
-    //                '<a id="declineBtn"' +
-    //                '  data-id="' + data[0].data[i].id +
-    //                '" data-fullname="' + data[0].data[i].fullname +
-    //                '" data-relationship="' + data[0].data[i].relationship +
-    //                '" data-familyuserid="' + data[0].data[i].familyUserId +
-    //                '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-    //                '" data-status="' + data[0].data[i].status +
-    //                '" data-datecreated="' + data[0].data[i].dateCreated +
-    //                '">' +
-    //                "<span >Decline</span>" + " </a>" +
-    //                "</div > ";
-    //            if (data[0].data[i].applicationStatus == "Approved") {
-    //                tdbuttons =
-    //                    '<div class="approve-btn">' +
-    //                    '<a id="declineBtn"' +
-    //                    '  data-id="' + data[0].data[i].id +
-    //                    '" data-fullname="' + data[0].data[i].fullname +
-    //                    '" data-relationship="' + data[0].data[i].relationship +
-    //                    '" data-familyuserid="' + data[0].data[i].familyUserId +
-    //                    '" data-applicationstatus="' + data[0].data[i].applicationStatus +
-    //                    '" data-status="' + data[0].data[i].status +
-    //                    '" data-datecreated="' + data[0].data[i].dateCreated +
-    //                    '">' +
-    //                    "<span >Decline</span>" + " </a>" +
-    //                    "</div > ";
-    //            }
-    //            $('#family-member-table').dataTable().fnAddData([
-    //                '<td><p>' + data[0].data[i].fullname + '</p></td>',
-    //                '<td><p>' + data[0].data[i].relationship + '</p></td>',
-    //                '<td><p>' + data[0].data[i].applicationStatus + '</p></td>',
-    //                '<td><p>' + data[0].data[i].dateCreated + '</p></td>',
-    //                //'<td><p>' + data[0].data[i].status + '</p></td>',
-    //                '<td><p>' + tdbuttons + '</p></td>'
-    //            ]);
-    //            $('#corporate-family-member-table').dataTable().fnAddData([
-    //                '<td><p>' + data[0].data[i].fullname + '</p></td>',
-    //                '<td><p>' + data[0].data[i].relationship + '</p></td>',
-    //                '<td><p>' + data[0].data[i].applicationStatus + '</p></td>',
-    //                '<td><p>' + data[0].data[i].dateCreated + '</p></td>',
-    //                //'<td><p>' + data[0].data[i].status + '</p></td>',
-    //                '<td><p>' + tdbuttons + '</p></td>'
-    //            ]);
-
-    //        }
-
-    //    }
-
-    //});
+    
     if (DataTable.isDataTable('#family-member-table')) {
         familyMemTable.destroy();
     }
@@ -1060,8 +973,6 @@ async function displayFamilyMember() {
         ],
             processing: true,
     });
-
-
 }
 async function editUserRegistration() {
     var familyMemberTables = document.getElementById("family-member"); 
@@ -1539,4 +1450,97 @@ async function getOysterAdmin() {
             }
         ]
     });
+}
+
+function createUser() {
+    let allownotif = 0;
+    let random = (Math.random() + 1).toString(36).substring(4);
+    const uuid = random;
+    var filename = $("#img").val().replace(/.*(\/|\\)/, '');
+    var imgCheck = $("#img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
+    var data = {};
+    var fileUpload = $("#img").get(0);
+    console.log(imgCheck);
+    var files = fileUpload.files;
+    const formData = new FormData();
+    if (files[0]) {
+        let newFileName = uuid + "." + files[0].name.split('.').pop();
+        const newFile = new File([files[0]], newFileName, { type: files[0].type });
+        formData.append('file', newFile);
+        filename = newFileName;
+    }
+    else {
+        formData.append('file', files[0]);
+
+
+        if (imgCheck == "" || imgCheck == null) {
+            filename = img_edit;
+        }
+        else {
+            // filename = "/Uploads/" + imgCheck;
+            filename = imgCheck;
+        }
+    }
+    if ($("#checkp").is(':checked')) {
+        //console.log("check");
+        allownotif = 1;
+    }
+    else {
+        //console.log("umcheck");
+        allownotif = 0;
+    }
+    // console.log(filename);
+    var data = {};
+    data.id = i_id;
+    data.EmployeeID = $('#empid').val();
+    data.Fname = $('#fname').val();
+    data.Lname = $('#lname').val();
+    data.Username = $('#user').val();
+    data.gender = $('#gender').val();
+    data.Email = $('#email').val();
+    data.positionID = $('#user-position').val();
+    data.CorporateID = $('#user-corporate-option').val(); 
+    data.Active = "2";
+    data.Type = 3;
+    data.AllowEmailNotif = allownotif;
+    data.FilePath = filename;
+    data.isVIP = $('#vip-option').val();
+    $.ajax({
+        url: '/Register/SaveUserInfo',
+        data: {
+            data: data
+        },
+        type: "POST",
+        datatype: "json",
+    }).done(function (response) {
+        if (response.stats == "Error in Registration" || response.stats == "User Information Already Used!" || response.stats == "User registration limit reached, no additional users can be registered at this time!") {
+            notifyMsg('Warning!', response.stats, 'yellow', 'fas fa-exclamation-triangle');
+            $("#empid").focus();
+        }
+        else {
+            $.ajax({
+                url: '/Register/UploadFile',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                }
+            });
+            notifyMsg('Success!', response.stats, 'green', 'fas fa-check');
+
+            clear();
+            $("#h-close").click();
+            getUserRegistration();
+            // cms_paginationCorpUser(spanval, filtername, posId, corpid);
+
+        }
+
+        $.unblockUI();
+        getUserRegistration();
+
+    }).fail(function () {
+        alert("There was an Error When Loading Data...");
+    });
+    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 }

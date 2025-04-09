@@ -517,18 +517,34 @@
           </div>
           <div class="mod-form-row">
             <div class="input-container-whole" required>
-              <label for="corporateName">Corporate Name</label>
+                <label for="corporateName">Corporate Name</label>
                 <select id="user-corporate-option" class="mod-input" disabled >
-                     <option value=" @Accessor.HttpContext.Session.GetString("CorporateID") " disabled selected>@Accessor.HttpContext.Session.GetString("CorporateName")</option>
+                        <option value=" @Accessor.HttpContext.Session.GetString("CorporateID") " disabled selected>@Accessor.HttpContext.Session.GetString("CorporateName")</option>
                 </select>
             </div>
-          <div class="input-container-whole" required>
-              <label for="membershipTier">Membership Tier</label>
-             <select id="mem-option" class="mod-input" disabled>
-                 <option value=""  selected>@Accessor.HttpContext.Session.GetString("MembershipName")</option>
-             </select>
+            <div class="input-container-whole" required>
+                <label for="membershipTier">Membership Tier</label>
+                <select id="mem-option" class="mod-input" disabled>
+                        <option value=""  selected>@Accessor.HttpContext.Session.GetString("MembershipName")</option>
+                </select>
+            </div>
           </div>
-          </div>
+            <div class="family-member" id="corporate-family-member">
+                <h4 class="modal-title" id="modal-name">Family Member </h4>
+                <table id="corporate-family-member-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Relationship</th>
+                            <th>Status</th>
+                            <th>Date Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
           <div class="corp_actions" style="display: flex; */ /* width: 100%; */ display: flex; /* width: 100%; */ justify-content: flex-end; align-items: center; gap: 20px; flex-direction: row; ">
             <a  data-dismiss="modal" aria-hidden="false" style="cursor:pointer" class="cancel">Cancel</a>
             <input type="button" value="Submit" id="btn-register"/>
@@ -649,7 +665,7 @@
         var filtername = "";
         var currpage = "";
         var posId = "";
-
+        var FamilyUserId;
         //Filter Variables
         var corporateFilter = null;
         var companyNameFilter = null;
@@ -658,8 +674,8 @@
         var isVipFilter = null;
         var statusFilter = null;
         var spanval = 0;
-
-    $(document).ready(function () {
+                var corpfamilyMemberTables = document.getElementById("corporate-family-member");
+            $(document).ready(function () {
 
         ShowFilter(); 
         UserShowSelectFilter();
@@ -1213,82 +1229,91 @@
 
 @* User register edit *@
             $('#corp-register-table').on('click', '.tbl-edit', function () {
-                      i_id = $(this).data("id");
-                      // uname = $(this).data("username");
-                      // empid = $(this).data("employeeid");
-                      // fname = $(this).data("fname");
-                      // lname = $(this).data("lname");
-                      // email = $(this).data("email");
-                      // gender = $(this).data("gender");
-                      // positionID = $(this).data("pos");
-                      // displayimg = $(this).data("displayimg");
-                      // isVIP = $(this).data("vipstats");
-                      // console.log(i_id);
+                i_id = $(this).data("id");
+                FamilyUserId = $(this).data("id");
+                var isFmilyUserVIP = $(this).data("vipstats");
+                if (isFmilyUserVIP == 1) {
+                    corpfamilyMemberTables.style.display = "block";
+                    displayCorpAdminFamilyMember();
+                }
+                else {
+                    corpfamilyMemberTables.style.display = "none";
+                }
+                // uname = $(this).data("username");
+                // empid = $(this).data("employeeid");
+                // fname = $(this).data("fname");
+                // lname = $(this).data("lname");
+                // email = $(this).data("email");
+                // gender = $(this).data("gender");
+                // positionID = $(this).data("pos");
+                // displayimg = $(this).data("displayimg");
+                // isVIP = $(this).data("vipstats");
+                // console.log(i_id);
 
 
-                        var data = {};
-                        data.Id = i_id;
-                        data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
-                        $.ajax({
-                            url: '/Corporate/GetCorpUserListId',
-                            data: {
-                                data: data,
-                            },
-                            type: "POST",
-                            datatype: "json"
-                        }).done(function (data) {
-                                // console.log(data);
+                var data = {};
+                data.Id = i_id;
+                data.CorpId = @Accessor.HttpContext.Session.GetString("CorporateID");
+                $.ajax({
+                    url: '/Corporate/GetCorpUserListId',
+                    data: {
+                        data: data,
+                    },
+                    type: "POST",
+                    datatype: "json"
+                }).done(function (data) {
+                        // console.log(data);
 
-                                $("#user").val(data[0].username);
-                                $("#empid").val(data[0].employeeID);
-                                $("#fname").val(data[0].fname);
-                                $("#lname").val(data[0].lname);
-                                $("#email").val(data[0].email);
-                                $("#gender").val(data[0].gender);
-                                $('#vip-option').val(data[0].isVIP);
-                                $("#corpadminuser-position").val(data[0].positionID);
-                                if (data[0].filePath != null) {
-                                var img = $('<img>').attr('src', data[0].filePath);
-                                    img.attr('height', '120px');
-                                    img.attr('width', '120px');
-                                    $('.upload-image-preview').html(img);
-                                }
-                                else {
-                                    document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
-                                }
+                        $("#user").val(data[0].username);
+                        $("#empid").val(data[0].employeeID);
+                        $("#fname").val(data[0].fname);
+                        $("#lname").val(data[0].lname);
+                        $("#email").val(data[0].email);
+                        $("#gender").val(data[0].gender);
+                        $('#vip-option').val(data[0].isVIP);
+                        $("#corpadminuser-position").val(data[0].positionID);
+                        if (data[0].filePath != null) {
+                        var img = $('<img>').attr('src', data[0].filePath);
+                            img.attr('height', '120px');
+                            img.attr('width', '120px');
+                            $('.upload-image-preview').html(img);
+                        }
+                        else {
+                            document.getElementById("upload-image-preview").innerHTML = '<i class="fas fa-user-tie fa-5x" style="  margin-left: 25px;"></i><br>Photo Preview</div>';
+                        }
                                
-                        });
+                });
 
-                      // $("#user").val(uname);
-                      // $("#empid").val(empid);
-                      // $("#fname").val(fname);
-                      // $("#lname").val(lname);
-                      // $("#email").val(email);
-                      //   $("#gender").val(gender);
-                      //   $('#vip-option').val(isVIP);
-                      // $("#corpadminuser-position").val(positionID);
-                      //   console.log($('#user-corporate-option').val());
-                      //   var data = {};
-                      //   data.Id = $('#user-corporate-option').val();
+                // $("#user").val(uname);
+                // $("#empid").val(empid);
+                // $("#fname").val(fname);
+                // $("#lname").val(lname);
+                // $("#email").val(email);
+                //   $("#gender").val(gender);
+                //   $('#vip-option').val(isVIP);
+                // $("#corpadminuser-position").val(positionID);
+                //   console.log($('#user-corporate-option').val());
+                //   var data = {};
+                //   data.Id = $('#user-corporate-option').val();
                          
                         
-                      //   $.ajax({
-                      //       url: '/Register/CorporateFilterMembership',
-                      //       data: {
-                      //           data: data,
-                      //       },
-                      //       type: "POST",
-                      //       datatype: "json",
-                      //       success: function (response) {
-                      //   console.log(response.stats);
-                      //       $('#mem-option').val(response.stats);
-                      //     }
-                      //   });
-                      document.getElementById("btn-register").innerHTML = 'Update';
-                      $('#registermodal').modal('show');
-                      $(".alert-warning").hide();
+                //   $.ajax({
+                //       url: '/Register/CorporateFilterMembership',
+                //       data: {
+                //           data: data,
+                //       },
+                //       type: "POST",
+                //       datatype: "json",
+                //       success: function (response) {
+                //   console.log(response.stats);
+                //       $('#mem-option').val(response.stats);
+                //     }
+                //   });
+                document.getElementById("btn-register").innerHTML = 'Update';
+                $('#registermodal').modal('show');
+                $(".alert-warning").hide();
 
-                    });
+            });
 @* User Register Edit End Here*@
 
 
@@ -1777,7 +1802,168 @@
                 ]
             });
         }
+        var id;
+        var familyMemberStatus;
+        function displayCorpAdminFamilyMember() {
 
-        
+            var data = {};
+            data.FamilyUserId = FamilyUserId;
+
+            if (DataTable.isDataTable('#corporate-family-member-table')) {
+                corpfamilyMemTable.destroy();
+            }
+            corpfamilyMemTable = new DataTable('#corporate-family-member-table', {
+                ajax: {
+                    url: "/Register/PostDisplayVIPFamilyMember",
+                    data: {
+                        data: data,
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    processing: true,
+                    serverSide: true,
+                    complete: function (xhr) {
+                        //console.log(xhr);
+                    },
+                    error: function (err) {
+                        //alert(err.responseText);
+                        alert("There was an Error When Loading Data...");
+                    }
+                },
+                columnDefs: [
+                    {
+                        "className": "dt-left",
+                        "targets": "_all"
+                    }
+                ],
+                columns: [
+
+                    {
+                        data: 'fullname'
+                    },
+                    {
+                        data: 'relationship'
+                    },
+                    {
+                        data: 'applicationStatus'
+                    },
+                    {
+                        data: 'dateCreated',
+                        render: function (data, type, row) {
+                            return data.substring(0, 10);
+                        }
+                    },
+                    {
+                        data: 'id',
+                        render: function (data, type, row) {
+                            var tdbuttons =
+                                '<div class="approve-btn">' +
+                                //"<input type='button' value='Approve' id='approveBtn' />" +
+
+                                '<a id="corpapproveBtn"' +
+                                '  data-id="' + data +
+                                '" data-fullname="' + row.fullname +
+                                '" data-relationship="' + row.relationship +
+                                '" data-familyuserid="' + row.familyUserId +
+                                '" data-applicationstatus="' + row.applicationStatus +
+                                '" data-status="' + row.status +
+                                '" data-datecreated="' + row.dateCreated +
+                                '">' +
+                                "<span >Approve</span>" + " </a>" +
+
+                                '<a id="corpdeclineBtn"' +
+                                '  data-id="' + data +
+                                '" data-fullname="' + row.fullname +
+                                '" data-relationship="' + row.relationship +
+                                '" data-familyuserid="' + row.familyUserId +
+                                '" data-applicationstatus="' + row.applicationStatus +
+                                '" data-status="' + row.status +
+                                '" data-datecreated="' + row.dateCreated +
+                                '">' +
+                                "<span >Decline</span>" + " </a>" +
+                                "</div > ";
+                            if (row.applicationStatus.match("APPROVED")) {
+                                tdbuttons =
+                                    '<div class="approve-btn">' +
+                                    '<a id="corpdeclineBtn"' +
+                                    '  data-id="' + data +
+                                    '" data-fullname="' + row.fullname +
+                                    '" data-relationship="' + row.relationship +
+                                    '" data-familyuserid="' + row.familyUserId +
+                                    '" data-applicationstatus="' + row.applicationStatus +
+                                    '" data-status="' + row.status +
+                                    '" data-datecreated="' + row.dateCreated +
+                                    '">' +
+                                    "<span >Decline</span>" + " </a>" +
+                                    "</div > ";
+                            }
+
+                            return tdbuttons;
+                        }
+                    },
+                ],
+                    processing: true,
+            });
+        }
+
+            $('#corporate-family-member-table').on('click', '#corpapproveBtn', function () {
+                message = 'Are you sure you want to Approve?';
+                id = $(this).data("id");
+                familyMemberStatus = "APPROVED";
+
+                updateCorpAdminFamilyMemberStatus();
+
+            });
+            $('#corporate-family-member-table').on('click', '#corpdeclineBtn', function () {
+                message = 'Are you sure you want to Decline?';
+                id = $(this).data("id");
+                familyMemberStatus = "PENDING";
+
+                updateCorpAdminFamilyMemberStatus();
+
+            });
+function updateCorpAdminFamilyMemberStatus() {
+
+    iziToast.question({
+        timeout: 20000,
+        close: false,
+        overlay: true,
+        id: 'question',
+        zindex: 999,
+        title: 'Confirmation',
+        message: message,
+        position: 'center',
+
+        buttons: [
+            ['<button><b>YES</b></button>', function (instance, toast) {
+                var data = {};
+                data.id = id;
+                data.status = familyMemberStatus;
+               
+                $.ajax({
+                    url: '/Register/UpdateFamilyMember',
+                    //async: false,
+                    data: {
+                        data: data,
+                    },
+                    type: "POST",
+                    datatype: "json",
+                    success: function () {
+                        displayFamilyMember();
+
+                    }
+
+                });
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+            }, true],
+            ['<button>NO</button>', function (instance, toast) {
+
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+            }],
+        ]
+    });
+}
 </script>
 }

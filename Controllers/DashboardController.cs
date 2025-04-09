@@ -31,6 +31,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using Net.SourceForge.Koogra.Excel;
 
 namespace AOPC.Controllers
 {
@@ -546,7 +547,7 @@ namespace AOPC.Controllers
             return Json(list);
         }
 
-        public IActionResult DownloadCalltoActionExcel()
+        public IActionResult DownloadCalltoActionExcel([FromQuery] string category, [FromQuery] int day, [FromQuery] string startdate, [FromQuery] string enddate)
         {
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
@@ -577,34 +578,98 @@ namespace AOPC.Controllers
                 {
                     ws.Cells[1, col].Style.Font.Bold = true;
                 }
-                string sql = $@"SELECT        Mail.Business, Mail.Email, Call.Call, Book.Book, Category.Module AS Category, Book.DateCreated
-                             FROM            (SELECT        Business, COUNT(*) AS Email, DateCreated
-                             FROM            tbl_audittrailModel
-                             WHERE        (Module = 'Mail')
-                             GROUP BY Business, DateCreated) AS Mail LEFT OUTER JOIN
-                             (SELECT        Business, COUNT(*) AS Call, DateCreated
-                             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
-                             WHERE        (Module = 'Call')
-                             GROUP BY Business, DateCreated) AS Call ON Mail.Business = Call.Business LEFT OUTER JOIN
-                             (SELECT        Business, COUNT(*) AS Book, DateCreated
-                             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
-                             WHERE        (Module = 'Book')
-                             GROUP BY Business, DateCreated) AS Book ON Call.Business = Book.Business LEFT OUTER JOIN
-                             (SELECT        Business, Module
-                             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
-                             WHERE       Module='Hotel' or Module='Food & Beverage'  or Module='Access to co-working spaces'  or Module='Health'  or Module='Shops & Services'  or Module='Shops & Services' or Module='News' 
-                             GROUP BY Business, Module) AS Category ON Book.Business = Category.Business
-                             ORDER BY Mail.Email DESC";
+                string sql = "";
+                
+                //string sql = $@"SELECT        Mail.Business, Mail.Email, Call.Call, Book.Book, Category.Module AS Category, Book.DateCreated
+                //             FROM            (SELECT        Business, COUNT(*) AS Email, DateCreated
+                //             FROM            tbl_audittrailModel
+                //             WHERE        (Module = 'Mail')
+                //             GROUP BY Business, DateCreated) AS Mail LEFT OUTER JOIN
+                //             (SELECT        Business, COUNT(*) AS Call, DateCreated
+                //             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
+                //             WHERE        (Module = 'Call')
+                //             GROUP BY Business, DateCreated) AS Call ON Mail.Business = Call.Business LEFT OUTER JOIN
+                //             (SELECT        Business, COUNT(*) AS Book, DateCreated
+                //             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
+                //             WHERE        (Module = 'Book')
+                //             GROUP BY Business, DateCreated) AS Book ON Call.Business = Book.Business LEFT OUTER JOIN
+                //             (SELECT        Business, Module
+                //             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
+                //             WHERE       Module='Hotel' or Module='Food & Beverage'  or Module='Access to co-working spaces'  or Module='Health'  or Module='Shops & Services'  or Module='Shops & Services' or Module='News' 
+                //             GROUP BY Business, Module) AS Category ON Book.Business = Category.Business
+                //             ORDER BY Mail.Email DESC";
+                int daysLeft = (DateTime.Now - DateTime.Now.AddYears(-1)).Days;
+                int days = day == 1 ? daysLeft : day;
+                string newCategory = category.Replace("_", " ").Replace("and", "&");
+                if (startdate != "null")
+                {
+                    enddate = (DateTime.Parse(enddate).AddDays(1)).ToString("yyyy-MM-dd");
+                    startdate = (DateTime.Parse(startdate)).ToString("yyyy-MM-dd");
+                }
+                if (startdate == "null" && category == "0" && day == 0)
+                {
+                    sql = $@"SELECT Category.Business 'Business',COALESCE(Category.Module,'N/A') 'Category',COALESCE(Mail.Mail,0)'Email',COALESCE(Call.Call,0) 'Call',COALESCE(Book.Book,0) 'Book' from ( SELECT business,tbl_BusinessTypeModel.BusinessTypeName 'Module' from tbl_audittrailModel left join tbl_VendorModel on business = tbl_VendorModel.VendorName left join tbl_BusinessTypeModel on tbl_BusinessTypeModel.Id = tbl_VendorModel.BusinessTypeId where business != '' or tbl_BusinessTypeModel.BusinessTypeName != NULL GROUP BY Business,tbl_BusinessTypeModel.BusinessTypeName) AS Category
+LEFT JOIN (SELECT COUNT(*) as 'Mail',Business 'mailbusiness' FROM tbl_audittrailModel WHERE (Module = 'Mail')  GROUP BY Business)Mail ON Mail.mailbusiness =   Category.Business
+LEFT JOIN (SELECT COUNT(*) as 'Call',Business 'callbusiness' FROM tbl_audittrailModel WHERE (Module = 'Call')  GROUP BY Business)Call ON Call.callbusiness =   Category.Business
+LEFT JOIN (SELECT COUNT(*) as 'Book',Business 'bookbusiness' FROM tbl_audittrailModel WHERE (Module = 'Book')  GROUP BY Business)Book ON Book.bookbusiness =   Category.Business";
+                    //where COALESCE(Mail.Mail,0) != 0 and COALESCE(Call.Call,0) != 0 and COALESCE(Book.Book,0) != 0";
+                }
+                else if (startdate == "null" && category != "0" && day == 0)
+                {
+                    sql = $@"SELECT Category.Business 'Business',COALESCE(Category.Module,'N/A') 'Category',COALESCE(Mail.Mail,0)'Email',COALESCE(Call.Call,0) 'Call',COALESCE(Book.Book,0) 'Book' from ( SELECT business,tbl_BusinessTypeModel.BusinessTypeName 'Module' 
+from tbl_audittrailModel left join tbl_VendorModel on business = tbl_VendorModel.VendorName left join tbl_BusinessTypeModel on tbl_BusinessTypeModel.Id = tbl_VendorModel.BusinessTypeId 
+where tbl_BusinessTypeModel.BusinessTypeName = '" + newCategory + "' and business != '' or tbl_BusinessTypeModel.BusinessTypeName != NULL  GROUP BY Business,tbl_BusinessTypeModel.BusinessTypeName) AS Category"
+            + " LEFT JOIN (SELECT COUNT(*) as 'Mail',Business 'mailbusiness' FROM tbl_audittrailModel WHERE (Module = 'Mail')  GROUP BY Business)Mail ON Mail.mailbusiness =   Category.Business"
+            + " LEFT JOIN (SELECT COUNT(*) as 'Call',Business 'callbusiness' FROM tbl_audittrailModel WHERE (Module = 'Call')  GROUP BY Business)Call ON Call.callbusiness =   Category.Business"
+            + " LEFT JOIN (SELECT COUNT(*) as 'Book',Business 'bookbusiness' FROM tbl_audittrailModel WHERE (Module = 'Book')  GROUP BY Business)Book ON Book.bookbusiness =   Category.Business";// where COALESCE(Mail.Mail,0) != 0 and COALESCE(Call.Call,0) != 0 and COALESCE(Book.Book,0) != 0";
+
+                    //WHERE Category.Module = '" + data.category + "'";
+                }
+                else if (day != 0 && category == "0")
+                {
+                    sql = $@"SELECT Category.Business 'Business',COALESCE(Category.Module,'N/A') 'Category',COALESCE(Mail.Mail,0)'Email',COALESCE(Call.Call,0) 'Call',COALESCE(Book.Book,0) 'Book' from ( SELECT business,tbl_BusinessTypeModel.BusinessTypeName 'Module' from tbl_audittrailModel left join tbl_VendorModel on business = tbl_VendorModel.VendorName left join tbl_BusinessTypeModel on tbl_BusinessTypeModel.Id = tbl_VendorModel.BusinessTypeId where business != '' or tbl_BusinessTypeModel.BusinessTypeName != NULL GROUP BY Business,tbl_BusinessTypeModel.BusinessTypeName) AS Category
+LEFT JOIN (SELECT COUNT(*) as 'Mail',Business 'mailbusiness' FROM tbl_audittrailModel WHERE (Module = 'Mail') and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE()))  GROUP BY Business)Mail ON Mail.mailbusiness =   Category.Business" + Environment.NewLine +
+            "LEFT JOIN (SELECT COUNT(*) as 'Call',Business 'callbusiness' FROM tbl_audittrailModel WHERE (Module = 'Call') and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE()))  GROUP BY Business)Call ON Call.callbusiness =   Category.Business" + Environment.NewLine +
+            "LEFT JOIN (SELECT COUNT(*) as 'Book',Business 'bookbusiness' FROM tbl_audittrailModel WHERE (Module = 'Book') and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE()))  GROUP BY Business)Book ON Book.bookbusiness =   Category.Business";// where COALESCE(Mail.Mail,0) != 0 and COALESCE(Call.Call,0) != 0 and COALESCE(Book.Book,0) != 0";
+                }
+                else if (day != 0 && category != "0")
+                {
+                    sql = $@"SELECT Category.Business 'Business',COALESCE(Category.Module,'N/A') 'Category',COALESCE(Mail.Mail,0)'Email',COALESCE(Call.Call,0) 'Call',COALESCE(Book.Book,0) 'Book' 
+from ( SELECT business,tbl_BusinessTypeModel.BusinessTypeName 'Module' from tbl_audittrailModel left join tbl_VendorModel on business = tbl_VendorModel.VendorName left join tbl_BusinessTypeModel on tbl_BusinessTypeModel.Id = tbl_VendorModel.BusinessTypeId 
+where tbl_BusinessTypeModel.BusinessTypeName = '" + newCategory + "' and business != '' or tbl_BusinessTypeModel.BusinessTypeName != NULL GROUP BY Business,tbl_BusinessTypeModel.BusinessTypeName) AS Category"
+            + " LEFT JOIN (SELECT COUNT(*) as 'Mail',Business 'mailbusiness' FROM tbl_audittrailModel WHERE (Module = 'Mail') and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE()))  GROUP BY Business)Mail ON Mail.mailbusiness =   Category.Business" + Environment.NewLine +
+            " LEFT JOIN (SELECT COUNT(*) as 'Call',Business 'callbusiness' FROM tbl_audittrailModel WHERE (Module = 'Call') and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE()))  GROUP BY Business)Call ON Call.callbusiness =   Category.Business" + Environment.NewLine +
+            " LEFT JOIN (SELECT COUNT(*) as 'Book',Business 'bookbusiness' FROM tbl_audittrailModel WHERE (Module = 'Book') and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE()))  GROUP BY Business)Book ON Book.bookbusiness =   Category.Business";// where COALESCE(Mail.Mail,0) != 0 and COALESCE(Call.Call,0) != 0 and COALESCE(Book.Book,0) != 0";// WHERE Category.Module = '" + data.category + "'";
+                }
+                else if (startdate != "null" && category == "0")
+                {
+                    sql = $@"SELECT Category.Business 'Business',COALESCE(Category.Module,'N/A') 'Category',COALESCE(Mail.Mail,0)'Email',COALESCE(Call.Call,0) 'Call',COALESCE(Book.Book,0) 'Book' from ( SELECT business,tbl_BusinessTypeModel.BusinessTypeName 'Module' from tbl_audittrailModel left join tbl_VendorModel on business = tbl_VendorModel.VendorName left join tbl_BusinessTypeModel on tbl_BusinessTypeModel.Id = tbl_VendorModel.BusinessTypeId where business != '' or tbl_BusinessTypeModel.BusinessTypeName != NULL GROUP BY Business,tbl_BusinessTypeModel.BusinessTypeName) AS Category
+LEFT JOIN (SELECT Count(*) AS 'Mail',Call.Business from (SELECT Business,DateCreated from tbl_audittrailModel where business != '' and module = 'mail' and DateCreated between'" + startdate + "' and '" + enddate + "') AS Call  GROUP BY Business)Mail ON Mail.Business =   Category.Business" + Environment.NewLine +
+            "LEFT JOIN (SELECT Count(*) AS 'Call',Call.Business from (SELECT Business,DateCreated from tbl_audittrailModel where business != '' and module = 'call' and DateCreated between'" + startdate + "' and '" + enddate + "') AS Call  GROUP BY Business)Call ON Call.Business =   Category.Business" + Environment.NewLine +
+            "LEFT JOIN (SELECT Count(*) AS 'Book',Call.Business from (SELECT Business,DateCreated from tbl_audittrailModel where business != '' and module = 'book' and DateCreated between'" + startdate + "' and '" + enddate + "') AS Call  GROUP BY Business)Book ON Book.Business =   Category.Business";// where COALESCE(Mail.Mail,0) != 0 and COALESCE(Call.Call,0) != 0 and COALESCE(Book.Book,0) != 0";
+                }
+                else if (startdate != "null" && category != "0")
+                {
+                    sql = $@"SELECT Category.Business 'Business',COALESCE(Category.Module,'N/A') 'Category',COALESCE(Mail.Mail,0)'Email',COALESCE(Call.Call,0) 'Call',COALESCE(Book.Book,0) 'Book' 
+from ( SELECT business,tbl_BusinessTypeModel.BusinessTypeName 'Module' from tbl_audittrailModel left join tbl_VendorModel on business = tbl_VendorModel.VendorName left join tbl_BusinessTypeModel on tbl_BusinessTypeModel.Id = tbl_VendorModel.BusinessTypeId 
+where tbl_BusinessTypeModel.BusinessTypeName = '" + newCategory + "' and business != '' or tbl_BusinessTypeModel.BusinessTypeName != NULL GROUP BY Business,tbl_BusinessTypeModel.BusinessTypeName) AS Category"
+            + " LEFT JOIN (SELECT Count(*) AS 'Mail',Call.Business from (SELECT Business,DateCreated from tbl_audittrailModel where business != '' and module = 'mail' and DateCreated between'" + startdate + "' and '" + enddate + "') AS Call  GROUP BY Business)Mail ON Mail.Business =   Category.Business" + Environment.NewLine +
+             " LEFT JOIN (SELECT Count(*) AS 'Call',Call.Business from (SELECT Business,DateCreated from tbl_audittrailModel where business != '' and module = 'call' and DateCreated between'" + startdate + "' and '" + enddate + "') AS Call  GROUP BY Business)Call ON Call.Business =   Category.Business" + Environment.NewLine +
+             " LEFT JOIN (SELECT Count(*) AS 'Book',Call.Business from (SELECT Business,DateCreated from tbl_audittrailModel where business != '' and module = 'book' and DateCreated between'" + startdate + "' and '" + enddate + "') AS Call  GROUP BY Business)Book ON Book.Business =   Category.Business";// where COALESCE(Mail.Mail,0) != 0 and COALESCE(Call.Call,0) != 0 and COALESCE(Book.Book,0) != 0";// WHERE Category.Module = '" + data.category + "'";
+                }
                 DataTable dt = db.SelectDb(sql).Tables[0];
                 int ctr = 9;
                 foreach (DataRow dr in dt.Rows)
                 {
                     ws.Cells[ctr, 1].Value = dr["Business"].ToString();
                     ws.Cells[ctr, 2].Value = dr["Category"].ToString();
-                    ws.Cells[ctr, 3].Value = dr["Email"].ToString();
-                    ws.Cells[ctr, 4].Value = dr["Call"].ToString();
+                    ws.Cells[ctr, 3].Value = dr["Call"].ToString();
+                    ws.Cells[ctr, 4].Value = dr["Email"].ToString();
                     ws.Cells[ctr, 5].Value = dr["Book"].ToString();
                     ws.Cells["A" + ctr + ":E" + ctr].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    ws.Cells["A" + ctr + ":E" + ctr].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    ws.Cells["A" + ctr + ":E" + ctr].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    ws.Cells["A" + ctr + ":E" + ctr].Style.Border.Left.Style = ExcelBorderStyle.Thin;
                     ctr++;
                 }
                 ws.Cells.AutoFitColumns();
@@ -615,20 +680,20 @@ namespace AOPC.Controllers
             string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Call to Action Result.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
-        public IActionResult DownloadNewsFeedClick()
+        public IActionResult DownloadNewsFeedClick([FromQuery] int day, [FromQuery] string startdate, [FromQuery] string enddate)
         {
             var stream = new MemoryStream();
             using (var pck = new ExcelPackage(stream))
             {
                 ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet 1");
                 ws.Cells["A:AZ"].Style.Font.Size = 11;
-                ws.Cells["A8:E8"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                ws.Cells["A8:E8"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                ws.Cells["A8:E8"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                ws.Cells["A8:E8"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A8:B8"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A8:B8"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A8:B8"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                ws.Cells["A8:B8"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
 
 
-                ws.Cells["A1"].Value = "News Feed Clicks Report";
+                ws.Cells["A1"].Value = "Module Click Count";
                 ws.Cells[1, 1].Style.Font.Bold = true;
                 ws.Cells[1, 1].Style.Font.SetFromFont(new System.Drawing.Font("Arial Black", 22));
 
@@ -637,43 +702,104 @@ namespace AOPC.Controllers
                 ws.Cells["A4"].Value = "Date Printed:     " + DateTime.Now.ToString("yyyy-MM-dd"); ;
                 //ws.Cells["B4"].Value =
 
-                ws.Cells["A8"].Value = "Name";
-                ws.Cells["B8"].Value = "Categories";
-                ws.Cells["C8"].Value = "Call";
-                ws.Cells["D8"].Value = "Email";
-                ws.Cells["E8"].Value = "Book";
+                ws.Cells["A8"].Value = "Module";
+                ws.Cells["B8"].Value = "Count";
+                //ws.Cells["C8"].Value = "Call";
+                //ws.Cells["D8"].Value = "Email";
+                //ws.Cells["E8"].Value = "Book";
                 for (var col = 1; col <= 10; col++)
                 {
                     ws.Cells[1, col].Style.Font.Bold = true;
                 }
-                string sql = $@"SELECT        Mail.Business, Mail.Email, Call.Call, Book.Book, Category.Module AS Category, Book.DateCreated
-                             FROM            (SELECT        Business, COUNT(*) AS Email, DateCreated
-                             FROM            tbl_audittrailModel
-                             WHERE        (Module = 'Mail')
-                             GROUP BY Business, DateCreated) AS Mail LEFT OUTER JOIN
-                             (SELECT        Business, COUNT(*) AS Call, DateCreated
-                             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
-                             WHERE        (Module = 'Call')
-                             GROUP BY Business, DateCreated) AS Call ON Mail.Business = Call.Business LEFT OUTER JOIN
-                             (SELECT        Business, COUNT(*) AS Book, DateCreated
-                             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
-                             WHERE        (Module = 'Book')
-                             GROUP BY Business, DateCreated) AS Book ON Call.Business = Book.Business LEFT OUTER JOIN
-                             (SELECT        Business, Module
-                             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
-                             WHERE       Module='Hotel' or Module='Food & Beverage'  or Module='Access to co-working spaces'  or Module='Health'  or Module='Shops & Services'  or Module='Shops & Services' or Module='News' 
-                             GROUP BY Business, Module) AS Category ON Book.Business = Category.Business
-                             ORDER BY Mail.Email DESC";
+                string sql = "";
+                //sql = $@"SELECT        Mail.Business, Mail.Email, Call.Call, Book.Book, Category.Module AS Category, Book.DateCreated
+                //             FROM            (SELECT        Business, COUNT(*) AS Email, DateCreated
+                //             FROM            tbl_audittrailModel
+                //             WHERE        (Module = 'Mail')
+                //             GROUP BY Business, DateCreated) AS Mail LEFT OUTER JOIN
+                //             (SELECT        Business, COUNT(*) AS Call, DateCreated
+                //             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
+                //             WHERE        (Module = 'Call')
+                //             GROUP BY Business, DateCreated) AS Call ON Mail.Business = Call.Business LEFT OUTER JOIN
+                //             (SELECT        Business, COUNT(*) AS Book, DateCreated
+                //             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
+                //             WHERE        (Module = 'Book')
+                //             GROUP BY Business, DateCreated) AS Book ON Call.Business = Book.Business LEFT OUTER JOIN
+                //             (SELECT        Business, Module
+                //             FROM            tbl_audittrailModel AS tbl_audittrailModel_1
+                //             WHERE       Module='Hotel' or Module='Food & Beverage'  or Module='Access to co-working spaces'  or Module='Health'  or Module='Shops & Services'  or Module='Shops & Services' or Module='News' 
+                //             GROUP BY Business, Module) AS Category ON Book.Business = Category.Business
+                //             ORDER BY Mail.Email DESC";
+
+                int daysLeft = (DateTime.Now - DateTime.Now.AddYears(-1)).Days;
+                int days = day == 1 ? daysLeft : day;
+                if (startdate != "null")
+                {
+                    enddate = (DateTime.Parse(enddate).AddDays(1)).ToString("yyyy-MM-dd");
+                    startdate = (DateTime.Parse(startdate)).ToString("yyyy-MM-dd");
+                }
+                if (startdate == "null" && day == 0)
+                {
+                    //       sql = $@"SELECT Business, Count(*) as count FROM tbl_audittrailModel
+                    //WHERE Actions LIKE '%view%'  and Module ='news' and Business <> '' GROUP BY Business order by count desc";
+                    sql = $@"SELECT     
+	                        Module,
+	                        Count(*)as count
+	
+                        FROM         
+	                        tbl_audittrailModel  
+                        WHERE 
+	                        Actions LIKE '%Viewed%' 
+	                        and Module not in ('','AOPC APP', 'Shops')
+                        GROUP BY    
+	                        Module 
+                        order by count desc";
+                }
+                else if (startdate != "null" && day == 0)
+                {
+                    //       sql = $@"SELECT Business, Count(*) as count FROM tbl_audittrailModel
+                    //WHERE Actions LIKE '%view%'  and Module ='news' and Business <> '' and DateCreated between '" + startdate + "' and '" + enddate + "' GROUP BY Business order by count desc";
+                    sql = $@"SELECT     
+	                        Module,
+	                        Count(*)as count
+	
+                        FROM         
+	                        tbl_audittrailModel  
+                        WHERE 
+	                        Actions LIKE '%Viewed%' 
+	                        and Module not in ('','AOPC APP', 'Shops')
+	                        and DateCreated between '" + startdate + "' and '" + enddate + "' GROUP BY Module order by count desc";
+                }
+                else if (day != 0 && startdate == "null")
+                {
+                    //       sql = $@"SELECT Business, Count(*) as count FROM tbl_audittrailModel
+                    //WHERE Actions LIKE '%view%'  and Module ='news' and Business <> '' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE())) GROUP BY Business order by count desc";
+                    sql = $@"SELECT     
+	                        Module,
+	                        Count(*)as count
+	
+                        FROM         
+	                        tbl_audittrailModel  
+                        WHERE 
+	                        Actions LIKE '%Viewed%' 
+	                        and Module not in ('','AOPC APP', 'Shops')
+	                        and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + days + ", GETDATE())) GROUP BY Module order by count desc";
+                }
                 DataTable dt = db.SelectDb(sql).Tables[0];
                 int ctr = 9;
                 foreach (DataRow dr in dt.Rows)
                 {
-                    ws.Cells[ctr, 1].Value = dr["Business"].ToString();
-                    ws.Cells[ctr, 2].Value = dr["Category"].ToString();
-                    ws.Cells[ctr, 3].Value = dr["Email"].ToString();
-                    ws.Cells[ctr, 4].Value = dr["Call"].ToString();
-                    ws.Cells[ctr, 5].Value = dr["Book"].ToString();
-                    ws.Cells["A" + ctr + ":E" + ctr].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    ws.Cells[ctr, 1].Value = dr["Module"].ToString();
+                    ws.Cells[ctr, 2].Value = dr["count"].ToString();
+                    //ws.Cells[ctr, 3].Value = dr["Email"].ToString();
+                    //ws.Cells[ctr, 4].Value = dr["Call"].ToString();
+                    //ws.Cells[ctr, 5].Value = dr["Book"].ToString();
+                    ws.Cells["A" + ctr + ":B" + ctr].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    ws.Cells["A" + ctr + ":B" + ctr].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    ws.Cells["A" + ctr + ":B" + ctr].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    ws.Cells["A" + ctr + ":B" + ctr].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    ws.Cells["A" + ctr + ":B" + ctr].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+
                     ctr++;
                 }
                 ws.Cells.AutoFitColumns();
@@ -681,7 +807,7 @@ namespace AOPC.Controllers
             }
 
             stream.Position = 0;
-            string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-Call to Action Reports.xlsx";
+            string excelName = "" + HttpContext.Session.GetString("CorporateName") + "-AOPC-News Feed Clicks Report.xlsx";
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
         public IActionResult DownloadMSC()
@@ -774,9 +900,10 @@ namespace AOPC.Controllers
                 string sql = "";
                 if (filterday != 0)
                 {
-                    sql = $@"SELECT     Count(*)as count,Business,Actions,Module
-                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Shops & Services' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
-                                    "GROUP BY    Business,Actions,Module order by count desc";
+                    sql = $@"SELECT     
+                                Count(*)as count,Business,Actions,Module
+                            FROM tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Shops & Services' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
+                            "GROUP BY    Business,Actions,Module order by count desc";
                 }
                 else
                 {
@@ -1104,13 +1231,13 @@ namespace AOPC.Controllers
                 if (filterday != 0)
                 {
                     sql = $@"SELECT     Count(*)as count,Business,Actions,Module
-                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Health' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='news' and  CONVERT(DATE,tbl_audittrailModel.DateCreated) >= CONVERT(DATE,DATEADD(day,-" + filterday + ", GETDATE())) " +
                                     "GROUP BY    Business,Actions,Module order by count desc";
                 }
                 else
                 {
                     sql = $@"SELECT     Count(*)as count,Business,Actions,Module
-                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='Health' and  tbl_audittrailModel.DateCreated between '" + startdate + "' and '" + enddate +
+                        FROM         tbl_audittrailModel  WHERE Actions LIKE '%Viewed%' and module ='news' and  tbl_audittrailModel.DateCreated between '" + startdate + "' and '" + enddate +
                            "' GROUP BY    Business,Actions,Module order by count desc";
                 }
                 DataTable dt = db.SelectDb(sql).Tables[0];
@@ -1203,7 +1330,9 @@ namespace AOPC.Controllers
                 string status = ex.GetBaseException().ToString();
             }
             return Json(list);
-        }
+
+        } 
+        //view resto
         [HttpPost]
         public async Task<IActionResult> PostViewMostClickRestaurant(UserFilterDateRange data)
         {
@@ -1258,6 +1387,7 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
+        //view hotel
         [HttpPost]
         public async Task<IActionResult> PostViewClickedHospitalityv2(UserFilterDateRange data)
         {
@@ -1311,6 +1441,7 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
+        //view store
         [HttpPost]
         public async Task<IActionResult> PostViewMostCickStorev2(UserFilterDateRange data)
         {
@@ -1364,6 +1495,7 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
+        //veiw wellness
         [HttpPost]
         public async Task<IActionResult> PostViewMostCickWellnessv2(UserFilterDateRange data)
         {
@@ -1416,6 +1548,7 @@ namespace AOPC.Controllers
             }
             return Json(list);
         }
+        // view offer
         [HttpPost]
         public async Task<IActionResult> PostViewMostCickOfferv2(UserFilterDateRange data)
         {
@@ -1631,7 +1764,7 @@ namespace AOPC.Controllers
                 sql += " ,Coalesce(Reg.RegCount,0)  + Coalesce(VIP.VipCount,0) 'Total User' ";
             }
 
-            sql += "    from (select Id, CorporateName from tbl_CorporateModel group by Id,CorporateName)As Corp";
+            sql += "    from (select Id, CorporateName from tbl_CorporateModel where Status = 1 group by Id,CorporateName)As Corp";
             sql += "    left join (select CorporateID,Count(*) 'RegCount' from UsersModel where Active = '1' and isVIP = 0 group by CorporateID)Reg on Corp.Id = Reg.CorporateID";
             sql += "    left join (select CorporateID,Count(*) 'UnRegCount' from UsersModel where Active = '6' group by CorporateID)UnReg on Corp.Id = UnReg.CorporateID";
             sql += "    left join (select CorporateID,Count(*) 'VipCount' from UsersModel where Active = '1' and isVIP = 1 group by CorporateID)VIP on Corp.Id = VIP.CorporateID";
@@ -1675,14 +1808,14 @@ namespace AOPC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EmailCorporate(CorporateNotificationEmailRequest data)
+        public async Task<IActionResult> EmailUserCorporate(CorporateNotificationEmailRequest data)
         {
             var list = new List<CorporateNotificationEmailRequest>();
             try
             {
 
                 HttpClient client = new HttpClient();
-                var url = DBConn.HttpString + "/api/ApiNotifcation/SendNotificationPerCorporate";
+                var url = DBConn.HttpString + "/api/ApiNotifcation/SendNotificationPerUserCorporate";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
@@ -1798,6 +1931,7 @@ namespace AOPC.Controllers
             public string Actions { get; set; }
             public string Business { get; set; }
             public string Module { get; set; }
+            public string Address { get; set; }
             public string DateCreated { get; set; }
             public int count { get; set; }
             public double Total { get; set; }
@@ -1808,6 +1942,7 @@ namespace AOPC.Controllers
             public string Actions { get; set; }
             public string Business { get; set; }
             public string Module { get; set; }
+            public string Address { get; set; }
             public string DateCreated { get; set; }
             public int count { get; set; }
             public double Total { get; set; }
@@ -1909,6 +2044,7 @@ namespace AOPC.Controllers
             public string Actions { get; set; }
             public string Business { get; set; }
             public string Module { get; set; }
+            public string Address { get; set; }
             public string DateCreated { get; set; }
             public int count { get; set; }
             public double Total { get; set; }

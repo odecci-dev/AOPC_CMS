@@ -357,55 +357,7 @@ function GetCorporateList() {
         alert("There was an Error When Loading Data...");
     });
 
-    $('#sendNotificatoin').click(function () {
-        var checkedEmail = document.querySelectorAll('input[id="corporateName"]:checked');
-        var notificationSubject = document.getElementById('notoficationSubject').value;
-        var notificationBody = document.getElementById('notificationBody').value;
-        if (notificationSubject == "") {
-            notificationSubject = "No Subject";
-        }
-        if (notificationBody == "") {
-            notificationBody = "No Body";
-        }
-
-        
-        selectedEmail = Array.from(checkedEmail).map(x => x.value);
-        if (checkedEmail.length == 0) {
-            document.getElementById('selectCorporateError').style.display = "block";
-            setTimeout(function () {
-                document.getElementById('selectCorporateError').style.display = "none";
-            }, 3000);
-        }
-        else {
-            //console.log(selectedEmail);
-            //console.log(notificationSubject);
-            //console.log(notificationBody);
-
-            var data = {};
-
-            data.Subject = notificationSubject;
-            data.Body = notificationBody;
-            data.CorporateList = selectedEmail;
-
-            //console.log(data);
-            $.ajax({
-                url: '/Dashboard/EmailCorporate',
-                data: {
-                    data: data,
-                },
-                type: "POST",
-                datatype: "json",
-                success: function (data) {
-                    //console.log(data);
-                    //console.log("Email Sent!");
-
-                }
-
-            });
-
-            document.getElementById('compose-notification-modal-holder').style.display = "none";
-
-        }
-    });
+    
 
 }
+

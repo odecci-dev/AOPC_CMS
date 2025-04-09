@@ -294,7 +294,7 @@ body {
     border-radius: 5px;
     box-shadow: 1px 1px 2px 2px var(--shade);
     cursor: pointer;
-    color: var(--light);
+    color: #fff;
     border: 1px solid #c89328;
     font-size: 3vw;
     margin-bottom: 5px;

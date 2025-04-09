@@ -61,15 +61,14 @@ var offerday = 0;
 var offerstartdate = lastWeekDate;
 var offerenddate = currentDate;
 
-// news feed clicks variable
-var nfcday = 0;
-var nfcstartdate = null;
-var nfcendtdate = null;
+
 
 // call to action variable
-var ctastartdate = null;
-var ctaendtdate = null;
-var cat = "0";
+//var ctastartdate = null;
+//var ctaendtdate = null;
+//var ctaday = "0";
+//var ctacategory = "0";
+//var cat = "0";
 
 //Number of Days Filter
 var days = 0;
@@ -146,6 +145,19 @@ async function companyInformationShowFilter() {
     });
 }
 
+$('#nu-clear').click(function () {
+    day = 0;
+    startdate = lastWeekDate;
+    enddate = currentDate;
+    document.getElementById('nur').value = 0;
+    postNewUser();
+});
+$('#mcc-clear').click(function () {
+    day = 0;
+    startdate = null;
+    enddate = currentDate;
+    PostClickCountTop2();
+});
 async function getComponyInformation() {
     
     //var data = {};
@@ -791,6 +803,10 @@ async function viewRestoDetails() {
             {
                 data: 'total'
             }
+            //,
+            //{
+            //    data: 'address'
+            //}
         ]
     });
 
@@ -959,6 +975,9 @@ async function viewHotelDetails() {
                 },
                 {
                     data: 'total'
+                },
+                {
+                    data: 'address'
                 }
             ]
         });
@@ -1131,6 +1150,9 @@ async function viewStoreDetails() {
                 },
                 {
                     data: 'total'
+                },
+                {
+                    data: 'address'
                 }
             ]
         });
@@ -1301,6 +1323,9 @@ async function viewWellnessDetails() {
                 },
                 {
                     data: 'total'
+                },
+                {
+                    data: 'address'
                 }
             ]
         });
@@ -1472,6 +1497,9 @@ async function viewOfferDetails() {
                 },
                 {
                     data: 'total'
+                },
+                {
+                    data: 'address'
                 }
             ]
         });
@@ -1518,7 +1546,9 @@ async function PostClickCountTop2() {
     //        });
     //}, 100);
     //console.log(data);
-
+    if (DataTable.isDataTable('#tbl_cnt')) {
+        cntTable.destroy();
+    }
    
     cntTable = new DataTable('#tbl_cnt', {
         ajax: {
@@ -1541,7 +1571,21 @@ async function PostClickCountTop2() {
         columns: [
             {
                 title: "Module",
-                data: 'module'
+                data: 'module',
+                render: function (data, type, row) {
+                    if (data == "News") {
+
+                        return "Offerings";
+                    }
+                    else if (data == "Hotel") {
+
+                        return "Hotels";
+                    }
+                    else {
+
+                        return data;
+                    }
+                }
             },
             {
                 title: "Count",
@@ -1552,7 +1596,8 @@ async function PostClickCountTop2() {
 }
 async function PostCallToAction() {
     var data = {};
-    //cat = $('#cta-opt').val();
+    cat = $('#cta-opt').val();
+    day = $('#cta-day').val();
     data.day = day;
     data.startdate = ctastartdate;
     data.enddate = ctaendtdate;
@@ -1693,6 +1738,7 @@ async function dateFilter() {
         storeday = 0;
         wellnessday = 0;
         offerday = 0;
+        document.getElementById('cta-day').value = 0;
         //console.log(type);
         if (type == 1) {
             postNewUser();
@@ -1737,24 +1783,39 @@ async function dateFilter() {
             day = 0;
             ctastartdate = startdate;
             ctaendtdate = enddate;
+            ctaday = "0";
             ctaTable.destroy();
             PostCallToAction();
         }
     });
     $('#cta-opt').change(function () {
+        
         PostCallToAction();
+    });
+    $('#cta-clear').click(function () {
+        document.getElementById('cta-day').value = 0;
+        document.getElementById('cta-opt').value = 0;
+        document.getElementById("dateFrom").value = null;
+        document.getElementById("dateTo").value = null;
+        ctastartdate = null;
+        ctaenddate = null;
+        ctaday = "0";
+        PostCallToAction();
+        //alert("Hello");
     });
     $('#nur').change(function () {
         day = document.getElementById('nur').value;
         startdate = null;
         enddate = null;
+        document.getElementById("dateFrom").value = lastWeekDate;
+        document.getElementById("dateTo").value = currentDate;
         postNewUser();
     });
     $('#cnt-opt').change(function () {
         day = document.getElementById('cnt-opt').value;
         nfcstartdate = null;
         nfcenddate = null;
-
+        nfcday = day;
         cntTable.destroy();
         PostClickCountTop2();
     });
@@ -1797,8 +1858,14 @@ async function dateFilter() {
 
     $('#cta-day').change(function () {
         day = document.getElementById('cta-day').value;
+        document.getElementById("dateFrom").value = null;
+        document.getElementById("dateTo").value = null;
         startdate = null;
         enddate = null;
+        ctastartdate = null;
+        ctaenddate = null;
+        ctaday = day;
+        console.log(ctastartdate + " " + ctaenddate + " " + ctaday);
         PostCallToAction();
     });
      

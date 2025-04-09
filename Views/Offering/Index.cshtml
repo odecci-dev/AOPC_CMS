@@ -28,72 +28,144 @@
                 @ViewData["Title"].ToString()
                 </h4>
         </div>
-                <div class="card-body ">
-                    <div class="row">
+        <div class="card-body ">
+            <div class="row">
 
-                        <div class="col-lg-12">
-
-                            <div class="row ">
-                                <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
-                                    <table id="offering-table" class="myTableLarge">
-                                       <labebl id="" style="text-align:center">
-                                            <input type="checkbox" class="check-all checkalloffering" id="checkall" /> Check All
-                                       </labebl> 
-                                        <thead>
-                                        <th>
-                                        <labebl id="checkers" style="text-align:center"></labebl> 
-                                        <button class="register"  
-                                            style="margin-bottom: 5px;font-size: 13px;
-                                                    width: 100px;
-                                                    padding: 5px 15px 5px 5px;
-                                                    height: 25px;
-                                                    font-size: clamp(0.5rem, 2vw, 0.7rem);
-                                                    display:flex;
-                                                    gap: 5px;
-                                                    align-items: center" 
-                                            title="Add New Offering" id="add-offering">
-                                            @* <i class="fas fa-user-plus"></i> *@
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" /></svg>
-                                            Add New
-                                        </button>
-                                        <button class="register" style="margin-bottom: 5px;
-                                                    font-size: 13px;
-                                                    width: 100px; 
-                                                    padding: 5px 15px 5px 5px;
-                                                    height: 25px;
-                                                    font-size: clamp(0.5rem, 2vw, 0.7rem);
-                                                    display:flex;
-                                                    gap: 5px;
-                                                    align-items: center" 
-                                                title="Delete Offering" id="offeringopt" hidden>
-                                            @* <i class="fas fa-trash-alt"></i> *@
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" /></svg>
-                                            Delete All
-                                        </button>
+                <div class="col-lg-10">
+                    <div class="row ">
+                        <div id="register-table_wrapper" class="dataTables_wrapper no-footer" style="width:100%">
+                            <table id="offering-table" class="myTableLarge">
+                                <labebl id="" style="text-align:center">
+                                    <input type="checkbox" class="check-all checkalloffering" id="checkall" /> Check All
+                                </labebl> 
+                                <thead>
+                                <th>
+                                <labebl id="checkers" style="text-align:center"></labebl> 
+                                <button class="register"  
+                                    style="margin-bottom: 5px;font-size: 13px;
+                                            width: 100px;
+                                            padding: 5px 15px 5px 5px;
+                                            height: 25px;
+                                            font-size: clamp(0.5rem, 2vw, 0.7rem);
+                                            display:flex;
+                                            gap: 5px;
+                                            align-items: center" 
+                                    title="Add New Offering" id="add-offering">
+                                    @* <i class="fas fa-user-plus"></i> *@
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" /></svg>
+                                    Add New
+                                </button>
+                                <button class="register" style="margin-bottom: 5px;
+                                            font-size: 13px;
+                                            width: 100px; 
+                                            padding: 5px 15px 5px 5px;
+                                            height: 25px;
+                                            font-size: clamp(0.5rem, 2vw, 0.7rem);
+                                            display:flex;
+                                            gap: 5px;
+                                            align-items: center" 
+                                        title="Delete Offering" id="offeringopt" hidden>
+                                    @* <i class="fas fa-trash-alt"></i> *@
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="var(--light)"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" /></svg>
+                                    Delete All
+                                </button>
     
 
-                                        </th>
-                                        <th>Promo Description</th>
-                                        @* <th>Promo Release Text</th> *@
-                                        <th>Vendor Name</th>
-                                        <th>Business Type Name</th>
-                                        <th>Membership Tier</th>
+                                </th>
+                                <th>Promo Description</th>
+                                @* <th>Promo Release Text</th> *@
+                                <th>Vendor Name</th>
+                                <th>Business Type Name</th>
+                                <th>Membership Tier</th>
                                       
-                                        <th>Date Created</th>
-                                    </thead>
-                                    <tbody>
+                                <th>Date Created</th>
+                            </thead>
+                            <tbody>
 
-                                    </tbody>
-                                    </table>
-                               </div>
-                            </div>
+                            </tbody>
+                            </table>
                         </div>
-
-               
                     </div>
                 </div>
+                <div class="col-lg-2">
+
+                    <div class="col-sm-12">
+                        <hr>
+                        <div>
+                            @using (Html.BeginForm("Index", "Offering", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <label class="nur-note">Import Excel File:</label>
+                                <input id="upload-excel" type="file" size="1" name="file" accept="excel/*" class="form-control-sm mb-1">
+                                <button type="submit" class="btn btn-success btn-block mb-1" id="btnimport" data-toggle="tooltip" title="Import Excel"
+                                        style="
+                                            display:flex;
+                                            gap: 5px;
+                                            align-items: center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+                                        <path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                                    </svg>
+                                    @* <i class="fas fa-upload"></i>  *@
+                                    Upload
+                                </button>
+                            }
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-info btn-block" id="btn-download-offering" data-toggle="tooltip" title="Download Header"
+                                style="
+                                            display:flex;
+                                            gap: 5px;
+                                            align-items: center">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+                                <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                            </svg>
+                            @* <i class="fas fa-download"></i>  *@
+                            Download Template
+                        </button>
+                    </div>
+                    <div class="col-sm-12" style="font-size:12px !important;margin-left:10px">
+                        @if (message != "")
+                        {
+
+                            @if (message.Contains("Error") || message.Contains("Duplicate Entry."))
+                            {
+                                <div class="alert alert-warning" style="height: 80px;width: 95%;">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong id="blink">Warning! @message.Replace(" Error: ", "")</strong>
+                                </div>
+
+                                <script>
+                                    window.addEventListener("load", function () {
+                                        var b = document.getElementById('blink');
+                                        setInterval(function () {
+                                            b.style.display = (b.style.display == 'none' ? '' : 'none');
+                                        }, 500);
+                                    }, false);
+                                </script>
+
+                            }
+                            else
+                            {
+                                <div class="alert alert-success" style="height: 80px;width: 150px;">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong id="blink">Success!@message</strong>
+                                </div>
+                                <script>
+                                    window.addEventListener("load", function () {
+                                        var b = document.getElementById('blink');
+                                        setInterval(function () {
+                                            b.style.display = (b.style.display == 'none' ? '' : 'none');
+                                        }, 500);
+                                    }, false);
+                                </script>
+                            }
+                        }
+                    </div>
                 </div>
             </div>
+        </div>
+        </div>
+    </div>
     @* modal start here *@
        <div class="modal fade" id="offeringmodal" tabindex="-1" role="dialog" aria-labelledby="modal-title"
         aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static" >
@@ -117,6 +189,7 @@
                   alt=""
                 />
               </div>
+
             </div>
             <div class="input-container-whole upload" style>
               <label for="img"><i class="fas fa-upload"></i>Upload Image</label>
@@ -134,11 +207,12 @@
             <div class="input-container-whole">
               <label for="employeeID">Offering Name</label>
               <input type="text" value="" id="offeringname" class="mod-input" required />
+              <input type="hidden" id="img-check" />
             </div>
             <div class="input-container-whole">
               <label for="email">Promo Description</label>
               @* <input type="text" value="" id="promodesc" class="mod-input" required/> *@
-              <textarea id="promodesc" name="Description" rows="4" cols="50" class="mod-input" style="resize: vertical; min-height: 50px"></textarea>
+              <textarea id="promodesc" name="Description" rows="4" cols="50" class="mod-input" style="resize: vertical; min-height: 50px" required></textarea>
             </div>
           </div>
           @* <div class="mod-form-row">
@@ -464,29 +538,55 @@
 
         });
  $('#add-offering').click(function () {
-                      i_id = 0;
-                      var img = $('<img>').attr('src', "https://www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG");
-                      img.attr('height', '120px');
-                      img.attr('width', '120px');
-                      $('.upload-image-preview').html(img);
-                      $(".upload-image-preview").attr("src", );
-                      $('input[type="text"]').val("");
-                      $('input[type="email"]').val("");
-            $('#memtier-option').prop('selectedIndex', 0);
-            $('#btype-option').prop('selectedIndex', 0);
-            $('#vendor-option').prop('selectedIndex', 0);
+        i_id = 0;
+        var img = $('<img>').attr('src', "https://www.alfardanoysterprivilegeclub.com/assets/img/nophotos.JPG");
+        img.attr('height', '120px');
+        img.attr('width', '120px');
+        $('.upload-image-preview').html(img);
+        $(".upload-image-preview").attr("src", );
+        $('input[type="text"]').val("");
+        $('#promodesc').val("");
+        $('input[type="email"]').val("");
+        $('#memtier-option').prop('selectedIndex', 0);
+        $('#btype-option').prop('selectedIndex', 0);
+        $('#vendor-option').prop('selectedIndex', 0);
         @*$('#gender').prop('selectedIndex', 0); *@
-                      $('#offeringmodal').modal('show');
+        $('#offeringmodal').modal('show');
 
                     });
     $('#submitoffer').submit(function(e){
      e.preventDefault();
-      filename=$("#img").val().replace(/.*(\/|\\)/, ''); 
+      // filename=$("#img").val().replace(/.*(\/|\\)/, ''); 
         //console.log(filename);
-        if(filename =="" || filename == null)
-        {
-         filename = img_edit;
-        }
+        // if(filename =="" || filename == null)
+        // {
+        //  filename = img_edit;
+        // }
+            let random = (Math.random() + 1).toString(36).substring(4);
+            const uuid = random;
+            var filename = $("#img").val().replace(/.*(\/|\\)/, '');
+            var imgCheck = $("#img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
+            var fileUpload = $("#img").get(0);
+            var files = fileUpload.files;
+            const formData = new FormData();
+            if (files[0]) {
+                let newFileName = uuid + "." + files[0].name.split('.').pop();
+                const newFile = new File([files[0]], newFileName, { type: files[0].type });
+                formData.append('file', newFile);
+                filename = newFileName;
+            }
+            else {
+                formData.append('file', files[0]);
+
+
+                if (imgCheck == "" || imgCheck == null) {
+                    filename = img_edit;
+                }
+                else {
+                    // filename = "/Uploads/" + imgCheck;
+                    filename = imgCheck;
+                }
+            }
           var data ={};
           data.id = i_id;
           data.OfferingName  =$('#offeringname').val();
@@ -507,9 +607,9 @@
 
             var fileUpload = $("#img").get(0);
             var files = fileUpload.files;
-            var formData = new FormData();
-            formData.append('file', files[0]);
-            formData.append('id', i_id);
+            // var formData = new FormData();
+            // formData.append('file', files[0]);
+            // formData.append('id', i_id);
             var fileUpload = $("#upload-img").get(0);
 
                             if (i_id != 0) {
@@ -518,7 +618,7 @@
                             else {
                                 message = 'Are you sure you want to Add new Offering';
                             }
-              iziToast.question({
+                            iziToast.question({
                             timeout: 20000,
                             close: false,
                             overlay: true,
@@ -560,7 +660,7 @@
                                             //    }
                                             //});
                                             $.ajax({
-                                            url: '/Offering/UploadFile',
+                                            url: '/Register/UploadFile',
                                             type: 'POST',
                                             data: formData,
                                             processData: false,
@@ -570,7 +670,7 @@
                                             });
                                           $("#h-close").click();
                                           ShowOfferingList();
-                                          window.location.reload(); 
+                                          // window.location.reload(); 
                                       }
                                       else
                                       {
@@ -727,6 +827,7 @@
                       $("#endate").val(Edate);
                       $("#fromtime").val(fromTime);
                       @* $("#img").val(imgUrl); *@
+                      $("#img-check").val(imgUrl);
                       $("#memtier-option").val(membershipID);
                       $("#offerdays").val(offerdays);
                       $("#promodesc").val( $(this).data("promdes"));
@@ -740,7 +841,9 @@
 
                     });
                     
-   
+                    $('#btn-download-offering').click(function () {
+                            location.replace('../Offering/DownloadHeader');
+                    });
 
 </script>
 }

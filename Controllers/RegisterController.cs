@@ -283,6 +283,37 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = _global.Status });
         }
+        public class CoporateVIP
+        {
+            public int CorporateID { get; set; }
+            public string? Fullname { get; set; }
+            public string? AdminEmail { get; set; }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> CheckRemainingVIP(CoporateVIP data)
+        {
+            try
+            {
+               
+
+                HttpClient client = new HttpClient();
+                var url = DBConn.HttpString + "/api/ApiRegister/EmailRemainingVIP";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
+
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(url, content))
+                {
+                    _global.Status = await response.Content.ReadAsStringAsync();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string status = ex.GetBaseException().ToString();
+            }
+            return Json(new { stats = _global.Status });
+        }
         public class LoginStats
         {
             public string Status { get; set; }
@@ -432,15 +463,20 @@ namespace AOPC.Controllers
             }
             return Json(new { stats = result });
         }
+        public class UserID
+        {
+
+            public int Id { get; set; }
+        }
         [HttpPost]
-        public async Task<IActionResult> UpdateUserStatus(string id)
+        public async Task<IActionResult> UpdateUserStatus(UserID data)
         {
             string result = "";
             try
             {
-                string action = id == "0" ? "Added New" : "Updated";
+                string action = "Updated";
                 dbmet.InsertAuditTrail("User Id: " + HttpContext.Session.GetString("Id") +
-                   action + " Status User Id#: " + id, DateTime.Now.ToString(),
+                   action + " Status User Id#: " + data.Id, DateTime.Now.ToString(),
                    "CMS-User",
                    HttpContext.Session.GetString("Name"),
                    HttpContext.Session.GetString("Id"),
@@ -449,7 +485,7 @@ namespace AOPC.Controllers
                 HttpClient client = new HttpClient();
                 var url = DBConn.HttpString + "/api/ApiRegister/UpdateUserStatus";
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(  token_.GetValue()); 
-                StringContent content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync(url, content))
                 {
                     string res = await response.Content.ReadAsStringAsync();
@@ -1043,101 +1079,23 @@ namespace AOPC.Controllers
             string img = "https://www.alfardanoysterprivilegeclub.com/assets/img/AOPC%20Logo%20-%20White.png";
             string bg = "https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg";
 
-            bodyBuilder.HtmlBody = @"<style>
-                                    @font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}
-                                    @font-face {
-                                    font-family: 'Montserrat-Bold';
-                                    src: url('/fonts/Montserrat/Montserrat-Bold.ttf');
-                                    }
-                                    @font-face {
-                                    font-family: 'Montserrat-SemiBold';
-                                    src: url('/fonts/Montserrat/Montserrat-SemiBold.ttf');
-                                    }
-        
-                                    body {
-                                        margin: 0;
-                                        box-sizing: border-box;
-                                        justify-content: center;
-                                        align-items: center;
-            
-                                    }
-                                    .login-container {
-                                        background-image: url(https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg);
-                                        height: 100vh; 
-                                        width: 100vw;
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                        flex-direction: column; 
-                                        background-size: cover;}
-                                    .gradient-border {
-                                        height: 600px;
-                                        width: 700px; 
-                                        display: flex;
-                                        justify-content: center;
-                                        background-color: transparent;
-                                        border-width: 3px;
-                                        box-sizing: content-box;
-                                        border-style: solid;
-                                        border-image-slice: 1;
-                                        gap: 20px;
-                                        border-image-source: 
-                                            linear-gradient(
-                                                180deg,
-                                                #b07b29 17.26%,
-                                                #ebcc77 31.95%,
-                                                #b98732 53.29%,
-                                                #ecce79 74.41%,
-                                                #c69840 99.86%
-                                            );
-                                    flex-direction: column;
-                                    }
-                                    .login-container img {
-                                    margin: 20px auto;
-                                    width: 300px;
-                                    height: 110px;
-                                    }
-                                    h1 {
-                                        text-align: center;
-                                        color: #d7d2cb;
-                                        font-family: 'Montserrat-SemiBold';
-                                        font-size: 2rem;
-                                        font-style: italic;
-                                    }
-                                    h3 {
-                                        text-align: center;
-                                        color: #d7d2cb;
-                                        font-family: 'Montserrat-Reg';
-                                        font-size: 1.5rem;
-                                        font-style: italic;
-                                    }
-                                    a {
-                                        text-decoration: none;
-                                    }
-                                    h4 {
-                                        text-align: center;
-                                        color: #d7d2cb;
-                                        font-family: 'Montserrat-Reg';
-                                        font-size: 1.2rem;
-                                        font-style: italic;
-                                    }
-                                </style>
-                                <body>
-                                    <div class='login-container'>
-                                    <div class='login-logo-conctainer'>
-                                        <div class='gradient-border'>
-                                        <img src='https://www.alfardanoysterprivilegeclub.com/assets/img/AOPC%20Logo%20-%20White.png' alt='AOPC' width='100%'' />
-
-                                        <h1>
-                                            WELCOME TO<br />ALFARDAN OYSTER <br />
-                                            PRIVILEGE CLUB
-                                        </h1>
-                                        <h3>REGISTRATION FORM</h3>
-                                        <a href='https://www.alfardanoysterprivilegeclub.com/user-registration'><h4> Click Here to Register in<br />Alfardan Oyster Privilege Club</h4></a>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </body>";
+            bodyBuilder.HtmlBody = @"<body>
+                                       <div class='container-holder' style='font-size:16px;font-family:Helvetica,sans-serif;margin:0;padding:100px 0;line-height:1.3;background-image:url(https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg);background-repeat:no-repeat;background-size:cover;display: flex;justify-content:center;align-items:center;'>
+                                            <div class='container' style='font-size:16px;font-family:Helvetica,sans-serif;background-color:white;margin: 30%;border-radius:15px;padding:24px;box-sizing:border-box;'>
+                                            <div class='logo-holder' style='justify-content: center;'>
+                                                 <img style='margin-left: 25%' src='https://cms.alfardanoysterprivilegeclub.com/img/AOPCBlack.jpg' alt='Alfardan Oyster Privilege Club' width='50%' />
+                                                 </div>
+                                                     </br>
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>Hello,</p>
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>I hope this message finds you well.</br></br>
+                                                     <strong>Welcom to Alfardan Oyster Privelege Club Registration Form.</strong></br></br><a href='https://www.alfardanoysterprivilegeclub.com/user-registration'>Click Here to Register in<br />Alfardan Oyster Privilege Club</a></p>
+          
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>If you have any issues or need further assistance, please contact our support team at <a href='mailto:app@alfaran.com.qa'>app@alfaran.com.qa</a>.</p> 
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>Thank you!</br>Best regard,</br>Alfardan Oyster Privilege Club App</p>
+          
+                                             </div>
+                                       </div>
+                                    </body>";
             //bodyBuilder.HtmlBody = @"<style>" +
             //                       "@font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}" +
             //                        "@font-face {" +
@@ -1210,7 +1168,7 @@ namespace AOPC.Controllers
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                client.Authenticate("app@alfardan.com.qa", "Oyster2023!");
+                client.Authenticate("app@alfardan.com.qa", "0!S+Er-@Pp");
                 client.Send(message);
                 client.Disconnect(true);
                 status = "Successfully sent registration email";
@@ -1243,79 +1201,96 @@ namespace AOPC.Controllers
             var bodyBuilder = new BodyBuilder();
             string img = "https://www.alfardanoysterprivilegeclub.com/assets/img/AOPC%20Logo%20-%20White.png";
             string bg = "https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg";
-            bodyBuilder.HtmlBody = @"<style>" +
-   " @font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}" +
-    "@font-face {" +
-      "font-family: 'Montserrat-Bold';" +
-      "src: url('/fonts/Montserrat/Montserrat-Bold.ttf');" +
-    "}" +
-    "@font-face {" +
-      "font-family: 'Montserrat-SemiBold';" +
-      "src: url('/fonts/Montserrat/Montserrat-SemiBold.ttf');" +
-    "}" +
-    "body {margin: 0;box-sizing: border-box;}" +
-    ".login-container {background-image: url(" + bg + ");height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
-    ".gradient-border {height: 600px;width: 700px; display: flex;justify-content: center;background-color: transparent;border-width: 3px;box-sizing: content-box;border-style: solid;border-image-slice: 1;" +
-    "gap: 20px;border-image-source: linear-gradient(" +
-        "180deg," +
-        "#b07b29 17.26%," +
-        "#ebcc77 31.95%," +
-        "#b98732 53.29%," +
-        "#ecce79 74.41%," +
-        "#c69840 99.86%" +
-      ");" +
-      "flex-direction: column;}" +
-    ".login-container img {" +
-      "margin: 20px auto;" +
-      "width: 300px;" +
-      "height: 110px;" +
-    "}" +
-     "h1 {" +
-      " text-align: center;" +
-      " color: #d7d2cb;" +
-      " font-family: 'Montserrat-SemiBold';" +
-      " font-size: 2rem;" +
-     " font-style: italic;" +
-    " }" +
-     "h3 {" +
-      " text-align: center;" +
-      " color: #d7d2cb;" +
-       "font-family: 'Montserrat-Reg';" +
-       "font-size: 1.5rem;" +
-      " font-style: italic;" +
-     "}" +
-    " a {" +
-     "  text-decoration: none;" +
-     "}" +
-     "h4 {" +
-       "text-align: center;" +
-      " color: #d7d2cb;" +
-      " font-family: 'Montserrat-Reg';" +
-      " font-size: 1.2rem;" +
-      " font-style: italic;" +
-    "}" +
-  " </style>" +
-  " <body>" +
-    " <div class='login-container'>" +
-      " <div class='login-logo-conctainer'>" +
-        " <div class='gradient-border'>" +
-           "<img src='" + img + "' alt='AOPC' width='100%'' />" +
+            //bodyBuilder.HtmlBody = @"<style>" +
+            //                        " @font-face {font-family: 'Montserrat-Reg';src: url('/fonts/Montserrat/Montserrat-Regular.ttf');}" +
+            //                        "@font-face {" +
+            //                            "font-family: 'Montserrat-Bold';" +
+            //                            "src: url('/fonts/Montserrat/Montserrat-Bold.ttf');" +
+            //                        "}" +
+            //                        "@font-face {" +
+            //                            "font-family: 'Montserrat-SemiBold';" +
+            //                            "src: url('/fonts/Montserrat/Montserrat-SemiBold.ttf');" +
+            //                        "}" +
+            //                        "body {margin: 0;box-sizing: border-box;}" +
+            //                        ".login-container {background-image: url(" + bg + ");height: 100vh; width: 100vw;display: flex;justify-content: center;align-items: center;flex-direction: column; background-size: cover;}" +
+            //                        ".gradient-border {height: 600px;width: 700px; display: flex;justify-content: center;background-color: transparent;border-width: 3px;box-sizing: content-box;border-style: solid;border-image-slice: 1;" +
+            //                        "gap: 20px;border-image-source: linear-gradient(" +
+            //                            "180deg," +
+            //                            "#b07b29 17.26%," +
+            //                            "#ebcc77 31.95%," +
+            //                            "#b98732 53.29%," +
+            //                            "#ecce79 74.41%," +
+            //                            "#c69840 99.86%" +
+            //                            ");" +
+            //                            "flex-direction: column;}" +
+            //                        ".login-container img {" +
+            //                            "margin: 20px auto;" +
+            //                            "width: 300px;" +
+            //                            "height: 110px;" +
+            //                        "}" +
+            //                            "h1 {" +
+            //                            " text-align: center;" +
+            //                            " color: #d7d2cb;" +
+            //                            " font-family: 'Montserrat-SemiBold';" +
+            //                            " font-size: 2rem;" +
+            //                            " font-style: italic;" +
+            //                        " }" +
+            //                            "h3 {" +
+            //                            " text-align: center;" +
+            //                            " color: #d7d2cb;" +
+            //                            "font-family: 'Montserrat-Reg';" +
+            //                            "font-size: 1.5rem;" +
+            //                            " font-style: italic;" +
+            //                            "}" +
+            //                        " a {" +
+            //                            "  text-decoration: none;" +
+            //                            "}" +
+            //                            "h4 {" +
+            //                            "text-align: center;" +
+            //                            " color: #d7d2cb;" +
+            //                            " font-family: 'Montserrat-Reg';" +
+            //                            " font-size: 1.2rem;" +
+            //                            " font-style: italic;" +
+            //                        "}" +
+            //                        " </style>" +
+            //                        " <body>" +
+            //                        " <div class='login-container'>" +
+            //                            " <div class='login-logo-conctainer'>" +
+            //                            " <div class='gradient-border'>" +
+            //                                "<img src='" + img + "' alt='AOPC' width='100%'' />" +
 
-          " <h1>" +
-            " WELCOME TO<br />ALFARDAN OYSTER <br />" +
-            " PRIVILEGE CLUB" +
-           "</h1>" +
-          " <h3>REGISTRATION FORM</h3>" +
-           "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'><h4> Click Here to Register in<br />Alfardan Oyster Privilege Club</h4></a>" +
-        " </div>" +
-     "  </div>" +
-    " </div>" +
-  " </body>";
+            //                                " <h1>" +
+            //                                " WELCOME TO<br />ALFARDAN OYSTER <br />" +
+            //                                " PRIVILEGE CLUB" +
+            //                                "</h1>" +
+            //                                " <h3>REGISTRATION FORM</h3>" +
+            //                                "<a href='https://www.alfardanoysterprivilegeclub.com/user-registration'><h4> Click Here to Register in<br />Alfardan Oyster Privilege Club</h4></a>" +
+            //                            " </div>" +
+            //                            "  </div>" +
+            //                        " </div>" +
+            //                        " </body>";
+            bodyBuilder.HtmlBody = @"<body>
+                                       <div class='container-holder' style='font-size:16px;font-family:Helvetica,sans-serif;margin:0;padding:100px 0;line-height:1.3;background-image:url(https://www.alfardanoysterprivilegeclub.com/build/assets/black-cover-pattern-f558a9d0.jpg);background-repeat:no-repeat;background-size:cover;display: flex;justify-content:center;align-items:center;'>
+                                            <div class='container' style='font-size:16px;font-family:Helvetica,sans-serif;background-color:white;margin: 30%;border-radius:15px;padding:24px;box-sizing:border-box;'>
+                                            <div class='logo-holder' style='justify-content: center;'>
+                                                 <img style='margin-left: 25%' src='https://cms.alfardanoysterprivilegeclub.com/img/AOPCBlack.jpg' alt='Alfardan Oyster Privilege Club' width='50%' />
+                                                 </div>
+                                                     </br>
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>Hello,</p>
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>I hope this message finds you well.</br></br>
+                                                     <strong>Welcom to Alfardan Oyster Privelege Club Registration Form.</strong></br></br><a href='https://www.alfardanoysterprivilegeclub.com/user-registration'>Click Here to Register in<br />Alfardan Oyster Privilege Club</a></p>
+          
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>If you have any issues or need further assistance, please contact our support team at <a href='mailto:app@alfaran.com.qa'>app@alfaran.com.qa</a>.</p> 
+                                                   <p style='font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;'>Thank you!</br>Best regard,</br>Alfardan Oyster Privilege Club App</p>
+          
+                                             </div>
+                                       </div>
+                                    </body>";
             message.Body = bodyBuilder.ToMessageBody();
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                client.Authenticate("app@alfardan.com.qa", "Oyster2023!");
+                client.Authenticate("app@alfardan.com.qa", "0!S+Er-@Pp");
                 client.Send(message);
                 client.Disconnect(true);
                 status = "Successfully sent registration email";
