@@ -623,7 +623,8 @@ namespace AOPC.Controllers
                                 {
                                     corporateid = "0";
                                 }
-                                string pos = $@"select Id from tbl_PositionModel where Name='" + reader.GetValue(4).ToString() + "'  ";
+                                string Position = reader.GetValue(4) == null ? "none" : reader.GetValue(4).ToString();
+                                string pos = $@"select Id from tbl_PositionModel where Name='" + Position + "'  ";
                                 DataTable dts = db.SelectDb(pos).Tables[0];
                                 var positionid = "";
                                 if (dts.Rows.Count > 0)
@@ -669,20 +670,20 @@ namespace AOPC.Controllers
                                 }
                                 data.Add(new UserModel
                                 {
-                                    Username = Username,
+                                    Username = Username.Trim(),
                                     Password = "",
-                                    Fullname = Fname + " " + Lname,
-                                    Fname = Fname,
-                                    Lname = Lname,
-                                    Gender = Gender,
-                                    Email = Email,
+                                    Fullname = Fname.Trim() + " " + Lname.Trim(),
+                                    Fname = Fname.Trim(),
+                                    Lname = Lname.Trim(),
+                                    Gender = Gender.Trim(),
+                                    Email = Email.Trim(),
                                     CorporateID = int.Parse(HttpContext.Session.GetString("CorporateID")),
                                     PositionID = int.Parse(PositionId),
                                     JWToken = string.Concat(strtokenresult.TakeLast(15)),
                                     FilePath = "",
                                     Type = 3,
                                     Active = 2,
-                                    EmployeeID = EmployeeID,
+                                    EmployeeID = EmployeeID.Trim(),
                                     Id = 0,
 
                                 });

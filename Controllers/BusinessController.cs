@@ -83,7 +83,7 @@ namespace AOPC.Controllers
         [HttpGet]
         public async Task<JsonResult> GetBusinessTypeList()
         {
-             var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeList";
+             var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeListv2";
             HttpClient client = new HttpClient();
               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( token_.GetValue()); 
             string response = await client.GetStringAsync(url);
@@ -94,7 +94,7 @@ namespace AOPC.Controllers
         [HttpGet]
         public async Task<JsonResult> GetBusinessTypeListv2()
         {
-            var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeList";
+            var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeListv2";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);
@@ -104,7 +104,7 @@ namespace AOPC.Controllers
         }
         public async Task<JsonResult> GetBusinessTypeListOption()
         {
-            var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeList";
+            var url = DBConn.HttpString + "/api/ApiBusinessType/BusinessTypeListv2";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token_.GetValue());
             string response = await client.GetStringAsync(url);

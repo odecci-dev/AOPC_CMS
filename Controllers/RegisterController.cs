@@ -466,7 +466,7 @@ namespace AOPC.Controllers
         public class UserID
         {
 
-            public int Id { get; set; }
+            public int? Id { get; set; }
         }
         [HttpPost]
         public async Task<IActionResult> UpdateUserStatus(UserID data)
@@ -1165,10 +1165,20 @@ namespace AOPC.Controllers
             //                        " </div>" +
             //                      " </body>";
             message.Body = bodyBuilder.ToMessageBody();
+            string emailcred = "";
+            string passwordcred = "";
+            string getEmailCredsSQL = $@"SELECT [Email], [Password] FROM [AOPCDB].[dbo].[Tbl_EncryptedEmail] WHERE isSender = 1 and isDeleted = 0";
+            DataTable getmaildt = db.SelectDb(getEmailCredsSQL).Tables[0];
+
+            foreach (DataRow dr in getmaildt.Rows)
+            {
+                emailcred = Cryptography.Decrypt(dr["Email"].ToString());
+                passwordcred = Cryptography.Decrypt(dr["Password"].ToString());
+            }
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                client.Authenticate("app@alfardan.com.qa", "0!S+Er-@Pp");
+                client.Authenticate(emailcred, passwordcred);
                 client.Send(message);
                 client.Disconnect(true);
                 status = "Successfully sent registration email";
@@ -1287,10 +1297,20 @@ namespace AOPC.Controllers
                                        </div>
                                     </body>";
             message.Body = bodyBuilder.ToMessageBody();
+            string emailcred = "";
+            string passwordcred = "";
+            string getEmailCredsSQL = $@"SELECT [Email], [Password] FROM [AOPCDB].[dbo].[Tbl_EncryptedEmail] WHERE isSender = 1 and isDeleted = 0";
+            DataTable getmaildt = db.SelectDb(getEmailCredsSQL).Tables[0];
+
+            foreach (DataRow dr in getmaildt.Rows)
+            {
+                emailcred = Cryptography.Decrypt(dr["Email"].ToString());
+                passwordcred = Cryptography.Decrypt(dr["Password"].ToString());
+            }
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.office365.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                client.Authenticate("app@alfardan.com.qa", "0!S+Er-@Pp");
+                client.Authenticate(emailcred, passwordcred);
                 client.Send(message);
                 client.Disconnect(true);
                 status = "Successfully sent registration email";
@@ -1437,6 +1457,7 @@ namespace AOPC.Controllers
         public class UnregisteredUserEmailRequest
         {
             public string Body { get; set; }
+            public string[] Id { get; set; }
             public string[] Name { get; set; }
             public string[] Email { get; set; }
             //public List<UserListModel> UserList { get; set; }

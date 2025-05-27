@@ -1232,6 +1232,15 @@
                             success: function (result) {
 
                                 if (result.stats == "Inserted Successfully" || result.stats == "Updated Successfully") {
+                                        notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
+                                        $("#h-close").click();
+                                }
+                                else {
+                                    notifyMsg('Warning!', result.stats, 'red', 'fas fa-exclamation-triangle');
+                                    $("#h-close").click();
+                                      // paginationvendor(spanval);
+                                }
+                                if (result.stats == "Inserted Successfully") {
                                     var data = {};
                                     data.Details = $("#vendorname").val() + " has joined Alfardan Oyster Privelege Club!"
                                     data.isRead = "0";
@@ -1253,11 +1262,6 @@
                                     notifyMsg('Success!', result.stats, 'green', 'fas fa-check');
                                     $("#h-close").click();
                                        // paginationvendor(spanval);
-                                }
-                                else {
-                                    notifyMsg('Warning!', result.stats, 'red', 'fas fa-exclamation-triangle');
-                                    $("#h-close").click();
-                                      // paginationvendor(spanval);
                                 }
                             }
                         });

@@ -50,8 +50,8 @@ namespace AuthSystem.Manager
             //cnnstr = "Data Source=EC2AMAZ-AN808JE\\MSSQLSERVER01;Initial Catalog=AOPCDB;User ID=test;Password=1234"; // LIVE
 
             //cnnstr = "Data Source=EC2AMAZ-V52FJK1;Initial Catalog=AOPCDB;User ID=test;Password=1234";//odecci server
-            //cnnstr = "Data Source=EC2AMAZ-2PRMHQI;Initial Catalog=AOPCDB;User ID=test;Password=1234"; // aopc live server
-            cnnstr = "Data Source=LAPTOP-3191GBJB\\SQLEXPRESS;Initial Catalog=AOPCDB;User ID=test;Password=1234"; // France
+            cnnstr = "Data Source=EC2AMAZ-2PRMHQI;Initial Catalog=AOPCDB;User ID=test;Password=1234"; // aopc live server
+            //cnnstr = "Data Source=LAPTOP-3191GBJB\\SQLEXPRESS;Initial Catalog=AOPCDB;User ID=test;Password=1234"; // France
             conn = new SqlConnection(cnnstr);
         }
         public DataSet SelectDb(string value)

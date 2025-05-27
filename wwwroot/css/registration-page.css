@@ -310,7 +310,8 @@
 .bulkEmailModal .footer-control button {
     padding: 8px 20px;
 }
-#unregisteredEmails{
+#unregisteredEmails,
+#corpunregisteredEmails {
     height: 420px !important;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -332,7 +333,7 @@ tr th {
 }
 .family-member{
     margin-top: 30px;
-/*    display: none;*/
+    display: none;
 }
 
 #family-member-table,

@@ -123,6 +123,7 @@
 @section Scripts{
         <script>
             i_id=0;
+            var replyTo = "";
         employeeID = "";
         
             
@@ -216,6 +217,7 @@
             statusID = $(this).data("statsid");
             dateCreated = $(this).data("date");
             email = $(this).data("email")
+            replyTo = email;
             $('#empid').val(employeeID);
             $('#fullname').val(fullname);
             $('#message').val(message);
@@ -389,7 +391,7 @@
         });
         $('#reply').click(function () {
   
-            $("#reply").attr('href','mailto:lerjun.barasona@odecci.com');
+            $("#reply").attr('href','mailto:'+replyTo);
         });
         $('#filterstatus').change(function () {
             ShowSupportList();

@@ -371,7 +371,7 @@ async function getUnregisteredList() {
                 var div = document.createElement("div");
                 div.className = "formControl";
                 div.innerHTML = `
-                    <input class="unregisteredOptions" type="checkbox" id="unregistered" name="`+ data[i].name +`" value="`+ data[i].email +`" />
+                    <input class="unregisteredOptions" type="checkbox" data-id="`+ data[i].id +`" id="unregistered" name="`+ data[i].name +`" value="`+ data[i].email +`" />
                     <label>`+data[i].name +`</label>`;
                 form.appendChild(div); 
             }
@@ -416,6 +416,8 @@ async function sendToAll() {
         
         selectedEmail = Array.from(checkedEmail).map(x => x.value);
         selectedName = Array.from(checkedEmail).map(x => x.name);
+        selectedId = Array.from(checkedEmail).map(x => x.dataset.id);
+        //console.log(selectedId)
         
         if (checkedEmail.length == 0) {
             //console.log("No Name Selected");
@@ -432,7 +434,8 @@ async function sendToAll() {
             data.body = "Test Email";
             data.Email = selectedEmail;
             data.Name = selectedName;
-            //console.log(data);
+            data.Id = selectedId;
+            console.log(data);
             $.ajax({
                 url: '/Register/EmailUnregisterUsers',
                 data: {
@@ -449,6 +452,10 @@ async function sendToAll() {
             
             document.getElementById('bulkEmailModal').style.display = "none";
             getUnregisteredList();
+            notifyMsg('Success!', 'Email Successfully Sent!', 'green', 'fas fa-check');
+            // cms_paginationCorpUser(spanval, filtername, posId, corpid);
+            $(".alert-warning").hide();
+            window.location.reload();
         }
     });
 

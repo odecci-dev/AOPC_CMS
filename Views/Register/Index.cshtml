@@ -1552,7 +1552,7 @@ End here *@
                                     
                                        url: '/Register/UpdateUserStatus',
                                     data: {
-                                        data:id
+                                                data:data
                                       },
                                       type: "POST",
                                       datatype: "json"
@@ -1571,12 +1571,13 @@ End here *@
                                         }
                                     });
                                    
-                                   notifyMsg('Success!', 'Email Successfully Sent!','green', 'fas fa-check');
+                                    notifyMsg('Success!', 'Email Successfully Sent!','green', 'fas fa-check');
 
-                                   // cms_paginationCorpUser(spanval, filtername, posId, corpid);
-                                  $(".alert-warning").hide();
-
-                                      $.unblockUI();
+                                    // cms_paginationCorpUser(spanval, filtername, posId, corpid);
+                                    $(".alert-warning").hide();
+                                  
+                                    window.location.reload();
+                                    $.unblockUI();
 
                                   }).fail(function () {
                                       alert("There was an Error When Loading Data...");
@@ -2466,7 +2467,7 @@ End here *@
                 let random = (Math.random()+1).toString(36).substring(4);
                 const uuid = random;
                 var filename = $("#img").val().replace(/.*(\/|\\)/, '');
-                var imgCheck = $("#img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
+                        var imgCheck = $("#corp-img-check").val().replace("https://www.alfardanoysterprivilegeclub.com/assets/img/", "").replace("%20", " ");
                 var data = {};
                 var fileUpload = $("#img").get(0);
                 // console.log(imgCheck);
@@ -2500,11 +2501,11 @@ End here *@
                     data.Email = $('#corp-email').val();
                     data.positionID = $('#corp-position').val();
                     data.CorporateID =  $('#corp-corporate-option').val();
-                    data.isVIP = $('#vip-option').val();
+                    data.isVIP = $('#corp-vip-option').val();
                     data.Type= 2;
                     data.Active = "2";
                     data.FilePath=filename;
-                    data.isVIP = 0;
+                    // data.isVIP = 0;
                     let valid = true;
                      
                     if ($('#corp-empid').val() == '' || $('#corp-fname').val() == '' ||  $('#corp-lname').val() == '' || $('#ecorp-mail').val() == '' || $('#corp-corporate-option').prop('selectedIndex') == 0 ||
